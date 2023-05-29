@@ -4,12 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IQueryBodyBuilder
+public partial interface IQueryBodyBuilder : IWithQueryContinuationBuilder<IQueryBodyBuilder>
 {
     IQueryBodyBuilder AddClause(Action<IQueryClauseBuilder> clauseCallback);
     IQueryBodyBuilder AddClause(QueryClauseSyntax clause);
-    IQueryBodyBuilder WithContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback);
-    IQueryBodyBuilder WithContinuation(QueryContinuationSyntax continuation);
+    IQueryBodyBuilder WithQueryContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback);
+    IQueryBodyBuilder WithQueryContinuation(QueryContinuationSyntax continuation);
 }
 
 public interface IWithQueryBodyBuilder<TBuilder>
@@ -49,14 +49,14 @@ public partial class QueryBodyBuilder : IQueryBodyBuilder
         return this;
     }
 
-    public IQueryBodyBuilder WithContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback)
+    public IQueryBodyBuilder WithQueryContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback)
     {
         var continuationSyntax = QueryContinuationBuilder.CreateSyntax(identifier, bodySelectOrGroupCallback, bodyQueryBodyCallback);
         Syntax = Syntax.WithContinuation(continuationSyntax);
         return this;
     }
 
-    public IQueryBodyBuilder WithContinuation(QueryContinuationSyntax continuation)
+    public IQueryBodyBuilder WithQueryContinuation(QueryContinuationSyntax continuation)
     {
         Syntax = Syntax.WithContinuation(continuation);
         return this;

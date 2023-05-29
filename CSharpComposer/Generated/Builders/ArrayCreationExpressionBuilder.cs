@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IArrayCreationExpressionBuilder
+public partial interface IArrayCreationExpressionBuilder : IWithInitializerExpressionBuilder<IArrayCreationExpressionBuilder>
 {
-    IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
-    IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer);
+    IArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
+    IArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer);
 }
 
 public interface IWithArrayCreationExpressionBuilder<TBuilder>
@@ -35,14 +35,14 @@ public partial class ArrayCreationExpressionBuilder : IArrayCreationExpressionBu
         return builder.Syntax;
     }
 
-    public IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public IArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
     {
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer)
+    public IArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

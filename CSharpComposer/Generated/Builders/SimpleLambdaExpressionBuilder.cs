@@ -46,14 +46,14 @@ public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuil
         return this;
     }
 
-    public ISimpleLambdaExpressionBuilder WithExpressionBody(Action<IExpressionBuilder> expressionBodyCallback)
+    public ISimpleLambdaExpressionBuilder WithExpression(Action<IExpressionBuilder> expressionBodyCallback)
     {
         var expressionBodySyntax = ExpressionBuilder.CreateSyntax(expressionBodyCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public ISimpleLambdaExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody)
+    public ISimpleLambdaExpressionBuilder WithExpression(ExpressionSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;

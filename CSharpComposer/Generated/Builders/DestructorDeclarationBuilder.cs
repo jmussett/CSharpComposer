@@ -34,27 +34,27 @@ public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilde
         return builder.Syntax;
     }
 
-    public IDestructorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
+    public IDestructorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IDestructorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
+    public IDestructorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IDestructorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IDestructorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IDestructorDeclarationBuilder WithBody(BlockSyntax body)
+    public IDestructorDeclarationBuilder WithBlock(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;

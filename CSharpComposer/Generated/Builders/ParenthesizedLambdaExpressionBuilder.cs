@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IParenthesizedLambdaExpressionBuilder : ILambdaExpressionBuilder<IParenthesizedLambdaExpressionBuilder>
+public partial interface IParenthesizedLambdaExpressionBuilder : IWithTypeBuilder<IParenthesizedLambdaExpressionBuilder>, ILambdaExpressionBuilder<IParenthesizedLambdaExpressionBuilder>
 {
-    IParenthesizedLambdaExpressionBuilder WithReturnType(Action<ITypeBuilder> returnTypeCallback);
-    IParenthesizedLambdaExpressionBuilder WithReturnType(TypeSyntax returnType);
+    IParenthesizedLambdaExpressionBuilder WithType(Action<ITypeBuilder> returnTypeCallback);
+    IParenthesizedLambdaExpressionBuilder WithType(TypeSyntax returnType);
     IParenthesizedLambdaExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     IParenthesizedLambdaExpressionBuilder AddParameter(ParameterSyntax parameter);
 }
@@ -50,14 +50,14 @@ public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambda
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder WithExpressionBody(Action<IExpressionBuilder> expressionBodyCallback)
+    public IParenthesizedLambdaExpressionBuilder WithExpression(Action<IExpressionBuilder> expressionBodyCallback)
     {
         var expressionBodySyntax = ExpressionBuilder.CreateSyntax(expressionBodyCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody)
+    public IParenthesizedLambdaExpressionBuilder WithExpression(ExpressionSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
@@ -80,14 +80,14 @@ public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambda
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder WithReturnType(Action<ITypeBuilder> returnTypeCallback)
+    public IParenthesizedLambdaExpressionBuilder WithType(Action<ITypeBuilder> returnTypeCallback)
     {
         var returnTypeSyntax = TypeBuilder.CreateSyntax(returnTypeCallback);
         Syntax = Syntax.WithReturnType(returnTypeSyntax);
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder WithReturnType(TypeSyntax returnType)
+    public IParenthesizedLambdaExpressionBuilder WithType(TypeSyntax returnType)
     {
         Syntax = Syntax.WithReturnType(returnType);
         return this;

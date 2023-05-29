@@ -4,12 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IInterpolationBuilder
+public partial interface IInterpolationBuilder : IWithInterpolationAlignmentClauseBuilder<IInterpolationBuilder>, IWithInterpolationFormatClauseBuilder<IInterpolationBuilder>
 {
-    IInterpolationBuilder WithAlignmentClause(Action<IExpressionBuilder> valueCallback);
-    IInterpolationBuilder WithAlignmentClause(InterpolationAlignmentClauseSyntax alignmentClause);
-    IInterpolationBuilder WithFormatClause();
-    IInterpolationBuilder WithFormatClause(InterpolationFormatClauseSyntax formatClause);
+    IInterpolationBuilder WithInterpolationAlignmentClause(Action<IExpressionBuilder> valueCallback);
+    IInterpolationBuilder WithInterpolationAlignmentClause(InterpolationAlignmentClauseSyntax alignmentClause);
+    IInterpolationBuilder WithInterpolationFormatClause();
+    IInterpolationBuilder WithInterpolationFormatClause(InterpolationFormatClauseSyntax formatClause);
 }
 
 public interface IWithInterpolationBuilder<TBuilder>
@@ -38,27 +38,27 @@ public partial class InterpolationBuilder : IInterpolationBuilder
         return builder.Syntax;
     }
 
-    public IInterpolationBuilder WithAlignmentClause(Action<IExpressionBuilder> valueCallback)
+    public IInterpolationBuilder WithInterpolationAlignmentClause(Action<IExpressionBuilder> valueCallback)
     {
         var alignmentClauseSyntax = InterpolationAlignmentClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithAlignmentClause(alignmentClauseSyntax);
         return this;
     }
 
-    public IInterpolationBuilder WithAlignmentClause(InterpolationAlignmentClauseSyntax alignmentClause)
+    public IInterpolationBuilder WithInterpolationAlignmentClause(InterpolationAlignmentClauseSyntax alignmentClause)
     {
         Syntax = Syntax.WithAlignmentClause(alignmentClause);
         return this;
     }
 
-    public IInterpolationBuilder WithFormatClause()
+    public IInterpolationBuilder WithInterpolationFormatClause()
     {
         var formatClauseSyntax = InterpolationFormatClauseBuilder.CreateSyntax();
         Syntax = Syntax.WithFormatClause(formatClauseSyntax);
         return this;
     }
 
-    public IInterpolationBuilder WithFormatClause(InterpolationFormatClauseSyntax formatClause)
+    public IInterpolationBuilder WithInterpolationFormatClause(InterpolationFormatClauseSyntax formatClause)
     {
         Syntax = Syntax.WithFormatClause(formatClause);
         return this;

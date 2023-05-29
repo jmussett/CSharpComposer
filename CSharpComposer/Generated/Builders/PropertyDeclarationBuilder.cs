@@ -6,10 +6,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IPropertyDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IPropertyDeclarationBuilder>, IBasePropertyDeclarationBuilder<IPropertyDeclarationBuilder>
 {
-    IPropertyDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
-    IPropertyDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IPropertyDeclarationBuilder WithInitializer(Action<IExpressionBuilder> valueCallback);
-    IPropertyDeclarationBuilder WithInitializer(EqualsValueClauseSyntax initializer);
+    IPropertyDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
+    IPropertyDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
+    IPropertyDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
+    IPropertyDeclarationBuilder WithEqualsValueClause(EqualsValueClauseSyntax initializer);
     IPropertyDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
     IPropertyDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor);
 }
@@ -39,27 +39,27 @@ public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IPropertyDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
+    public IPropertyDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IPropertyDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
+    public IPropertyDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IPropertyDeclarationBuilder WithInitializer(Action<IExpressionBuilder> valueCallback)
+    public IPropertyDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback)
     {
         var initializerSyntax = EqualsValueClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IPropertyDeclarationBuilder WithInitializer(EqualsValueClauseSyntax initializer)
+    public IPropertyDeclarationBuilder WithEqualsValueClause(EqualsValueClauseSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

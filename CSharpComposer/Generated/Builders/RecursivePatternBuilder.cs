@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IRecursivePatternBuilder : IWithTypeBuilder<IRecursivePatternBuilder>, IWithPositionalPatternClauseBuilder<IRecursivePatternBuilder>, IWithPropertyPatternClauseBuilder<IRecursivePatternBuilder>
+public partial interface IRecursivePatternBuilder : IWithTypeBuilder<IRecursivePatternBuilder>, IWithPositionalPatternClauseBuilder<IRecursivePatternBuilder>, IWithPropertyPatternClauseBuilder<IRecursivePatternBuilder>, IWithVariableDesignationBuilder<IRecursivePatternBuilder>
 {
     IRecursivePatternBuilder WithType(Action<ITypeBuilder> typeCallback);
     IRecursivePatternBuilder WithType(TypeSyntax type);
@@ -14,8 +14,8 @@ public partial interface IRecursivePatternBuilder : IWithTypeBuilder<IRecursiveP
     IRecursivePatternBuilder WithPropertyPatternClause(PropertyPatternClauseSyntax propertyPatternClause);
     IRecursivePatternBuilder WithSingleVariableDesignation(SingleVariableDesignationSyntax singleVariableDesignation);
     IRecursivePatternBuilder WithDiscardDesignation(DiscardDesignationSyntax discardDesignation);
-    IRecursivePatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback);
-    IRecursivePatternBuilder WithDesignation(VariableDesignationSyntax designation);
+    IRecursivePatternBuilder WithVariableDesignation(Action<IVariableDesignationBuilder> designationCallback);
+    IRecursivePatternBuilder WithVariableDesignation(VariableDesignationSyntax designation);
 }
 
 public interface IWithRecursivePatternBuilder<TBuilder>
@@ -92,14 +92,14 @@ public partial class RecursivePatternBuilder : IRecursivePatternBuilder
         return this;
     }
 
-    public IRecursivePatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback)
+    public IRecursivePatternBuilder WithVariableDesignation(Action<IVariableDesignationBuilder> designationCallback)
     {
         var designationSyntax = VariableDesignationBuilder.CreateSyntax(designationCallback);
         Syntax = Syntax.WithDesignation(designationSyntax);
         return this;
     }
 
-    public IRecursivePatternBuilder WithDesignation(VariableDesignationSyntax designation)
+    public IRecursivePatternBuilder WithVariableDesignation(VariableDesignationSyntax designation)
     {
         Syntax = Syntax.WithDesignation(designation);
         return this;

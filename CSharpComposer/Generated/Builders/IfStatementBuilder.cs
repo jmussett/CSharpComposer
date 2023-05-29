@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IIfStatementBuilder : IStatementBuilder<IIfStatementBuilder>
+public partial interface IIfStatementBuilder : IWithElseClauseBuilder<IIfStatementBuilder>, IStatementBuilder<IIfStatementBuilder>
 {
-    IIfStatementBuilder WithElse(Action<IStatementBuilder> statementCallback);
-    IIfStatementBuilder WithElse(ElseClauseSyntax @else);
+    IIfStatementBuilder WithElseClause(Action<IStatementBuilder> statementCallback);
+    IIfStatementBuilder WithElseClause(ElseClauseSyntax @else);
 }
 
 public interface IWithIfStatementBuilder<TBuilder>
@@ -55,14 +55,14 @@ public partial class IfStatementBuilder : IIfStatementBuilder
         return this;
     }
 
-    public IIfStatementBuilder WithElse(Action<IStatementBuilder> statementCallback)
+    public IIfStatementBuilder WithElseClause(Action<IStatementBuilder> statementCallback)
     {
         var elseSyntax = ElseClauseBuilder.CreateSyntax(statementCallback);
         Syntax = Syntax.WithElse(elseSyntax);
         return this;
     }
 
-    public IIfStatementBuilder WithElse(ElseClauseSyntax @else)
+    public IIfStatementBuilder WithElseClause(ElseClauseSyntax @else)
     {
         Syntax = Syntax.WithElse(@else);
         return this;

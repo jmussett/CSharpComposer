@@ -43,27 +43,27 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         return builder.Syntax;
     }
 
-    public IConversionOperatorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
+    public IConversionOperatorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
+    public IConversionOperatorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IConversionOperatorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder WithBody(BlockSyntax body)
+    public IConversionOperatorDeclarationBuilder WithBlock(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;

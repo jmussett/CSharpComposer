@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IAnonymousMethodExpressionBuilder : IAnonymousFunctionExpressionBuilder<IAnonymousMethodExpressionBuilder>
+public partial interface IAnonymousMethodExpressionBuilder : IWithExpressionBuilder<IAnonymousMethodExpressionBuilder>, IAnonymousFunctionExpressionBuilder<IAnonymousMethodExpressionBuilder>
 {
     IAnonymousMethodExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     IAnonymousMethodExpressionBuilder AddParameter(ParameterSyntax parameter);
@@ -48,14 +48,14 @@ public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressi
         return this;
     }
 
-    public IAnonymousMethodExpressionBuilder WithExpressionBody(Action<IExpressionBuilder> expressionBodyCallback)
+    public IAnonymousMethodExpressionBuilder WithExpression(Action<IExpressionBuilder> expressionBodyCallback)
     {
         var expressionBodySyntax = ExpressionBuilder.CreateSyntax(expressionBodyCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IAnonymousMethodExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody)
+    public IAnonymousMethodExpressionBuilder WithExpression(ExpressionSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;

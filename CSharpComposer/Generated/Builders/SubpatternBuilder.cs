@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ISubpatternBuilder
+public partial interface ISubpatternBuilder : IWithBaseExpressionColonBuilder<ISubpatternBuilder>
 {
-    ISubpatternBuilder WithExpressionColon(Action<IBaseExpressionColonBuilder> expressionColonCallback);
-    ISubpatternBuilder WithExpressionColon(BaseExpressionColonSyntax expressionColon);
+    ISubpatternBuilder WithBaseExpressionColon(Action<IBaseExpressionColonBuilder> expressionColonCallback);
+    ISubpatternBuilder WithBaseExpressionColon(BaseExpressionColonSyntax expressionColon);
 }
 
 public interface IWithSubpatternBuilder<TBuilder>
@@ -34,14 +34,14 @@ public partial class SubpatternBuilder : ISubpatternBuilder
         return builder.Syntax;
     }
 
-    public ISubpatternBuilder WithExpressionColon(Action<IBaseExpressionColonBuilder> expressionColonCallback)
+    public ISubpatternBuilder WithBaseExpressionColon(Action<IBaseExpressionColonBuilder> expressionColonCallback)
     {
         var expressionColonSyntax = BaseExpressionColonBuilder.CreateSyntax(expressionColonCallback);
         Syntax = Syntax.WithExpressionColon(expressionColonSyntax);
         return this;
     }
 
-    public ISubpatternBuilder WithExpressionColon(BaseExpressionColonSyntax expressionColon)
+    public ISubpatternBuilder WithBaseExpressionColon(BaseExpressionColonSyntax expressionColon)
     {
         Syntax = Syntax.WithExpressionColon(expressionColon);
         return this;

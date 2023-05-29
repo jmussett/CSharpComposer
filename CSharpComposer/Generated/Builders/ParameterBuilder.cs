@@ -4,12 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IParameterBuilder : IWithTypeBuilder<IParameterBuilder>, IBaseParameterBuilder<IParameterBuilder>
+public partial interface IParameterBuilder : IWithTypeBuilder<IParameterBuilder>, IWithEqualsValueClauseBuilder<IParameterBuilder>, IBaseParameterBuilder<IParameterBuilder>
 {
     IParameterBuilder WithType(Action<ITypeBuilder> typeCallback);
     IParameterBuilder WithType(TypeSyntax type);
-    IParameterBuilder WithDefault(Action<IExpressionBuilder> valueCallback);
-    IParameterBuilder WithDefault(EqualsValueClauseSyntax @default);
+    IParameterBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
+    IParameterBuilder WithEqualsValueClause(EqualsValueClauseSyntax @default);
 }
 
 public interface IWithParameterBuilder<TBuilder>
@@ -66,14 +66,14 @@ public partial class ParameterBuilder : IParameterBuilder
         return this;
     }
 
-    public IParameterBuilder WithDefault(Action<IExpressionBuilder> valueCallback)
+    public IParameterBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback)
     {
         var defaultSyntax = EqualsValueClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithDefault(defaultSyntax);
         return this;
     }
 
-    public IParameterBuilder WithDefault(EqualsValueClauseSyntax @default)
+    public IParameterBuilder WithEqualsValueClause(EqualsValueClauseSyntax @default)
     {
         Syntax = Syntax.WithDefault(@default);
         return this;

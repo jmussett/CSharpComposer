@@ -7,8 +7,8 @@ namespace CSharpComposer;
 public partial interface IUsingDirectiveBuilder
 {
     IUsingDirectiveBuilder WithStaticKeyword(StaticKeyword staticKeyword);
-    IUsingDirectiveBuilder WithAlias(string nameIdentifier);
-    IUsingDirectiveBuilder WithAlias(NameEqualsSyntax alias);
+    IUsingDirectiveBuilder WithNameEquals(string nameIdentifier);
+    IUsingDirectiveBuilder WithNameEquals(NameEqualsSyntax alias);
     IUsingDirectiveBuilder WithGlobalKeyword();
 }
 
@@ -47,14 +47,14 @@ public partial class UsingDirectiveBuilder : IUsingDirectiveBuilder
         return this;
     }
 
-    public IUsingDirectiveBuilder WithAlias(string nameIdentifier)
+    public IUsingDirectiveBuilder WithNameEquals(string nameIdentifier)
     {
         var aliasSyntax = NameEqualsBuilder.CreateSyntax(nameIdentifier);
         Syntax = Syntax.WithAlias(aliasSyntax);
         return this;
     }
 
-    public IUsingDirectiveBuilder WithAlias(NameEqualsSyntax alias)
+    public IUsingDirectiveBuilder WithNameEquals(NameEqualsSyntax alias)
     {
         Syntax = Syntax.WithAlias(alias);
         return this;

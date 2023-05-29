@@ -6,10 +6,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ILocalFunctionStatementBuilder : IStatementBuilder<ILocalFunctionStatementBuilder>
 {
-    ILocalFunctionStatementBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
-    ILocalFunctionStatementBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder> blockCallback);
-    ILocalFunctionStatementBuilder WithBody(BlockSyntax body);
+    ILocalFunctionStatementBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
+    ILocalFunctionStatementBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
+    ILocalFunctionStatementBuilder WithBlock(Action<IBlockBuilder> blockCallback);
+    ILocalFunctionStatementBuilder WithBlock(BlockSyntax body);
     ILocalFunctionStatementBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
     ILocalFunctionStatementBuilder AddTypeParameter(TypeParameterSyntax parameter);
     ILocalFunctionStatementBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
@@ -44,27 +44,27 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         return builder.Syntax;
     }
 
-    public ILocalFunctionStatementBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
+    public ILocalFunctionStatementBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public ILocalFunctionStatementBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
+    public ILocalFunctionStatementBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public ILocalFunctionStatementBuilder WithBlock(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public ILocalFunctionStatementBuilder WithBody(BlockSyntax body)
+    public ILocalFunctionStatementBuilder WithBlock(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;

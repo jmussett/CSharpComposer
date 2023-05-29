@@ -63,7 +63,7 @@ internal class InterfaceBuilder
                     x.WithPartialModifier();
 
                     var returnType = interfaceName;
-                    
+
                     if (type is AbstractNode)
                     {
                         returnType = "TBuilder";
@@ -71,10 +71,16 @@ internal class InterfaceBuilder
                         x.WithTypeParameter(returnType);
                     }
 
-                    foreach (var optionalField in type.Children.OfType<Field>()
-                        .Where(x => x.Name == NameFactory.CreateTypeName(x.Type) && _tree.AnyValidFieldMethod(type, x, false) && !NodeValidator.IsAnyList(x.Type)))
+                    var childFields = type.Children.OfType<Field>();
+
+                    foreach (var field in childFields
+                        .Where(x => _tree.AnyValidFieldMethod(type, x, false) && !NodeValidator.IsAnyList(x.Type) && !NodeValidator.IsSyntaxToken(x.Type)))
                     {
-                        x.WithBaseType(x => x.AsGeneric($"IWith{optionalField.Name}Builder", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                        // Only use method builders with unique type, otherwise we get conflicting methods.
+                        if (childFields.Count(x => x.Type == field.Type) == 1)
+                        {
+                            x.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}Builder", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                        }
                     }
 
 

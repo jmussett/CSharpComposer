@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IConstructorDeclarationBuilder : IBaseMethodDeclarationBuilder<IConstructorDeclarationBuilder>
+public partial interface IConstructorDeclarationBuilder : IWithConstructorInitializerBuilder<IConstructorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IConstructorDeclarationBuilder>
 {
-    IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
-    IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerSyntax initializer);
+    IConstructorDeclarationBuilder WithConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
+    IConstructorDeclarationBuilder WithConstructorInitializer(ConstructorInitializerSyntax initializer);
 }
 
 public interface IWithConstructorDeclarationBuilder<TBuilder>
@@ -35,27 +35,27 @@ public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuil
         return builder.Syntax;
     }
 
-    public IConstructorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
+    public IConstructorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IConstructorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
+    public IConstructorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IConstructorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IConstructorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IConstructorDeclarationBuilder WithBody(BlockSyntax body)
+    public IConstructorDeclarationBuilder WithBlock(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;
@@ -91,14 +91,14 @@ public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuil
         return this;
     }
 
-    public IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback)
+    public IConstructorDeclarationBuilder WithConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback)
     {
         var initializerSyntax = ConstructorInitializerBuilder.CreateSyntax(kind, constructorInitializerCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerSyntax initializer)
+    public IConstructorDeclarationBuilder WithConstructorInitializer(ConstructorInitializerSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

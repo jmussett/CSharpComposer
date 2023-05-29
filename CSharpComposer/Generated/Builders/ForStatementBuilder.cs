@@ -4,14 +4,14 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IForStatementBuilder : IStatementBuilder<IForStatementBuilder>
+public partial interface IForStatementBuilder : IWithExpressionBuilder<IForStatementBuilder>, IStatementBuilder<IForStatementBuilder>
 {
-    IForStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
-    IForStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration);
+    IForStatementBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
+    IForStatementBuilder WithVariableDeclaration(VariableDeclarationSyntax declaration);
     IForStatementBuilder AddInitializer(Action<IExpressionBuilder> initializerCallback);
     IForStatementBuilder AddInitializer(ExpressionSyntax initializer);
-    IForStatementBuilder WithCondition(Action<IExpressionBuilder> conditionCallback);
-    IForStatementBuilder WithCondition(ExpressionSyntax condition);
+    IForStatementBuilder WithExpression(Action<IExpressionBuilder> conditionCallback);
+    IForStatementBuilder WithExpression(ExpressionSyntax condition);
     IForStatementBuilder AddIncrementor(Action<IExpressionBuilder> incrementorCallback);
     IForStatementBuilder AddIncrementor(ExpressionSyntax incrementor);
 }
@@ -45,14 +45,14 @@ public partial class ForStatementBuilder : IForStatementBuilder
         return builder.Syntax;
     }
 
-    public IForStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
+    public IForStatementBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
     {
         var declarationSyntax = VariableDeclarationBuilder.CreateSyntax(typeCallback, variableDeclarationCallback);
         Syntax = Syntax.WithDeclaration(declarationSyntax);
         return this;
     }
 
-    public IForStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration)
+    public IForStatementBuilder WithVariableDeclaration(VariableDeclarationSyntax declaration)
     {
         Syntax = Syntax.WithDeclaration(declaration);
         return this;
@@ -88,14 +88,14 @@ public partial class ForStatementBuilder : IForStatementBuilder
         return this;
     }
 
-    public IForStatementBuilder WithCondition(Action<IExpressionBuilder> conditionCallback)
+    public IForStatementBuilder WithExpression(Action<IExpressionBuilder> conditionCallback)
     {
         var conditionSyntax = ExpressionBuilder.CreateSyntax(conditionCallback);
         Syntax = Syntax.WithCondition(conditionSyntax);
         return this;
     }
 
-    public IForStatementBuilder WithCondition(ExpressionSyntax condition)
+    public IForStatementBuilder WithExpression(ExpressionSyntax condition)
     {
         Syntax = Syntax.WithCondition(condition);
         return this;

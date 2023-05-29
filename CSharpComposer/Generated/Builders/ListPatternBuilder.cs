@@ -4,14 +4,14 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IListPatternBuilder
+public partial interface IListPatternBuilder : IWithVariableDesignationBuilder<IListPatternBuilder>
 {
     IListPatternBuilder AddPattern(Action<IPatternBuilder> patternCallback);
     IListPatternBuilder AddPattern(PatternSyntax pattern);
     IListPatternBuilder WithSingleVariableDesignation(SingleVariableDesignationSyntax singleVariableDesignation);
     IListPatternBuilder WithDiscardDesignation(DiscardDesignationSyntax discardDesignation);
-    IListPatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback);
-    IListPatternBuilder WithDesignation(VariableDesignationSyntax designation);
+    IListPatternBuilder WithVariableDesignation(Action<IVariableDesignationBuilder> designationCallback);
+    IListPatternBuilder WithVariableDesignation(VariableDesignationSyntax designation);
 }
 
 public interface IWithListPatternBuilder<TBuilder>
@@ -64,14 +64,14 @@ public partial class ListPatternBuilder : IListPatternBuilder
         return this;
     }
 
-    public IListPatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback)
+    public IListPatternBuilder WithVariableDesignation(Action<IVariableDesignationBuilder> designationCallback)
     {
         var designationSyntax = VariableDesignationBuilder.CreateSyntax(designationCallback);
         Syntax = Syntax.WithDesignation(designationSyntax);
         return this;
     }
 
-    public IListPatternBuilder WithDesignation(VariableDesignationSyntax designation)
+    public IListPatternBuilder WithVariableDesignation(VariableDesignationSyntax designation)
     {
         Syntax = Syntax.WithDesignation(designation);
         return this;

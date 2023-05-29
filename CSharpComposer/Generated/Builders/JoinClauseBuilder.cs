@@ -4,12 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IJoinClauseBuilder : IWithTypeBuilder<IJoinClauseBuilder>
+public partial interface IJoinClauseBuilder : IWithTypeBuilder<IJoinClauseBuilder>, IWithJoinIntoClauseBuilder<IJoinClauseBuilder>
 {
     IJoinClauseBuilder WithType(Action<ITypeBuilder> typeCallback);
     IJoinClauseBuilder WithType(TypeSyntax type);
-    IJoinClauseBuilder WithInto(string identifier);
-    IJoinClauseBuilder WithInto(JoinIntoClauseSyntax into);
+    IJoinClauseBuilder WithJoinIntoClause(string identifier);
+    IJoinClauseBuilder WithJoinIntoClause(JoinIntoClauseSyntax into);
 }
 
 public interface IWithJoinClauseBuilder<TBuilder>
@@ -56,14 +56,14 @@ public partial class JoinClauseBuilder : IJoinClauseBuilder
         return this;
     }
 
-    public IJoinClauseBuilder WithInto(string identifier)
+    public IJoinClauseBuilder WithJoinIntoClause(string identifier)
     {
         var intoSyntax = JoinIntoClauseBuilder.CreateSyntax(identifier);
         Syntax = Syntax.WithInto(intoSyntax);
         return this;
     }
 
-    public IJoinClauseBuilder WithInto(JoinIntoClauseSyntax into)
+    public IJoinClauseBuilder WithJoinIntoClause(JoinIntoClauseSyntax into)
     {
         Syntax = Syntax.WithInto(into);
         return this;

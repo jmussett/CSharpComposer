@@ -217,7 +217,7 @@ internal class MethodBuilder
             }
             else
             {
-                WithFieldMethods(builder, isImplementation, returnType, field);
+                WithFieldMethods(builder, isImplementation, returnType, field, fields.Count(x => x.Type == field.Type) == 1);
 
                 //var referenceTypeNode = tree.Types.FirstOrDefault(x => x.Name == field.Type);
 
@@ -412,7 +412,7 @@ internal class MethodBuilder
 
     
 
-    private void WithFieldMethods<TBuilder>(TBuilder builder, bool isImplementation, string returnType, Field field)
+    private void WithFieldMethods<TBuilder>(TBuilder builder, bool isImplementation, string returnType, Field field, bool isUnique)
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
         if (field.Kinds.Count > 1)
@@ -471,8 +471,10 @@ internal class MethodBuilder
             }
         }
 
+        var methodName = isUnique ? $"With{NameFactory.CreateTypeName(field.Type)}" : $"With{field.Name}";
+
         builder.WithMethod(
-            $"With{field.Name}",
+            methodName,
             x => x.AsType(returnType),
             x =>
             {
@@ -525,7 +527,7 @@ internal class MethodBuilder
         );
 
         builder.WithMethod(
-            $"With{field.Name}",
+            methodName,
             x => x.AsType(returnType),
             x =>
             {

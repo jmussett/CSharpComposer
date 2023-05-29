@@ -6,10 +6,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IAccessorDeclarationBuilder
 {
-    IAccessorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
-    IAccessorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
-    IAccessorDeclarationBuilder WithBody(BlockSyntax body);
+    IAccessorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
+    IAccessorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
+    IAccessorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback);
+    IAccessorDeclarationBuilder WithBlock(BlockSyntax body);
     IAccessorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
     IAccessorDeclarationBuilder AddAttribute(AttributeSyntax attribute);
 }
@@ -57,27 +57,27 @@ public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IAccessorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
+    public IAccessorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IAccessorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
+    public IAccessorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IAccessorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IAccessorDeclarationBuilder WithBody(BlockSyntax body)
+    public IAccessorDeclarationBuilder WithBlock(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;

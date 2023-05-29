@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IStackAllocArrayCreationExpressionBuilder
+public partial interface IStackAllocArrayCreationExpressionBuilder : IWithInitializerExpressionBuilder<IStackAllocArrayCreationExpressionBuilder>
 {
-    IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
-    IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer);
+    IStackAllocArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
+    IStackAllocArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer);
 }
 
 public interface IWithStackAllocArrayCreationExpressionBuilder<TBuilder>
@@ -35,14 +35,14 @@ public partial class StackAllocArrayCreationExpressionBuilder : IStackAllocArray
         return builder.Syntax;
     }
 
-    public IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public IStackAllocArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
     {
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer)
+    public IStackAllocArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

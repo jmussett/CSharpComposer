@@ -4,12 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ITryStatementBuilder : IStatementBuilder<ITryStatementBuilder>
+public partial interface ITryStatementBuilder : IWithFinallyClauseBuilder<ITryStatementBuilder>, IStatementBuilder<ITryStatementBuilder>
 {
     ITryStatementBuilder AddCatch(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
     ITryStatementBuilder AddCatch(CatchClauseSyntax @catch);
-    ITryStatementBuilder WithFinally(Action<IBlockBuilder> blockBlockCallback);
-    ITryStatementBuilder WithFinally(FinallyClauseSyntax @finally);
+    ITryStatementBuilder WithFinallyClause(Action<IBlockBuilder> blockBlockCallback);
+    ITryStatementBuilder WithFinallyClause(FinallyClauseSyntax @finally);
 }
 
 public interface IWithTryStatementBuilder<TBuilder>
@@ -67,14 +67,14 @@ public partial class TryStatementBuilder : ITryStatementBuilder
         return this;
     }
 
-    public ITryStatementBuilder WithFinally(Action<IBlockBuilder> blockBlockCallback)
+    public ITryStatementBuilder WithFinallyClause(Action<IBlockBuilder> blockBlockCallback)
     {
         var finallySyntax = FinallyClauseBuilder.CreateSyntax(blockBlockCallback);
         Syntax = Syntax.WithFinally(finallySyntax);
         return this;
     }
 
-    public ITryStatementBuilder WithFinally(FinallyClauseSyntax @finally)
+    public ITryStatementBuilder WithFinallyClause(FinallyClauseSyntax @finally)
     {
         Syntax = Syntax.WithFinally(@finally);
         return this;

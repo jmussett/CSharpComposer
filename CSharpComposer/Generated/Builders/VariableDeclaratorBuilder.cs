@@ -4,12 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IVariableDeclaratorBuilder
+public partial interface IVariableDeclaratorBuilder : IWithEqualsValueClauseBuilder<IVariableDeclaratorBuilder>
 {
     IVariableDeclaratorBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     IVariableDeclaratorBuilder AddArgument(ArgumentSyntax argument);
-    IVariableDeclaratorBuilder WithInitializer(Action<IExpressionBuilder> valueCallback);
-    IVariableDeclaratorBuilder WithInitializer(EqualsValueClauseSyntax initializer);
+    IVariableDeclaratorBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
+    IVariableDeclaratorBuilder WithEqualsValueClause(EqualsValueClauseSyntax initializer);
 }
 
 public interface IWithVariableDeclaratorBuilder<TBuilder>
@@ -49,14 +49,14 @@ public partial class VariableDeclaratorBuilder : IVariableDeclaratorBuilder
         return this;
     }
 
-    public IVariableDeclaratorBuilder WithInitializer(Action<IExpressionBuilder> valueCallback)
+    public IVariableDeclaratorBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback)
     {
         var initializerSyntax = EqualsValueClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IVariableDeclaratorBuilder WithInitializer(EqualsValueClauseSyntax initializer)
+    public IVariableDeclaratorBuilder WithEqualsValueClause(EqualsValueClauseSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

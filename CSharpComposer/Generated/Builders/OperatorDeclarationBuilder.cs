@@ -65,27 +65,27 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IOperatorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
+    public IOperatorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IOperatorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
+    public IOperatorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IOperatorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IOperatorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IOperatorDeclarationBuilder WithBody(BlockSyntax body)
+    public IOperatorDeclarationBuilder WithBlock(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;

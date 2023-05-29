@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IObjectCreationExpressionBuilder : IBaseObjectCreationExpressionBuilder<IObjectCreationExpressionBuilder>
+public partial interface IObjectCreationExpressionBuilder : IWithInitializerExpressionBuilder<IObjectCreationExpressionBuilder>, IBaseObjectCreationExpressionBuilder<IObjectCreationExpressionBuilder>
 {
     IObjectCreationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     IObjectCreationExpressionBuilder AddArgument(ArgumentSyntax argument);
@@ -48,14 +48,14 @@ public partial class ObjectCreationExpressionBuilder : IObjectCreationExpression
         return this;
     }
 
-    public IObjectCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public IObjectCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
     {
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IObjectCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer)
+    public IObjectCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

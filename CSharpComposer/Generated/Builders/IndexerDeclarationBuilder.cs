@@ -6,8 +6,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IIndexerDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IIndexerDeclarationBuilder>, IBasePropertyDeclarationBuilder<IIndexerDeclarationBuilder>
 {
-    IIndexerDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
-    IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
+    IIndexerDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
+    IIndexerDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
     IIndexerDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
     IIndexerDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor);
     IIndexerDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
@@ -40,14 +40,14 @@ public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IIndexerDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
+    public IIndexerDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
+    public IIndexerDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;

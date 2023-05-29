@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEnumMemberDeclarationBuilder : IMemberDeclarationBuilder<IEnumMemberDeclarationBuilder>
+public partial interface IEnumMemberDeclarationBuilder : IWithEqualsValueClauseBuilder<IEnumMemberDeclarationBuilder>, IMemberDeclarationBuilder<IEnumMemberDeclarationBuilder>
 {
-    IEnumMemberDeclarationBuilder WithEqualsValue(Action<IExpressionBuilder> valueCallback);
-    IEnumMemberDeclarationBuilder WithEqualsValue(EqualsValueClauseSyntax equalsValue);
+    IEnumMemberDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
+    IEnumMemberDeclarationBuilder WithEqualsValueClause(EqualsValueClauseSyntax equalsValue);
 }
 
 public interface IWithEnumMemberDeclarationBuilder<TBuilder>
@@ -51,14 +51,14 @@ public partial class EnumMemberDeclarationBuilder : IEnumMemberDeclarationBuilde
         return this;
     }
 
-    public IEnumMemberDeclarationBuilder WithEqualsValue(Action<IExpressionBuilder> valueCallback)
+    public IEnumMemberDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback)
     {
         var equalsValueSyntax = EqualsValueClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithEqualsValue(equalsValueSyntax);
         return this;
     }
 
-    public IEnumMemberDeclarationBuilder WithEqualsValue(EqualsValueClauseSyntax equalsValue)
+    public IEnumMemberDeclarationBuilder WithEqualsValueClause(EqualsValueClauseSyntax equalsValue)
     {
         Syntax = Syntax.WithEqualsValue(equalsValue);
         return this;

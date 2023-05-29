@@ -6,8 +6,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IUsingStatementBuilder : IStatementBuilder<IUsingStatementBuilder>
 {
-    IUsingStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
-    IUsingStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration);
+    IUsingStatementBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
+    IUsingStatementBuilder WithVariableDeclaration(VariableDeclarationSyntax declaration);
     IUsingStatementBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
     IUsingStatementBuilder WithExpression(ExpressionSyntax expression);
     IUsingStatementBuilder WithAwaitKeyword();
@@ -40,14 +40,14 @@ public partial class UsingStatementBuilder : IUsingStatementBuilder
         return builder.Syntax;
     }
 
-    public IUsingStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
+    public IUsingStatementBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
     {
         var declarationSyntax = VariableDeclarationBuilder.CreateSyntax(typeCallback, variableDeclarationCallback);
         Syntax = Syntax.WithDeclaration(declarationSyntax);
         return this;
     }
 
-    public IUsingStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration)
+    public IUsingStatementBuilder WithVariableDeclaration(VariableDeclarationSyntax declaration)
     {
         Syntax = Syntax.WithDeclaration(declaration);
         return this;

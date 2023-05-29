@@ -40,27 +40,27 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IMethodDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
+    public IMethodDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IMethodDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
+    public IMethodDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IMethodDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IMethodDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IMethodDeclarationBuilder WithBody(BlockSyntax body)
+    public IMethodDeclarationBuilder WithBlock(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;
