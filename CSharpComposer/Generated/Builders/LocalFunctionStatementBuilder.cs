@@ -10,6 +10,7 @@ public partial interface ILocalFunctionStatementBuilder : IStatementBuilder<ILoc
     ILocalFunctionStatementBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
     ILocalFunctionStatementBuilder WithBlock(Action<IBlockBuilder> blockCallback);
     ILocalFunctionStatementBuilder WithBlock(BlockSyntax body);
+    ILocalFunctionStatementBuilder AddModifier(SyntaxToken modifier);
     ILocalFunctionStatementBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
     ILocalFunctionStatementBuilder AddTypeParameter(TypeParameterSyntax parameter);
     ILocalFunctionStatementBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
@@ -84,6 +85,12 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
         var attributeListSyntax = SyntaxFactory.AttributeList(separatedSyntaxList);
         Syntax = Syntax.AddAttributeLists(attributeListSyntax);
+        return this;
+    }
+
+    public ILocalFunctionStatementBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
         return this;
     }
 

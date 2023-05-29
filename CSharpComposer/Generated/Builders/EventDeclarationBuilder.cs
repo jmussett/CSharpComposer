@@ -73,6 +73,12 @@ public partial class EventDeclarationBuilder : IEventDeclarationBuilder
         return this;
     }
 
+    public IEventDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IEventDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback)
     {
         var explicitInterfaceSpecifierSyntax = ExplicitInterfaceSpecifierBuilder.CreateSyntax(nameCallback);

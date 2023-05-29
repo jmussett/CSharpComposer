@@ -48,4 +48,10 @@ public partial class GlobalStatementBuilder : IGlobalStatementBuilder
         Syntax = Syntax.AddAttributeLists(attributeListSyntax);
         return this;
     }
+
+    public IGlobalStatementBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
 }

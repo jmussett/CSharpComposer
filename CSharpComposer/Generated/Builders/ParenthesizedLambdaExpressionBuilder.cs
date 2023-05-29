@@ -80,6 +80,12 @@ public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambda
         return this;
     }
 
+    public IParenthesizedLambdaExpressionBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IParenthesizedLambdaExpressionBuilder WithType(Action<ITypeBuilder> returnTypeCallback)
     {
         var returnTypeSyntax = TypeBuilder.CreateSyntax(returnTypeCallback);

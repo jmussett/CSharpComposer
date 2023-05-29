@@ -48,4 +48,10 @@ public partial class FunctionPointerParameterBuilder : IFunctionPointerParameter
         Syntax = Syntax.AddAttributeLists(attributeListSyntax);
         return this;
     }
+
+    public IFunctionPointerParameterBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
 }

@@ -199,13 +199,7 @@ internal class MethodBuilder
             {
                 var listType = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
 
-                // Exlude syntax token list methods.
-                // Fields like modifiers will require pre-defined extension methods.
-
-                if (!NodeValidator.IsSyntaxToken(listType))
-                {
-                    WithListTypeMethods(builder, isImplementation, returnType, field);
-                }
+                WithListTypeMethods(builder, isImplementation, returnType, field);
             }
             else if (NodeValidator.IsSyntaxToken(field.Type))
             {
@@ -239,102 +233,107 @@ internal class MethodBuilder
     private void WithListTypeMethods<TBuilder>(TBuilder builder, bool isImplementation, string returnType, Field field)
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
-        builder.WithMethod(
-            $"Add{NameFactory.CreateSingularName(field)}",
-            x => x.AsType(returnType),
-            x => {
-                var listTypeField = field;
+        var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
 
-                var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
+        // Exclude builder methods for syntaz tokens.
+        if (!NodeValidator.IsSyntaxToken(listTypeName))
+        {
+            builder.WithMethod(
+                $"Add{NameFactory.CreateSingularName(field)}",
+                x => x.AsType(returnType),
+                x => {
+                    var listTypeField = field;
 
-                var addListTypeMethodName = $"Add{listTypeField.Name}";
+                    var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
 
+                    var addListTypeMethodName = $"Add{listTypeField.Name}";
 
-                if (listTypeName is null)
-                {
-                    listTypeField = _tree.GetReferenceListType(field.Type);
-
-                    if (listTypeField is null)
+                    if (listTypeName is null)
                     {
-                        throw new InvalidOperationException($"Unable to find list type for field '{field.Name}'");
+                        listTypeField = _tree.GetReferenceListType(field.Type);
+
+                        if (listTypeField is null)
+                        {
+                            throw new InvalidOperationException($"Unable to find list type for field '{field.Name}'");
+                        }
+
+                        listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
+                        addListTypeMethodName = $"Add{field.Name}{listTypeField.Name}";
                     }
 
-                    listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
-                    addListTypeMethodName = $"Add{field.Name}{listTypeField.Name}";
-                }
+                    string? parentListSyntaxName = null;
 
-                string? parentListSyntaxName = null;
-
-                if (NodeValidator.IsAnyList(listTypeName))
-                {
-                    listTypeField = _tree.GetReferenceListType(listTypeName);
-
-                    if (listTypeField is null)
+                    if (NodeValidator.IsAnyList(listTypeName))
                     {
-                        throw new InvalidOperationException($"Unable to find list type for field '{field.Name}'");
+                        listTypeField = _tree.GetReferenceListType(listTypeName);
+
+                        if (listTypeField is null)
+                        {
+                            throw new InvalidOperationException($"Unable to find list type for field '{field.Name}'");
+                        }
+
+                        parentListSyntaxName = listTypeName;
+                        listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
                     }
 
-                    parentListSyntaxName = listTypeName;
-                    listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
-                }
+                    var listType = _tree.Types.FirstOrDefault(x => x.Name == listTypeName);
 
-                var listType = _tree.Types.FirstOrDefault(x => x.Name == listTypeName);
+                    var singularName = NameFactory.CreateSingularName(listTypeField).Camelize();
 
-                var singularName = NameFactory.CreateSingularName(listTypeField).Camelize();
+                    var builderName = NameFactory.CreateBuilderName(listTypeName);
 
-                var builderName = NameFactory.CreateBuilderName(listTypeName);
-
-                if (listType is Node listTypeNode)
-                {
-                    _parametersBuilder.WithParameters(x, listTypeNode);
-                }
-                else
-                {
-                    x.WithParameter($"{singularName}Callback", $"Action<I{builderName}>");
-                }
-
-                if (isImplementation)
-                {
-                    x.WithAccessModifier(MemberAccessModifier.Public);
-
-                    x.WithBody(x =>
+                    if (listType is Node listTypeNode)
                     {
-                        var syntaxVariableName = $"{NameFactory.CreateSafeIdentifier(singularName)}";
+                        _parametersBuilder.WithParameters(x, listTypeNode);
+                    }
+                    else
+                    {
+                        x.WithParameter($"{singularName}Callback", $"Action<I{builderName}>");
+                    }
 
-                        if (listType is Node listTypeNode)
+                    if (isImplementation)
+                    {
+                        x.WithAccessModifier(MemberAccessModifier.Public);
+
+                        x.WithBody(x =>
                         {
-                            var arguments = _argumentsBuilder.WithArguments(x, listTypeNode, false);
+                            var syntaxVariableName = $"{NameFactory.CreateSafeIdentifier(singularName)}";
 
-                            x.WithStatement($"var {syntaxVariableName} = {builderName}.CreateSyntax({string.Join(", ", arguments)});");
-                        }
-                        else
-                        {
-                            x.WithStatement($"var {syntaxVariableName} = {builderName}.CreateSyntax({singularName}Callback);");
-                        }
+                            if (listType is Node listTypeNode)
+                            {
+                                var arguments = _argumentsBuilder.WithArguments(x, listTypeNode, false);
 
-                        if (parentListSyntaxName is not null)
-                        {
-                            var parentListTypeName = NameFactory.CreateTypeName(parentListSyntaxName);
-                            syntaxVariableName = parentListSyntaxName.Camelize();
+                                x.WithStatement($"var {syntaxVariableName} = {builderName}.CreateSyntax({string.Join(", ", arguments)});");
+                            }
+                            else
+                            {
+                                x.WithStatement($"var {syntaxVariableName} = {builderName}.CreateSyntax({singularName}Callback);");
+                            }
 
-                            var grandParentListType = NameFactory.ExtractParentTypeFromListType(listTypeField.Type);
-                            var grandParentListTypeName = NameFactory.CreateTypeName(grandParentListType);
+                            if (parentListSyntaxName is not null)
+                            {
+                                var parentListTypeName = NameFactory.CreateTypeName(parentListSyntaxName);
+                                syntaxVariableName = parentListSyntaxName.Camelize();
 
-                            x.WithStatement($"var {grandParentListType.Camelize()} = SyntaxFactory.{grandParentListTypeName}(new [] {{{NameFactory.CreateSafeIdentifier(singularName.Camelize())}}});");
-                            x.WithStatement($"var {syntaxVariableName} = SyntaxFactory.{parentListTypeName}({grandParentListType.Camelize()});");
-                        }
+                                var grandParentListType = NameFactory.ExtractParentTypeFromListType(listTypeField.Type);
+                                var grandParentListTypeName = NameFactory.CreateTypeName(grandParentListType);
 
-                        x.WithStatement($"Syntax = Syntax.{addListTypeMethodName}({syntaxVariableName});");
+                                x.WithStatement($"var {grandParentListType.Camelize()} = SyntaxFactory.{grandParentListTypeName}(new [] {{{NameFactory.CreateSafeIdentifier(singularName.Camelize())}}});");
+                                x.WithStatement($"var {syntaxVariableName} = SyntaxFactory.{parentListTypeName}({grandParentListType.Camelize()});");
+                            }
 
-                        x.WithReturnStatement(x => x.ParseExpression("this"));
+                            x.WithStatement($"Syntax = Syntax.{addListTypeMethodName}({syntaxVariableName});");
 
-                        return x;
-                    });
-                }
+                            x.WithReturnStatement(x => x.ParseExpression("this"));
 
-                return x;
-            });
+                            return x;
+                        });
+                    }
 
+                    return x;
+                });
+        }
+        
         builder.WithMethod(
             $"Add{NameFactory.CreateSingularName(field)}",
             x => x.AsType(returnType),

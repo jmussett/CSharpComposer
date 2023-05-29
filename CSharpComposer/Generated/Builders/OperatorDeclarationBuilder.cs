@@ -108,6 +108,12 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         return this;
     }
 
+    public IOperatorDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback)
     {
         var explicitInterfaceSpecifierSyntax = ExplicitInterfaceSpecifierBuilder.CreateSyntax(nameCallback);

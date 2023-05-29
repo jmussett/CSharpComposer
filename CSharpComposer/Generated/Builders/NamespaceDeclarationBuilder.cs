@@ -53,6 +53,12 @@ public partial class NamespaceDeclarationBuilder : INamespaceDeclarationBuilder
         return this;
     }
 
+    public INamespaceDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public INamespaceDeclarationBuilder AddExtern(string identifier)
     {
         var @extern = ExternAliasDirectiveBuilder.CreateSyntax(identifier);

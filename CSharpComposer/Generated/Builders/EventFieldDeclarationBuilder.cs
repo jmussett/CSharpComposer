@@ -50,4 +50,10 @@ public partial class EventFieldDeclarationBuilder : IEventFieldDeclarationBuilde
         Syntax = Syntax.AddAttributeLists(attributeListSyntax);
         return this;
     }
+
+    public IEventFieldDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
 }

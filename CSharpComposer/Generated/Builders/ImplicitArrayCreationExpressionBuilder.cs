@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IImplicitArrayCreationExpressionBuilder
 {
+    IImplicitArrayCreationExpressionBuilder AddComma(SyntaxToken comma);
 }
 
 public interface IWithImplicitArrayCreationExpressionBuilder<TBuilder>
@@ -33,5 +34,11 @@ public partial class ImplicitArrayCreationExpressionBuilder : IImplicitArrayCrea
         var builder = new ImplicitArrayCreationExpressionBuilder(syntax);
         implicitArrayCreationExpressionCallback(builder);
         return builder.Syntax;
+    }
+
+    public IImplicitArrayCreationExpressionBuilder AddComma(SyntaxToken comma)
+    {
+        Syntax = Syntax.AddCommas(comma);
+        return this;
     }
 }

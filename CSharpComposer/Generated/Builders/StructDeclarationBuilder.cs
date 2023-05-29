@@ -52,6 +52,12 @@ public partial class StructDeclarationBuilder : IStructDeclarationBuilder
         return this;
     }
 
+    public IStructDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IStructDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);

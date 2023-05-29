@@ -86,6 +86,12 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         return this;
     }
 
+    public IConversionOperatorDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IConversionOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback)
     {
         var explicitInterfaceSpecifierSyntax = ExplicitInterfaceSpecifierBuilder.CreateSyntax(nameCallback);

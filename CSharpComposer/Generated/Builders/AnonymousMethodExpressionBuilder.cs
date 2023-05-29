@@ -35,6 +35,12 @@ public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressi
         return builder.Syntax;
     }
 
+    public IAnonymousMethodExpressionBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IAnonymousMethodExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);

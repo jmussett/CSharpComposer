@@ -95,6 +95,12 @@ public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
         return this;
     }
 
+    public IPropertyDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IPropertyDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback)
     {
         var explicitInterfaceSpecifierSyntax = ExplicitInterfaceSpecifierBuilder.CreateSyntax(nameCallback);

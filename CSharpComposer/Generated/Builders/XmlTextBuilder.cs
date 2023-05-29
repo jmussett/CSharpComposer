@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IXmlTextBuilder
 {
+    IXmlTextBuilder AddTextToken(SyntaxToken textToken);
 }
 
 public interface IWithXmlTextBuilder<TBuilder>
@@ -29,5 +30,11 @@ public partial class XmlTextBuilder : IXmlTextBuilder
         var builder = new XmlTextBuilder(syntax);
         xmlTextCallback(builder);
         return builder.Syntax;
+    }
+
+    public IXmlTextBuilder AddTextToken(SyntaxToken textToken)
+    {
+        Syntax = Syntax.AddTextTokens(textToken);
+        return this;
     }
 }

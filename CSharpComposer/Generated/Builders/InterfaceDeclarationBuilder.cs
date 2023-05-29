@@ -52,6 +52,12 @@ public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
         return this;
     }
 
+    public IInterfaceDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IInterfaceDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);

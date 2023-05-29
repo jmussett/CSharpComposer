@@ -75,4 +75,10 @@ public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuil
         Syntax = Syntax.AddAttributeLists(attributeListSyntax);
         return this;
     }
+
+    public ISimpleLambdaExpressionBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
 }

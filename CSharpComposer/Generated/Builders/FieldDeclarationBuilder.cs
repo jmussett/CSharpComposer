@@ -49,4 +49,10 @@ public partial class FieldDeclarationBuilder : IFieldDeclarationBuilder
         Syntax = Syntax.AddAttributeLists(attributeListSyntax);
         return this;
     }
+
+    public IFieldDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
 }

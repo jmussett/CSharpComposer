@@ -50,6 +50,12 @@ public partial class IncompleteMemberBuilder : IIncompleteMemberBuilder
         return this;
     }
 
+    public IIncompleteMemberBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IIncompleteMemberBuilder WithType(Action<ITypeBuilder> typeCallback)
     {
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);

@@ -51,6 +51,12 @@ public partial class EnumMemberDeclarationBuilder : IEnumMemberDeclarationBuilde
         return this;
     }
 
+    public IEnumMemberDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IEnumMemberDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback)
     {
         var equalsValueSyntax = EqualsValueClauseBuilder.CreateSyntax(valueCallback);

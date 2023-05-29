@@ -54,6 +54,12 @@ public partial class EnumDeclarationBuilder : IEnumDeclarationBuilder
         return this;
     }
 
+    public IEnumDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IEnumDeclarationBuilder AddBase(Action<IBaseTypeBuilder> typeCallback)
     {
         var type = BaseTypeBuilder.CreateSyntax(typeCallback);

@@ -52,6 +52,12 @@ public partial class ClassDeclarationBuilder : IClassDeclarationBuilder
         return this;
     }
 
+    public IClassDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IClassDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);

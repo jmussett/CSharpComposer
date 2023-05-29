@@ -51,6 +51,12 @@ public partial class FileScopedNamespaceDeclarationBuilder : IFileScopedNamespac
         return this;
     }
 
+    public IFileScopedNamespaceDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IFileScopedNamespaceDeclarationBuilder AddExtern(string identifier)
     {
         var @extern = ExternAliasDirectiveBuilder.CreateSyntax(identifier);

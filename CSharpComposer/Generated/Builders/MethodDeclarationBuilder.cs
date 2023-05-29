@@ -83,6 +83,12 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return this;
     }
 
+    public IMethodDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IMethodDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback)
     {
         var explicitInterfaceSpecifierSyntax = ExplicitInterfaceSpecifierBuilder.CreateSyntax(nameCallback);

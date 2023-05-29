@@ -61,6 +61,12 @@ public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
         return this;
     }
 
+    public IRecordDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IRecordDeclarationBuilder WithClassOrStructKeyword(ClassOrStructKeyword classOrStructKeyword)
     {
         Syntax = Syntax.WithClassOrStructKeyword(SyntaxFactory.Token(classOrStructKeyword switch

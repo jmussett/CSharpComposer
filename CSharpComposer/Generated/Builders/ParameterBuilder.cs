@@ -53,6 +53,12 @@ public partial class ParameterBuilder : IParameterBuilder
         return this;
     }
 
+    public IParameterBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IParameterBuilder WithType(Action<ITypeBuilder> typeCallback)
     {
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);

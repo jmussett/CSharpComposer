@@ -12,6 +12,7 @@ public partial interface IAccessorDeclarationBuilder
     IAccessorDeclarationBuilder WithBlock(BlockSyntax body);
     IAccessorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
     IAccessorDeclarationBuilder AddAttribute(AttributeSyntax attribute);
+    IAccessorDeclarationBuilder AddModifier(SyntaxToken modifier);
 }
 
 public interface IWithAccessorDeclarationBuilder<TBuilder>
@@ -97,6 +98,12 @@ public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
         var attributeListSyntax = SyntaxFactory.AttributeList(separatedSyntaxList);
         Syntax = Syntax.AddAttributeLists(attributeListSyntax);
+        return this;
+    }
+
+    public IAccessorDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
         return this;
     }
 }

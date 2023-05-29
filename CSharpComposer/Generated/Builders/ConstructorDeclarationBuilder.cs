@@ -78,6 +78,12 @@ public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuil
         return this;
     }
 
+    public IConstructorDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IConstructorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);

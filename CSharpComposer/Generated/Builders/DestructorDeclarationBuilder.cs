@@ -77,6 +77,12 @@ public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilde
         return this;
     }
 
+    public IDestructorDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IDestructorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);

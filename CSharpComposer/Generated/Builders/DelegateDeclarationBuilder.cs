@@ -59,6 +59,12 @@ public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
         return this;
     }
 
+    public IDelegateDeclarationBuilder AddModifier(SyntaxToken modifier)
+    {
+        Syntax = Syntax.AddModifiers(modifier);
+        return this;
+    }
+
     public IDelegateDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);
