@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IPropertyDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IPropertyDeclarationBuilder>, IBasePropertyDeclarationBuilder<IPropertyDeclarationBuilder>
+public partial interface IPropertyDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IPropertyDeclarationBuilder>, IWithArrowExpressionClauseBuilder<IPropertyDeclarationBuilder>, IWithEqualsValueClauseBuilder<IPropertyDeclarationBuilder>, IBasePropertyDeclarationBuilder<IPropertyDeclarationBuilder>
 {
     IPropertyDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
     IPropertyDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);

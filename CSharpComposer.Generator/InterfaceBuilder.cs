@@ -71,18 +71,7 @@ internal class InterfaceBuilder
                         x.WithTypeParameter(returnType);
                     }
 
-                    var childFields = type.Children.OfType<Field>();
-
-                    foreach (var field in childFields
-                        .Where(x => _tree.AnyValidFieldMethod(type, x, false) && !NodeValidator.IsAnyList(x.Type) && !NodeValidator.IsSyntaxToken(x.Type)))
-                    {
-                        // Only use method builders with unique type, otherwise we get conflicting methods.
-                        if (childFields.Count(x => x.Type == field.Type) == 1)
-                        {
-                            x.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}Builder", x => x.WithTypeArgument(x => x.AsType(returnType))));
-                        }
-                    }
-
+                    WithFieldMethods(x, type, type.Children, returnType);
 
                     if (NodeValidator.IsValidNode(type.Base))
                     {
@@ -135,5 +124,32 @@ internal class InterfaceBuilder
         return builder;
     }
 
-    
+    private void WithFieldMethods(IInterfaceDeclarationBuilder x, TreeType type, List<TreeTypeChild> children, string returnType, bool isChoice = false)
+    {
+        foreach (var child in children.Where(x => _tree.AnyValidFieldMethod(type, x, false, isChoice)))
+        {
+            if (child is Field field && !NodeValidator.IsSyntaxToken(field.Type)
+                // Only use method builders with unique type, otherwise we get conflicting methods.
+                && type.Children.GetNestedChildren().Count(x => x.Type == field.Type) == 1)
+            {
+                if (!NodeValidator.IsAnyList(field.Type))
+                {
+                    x.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}Builder", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                }
+                else
+                {
+                    // TODO: List types
+                }
+            }
+            else if (child is Sequence sequence)
+            {
+                WithFieldMethods(x, type, sequence.Children, returnType, isChoice);
+            }
+            else if (child is Choice choice)
+            {
+                WithFieldMethods(x, type, choice.Children, returnType, true);
+            }
+        }
+    }
+
 }

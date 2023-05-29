@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IDestructorDeclarationBuilder : IBaseMethodDeclarationBuilder<IDestructorDeclarationBuilder>
+public partial interface IDestructorDeclarationBuilder : IWithBlockBuilder<IDestructorDeclarationBuilder>, IWithArrowExpressionClauseBuilder<IDestructorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IDestructorDeclarationBuilder>
 {
 }
 

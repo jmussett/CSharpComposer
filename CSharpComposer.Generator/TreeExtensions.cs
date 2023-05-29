@@ -5,21 +5,21 @@ namespace CSharpComposer.Generator;
 
 public static class NodeExtensions
 {
-    public static bool AnyValidFieldMethod(this Tree tree, TreeType type, TreeTypeChild child, bool isImplementation)
+    public static bool AnyValidFieldMethod(this Tree tree, TreeType type, TreeTypeChild child, bool isImplementation, bool isChoice = false)
     {
         if (child is Choice choice)
         {
-            return choice.Children.Any(x => tree.AnyValidFieldMethod(type, x, isImplementation));
+            return choice.Children.Any(x => tree.AnyValidFieldMethod(type, x, isImplementation, true));
         }
 
         if (child is Sequence sequence)
         {
-            return sequence.Children.Any(x => tree.AnyValidFieldMethod(type, x, isImplementation));
+            return sequence.Children.Any(x => tree.AnyValidFieldMethod(type, x, isImplementation, isChoice));
         }
 
         if (child is Field field)
         {
-            return tree.IsValidFieldMethod(type, field, isImplementation, false);
+            return tree.IsValidFieldMethod(type, field, isImplementation, isChoice);
         }
 
         return false;

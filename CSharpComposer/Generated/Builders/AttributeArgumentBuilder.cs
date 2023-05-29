@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IAttributeArgumentBuilder
+public partial interface IAttributeArgumentBuilder : IWithNameEqualsBuilder<IAttributeArgumentBuilder>, IWithNameColonBuilder<IAttributeArgumentBuilder>
 {
     IAttributeArgumentBuilder WithNameEquals(string nameIdentifier);
     IAttributeArgumentBuilder WithNameEquals(NameEqualsSyntax nameEquals);

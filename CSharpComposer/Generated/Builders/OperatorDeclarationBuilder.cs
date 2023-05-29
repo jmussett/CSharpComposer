@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IOperatorDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IOperatorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IOperatorDeclarationBuilder>
+public partial interface IOperatorDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IOperatorDeclarationBuilder>, IWithBlockBuilder<IOperatorDeclarationBuilder>, IWithArrowExpressionClauseBuilder<IOperatorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IOperatorDeclarationBuilder>
 {
     IOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
     IOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier);

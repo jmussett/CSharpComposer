@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IUsingDirectiveBuilder
+public partial interface IUsingDirectiveBuilder : IWithNameEqualsBuilder<IUsingDirectiveBuilder>
 {
     IUsingDirectiveBuilder WithStaticKeyword(StaticKeyword staticKeyword);
     IUsingDirectiveBuilder WithNameEquals(string nameIdentifier);
