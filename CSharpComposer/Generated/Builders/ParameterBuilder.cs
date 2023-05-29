@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IParameterBuilder : IBaseParameterBuilder<IParameterBuilder>
+public partial interface IParameterBuilder : IWithTypeBuilder<IParameterBuilder>, IBaseParameterBuilder<IParameterBuilder>
 {
     IParameterBuilder WithType(Action<ITypeBuilder> typeCallback);
     IParameterBuilder WithType(TypeSyntax type);

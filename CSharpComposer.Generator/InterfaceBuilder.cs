@@ -72,7 +72,7 @@ internal class InterfaceBuilder
                     }
 
                     foreach (var optionalField in type.Children.OfType<Field>()
-                        .Where(x => x.Name == NameFactory.CreateTypeName(x.Type) && x.IsOptional && !x.IsOverride && !NodeValidator.IsAnyList(x.Type)))
+                        .Where(x => x.Name == NameFactory.CreateTypeName(x.Type) && _tree.AnyValidFieldMethod(type, x, false) && !NodeValidator.IsAnyList(x.Type)))
                     {
                         x.WithBaseType(x => x.AsGeneric($"IWith{optionalField.Name}Builder", x => x.WithTypeArgument(x => x.AsType(returnType))));
                     }

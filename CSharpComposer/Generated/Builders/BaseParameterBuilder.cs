@@ -10,7 +10,7 @@ public partial interface IBaseParameterBuilder
     void AsFunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder> functionPointerParameterCallback);
 }
 
-public partial interface IBaseParameterBuilder<TBuilder> : IWithTypeBuilder<TBuilder>
+public partial interface IBaseParameterBuilder<TBuilder>
 {
 }
 

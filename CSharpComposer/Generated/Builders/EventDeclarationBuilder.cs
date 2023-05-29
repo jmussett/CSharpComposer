@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEventDeclarationBuilder : IBasePropertyDeclarationBuilder<IEventDeclarationBuilder>
+public partial interface IEventDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IEventDeclarationBuilder>, IBasePropertyDeclarationBuilder<IEventDeclarationBuilder>
 {
     IEventDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
     IEventDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor);

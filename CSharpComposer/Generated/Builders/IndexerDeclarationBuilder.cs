@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IIndexerDeclarationBuilder : IBasePropertyDeclarationBuilder<IIndexerDeclarationBuilder>
+public partial interface IIndexerDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IIndexerDeclarationBuilder>, IBasePropertyDeclarationBuilder<IIndexerDeclarationBuilder>
 {
     IIndexerDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
