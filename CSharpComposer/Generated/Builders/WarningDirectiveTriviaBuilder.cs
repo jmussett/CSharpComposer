@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithWarningDirectiveTriviaBuilder<TBuilder>
+public interface IWithWarningDirectiveTrivia<TBuilder>
 {
     TBuilder WithWarningDirectiveTrivia(bool isActive);
     TBuilder WithWarningDirectiveTrivia(WarningDirectiveTriviaSyntax warningDirectiveTriviaSyntax);

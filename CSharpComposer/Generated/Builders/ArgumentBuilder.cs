@@ -4,14 +4,14 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IArgumentBuilder : IWithNameColonBuilder<IArgumentBuilder>
+public partial interface IArgumentBuilder : IWithNameColon<IArgumentBuilder>
 {
     IArgumentBuilder WithNameColon(string nameIdentifier);
     IArgumentBuilder WithNameColon(NameColonSyntax nameColon);
     IArgumentBuilder WithRefKindKeyword(RefKindKeyword refKindKeyword);
 }
 
-public interface IWithArgumentBuilder<TBuilder>
+public interface IWithArgument<TBuilder>
 {
     TBuilder WithArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     TBuilder WithArgument(ArgumentSyntax argumentSyntax);

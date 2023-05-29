@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IListPatternBuilder : IWithVariableDesignationBuilder<IListPatternBuilder>
+public partial interface IListPatternBuilder : IWithVariableDesignation<IListPatternBuilder>
 {
     IListPatternBuilder AddPattern(Action<IPatternBuilder> patternCallback);
     IListPatternBuilder AddPattern(PatternSyntax pattern);
@@ -14,7 +14,7 @@ public partial interface IListPatternBuilder : IWithVariableDesignationBuilder<I
     IListPatternBuilder WithVariableDesignation(VariableDesignationSyntax designation);
 }
 
-public interface IWithListPatternBuilder<TBuilder>
+public interface IWithListPattern<TBuilder>
 {
     TBuilder WithListPattern(Action<IListPatternBuilder> listPatternCallback);
     TBuilder WithListPattern(ListPatternSyntax listPatternSyntax);

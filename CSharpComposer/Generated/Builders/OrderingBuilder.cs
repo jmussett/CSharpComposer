@@ -9,7 +9,7 @@ public partial interface IOrderingBuilder
     IOrderingBuilder WithAscendingOrDescendingKeyword(AscendingOrDescendingKeyword ascendingOrDescendingKeyword);
 }
 
-public interface IWithOrderingBuilder<TBuilder>
+public interface IWithOrdering<TBuilder>
 {
     TBuilder WithOrdering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder> orderingCallback);
     TBuilder WithOrdering(OrderingSyntax orderingSyntax);

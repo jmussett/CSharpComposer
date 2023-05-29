@@ -9,7 +9,7 @@ public partial interface ILineSpanDirectiveTriviaBuilder : ILineOrSpanDirectiveT
     ILineSpanDirectiveTriviaBuilder WithCharacterOffset();
 }
 
-public interface IWithLineSpanDirectiveTriviaBuilder<TBuilder>
+public interface IWithLineSpanDirectiveTrivia<TBuilder>
 {
     TBuilder WithLineSpanDirectiveTrivia(int startLine, int startCharacter, int endLine, int endCharacter, string file, bool isActive, Action<ILineSpanDirectiveTriviaBuilder> lineSpanDirectiveTriviaCallback);
     TBuilder WithLineSpanDirectiveTrivia(LineSpanDirectiveTriviaSyntax lineSpanDirectiveTriviaSyntax);

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ICatchClauseBuilder : IWithCatchDeclarationBuilder<ICatchClauseBuilder>, IWithCatchFilterClauseBuilder<ICatchClauseBuilder>
+public partial interface ICatchClauseBuilder : IWithCatchDeclaration<ICatchClauseBuilder>, IWithCatchFilterClause<ICatchClauseBuilder>
 {
     ICatchClauseBuilder WithCatchDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback);
     ICatchClauseBuilder WithCatchDeclaration(CatchDeclarationSyntax declaration);
@@ -12,7 +12,7 @@ public partial interface ICatchClauseBuilder : IWithCatchDeclarationBuilder<ICat
     ICatchClauseBuilder WithCatchFilterClause(CatchFilterClauseSyntax filter);
 }
 
-public interface IWithCatchClauseBuilder<TBuilder>
+public interface IWithCatchClause<TBuilder>
 {
     TBuilder WithCatchClause(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
     TBuilder WithCatchClause(CatchClauseSyntax catchClauseSyntax);

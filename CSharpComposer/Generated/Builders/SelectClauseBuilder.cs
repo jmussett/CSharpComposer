@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithSelectClauseBuilder<TBuilder>
+public interface IWithSelectClause<TBuilder>
 {
     TBuilder WithSelectClause(Action<IExpressionBuilder> expressionCallback);
     TBuilder WithSelectClause(SelectClauseSyntax selectClauseSyntax);

@@ -9,7 +9,7 @@ public partial interface ISkippedTokensTriviaBuilder
     ISkippedTokensTriviaBuilder AddToken(SyntaxToken token);
 }
 
-public interface IWithSkippedTokensTriviaBuilder<TBuilder>
+public interface IWithSkippedTokensTrivia<TBuilder>
 {
     TBuilder WithSkippedTokensTrivia(Action<ISkippedTokensTriviaBuilder> skippedTokensTriviaCallback);
     TBuilder WithSkippedTokensTrivia(SkippedTokensTriviaSyntax skippedTokensTriviaSyntax);

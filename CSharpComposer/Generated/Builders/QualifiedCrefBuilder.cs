@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithQualifiedCrefBuilder<TBuilder>
+public interface IWithQualifiedCref<TBuilder>
 {
     TBuilder WithQualifiedCref(Action<ITypeBuilder> containerCallback, Action<IMemberCrefBuilder> memberCallback);
     TBuilder WithQualifiedCref(QualifiedCrefSyntax qualifiedCrefSyntax);

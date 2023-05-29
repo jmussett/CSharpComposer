@@ -10,7 +10,7 @@ public partial interface IOrderByClauseBuilder
     IOrderByClauseBuilder AddOrdering(OrderingSyntax ordering);
 }
 
-public interface IWithOrderByClauseBuilder<TBuilder>
+public interface IWithOrderByClause<TBuilder>
 {
     TBuilder WithOrderByClause(Action<IOrderByClauseBuilder> orderByClauseCallback);
     TBuilder WithOrderByClause(OrderByClauseSyntax orderByClauseSyntax);

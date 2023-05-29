@@ -10,7 +10,7 @@ public partial interface IPragmaWarningDirectiveTriviaBuilder
     IPragmaWarningDirectiveTriviaBuilder AddErrorCode(ExpressionSyntax errorCode);
 }
 
-public interface IWithPragmaWarningDirectiveTriviaBuilder<TBuilder>
+public interface IWithPragmaWarningDirectiveTrivia<TBuilder>
 {
     TBuilder WithPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder> pragmaWarningDirectiveTriviaCallback);
     TBuilder WithPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaSyntax pragmaWarningDirectiveTriviaSyntax);

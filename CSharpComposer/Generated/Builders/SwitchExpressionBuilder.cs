@@ -10,7 +10,7 @@ public partial interface ISwitchExpressionBuilder
     ISwitchExpressionBuilder AddArm(SwitchExpressionArmSyntax arm);
 }
 
-public interface IWithSwitchExpressionBuilder<TBuilder>
+public interface IWithSwitchExpression<TBuilder>
 {
     TBuilder WithSwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder> switchExpressionCallback);
     TBuilder WithSwitchExpression(SwitchExpressionSyntax switchExpressionSyntax);

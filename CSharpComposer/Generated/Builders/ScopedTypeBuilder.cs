@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithScopedTypeBuilder<TBuilder>
+public interface IWithScopedType<TBuilder>
 {
     TBuilder WithScopedType(Action<ITypeBuilder> typeCallback);
     TBuilder WithScopedType(ScopedTypeSyntax scopedTypeSyntax);

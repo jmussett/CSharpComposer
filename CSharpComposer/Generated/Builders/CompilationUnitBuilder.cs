@@ -16,7 +16,7 @@ public partial interface ICompilationUnitBuilder
     ICompilationUnitBuilder AddMember(MemberDeclarationSyntax member);
 }
 
-public interface IWithCompilationUnitBuilder<TBuilder>
+public interface IWithCompilationUnit<TBuilder>
 {
     TBuilder WithCompilationUnit(Action<ICompilationUnitBuilder> compilationUnitCallback);
     TBuilder WithCompilationUnit(CompilationUnitSyntax compilationUnitSyntax);

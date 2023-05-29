@@ -14,7 +14,7 @@ public partial interface IDelegateDeclarationBuilder : IMemberDeclarationBuilder
     IDelegateDeclarationBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
-public interface IWithDelegateDeclarationBuilder<TBuilder>
+public interface IWithDelegateDeclaration<TBuilder>
 {
     TBuilder WithDelegateDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback);
     TBuilder WithDelegateDeclaration(DelegateDeclarationSyntax delegateDeclarationSyntax);

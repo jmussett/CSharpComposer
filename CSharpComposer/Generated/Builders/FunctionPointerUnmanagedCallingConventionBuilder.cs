@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithFunctionPointerUnmanagedCallingConventionBuilder<TBuilder>
+public interface IWithFunctionPointerUnmanagedCallingConvention<TBuilder>
 {
     TBuilder WithFunctionPointerUnmanagedCallingConvention(string name);
     TBuilder WithFunctionPointerUnmanagedCallingConvention(FunctionPointerUnmanagedCallingConventionSyntax functionPointerUnmanagedCallingConventionSyntax);

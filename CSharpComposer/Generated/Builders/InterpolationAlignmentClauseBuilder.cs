@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithInterpolationAlignmentClauseBuilder<TBuilder>
+public interface IWithInterpolationAlignmentClause<TBuilder>
 {
     TBuilder WithInterpolationAlignmentClause(Action<IExpressionBuilder> valueCallback);
     TBuilder WithInterpolationAlignmentClause(InterpolationAlignmentClauseSyntax interpolationAlignmentClauseSyntax);

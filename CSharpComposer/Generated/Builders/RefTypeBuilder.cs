@@ -9,7 +9,7 @@ public partial interface IRefTypeBuilder
     IRefTypeBuilder WithReadOnlyKeyword();
 }
 
-public interface IWithRefTypeBuilder<TBuilder>
+public interface IWithRefType<TBuilder>
 {
     TBuilder WithRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder> refTypeCallback);
     TBuilder WithRefType(RefTypeSyntax refTypeSyntax);

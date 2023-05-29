@@ -10,7 +10,7 @@ public partial interface IConditionalDirectiveTriviaBuilder
     void AsElifDirectiveTrivia(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue);
 }
 
-public interface IWithConditionalDirectiveTriviaBuilder<TBuilder>
+public interface IWithConditionalDirectiveTrivia<TBuilder>
 {
     TBuilder WithConditionalDirectiveTrivia(Action<IConditionalDirectiveTriviaBuilder> conditionalDirectiveTriviaCallback);
     TBuilder WithConditionalDirectiveTrivia(ConditionalDirectiveTriviaSyntax conditionalDirectiveTriviaSyntax);

@@ -14,7 +14,7 @@ public partial interface ILineOrSpanDirectiveTriviaBuilder<TBuilder>
 {
 }
 
-public interface IWithLineOrSpanDirectiveTriviaBuilder<TBuilder>
+public interface IWithLineOrSpanDirectiveTrivia<TBuilder>
 {
     TBuilder WithLineOrSpanDirectiveTrivia(Action<ILineOrSpanDirectiveTriviaBuilder> lineOrSpanDirectiveTriviaCallback);
     TBuilder WithLineOrSpanDirectiveTrivia(LineOrSpanDirectiveTriviaSyntax lineOrSpanDirectiveTriviaSyntax);

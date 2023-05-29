@@ -10,7 +10,7 @@ public partial interface IXmlElementStartTagBuilder
     IXmlElementStartTagBuilder AddAttribute(XmlAttributeSyntax attribute);
 }
 
-public interface IWithXmlElementStartTagBuilder<TBuilder>
+public interface IWithXmlElementStartTag<TBuilder>
 {
     TBuilder WithXmlElementStartTag(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlElementStartTagBuilder> xmlElementStartTagCallback);
     TBuilder WithXmlElementStartTag(XmlElementStartTagSyntax xmlElementStartTagSyntax);

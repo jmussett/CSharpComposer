@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithDefaultConstraintBuilder<TBuilder>
+public interface IWithDefaultConstraint<TBuilder>
 {
     TBuilder WithDefaultConstraint();
     TBuilder WithDefaultConstraint(DefaultConstraintSyntax defaultConstraintSyntax);

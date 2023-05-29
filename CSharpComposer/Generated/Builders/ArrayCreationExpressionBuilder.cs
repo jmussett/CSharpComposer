@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IArrayCreationExpressionBuilder : IWithInitializerExpressionBuilder<IArrayCreationExpressionBuilder>
+public partial interface IArrayCreationExpressionBuilder : IWithInitializerExpression<IArrayCreationExpressionBuilder>
 {
     IArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
     IArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer);
 }
 
-public interface IWithArrayCreationExpressionBuilder<TBuilder>
+public interface IWithArrayCreationExpression<TBuilder>
 {
     TBuilder WithArrayCreationExpression(Action<ITypeBuilder> typeElementTypeCallback, Action<IArrayTypeBuilder> typeArrayTypeCallback, Action<IArrayCreationExpressionBuilder> arrayCreationExpressionCallback);
     TBuilder WithArrayCreationExpression(ArrayCreationExpressionSyntax arrayCreationExpressionSyntax);

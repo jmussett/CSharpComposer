@@ -9,7 +9,7 @@ public partial interface INamespaceDeclarationBuilder : IBaseNamespaceDeclaratio
     INamespaceDeclarationBuilder WithSemicolonToken();
 }
 
-public interface IWithNamespaceDeclarationBuilder<TBuilder>
+public interface IWithNamespaceDeclaration<TBuilder>
 {
     TBuilder WithNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder> namespaceDeclarationCallback);
     TBuilder WithNamespaceDeclaration(NamespaceDeclarationSyntax namespaceDeclarationSyntax);

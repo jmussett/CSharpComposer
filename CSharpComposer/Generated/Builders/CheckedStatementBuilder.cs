@@ -8,7 +8,7 @@ public partial interface ICheckedStatementBuilder : IStatementBuilder<ICheckedSt
 {
 }
 
-public interface IWithCheckedStatementBuilder<TBuilder>
+public interface IWithCheckedStatement<TBuilder>
 {
     TBuilder WithCheckedStatement(CheckedStatementKind kind, Action<IBlockBuilder> blockBlockCallback, Action<ICheckedStatementBuilder> checkedStatementCallback);
     TBuilder WithCheckedStatement(CheckedStatementSyntax checkedStatementSyntax);

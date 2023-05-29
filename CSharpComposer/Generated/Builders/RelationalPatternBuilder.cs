@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithRelationalPatternBuilder<TBuilder>
+public interface IWithRelationalPattern<TBuilder>
 {
     TBuilder WithRelationalPattern(RelationalPatternOperatorToken relationalPatternOperatorToken, Action<IExpressionBuilder> expressionCallback);
     TBuilder WithRelationalPattern(RelationalPatternSyntax relationalPatternSyntax);

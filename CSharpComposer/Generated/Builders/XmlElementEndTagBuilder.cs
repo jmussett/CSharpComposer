@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithXmlElementEndTagBuilder<TBuilder>
+public interface IWithXmlElementEndTag<TBuilder>
 {
     TBuilder WithXmlElementEndTag(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback);
     TBuilder WithXmlElementEndTag(XmlElementEndTagSyntax xmlElementEndTagSyntax);

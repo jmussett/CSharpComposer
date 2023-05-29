@@ -8,7 +8,7 @@ public partial interface ILabeledStatementBuilder : IStatementBuilder<ILabeledSt
 {
 }
 
-public interface IWithLabeledStatementBuilder<TBuilder>
+public interface IWithLabeledStatement<TBuilder>
 {
     TBuilder WithLabeledStatement(string identifier, Action<IStatementBuilder> statementCallback, Action<ILabeledStatementBuilder> labeledStatementCallback);
     TBuilder WithLabeledStatement(LabeledStatementSyntax labeledStatementSyntax);

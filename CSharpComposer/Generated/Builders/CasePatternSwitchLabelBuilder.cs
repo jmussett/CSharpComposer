@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ICasePatternSwitchLabelBuilder : IWithWhenClauseBuilder<ICasePatternSwitchLabelBuilder>
+public partial interface ICasePatternSwitchLabelBuilder : IWithWhenClause<ICasePatternSwitchLabelBuilder>
 {
     ICasePatternSwitchLabelBuilder WithWhenClause(Action<IExpressionBuilder> conditionCallback);
     ICasePatternSwitchLabelBuilder WithWhenClause(WhenClauseSyntax whenClause);
 }
 
-public interface IWithCasePatternSwitchLabelBuilder<TBuilder>
+public interface IWithCasePatternSwitchLabel<TBuilder>
 {
     TBuilder WithCasePatternSwitchLabel(Action<IPatternBuilder> patternCallback, Action<ICasePatternSwitchLabelBuilder> casePatternSwitchLabelCallback);
     TBuilder WithCasePatternSwitchLabel(CasePatternSwitchLabelSyntax casePatternSwitchLabelSyntax);

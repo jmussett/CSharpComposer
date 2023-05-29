@@ -12,7 +12,7 @@ public partial interface ISwitchStatementBuilder : IStatementBuilder<ISwitchStat
     ISwitchStatementBuilder AddSection(SwitchSectionSyntax section);
 }
 
-public interface IWithSwitchStatementBuilder<TBuilder>
+public interface IWithSwitchStatement<TBuilder>
 {
     TBuilder WithSwitchStatement(Action<IExpressionBuilder> expressionCallback, Action<ISwitchStatementBuilder> switchStatementCallback);
     TBuilder WithSwitchStatement(SwitchStatementSyntax switchStatementSyntax);

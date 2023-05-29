@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithXmlNameAttributeBuilder<TBuilder>
+public interface IWithXmlNameAttribute<TBuilder>
 {
     TBuilder WithXmlNameAttribute(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, XmlNameAttributeStartQuoteToken xmlNameAttributeStartQuoteToken, string identifierIdentifier, XmlNameAttributeEndQuoteToken xmlNameAttributeEndQuoteToken);
     TBuilder WithXmlNameAttribute(XmlNameAttributeSyntax xmlNameAttributeSyntax);

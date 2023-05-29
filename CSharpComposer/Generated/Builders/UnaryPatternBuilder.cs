@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithUnaryPatternBuilder<TBuilder>
+public interface IWithUnaryPattern<TBuilder>
 {
     TBuilder WithUnaryPattern(Action<IPatternBuilder> patternCallback);
     TBuilder WithUnaryPattern(UnaryPatternSyntax unaryPatternSyntax);

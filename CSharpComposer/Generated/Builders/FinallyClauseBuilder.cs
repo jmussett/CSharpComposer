@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithFinallyClauseBuilder<TBuilder>
+public interface IWithFinallyClause<TBuilder>
 {
     TBuilder WithFinallyClause(Action<IBlockBuilder> blockBlockCallback);
     TBuilder WithFinallyClause(FinallyClauseSyntax finallyClauseSyntax);

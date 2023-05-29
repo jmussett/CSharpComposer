@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ISlicePatternBuilder : IWithPatternBuilder<ISlicePatternBuilder>
+public partial interface ISlicePatternBuilder : IWithPattern<ISlicePatternBuilder>
 {
     ISlicePatternBuilder WithPattern(Action<IPatternBuilder> patternCallback);
     ISlicePatternBuilder WithPattern(PatternSyntax pattern);
 }
 
-public interface IWithSlicePatternBuilder<TBuilder>
+public interface IWithSlicePattern<TBuilder>
 {
     TBuilder WithSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback);
     TBuilder WithSlicePattern(SlicePatternSyntax slicePatternSyntax);

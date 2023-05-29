@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ISubpatternBuilder : IWithBaseExpressionColonBuilder<ISubpatternBuilder>
+public partial interface ISubpatternBuilder : IWithBaseExpressionColon<ISubpatternBuilder>
 {
     ISubpatternBuilder WithBaseExpressionColon(Action<IBaseExpressionColonBuilder> expressionColonCallback);
     ISubpatternBuilder WithBaseExpressionColon(BaseExpressionColonSyntax expressionColon);
 }
 
-public interface IWithSubpatternBuilder<TBuilder>
+public interface IWithSubpattern<TBuilder>
 {
     TBuilder WithSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback);
     TBuilder WithSubpattern(SubpatternSyntax subpatternSyntax);

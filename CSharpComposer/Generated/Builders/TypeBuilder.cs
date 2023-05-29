@@ -21,7 +21,7 @@ public partial interface ITypeBuilder
     void AsScopedType(Action<ITypeBuilder> typeCallback);
 }
 
-public interface IWithTypeBuilder<TBuilder>
+public interface IWithType<TBuilder>
 {
     TBuilder WithType(Action<ITypeBuilder> typeCallback);
     TBuilder WithType(TypeSyntax typeSyntax);

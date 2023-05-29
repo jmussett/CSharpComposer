@@ -80,7 +80,7 @@ public partial interface IExpressionOrPatternBuilder
     void AsSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback);
 }
 
-public interface IWithExpressionOrPatternBuilder<TBuilder>
+public interface IWithExpressionOrPattern<TBuilder>
 {
     TBuilder WithExpressionOrPattern(Action<IExpressionOrPatternBuilder> expressionOrPatternCallback);
     TBuilder WithExpressionOrPattern(ExpressionOrPatternSyntax expressionOrPatternSyntax);

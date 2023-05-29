@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IFromClauseBuilder : IWithTypeBuilder<IFromClauseBuilder>
+public partial interface IFromClauseBuilder : IWithType<IFromClauseBuilder>
 {
     IFromClauseBuilder WithType(Action<ITypeBuilder> typeCallback);
     IFromClauseBuilder WithType(TypeSyntax type);
 }
 
-public interface IWithFromClauseBuilder<TBuilder>
+public interface IWithFromClause<TBuilder>
 {
     TBuilder WithFromClause(string identifier, Action<IExpressionBuilder> expressionCallback, Action<IFromClauseBuilder> fromClauseCallback);
     TBuilder WithFromClause(FromClauseSyntax fromClauseSyntax);

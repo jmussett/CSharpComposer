@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithDeclarationExpressionBuilder<TBuilder>
+public interface IWithDeclarationExpression<TBuilder>
 {
     TBuilder WithDeclarationExpression(Action<ITypeBuilder> typeCallback, Action<IVariableDesignationBuilder> designationCallback);
     TBuilder WithDeclarationExpression(DeclarationExpressionSyntax declarationExpressionSyntax);

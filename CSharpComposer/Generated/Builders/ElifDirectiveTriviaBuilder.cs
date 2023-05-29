@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithElifDirectiveTriviaBuilder<TBuilder>
+public interface IWithElifDirectiveTrivia<TBuilder>
 {
     TBuilder WithElifDirectiveTrivia(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue);
     TBuilder WithElifDirectiveTrivia(ElifDirectiveTriviaSyntax elifDirectiveTriviaSyntax);

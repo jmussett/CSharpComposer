@@ -8,7 +8,7 @@ public partial interface IFileScopedNamespaceDeclarationBuilder : IBaseNamespace
 {
 }
 
-public interface IWithFileScopedNamespaceDeclarationBuilder<TBuilder>
+public interface IWithFileScopedNamespaceDeclaration<TBuilder>
 {
     TBuilder WithFileScopedNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder> fileScopedNamespaceDeclarationCallback);
     TBuilder WithFileScopedNamespaceDeclaration(FileScopedNamespaceDeclarationSyntax fileScopedNamespaceDeclarationSyntax);

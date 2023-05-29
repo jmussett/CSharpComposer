@@ -8,7 +8,7 @@ public partial interface IFixedStatementBuilder : IStatementBuilder<IFixedStatem
 {
 }
 
-public interface IWithFixedStatementBuilder<TBuilder>
+public interface IWithFixedStatement<TBuilder>
 {
     TBuilder WithFixedStatement(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IStatementBuilder> statementCallback, Action<IFixedStatementBuilder> fixedStatementCallback);
     TBuilder WithFixedStatement(FixedStatementSyntax fixedStatementSyntax);

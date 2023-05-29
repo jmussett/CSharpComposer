@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithIdentifierNameBuilder<TBuilder>
+public interface IWithIdentifierName<TBuilder>
 {
     TBuilder WithIdentifierName(string identifier);
     TBuilder WithIdentifierName(IdentifierNameSyntax identifierNameSyntax);

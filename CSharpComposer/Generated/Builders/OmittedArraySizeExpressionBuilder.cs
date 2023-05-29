@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithOmittedArraySizeExpressionBuilder<TBuilder>
+public interface IWithOmittedArraySizeExpression<TBuilder>
 {
     TBuilder WithOmittedArraySizeExpression();
     TBuilder WithOmittedArraySizeExpression(OmittedArraySizeExpressionSyntax omittedArraySizeExpressionSyntax);

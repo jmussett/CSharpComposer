@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IJoinClauseBuilder : IWithTypeBuilder<IJoinClauseBuilder>, IWithJoinIntoClauseBuilder<IJoinClauseBuilder>
+public partial interface IJoinClauseBuilder : IWithType<IJoinClauseBuilder>, IWithJoinIntoClause<IJoinClauseBuilder>
 {
     IJoinClauseBuilder WithType(Action<ITypeBuilder> typeCallback);
     IJoinClauseBuilder WithType(TypeSyntax type);
@@ -12,7 +12,7 @@ public partial interface IJoinClauseBuilder : IWithTypeBuilder<IJoinClauseBuilde
     IJoinClauseBuilder WithJoinIntoClause(JoinIntoClauseSyntax into);
 }
 
-public interface IWithJoinClauseBuilder<TBuilder>
+public interface IWithJoinClause<TBuilder>
 {
     TBuilder WithJoinClause(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder> joinClauseCallback);
     TBuilder WithJoinClause(JoinClauseSyntax joinClauseSyntax);

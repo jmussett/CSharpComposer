@@ -10,7 +10,7 @@ public partial interface IBaseTypeBuilder
     void AsPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback);
 }
 
-public interface IWithBaseTypeBuilder<TBuilder>
+public interface IWithBaseType<TBuilder>
 {
     TBuilder WithBaseType(Action<IBaseTypeBuilder> baseTypeCallback);
     TBuilder WithBaseType(BaseTypeSyntax baseTypeSyntax);

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithQueryContinuationBuilder<TBuilder>
+public interface IWithQueryContinuation<TBuilder>
 {
     TBuilder WithQueryContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback);
     TBuilder WithQueryContinuation(QueryContinuationSyntax queryContinuationSyntax);

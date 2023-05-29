@@ -10,7 +10,7 @@ public partial interface IElementAccessExpressionBuilder
     IElementAccessExpressionBuilder AddArgument(ArgumentSyntax argument);
 }
 
-public interface IWithElementAccessExpressionBuilder<TBuilder>
+public interface IWithElementAccessExpression<TBuilder>
 {
     TBuilder WithElementAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder> elementAccessExpressionCallback);
     TBuilder WithElementAccessExpression(ElementAccessExpressionSyntax elementAccessExpressionSyntax);

@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IAnonymousMethodExpressionBuilder : IWithExpressionBuilder<IAnonymousMethodExpressionBuilder>, IAnonymousFunctionExpressionBuilder<IAnonymousMethodExpressionBuilder>
+public partial interface IAnonymousMethodExpressionBuilder : IWithExpression<IAnonymousMethodExpressionBuilder>, IAnonymousFunctionExpressionBuilder<IAnonymousMethodExpressionBuilder>
 {
     IAnonymousMethodExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     IAnonymousMethodExpressionBuilder AddParameter(ParameterSyntax parameter);
 }
 
-public interface IWithAnonymousMethodExpressionBuilder<TBuilder>
+public interface IWithAnonymousMethodExpression<TBuilder>
 {
     TBuilder WithAnonymousMethodExpression(Action<IBlockBuilder> blockBlockCallback, Action<IAnonymousMethodExpressionBuilder> anonymousMethodExpressionCallback);
     TBuilder WithAnonymousMethodExpression(AnonymousMethodExpressionSyntax anonymousMethodExpressionSyntax);

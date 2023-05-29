@@ -8,7 +8,7 @@ public partial interface IForEachVariableStatementBuilder : ICommonForEachStatem
 {
 }
 
-public interface IWithForEachVariableStatementBuilder<TBuilder>
+public interface IWithForEachVariableStatement<TBuilder>
 {
     TBuilder WithForEachVariableStatement(Action<IExpressionBuilder> variableCallback, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachVariableStatementBuilder> forEachVariableStatementCallback);
     TBuilder WithForEachVariableStatement(ForEachVariableStatementSyntax forEachVariableStatementSyntax);

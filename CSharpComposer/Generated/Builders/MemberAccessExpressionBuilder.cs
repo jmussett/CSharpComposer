@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithMemberAccessExpressionBuilder<TBuilder>
+public interface IWithMemberAccessExpression<TBuilder>
 {
     TBuilder WithMemberAccessExpression(MemberAccessExpressionKind kind, Action<IExpressionBuilder> expressionCallback, Action<ISimpleNameBuilder> nameCallback);
     TBuilder WithMemberAccessExpression(MemberAccessExpressionSyntax memberAccessExpressionSyntax);

@@ -13,7 +13,7 @@ public partial interface IQueryClauseBuilder
     void AsOrderByClause(Action<IOrderByClauseBuilder> orderByClauseCallback);
 }
 
-public interface IWithQueryClauseBuilder<TBuilder>
+public interface IWithQueryClause<TBuilder>
 {
     TBuilder WithQueryClause(Action<IQueryClauseBuilder> queryClauseCallback);
     TBuilder WithQueryClause(QueryClauseSyntax queryClauseSyntax);

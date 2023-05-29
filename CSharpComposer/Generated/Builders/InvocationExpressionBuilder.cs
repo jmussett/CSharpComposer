@@ -10,7 +10,7 @@ public partial interface IInvocationExpressionBuilder
     IInvocationExpressionBuilder AddArgument(ArgumentSyntax argument);
 }
 
-public interface IWithInvocationExpressionBuilder<TBuilder>
+public interface IWithInvocationExpression<TBuilder>
 {
     TBuilder WithInvocationExpression(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder> invocationExpressionCallback);
     TBuilder WithInvocationExpression(InvocationExpressionSyntax invocationExpressionSyntax);

@@ -4,14 +4,14 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEventDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IEventDeclarationBuilder>, IBasePropertyDeclarationBuilder<IEventDeclarationBuilder>
+public partial interface IEventDeclarationBuilder : IWithExplicitInterfaceSpecifier<IEventDeclarationBuilder>, IBasePropertyDeclarationBuilder<IEventDeclarationBuilder>
 {
     IEventDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
     IEventDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor);
     IEventDeclarationBuilder WithSemicolonToken();
 }
 
-public interface IWithEventDeclarationBuilder<TBuilder>
+public interface IWithEventDeclaration<TBuilder>
 {
     TBuilder WithEventDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder> eventDeclarationCallback);
     TBuilder WithEventDeclaration(EventDeclarationSyntax eventDeclarationSyntax);

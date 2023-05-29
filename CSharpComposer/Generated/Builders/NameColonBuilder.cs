@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithNameColonBuilder<TBuilder>
+public interface IWithNameColon<TBuilder>
 {
     TBuilder WithNameColon(string nameIdentifier);
     TBuilder WithNameColon(NameColonSyntax nameColonSyntax);

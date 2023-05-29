@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithCheckedExpressionBuilder<TBuilder>
+public interface IWithCheckedExpression<TBuilder>
 {
     TBuilder WithCheckedExpression(CheckedExpressionKind kind, Action<IExpressionBuilder> expressionCallback);
     TBuilder WithCheckedExpression(CheckedExpressionSyntax checkedExpressionSyntax);

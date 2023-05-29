@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithBinaryExpressionBuilder<TBuilder>
+public interface IWithBinaryExpression<TBuilder>
 {
     TBuilder WithBinaryExpression(BinaryExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback);
     TBuilder WithBinaryExpression(BinaryExpressionSyntax binaryExpressionSyntax);

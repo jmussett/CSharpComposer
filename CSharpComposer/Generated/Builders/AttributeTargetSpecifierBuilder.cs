@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithAttributeTargetSpecifierBuilder<TBuilder>
+public interface IWithAttributeTargetSpecifier<TBuilder>
 {
     TBuilder WithAttributeTargetSpecifier(string identifier);
     TBuilder WithAttributeTargetSpecifier(AttributeTargetSpecifierSyntax attributeTargetSpecifierSyntax);

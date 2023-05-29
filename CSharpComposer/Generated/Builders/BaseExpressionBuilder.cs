@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithBaseExpressionBuilder<TBuilder>
+public interface IWithBaseExpression<TBuilder>
 {
     TBuilder WithBaseExpression();
     TBuilder WithBaseExpression(BaseExpressionSyntax baseExpressionSyntax);

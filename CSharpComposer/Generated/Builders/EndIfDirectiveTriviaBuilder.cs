@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithEndIfDirectiveTriviaBuilder<TBuilder>
+public interface IWithEndIfDirectiveTrivia<TBuilder>
 {
     TBuilder WithEndIfDirectiveTrivia(bool isActive);
     TBuilder WithEndIfDirectiveTrivia(EndIfDirectiveTriviaSyntax endIfDirectiveTriviaSyntax);

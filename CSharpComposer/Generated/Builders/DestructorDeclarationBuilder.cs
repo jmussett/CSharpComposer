@@ -4,11 +4,11 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IDestructorDeclarationBuilder : IWithBlockBuilder<IDestructorDeclarationBuilder>, IWithArrowExpressionClauseBuilder<IDestructorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IDestructorDeclarationBuilder>
+public partial interface IDestructorDeclarationBuilder : IWithBlock<IDestructorDeclarationBuilder>, IWithArrowExpressionClause<IDestructorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IDestructorDeclarationBuilder>
 {
 }
 
-public interface IWithDestructorDeclarationBuilder<TBuilder>
+public interface IWithDestructorDeclaration<TBuilder>
 {
     TBuilder WithDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback);
     TBuilder WithDestructorDeclaration(DestructorDeclarationSyntax destructorDeclarationSyntax);

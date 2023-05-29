@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IObjectCreationExpressionBuilder : IWithInitializerExpressionBuilder<IObjectCreationExpressionBuilder>, IBaseObjectCreationExpressionBuilder<IObjectCreationExpressionBuilder>
+public partial interface IObjectCreationExpressionBuilder : IWithInitializerExpression<IObjectCreationExpressionBuilder>, IBaseObjectCreationExpressionBuilder<IObjectCreationExpressionBuilder>
 {
     IObjectCreationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     IObjectCreationExpressionBuilder AddArgument(ArgumentSyntax argument);
 }
 
-public interface IWithObjectCreationExpressionBuilder<TBuilder>
+public interface IWithObjectCreationExpression<TBuilder>
 {
     TBuilder WithObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback);
     TBuilder WithObjectCreationExpression(ObjectCreationExpressionSyntax objectCreationExpressionSyntax);

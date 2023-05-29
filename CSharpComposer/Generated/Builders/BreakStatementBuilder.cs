@@ -8,7 +8,7 @@ public partial interface IBreakStatementBuilder : IStatementBuilder<IBreakStatem
 {
 }
 
-public interface IWithBreakStatementBuilder<TBuilder>
+public interface IWithBreakStatement<TBuilder>
 {
     TBuilder WithBreakStatement(Action<IBreakStatementBuilder> breakStatementCallback);
     TBuilder WithBreakStatement(BreakStatementSyntax breakStatementSyntax);

@@ -8,7 +8,7 @@ public partial interface IForEachStatementBuilder : ICommonForEachStatementBuild
 {
 }
 
-public interface IWithForEachStatementBuilder<TBuilder>
+public interface IWithForEachStatement<TBuilder>
 {
     TBuilder WithForEachStatement(Action<ITypeBuilder> typeCallback, string identifier, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachStatementBuilder> forEachStatementCallback);
     TBuilder WithForEachStatement(ForEachStatementSyntax forEachStatementSyntax);

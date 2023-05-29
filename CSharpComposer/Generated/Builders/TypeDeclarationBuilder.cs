@@ -18,7 +18,7 @@ public partial interface ITypeDeclarationBuilder<TBuilder> : IBaseTypeDeclaratio
     TBuilder AddTypeParameter(TypeParameterSyntax parameter);
 }
 
-public interface IWithTypeDeclarationBuilder<TBuilder>
+public interface IWithTypeDeclaration<TBuilder>
 {
     TBuilder WithTypeDeclaration(Action<ITypeDeclarationBuilder> typeDeclarationCallback);
     TBuilder WithTypeDeclaration(TypeDeclarationSyntax typeDeclarationSyntax);

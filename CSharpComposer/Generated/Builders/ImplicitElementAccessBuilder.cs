@@ -10,7 +10,7 @@ public partial interface IImplicitElementAccessBuilder
     IImplicitElementAccessBuilder AddArgument(ArgumentSyntax argument);
 }
 
-public interface IWithImplicitElementAccessBuilder<TBuilder>
+public interface IWithImplicitElementAccess<TBuilder>
 {
     TBuilder WithImplicitElementAccess(Action<IImplicitElementAccessBuilder> implicitElementAccessCallback);
     TBuilder WithImplicitElementAccess(ImplicitElementAccessSyntax implicitElementAccessSyntax);

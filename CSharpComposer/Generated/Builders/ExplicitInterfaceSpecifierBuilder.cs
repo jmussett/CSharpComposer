@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithExplicitInterfaceSpecifierBuilder<TBuilder>
+public interface IWithExplicitInterfaceSpecifier<TBuilder>
 {
     TBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
     TBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifierSyntax);

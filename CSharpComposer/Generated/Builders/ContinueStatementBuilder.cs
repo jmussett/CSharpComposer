@@ -8,7 +8,7 @@ public partial interface IContinueStatementBuilder : IStatementBuilder<IContinue
 {
 }
 
-public interface IWithContinueStatementBuilder<TBuilder>
+public interface IWithContinueStatement<TBuilder>
 {
     TBuilder WithContinueStatement(Action<IContinueStatementBuilder> continueStatementCallback);
     TBuilder WithContinueStatement(ContinueStatementSyntax continueStatementSyntax);

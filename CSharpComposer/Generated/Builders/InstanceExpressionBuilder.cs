@@ -10,7 +10,7 @@ public partial interface IInstanceExpressionBuilder
     void AsBaseExpression();
 }
 
-public interface IWithInstanceExpressionBuilder<TBuilder>
+public interface IWithInstanceExpression<TBuilder>
 {
     TBuilder WithInstanceExpression(Action<IInstanceExpressionBuilder> instanceExpressionCallback);
     TBuilder WithInstanceExpression(InstanceExpressionSyntax instanceExpressionSyntax);

@@ -11,13 +11,13 @@ public partial interface IBasePropertyDeclarationBuilder
     void AsIndexerDeclaration(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder> indexerDeclarationCallback);
 }
 
-public partial interface IBasePropertyDeclarationBuilder<TBuilder> : IWithExplicitInterfaceSpecifierBuilder<TBuilder>, IMemberDeclarationBuilder<TBuilder>
+public partial interface IBasePropertyDeclarationBuilder<TBuilder> : IWithExplicitInterfaceSpecifier<TBuilder>, IMemberDeclarationBuilder<TBuilder>
 {
     TBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
     TBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier);
 }
 
-public interface IWithBasePropertyDeclarationBuilder<TBuilder>
+public interface IWithBasePropertyDeclaration<TBuilder>
 {
     TBuilder WithBasePropertyDeclaration(Action<IBasePropertyDeclarationBuilder> basePropertyDeclarationCallback);
     TBuilder WithBasePropertyDeclaration(BasePropertyDeclarationSyntax basePropertyDeclarationSyntax);

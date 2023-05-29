@@ -10,7 +10,7 @@ public partial interface IIndexerMemberCrefBuilder
     IIndexerMemberCrefBuilder AddParameter(CrefParameterSyntax parameter);
 }
 
-public interface IWithIndexerMemberCrefBuilder<TBuilder>
+public interface IWithIndexerMemberCref<TBuilder>
 {
     TBuilder WithIndexerMemberCref(Action<IIndexerMemberCrefBuilder> indexerMemberCrefCallback);
     TBuilder WithIndexerMemberCref(IndexerMemberCrefSyntax indexerMemberCrefSyntax);

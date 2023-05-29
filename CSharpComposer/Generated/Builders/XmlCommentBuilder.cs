@@ -9,7 +9,7 @@ public partial interface IXmlCommentBuilder
     IXmlCommentBuilder AddTextToken(SyntaxToken textToken);
 }
 
-public interface IWithXmlCommentBuilder<TBuilder>
+public interface IWithXmlComment<TBuilder>
 {
     TBuilder WithXmlComment(Action<IXmlCommentBuilder> xmlCommentCallback);
     TBuilder WithXmlComment(XmlCommentSyntax xmlCommentSyntax);

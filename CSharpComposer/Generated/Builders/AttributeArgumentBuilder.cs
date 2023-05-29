@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IAttributeArgumentBuilder : IWithNameEqualsBuilder<IAttributeArgumentBuilder>, IWithNameColonBuilder<IAttributeArgumentBuilder>
+public partial interface IAttributeArgumentBuilder : IWithNameEquals<IAttributeArgumentBuilder>, IWithNameColon<IAttributeArgumentBuilder>
 {
     IAttributeArgumentBuilder WithNameEquals(string nameIdentifier);
     IAttributeArgumentBuilder WithNameEquals(NameEqualsSyntax nameEquals);
@@ -12,7 +12,7 @@ public partial interface IAttributeArgumentBuilder : IWithNameEqualsBuilder<IAtt
     IAttributeArgumentBuilder WithNameColon(NameColonSyntax nameColon);
 }
 
-public interface IWithAttributeArgumentBuilder<TBuilder>
+public interface IWithAttributeArgument<TBuilder>
 {
     TBuilder WithAttributeArgument(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder> attributeArgumentCallback);
     TBuilder WithAttributeArgument(AttributeArgumentSyntax attributeArgumentSyntax);

@@ -8,7 +8,7 @@ public partial interface IExpressionStatementBuilder : IStatementBuilder<IExpres
 {
 }
 
-public interface IWithExpressionStatementBuilder<TBuilder>
+public interface IWithExpressionStatement<TBuilder>
 {
     TBuilder WithExpressionStatement(Action<IExpressionBuilder> expressionCallback, Action<IExpressionStatementBuilder> expressionStatementCallback);
     TBuilder WithExpressionStatement(ExpressionStatementSyntax expressionStatementSyntax);

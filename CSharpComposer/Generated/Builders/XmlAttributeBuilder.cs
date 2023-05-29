@@ -11,7 +11,7 @@ public partial interface IXmlAttributeBuilder
     void AsXmlNameAttribute(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, XmlNameAttributeStartQuoteToken xmlNameAttributeStartQuoteToken, string identifierIdentifier, XmlNameAttributeEndQuoteToken xmlNameAttributeEndQuoteToken);
 }
 
-public interface IWithXmlAttributeBuilder<TBuilder>
+public interface IWithXmlAttribute<TBuilder>
 {
     TBuilder WithXmlAttribute(Action<IXmlAttributeBuilder> xmlAttributeCallback);
     TBuilder WithXmlAttribute(XmlAttributeSyntax xmlAttributeSyntax);

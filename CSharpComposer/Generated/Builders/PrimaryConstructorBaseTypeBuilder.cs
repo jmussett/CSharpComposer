@@ -10,7 +10,7 @@ public partial interface IPrimaryConstructorBaseTypeBuilder
     IPrimaryConstructorBaseTypeBuilder AddArgument(ArgumentSyntax argument);
 }
 
-public interface IWithPrimaryConstructorBaseTypeBuilder<TBuilder>
+public interface IWithPrimaryConstructorBaseType<TBuilder>
 {
     TBuilder WithPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback);
     TBuilder WithPrimaryConstructorBaseType(PrimaryConstructorBaseTypeSyntax primaryConstructorBaseTypeSyntax);

@@ -12,7 +12,7 @@ public partial interface INameBuilder
     void AsAliasQualifiedName(string aliasIdentifier, Action<ISimpleNameBuilder> nameCallback);
 }
 
-public interface IWithNameBuilder<TBuilder>
+public interface IWithName<TBuilder>
 {
     TBuilder WithName(Action<INameBuilder> nameCallback);
     TBuilder WithName(NameSyntax nameSyntax);

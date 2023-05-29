@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithIsPatternExpressionBuilder<TBuilder>
+public interface IWithIsPatternExpression<TBuilder>
 {
     TBuilder WithIsPatternExpression(Action<IExpressionBuilder> expressionCallback, Action<IPatternBuilder> patternCallback);
     TBuilder WithIsPatternExpression(IsPatternExpressionSyntax isPatternExpressionSyntax);

@@ -4,14 +4,14 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IGotoStatementBuilder : IWithExpressionBuilder<IGotoStatementBuilder>, IStatementBuilder<IGotoStatementBuilder>
+public partial interface IGotoStatementBuilder : IWithExpression<IGotoStatementBuilder>, IStatementBuilder<IGotoStatementBuilder>
 {
     IGotoStatementBuilder WithCaseOrDefaultKeyword(CaseOrDefaultKeyword caseOrDefaultKeyword);
     IGotoStatementBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
     IGotoStatementBuilder WithExpression(ExpressionSyntax expression);
 }
 
-public interface IWithGotoStatementBuilder<TBuilder>
+public interface IWithGotoStatement<TBuilder>
 {
     TBuilder WithGotoStatement(GotoStatementKind kind, Action<IGotoStatementBuilder> gotoStatementCallback);
     TBuilder WithGotoStatement(GotoStatementSyntax gotoStatementSyntax);

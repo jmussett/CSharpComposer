@@ -9,7 +9,7 @@ public partial interface IXmlProcessingInstructionBuilder
     IXmlProcessingInstructionBuilder AddTextToken(SyntaxToken textToken);
 }
 
-public interface IWithXmlProcessingInstructionBuilder<TBuilder>
+public interface IWithXmlProcessingInstruction<TBuilder>
 {
     TBuilder WithXmlProcessingInstruction(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlProcessingInstructionBuilder> xmlProcessingInstructionCallback);
     TBuilder WithXmlProcessingInstruction(XmlProcessingInstructionSyntax xmlProcessingInstructionSyntax);

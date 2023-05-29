@@ -10,7 +10,7 @@ public partial interface IPropertyPatternClauseBuilder
     IPropertyPatternClauseBuilder AddSubpattern(SubpatternSyntax subpattern);
 }
 
-public interface IWithPropertyPatternClauseBuilder<TBuilder>
+public interface IWithPropertyPatternClause<TBuilder>
 {
     TBuilder WithPropertyPatternClause(Action<IPropertyPatternClauseBuilder> propertyPatternClauseCallback);
     TBuilder WithPropertyPatternClause(PropertyPatternClauseSyntax propertyPatternClauseSyntax);

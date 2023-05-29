@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithSingleVariableDesignationBuilder<TBuilder>
+public interface IWithSingleVariableDesignation<TBuilder>
 {
     TBuilder WithSingleVariableDesignation(string identifier);
     TBuilder WithSingleVariableDesignation(SingleVariableDesignationSyntax singleVariableDesignationSyntax);

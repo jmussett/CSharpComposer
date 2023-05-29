@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithParenthesizedPatternBuilder<TBuilder>
+public interface IWithParenthesizedPattern<TBuilder>
 {
     TBuilder WithParenthesizedPattern(Action<IPatternBuilder> patternCallback);
     TBuilder WithParenthesizedPattern(ParenthesizedPatternSyntax parenthesizedPatternSyntax);

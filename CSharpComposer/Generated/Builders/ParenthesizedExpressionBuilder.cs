@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithParenthesizedExpressionBuilder<TBuilder>
+public interface IWithParenthesizedExpression<TBuilder>
 {
     TBuilder WithParenthesizedExpression(Action<IExpressionBuilder> expressionCallback);
     TBuilder WithParenthesizedExpression(ParenthesizedExpressionSyntax parenthesizedExpressionSyntax);

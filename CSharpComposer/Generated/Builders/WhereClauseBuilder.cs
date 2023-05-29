@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithWhereClauseBuilder<TBuilder>
+public interface IWithWhereClause<TBuilder>
 {
     TBuilder WithWhereClause(Action<IExpressionBuilder> conditionCallback);
     TBuilder WithWhereClause(WhereClauseSyntax whereClauseSyntax);

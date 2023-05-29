@@ -4,11 +4,11 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ISimpleLambdaExpressionBuilder : IWithBlockBuilder<ISimpleLambdaExpressionBuilder>, IWithExpressionBuilder<ISimpleLambdaExpressionBuilder>, ILambdaExpressionBuilder<ISimpleLambdaExpressionBuilder>
+public partial interface ISimpleLambdaExpressionBuilder : IWithBlock<ISimpleLambdaExpressionBuilder>, IWithExpression<ISimpleLambdaExpressionBuilder>, ILambdaExpressionBuilder<ISimpleLambdaExpressionBuilder>
 {
 }
 
-public interface IWithSimpleLambdaExpressionBuilder<TBuilder>
+public interface IWithSimpleLambdaExpression<TBuilder>
 {
     TBuilder WithSimpleLambdaExpression(string parameterIdentifier, Action<IParameterBuilder> parameterParameterCallback, Action<ISimpleLambdaExpressionBuilder> simpleLambdaExpressionCallback);
     TBuilder WithSimpleLambdaExpression(SimpleLambdaExpressionSyntax simpleLambdaExpressionSyntax);

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithDefaultSwitchLabelBuilder<TBuilder>
+public interface IWithDefaultSwitchLabel<TBuilder>
 {
     TBuilder WithDefaultSwitchLabel();
     TBuilder WithDefaultSwitchLabel(DefaultSwitchLabelSyntax defaultSwitchLabelSyntax);

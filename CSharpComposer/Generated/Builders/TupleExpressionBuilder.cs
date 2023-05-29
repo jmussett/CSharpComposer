@@ -10,7 +10,7 @@ public partial interface ITupleExpressionBuilder
     ITupleExpressionBuilder AddArgument(ArgumentSyntax argument);
 }
 
-public interface IWithTupleExpressionBuilder<TBuilder>
+public interface IWithTupleExpression<TBuilder>
 {
     TBuilder WithTupleExpression(Action<ITupleExpressionBuilder> tupleExpressionCallback);
     TBuilder WithTupleExpression(TupleExpressionSyntax tupleExpressionSyntax);

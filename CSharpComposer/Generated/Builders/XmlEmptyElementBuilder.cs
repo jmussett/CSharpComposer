@@ -10,7 +10,7 @@ public partial interface IXmlEmptyElementBuilder
     IXmlEmptyElementBuilder AddAttribute(XmlAttributeSyntax attribute);
 }
 
-public interface IWithXmlEmptyElementBuilder<TBuilder>
+public interface IWithXmlEmptyElement<TBuilder>
 {
     TBuilder WithXmlEmptyElement(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlEmptyElementBuilder> xmlEmptyElementCallback);
     TBuilder WithXmlEmptyElement(XmlEmptyElementSyntax xmlEmptyElementSyntax);

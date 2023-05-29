@@ -12,7 +12,7 @@ public partial interface ITypeParameterConstraintBuilder
     void AsDefaultConstraint();
 }
 
-public interface IWithTypeParameterConstraintBuilder<TBuilder>
+public interface IWithTypeParameterConstraint<TBuilder>
 {
     TBuilder WithTypeParameterConstraint(Action<ITypeParameterConstraintBuilder> typeParameterConstraintCallback);
     TBuilder WithTypeParameterConstraint(TypeParameterConstraintSyntax typeParameterConstraintSyntax);

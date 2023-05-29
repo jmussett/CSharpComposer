@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ISwitchExpressionArmBuilder : IWithWhenClauseBuilder<ISwitchExpressionArmBuilder>
+public partial interface ISwitchExpressionArmBuilder : IWithWhenClause<ISwitchExpressionArmBuilder>
 {
     ISwitchExpressionArmBuilder WithWhenClause(Action<IExpressionBuilder> conditionCallback);
     ISwitchExpressionArmBuilder WithWhenClause(WhenClauseSyntax whenClause);
 }
 
-public interface IWithSwitchExpressionArmBuilder<TBuilder>
+public interface IWithSwitchExpressionArm<TBuilder>
 {
     TBuilder WithSwitchExpressionArm(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder> switchExpressionArmCallback);
     TBuilder WithSwitchExpressionArm(SwitchExpressionArmSyntax switchExpressionArmSyntax);

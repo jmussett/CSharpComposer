@@ -20,7 +20,7 @@ public partial interface IPatternBuilder
     void AsSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback);
 }
 
-public interface IWithPatternBuilder<TBuilder>
+public interface IWithPattern<TBuilder>
 {
     TBuilder WithPattern(Action<IPatternBuilder> patternCallback);
     TBuilder WithPattern(PatternSyntax patternSyntax);

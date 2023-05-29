@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithJoinIntoClauseBuilder<TBuilder>
+public interface IWithJoinIntoClause<TBuilder>
 {
     TBuilder WithJoinIntoClause(string identifier);
     TBuilder WithJoinIntoClause(JoinIntoClauseSyntax joinIntoClauseSyntax);

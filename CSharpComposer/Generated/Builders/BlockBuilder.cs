@@ -10,7 +10,7 @@ public partial interface IBlockBuilder : IStatementBuilder<IBlockBuilder>
     IBlockBuilder AddStatement(StatementSyntax statement);
 }
 
-public interface IWithBlockBuilder<TBuilder>
+public interface IWithBlock<TBuilder>
 {
     TBuilder WithBlock(Action<IBlockBuilder> blockCallback);
     TBuilder WithBlock(BlockSyntax blockSyntax);

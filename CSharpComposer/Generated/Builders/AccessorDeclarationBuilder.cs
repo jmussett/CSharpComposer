@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IAccessorDeclarationBuilder : IWithBlockBuilder<IAccessorDeclarationBuilder>, IWithArrowExpressionClauseBuilder<IAccessorDeclarationBuilder>
+public partial interface IAccessorDeclarationBuilder : IWithBlock<IAccessorDeclarationBuilder>, IWithArrowExpressionClause<IAccessorDeclarationBuilder>
 {
     IAccessorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
     IAccessorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
@@ -15,7 +15,7 @@ public partial interface IAccessorDeclarationBuilder : IWithBlockBuilder<IAccess
     IAccessorDeclarationBuilder AddModifier(SyntaxToken modifier);
 }
 
-public interface IWithAccessorDeclarationBuilder<TBuilder>
+public interface IWithAccessorDeclaration<TBuilder>
 {
     TBuilder WithAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
     TBuilder WithAccessorDeclaration(AccessorDeclarationSyntax accessorDeclarationSyntax);

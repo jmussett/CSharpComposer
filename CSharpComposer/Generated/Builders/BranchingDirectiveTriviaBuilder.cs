@@ -11,7 +11,7 @@ public partial interface IBranchingDirectiveTriviaBuilder
     void AsElseDirectiveTrivia(bool isActive, bool branchTaken);
 }
 
-public interface IWithBranchingDirectiveTriviaBuilder<TBuilder>
+public interface IWithBranchingDirectiveTrivia<TBuilder>
 {
     TBuilder WithBranchingDirectiveTrivia(Action<IBranchingDirectiveTriviaBuilder> branchingDirectiveTriviaCallback);
     TBuilder WithBranchingDirectiveTrivia(BranchingDirectiveTriviaSyntax branchingDirectiveTriviaSyntax);

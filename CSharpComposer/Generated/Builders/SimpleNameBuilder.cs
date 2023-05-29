@@ -10,7 +10,7 @@ public partial interface ISimpleNameBuilder
     void AsGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback);
 }
 
-public interface IWithSimpleNameBuilder<TBuilder>
+public interface IWithSimpleName<TBuilder>
 {
     TBuilder WithSimpleName(Action<ISimpleNameBuilder> simpleNameCallback);
     TBuilder WithSimpleName(SimpleNameSyntax simpleNameSyntax);

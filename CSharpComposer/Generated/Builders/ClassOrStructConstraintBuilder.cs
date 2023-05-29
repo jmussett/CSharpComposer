@@ -9,7 +9,7 @@ public partial interface IClassOrStructConstraintBuilder
     IClassOrStructConstraintBuilder WithQuestionToken();
 }
 
-public interface IWithClassOrStructConstraintBuilder<TBuilder>
+public interface IWithClassOrStructConstraint<TBuilder>
 {
     TBuilder WithClassOrStructConstraint(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder> classOrStructConstraintCallback);
     TBuilder WithClassOrStructConstraint(ClassOrStructConstraintSyntax classOrStructConstraintSyntax);

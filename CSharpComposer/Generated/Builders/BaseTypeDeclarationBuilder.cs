@@ -20,7 +20,7 @@ public partial interface IBaseTypeDeclarationBuilder<TBuilder> : IMemberDeclarat
     TBuilder WithSemicolonToken();
 }
 
-public interface IWithBaseTypeDeclarationBuilder<TBuilder>
+public interface IWithBaseTypeDeclaration<TBuilder>
 {
     TBuilder WithBaseTypeDeclaration(Action<IBaseTypeDeclarationBuilder> baseTypeDeclarationCallback);
     TBuilder WithBaseTypeDeclaration(BaseTypeDeclarationSyntax baseTypeDeclarationSyntax);

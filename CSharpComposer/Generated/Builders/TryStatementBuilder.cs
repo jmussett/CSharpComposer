@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ITryStatementBuilder : IWithFinallyClauseBuilder<ITryStatementBuilder>, IStatementBuilder<ITryStatementBuilder>
+public partial interface ITryStatementBuilder : IWithFinallyClause<ITryStatementBuilder>, IStatementBuilder<ITryStatementBuilder>
 {
     ITryStatementBuilder AddCatch(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
     ITryStatementBuilder AddCatch(CatchClauseSyntax @catch);
@@ -12,7 +12,7 @@ public partial interface ITryStatementBuilder : IWithFinallyClauseBuilder<ITrySt
     ITryStatementBuilder WithFinallyClause(FinallyClauseSyntax @finally);
 }
 
-public interface IWithTryStatementBuilder<TBuilder>
+public interface IWithTryStatement<TBuilder>
 {
     TBuilder WithTryStatement(Action<IBlockBuilder> blockBlockCallback, Action<ITryStatementBuilder> tryStatementCallback);
     TBuilder WithTryStatement(TryStatementSyntax tryStatementSyntax);

@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IThrowStatementBuilder : IWithExpressionBuilder<IThrowStatementBuilder>, IStatementBuilder<IThrowStatementBuilder>
+public partial interface IThrowStatementBuilder : IWithExpression<IThrowStatementBuilder>, IStatementBuilder<IThrowStatementBuilder>
 {
     IThrowStatementBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
     IThrowStatementBuilder WithExpression(ExpressionSyntax expression);
 }
 
-public interface IWithThrowStatementBuilder<TBuilder>
+public interface IWithThrowStatement<TBuilder>
 {
     TBuilder WithThrowStatement(Action<IThrowStatementBuilder> throwStatementCallback);
     TBuilder WithThrowStatement(ThrowStatementSyntax throwStatementSyntax);

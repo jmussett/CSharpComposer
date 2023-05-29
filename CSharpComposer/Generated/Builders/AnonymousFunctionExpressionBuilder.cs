@@ -15,7 +15,7 @@ public partial interface IAnonymousFunctionExpressionBuilder<TBuilder>
 {
 }
 
-public interface IWithAnonymousFunctionExpressionBuilder<TBuilder>
+public interface IWithAnonymousFunctionExpression<TBuilder>
 {
     TBuilder WithAnonymousFunctionExpression(Action<IAnonymousFunctionExpressionBuilder> anonymousFunctionExpressionCallback);
     TBuilder WithAnonymousFunctionExpression(AnonymousFunctionExpressionSyntax anonymousFunctionExpressionSyntax);

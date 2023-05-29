@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithXmlPrefixBuilder<TBuilder>
+public interface IWithXmlPrefix<TBuilder>
 {
     TBuilder WithXmlPrefix(string prefix);
     TBuilder WithXmlPrefix(XmlPrefixSyntax xmlPrefixSyntax);

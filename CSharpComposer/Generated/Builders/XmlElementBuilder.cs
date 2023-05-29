@@ -10,7 +10,7 @@ public partial interface IXmlElementBuilder
     IXmlElementBuilder AddContent(XmlNodeSyntax content);
 }
 
-public interface IWithXmlElementBuilder<TBuilder>
+public interface IWithXmlElement<TBuilder>
 {
     TBuilder WithXmlElement(string nameStartTagLocalName, Action<IXmlNameBuilder> nameStartTagXmlNameCallback, Action<IXmlElementStartTagBuilder> startTagXmlElementStartTagCallback, string nameEndTagLocalName, Action<IXmlNameBuilder> nameEndTagXmlNameCallback, Action<IXmlElementBuilder> xmlElementCallback);
     TBuilder WithXmlElement(XmlElementSyntax xmlElementSyntax);

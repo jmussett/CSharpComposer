@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ILocalFunctionStatementBuilder : IWithBlockBuilder<ILocalFunctionStatementBuilder>, IWithArrowExpressionClauseBuilder<ILocalFunctionStatementBuilder>, IStatementBuilder<ILocalFunctionStatementBuilder>
+public partial interface ILocalFunctionStatementBuilder : IWithBlock<ILocalFunctionStatementBuilder>, IWithArrowExpressionClause<ILocalFunctionStatementBuilder>, IStatementBuilder<ILocalFunctionStatementBuilder>
 {
     ILocalFunctionStatementBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
     ILocalFunctionStatementBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
@@ -19,7 +19,7 @@ public partial interface ILocalFunctionStatementBuilder : IWithBlockBuilder<ILoc
     ILocalFunctionStatementBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
-public interface IWithLocalFunctionStatementBuilder<TBuilder>
+public interface IWithLocalFunctionStatement<TBuilder>
 {
     TBuilder WithLocalFunctionStatement(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder> localFunctionStatementCallback);
     TBuilder WithLocalFunctionStatement(LocalFunctionStatementSyntax localFunctionStatementSyntax);

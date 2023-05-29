@@ -10,7 +10,7 @@ public partial interface IAttributeBuilder
     IAttributeBuilder AddArgument(AttributeArgumentSyntax argument);
 }
 
-public interface IWithAttributeBuilder<TBuilder>
+public interface IWithAttribute<TBuilder>
 {
     TBuilder WithAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
     TBuilder WithAttribute(AttributeSyntax attributeSyntax);

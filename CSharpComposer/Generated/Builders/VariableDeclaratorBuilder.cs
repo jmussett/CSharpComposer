@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IVariableDeclaratorBuilder : IWithEqualsValueClauseBuilder<IVariableDeclaratorBuilder>
+public partial interface IVariableDeclaratorBuilder : IWithEqualsValueClause<IVariableDeclaratorBuilder>
 {
     IVariableDeclaratorBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     IVariableDeclaratorBuilder AddArgument(ArgumentSyntax argument);
@@ -12,7 +12,7 @@ public partial interface IVariableDeclaratorBuilder : IWithEqualsValueClauseBuil
     IVariableDeclaratorBuilder WithEqualsValueClause(EqualsValueClauseSyntax initializer);
 }
 
-public interface IWithVariableDeclaratorBuilder<TBuilder>
+public interface IWithVariableDeclarator<TBuilder>
 {
     TBuilder WithVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback);
     TBuilder WithVariableDeclarator(VariableDeclaratorSyntax variableDeclaratorSyntax);

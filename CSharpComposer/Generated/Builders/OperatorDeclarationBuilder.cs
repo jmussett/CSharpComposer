@@ -4,14 +4,14 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IOperatorDeclarationBuilder : IWithExplicitInterfaceSpecifierBuilder<IOperatorDeclarationBuilder>, IWithBlockBuilder<IOperatorDeclarationBuilder>, IWithArrowExpressionClauseBuilder<IOperatorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IOperatorDeclarationBuilder>
+public partial interface IOperatorDeclarationBuilder : IWithExplicitInterfaceSpecifier<IOperatorDeclarationBuilder>, IWithBlock<IOperatorDeclarationBuilder>, IWithArrowExpressionClause<IOperatorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IOperatorDeclarationBuilder>
 {
     IOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
     IOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier);
     IOperatorDeclarationBuilder WithCheckedKeyword();
 }
 
-public interface IWithOperatorDeclarationBuilder<TBuilder>
+public interface IWithOperatorDeclaration<TBuilder>
 {
     TBuilder WithOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder> operatorDeclarationCallback);
     TBuilder WithOperatorDeclaration(OperatorDeclarationSyntax operatorDeclarationSyntax);

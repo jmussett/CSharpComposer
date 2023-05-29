@@ -10,7 +10,7 @@ public partial interface IElementBindingExpressionBuilder
     IElementBindingExpressionBuilder AddArgument(ArgumentSyntax argument);
 }
 
-public interface IWithElementBindingExpressionBuilder<TBuilder>
+public interface IWithElementBindingExpression<TBuilder>
 {
     TBuilder WithElementBindingExpression(Action<IElementBindingExpressionBuilder> elementBindingExpressionCallback);
     TBuilder WithElementBindingExpression(ElementBindingExpressionSyntax elementBindingExpressionSyntax);

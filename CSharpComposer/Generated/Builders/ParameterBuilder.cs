@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IParameterBuilder : IWithTypeBuilder<IParameterBuilder>, IWithEqualsValueClauseBuilder<IParameterBuilder>, IBaseParameterBuilder<IParameterBuilder>
+public partial interface IParameterBuilder : IWithType<IParameterBuilder>, IWithEqualsValueClause<IParameterBuilder>, IBaseParameterBuilder<IParameterBuilder>
 {
     IParameterBuilder WithType(Action<ITypeBuilder> typeCallback);
     IParameterBuilder WithType(TypeSyntax type);
@@ -12,7 +12,7 @@ public partial interface IParameterBuilder : IWithTypeBuilder<IParameterBuilder>
     IParameterBuilder WithEqualsValueClause(EqualsValueClauseSyntax @default);
 }
 
-public interface IWithParameterBuilder<TBuilder>
+public interface IWithParameter<TBuilder>
 {
     TBuilder WithParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     TBuilder WithParameter(ParameterSyntax parameterSyntax);

@@ -14,7 +14,7 @@ public partial interface ICrefBuilder
     void AsConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder> conversionOperatorMemberCrefCallback);
 }
 
-public interface IWithCrefBuilder<TBuilder>
+public interface IWithCref<TBuilder>
 {
     TBuilder WithCref(Action<ICrefBuilder> crefCallback);
     TBuilder WithCref(CrefSyntax crefSyntax);

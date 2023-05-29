@@ -14,7 +14,7 @@ public partial interface ILambdaExpressionBuilder<TBuilder> : IAnonymousFunction
 {
 }
 
-public interface IWithLambdaExpressionBuilder<TBuilder>
+public interface IWithLambdaExpression<TBuilder>
 {
     TBuilder WithLambdaExpression(Action<ILambdaExpressionBuilder> lambdaExpressionCallback);
     TBuilder WithLambdaExpression(LambdaExpressionSyntax lambdaExpressionSyntax);

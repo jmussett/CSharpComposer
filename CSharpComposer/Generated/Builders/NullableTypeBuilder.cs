@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithNullableTypeBuilder<TBuilder>
+public interface IWithNullableType<TBuilder>
 {
     TBuilder WithNullableType(Action<ITypeBuilder> elementTypeCallback);
     TBuilder WithNullableType(NullableTypeSyntax nullableTypeSyntax);

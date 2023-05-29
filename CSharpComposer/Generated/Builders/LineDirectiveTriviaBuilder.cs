@@ -9,7 +9,7 @@ public partial interface ILineDirectiveTriviaBuilder : ILineOrSpanDirectiveTrivi
     ILineDirectiveTriviaBuilder WithFile();
 }
 
-public interface IWithLineDirectiveTriviaBuilder<TBuilder>
+public interface IWithLineDirectiveTrivia<TBuilder>
 {
     TBuilder WithLineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder> lineDirectiveTriviaCallback);
     TBuilder WithLineDirectiveTrivia(LineDirectiveTriviaSyntax lineDirectiveTriviaSyntax);

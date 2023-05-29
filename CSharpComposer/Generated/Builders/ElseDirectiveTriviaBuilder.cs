@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithElseDirectiveTriviaBuilder<TBuilder>
+public interface IWithElseDirectiveTrivia<TBuilder>
 {
     TBuilder WithElseDirectiveTrivia(bool isActive, bool branchTaken);
     TBuilder WithElseDirectiveTrivia(ElseDirectiveTriviaSyntax elseDirectiveTriviaSyntax);

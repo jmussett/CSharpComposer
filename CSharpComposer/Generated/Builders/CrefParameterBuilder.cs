@@ -9,7 +9,7 @@ public partial interface ICrefParameterBuilder
     ICrefParameterBuilder WithRefKindKeyword(RefKindKeyword refKindKeyword);
 }
 
-public interface IWithCrefParameterBuilder<TBuilder>
+public interface IWithCrefParameter<TBuilder>
 {
     TBuilder WithCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
     TBuilder WithCrefParameter(CrefParameterSyntax crefParameterSyntax);

@@ -10,7 +10,7 @@ public partial interface IInitializerExpressionBuilder
     IInitializerExpressionBuilder AddExpression(ExpressionSyntax expression);
 }
 
-public interface IWithInitializerExpressionBuilder<TBuilder>
+public interface IWithInitializerExpression<TBuilder>
 {
     TBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
     TBuilder WithInitializerExpression(InitializerExpressionSyntax initializerExpressionSyntax);

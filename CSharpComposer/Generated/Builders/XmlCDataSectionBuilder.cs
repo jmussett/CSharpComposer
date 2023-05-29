@@ -9,7 +9,7 @@ public partial interface IXmlCDataSectionBuilder
     IXmlCDataSectionBuilder AddTextToken(SyntaxToken textToken);
 }
 
-public interface IWithXmlCDataSectionBuilder<TBuilder>
+public interface IWithXmlCDataSection<TBuilder>
 {
     TBuilder WithXmlCDataSection(Action<IXmlCDataSectionBuilder> xmlCDataSectionCallback);
     TBuilder WithXmlCDataSection(XmlCDataSectionSyntax xmlCDataSectionSyntax);

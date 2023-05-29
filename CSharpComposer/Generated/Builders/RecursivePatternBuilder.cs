@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IRecursivePatternBuilder : IWithTypeBuilder<IRecursivePatternBuilder>, IWithPositionalPatternClauseBuilder<IRecursivePatternBuilder>, IWithPropertyPatternClauseBuilder<IRecursivePatternBuilder>, IWithVariableDesignationBuilder<IRecursivePatternBuilder>
+public partial interface IRecursivePatternBuilder : IWithType<IRecursivePatternBuilder>, IWithPositionalPatternClause<IRecursivePatternBuilder>, IWithPropertyPatternClause<IRecursivePatternBuilder>, IWithVariableDesignation<IRecursivePatternBuilder>
 {
     IRecursivePatternBuilder WithType(Action<ITypeBuilder> typeCallback);
     IRecursivePatternBuilder WithType(TypeSyntax type);
@@ -18,7 +18,7 @@ public partial interface IRecursivePatternBuilder : IWithTypeBuilder<IRecursiveP
     IRecursivePatternBuilder WithVariableDesignation(VariableDesignationSyntax designation);
 }
 
-public interface IWithRecursivePatternBuilder<TBuilder>
+public interface IWithRecursivePattern<TBuilder>
 {
     TBuilder WithRecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback);
     TBuilder WithRecursivePattern(RecursivePatternSyntax recursivePatternSyntax);

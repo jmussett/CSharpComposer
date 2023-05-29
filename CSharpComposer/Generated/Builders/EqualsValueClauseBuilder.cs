@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithEqualsValueClauseBuilder<TBuilder>
+public interface IWithEqualsValueClause<TBuilder>
 {
     TBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
     TBuilder WithEqualsValueClause(EqualsValueClauseSyntax equalsValueClauseSyntax);

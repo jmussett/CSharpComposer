@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithQualifiedNameBuilder<TBuilder>
+public interface IWithQualifiedName<TBuilder>
 {
     TBuilder WithQualifiedName(Action<INameBuilder> leftCallback, Action<ISimpleNameBuilder> rightCallback);
     TBuilder WithQualifiedName(QualifiedNameSyntax qualifiedNameSyntax);

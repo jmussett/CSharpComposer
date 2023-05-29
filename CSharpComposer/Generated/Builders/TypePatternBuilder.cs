@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithTypePatternBuilder<TBuilder>
+public interface IWithTypePattern<TBuilder>
 {
     TBuilder WithTypePattern(Action<ITypeBuilder> typeCallback);
     TBuilder WithTypePattern(TypePatternSyntax typePatternSyntax);

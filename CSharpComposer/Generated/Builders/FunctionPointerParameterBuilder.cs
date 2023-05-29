@@ -8,7 +8,7 @@ public partial interface IFunctionPointerParameterBuilder : IBaseParameterBuilde
 {
 }
 
-public interface IWithFunctionPointerParameterBuilder<TBuilder>
+public interface IWithFunctionPointerParameter<TBuilder>
 {
     TBuilder WithFunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder> functionPointerParameterCallback);
     TBuilder WithFunctionPointerParameter(FunctionPointerParameterSyntax functionPointerParameterSyntax);

@@ -17,7 +17,7 @@ public partial interface IBaseMethodDeclarationBuilder<TBuilder> : IMemberDeclar
 {
 }
 
-public interface IWithBaseMethodDeclarationBuilder<TBuilder>
+public interface IWithBaseMethodDeclaration<TBuilder>
 {
     TBuilder WithBaseMethodDeclaration(Action<IBaseMethodDeclarationBuilder> baseMethodDeclarationCallback);
     TBuilder WithBaseMethodDeclaration(BaseMethodDeclarationSyntax baseMethodDeclarationSyntax);

@@ -11,7 +11,7 @@ public partial interface IConversionOperatorMemberCrefBuilder
     IConversionOperatorMemberCrefBuilder AddParameter(CrefParameterSyntax parameter);
 }
 
-public interface IWithConversionOperatorMemberCrefBuilder<TBuilder>
+public interface IWithConversionOperatorMemberCref<TBuilder>
 {
     TBuilder WithConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder> conversionOperatorMemberCrefCallback);
     TBuilder WithConversionOperatorMemberCref(ConversionOperatorMemberCrefSyntax conversionOperatorMemberCrefSyntax);

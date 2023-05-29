@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IQueryBodyBuilder : IWithQueryContinuationBuilder<IQueryBodyBuilder>
+public partial interface IQueryBodyBuilder : IWithQueryContinuation<IQueryBodyBuilder>
 {
     IQueryBodyBuilder AddClause(Action<IQueryClauseBuilder> clauseCallback);
     IQueryBodyBuilder AddClause(QueryClauseSyntax clause);
@@ -12,7 +12,7 @@ public partial interface IQueryBodyBuilder : IWithQueryContinuationBuilder<IQuer
     IQueryBodyBuilder WithQueryContinuation(QueryContinuationSyntax continuation);
 }
 
-public interface IWithQueryBodyBuilder<TBuilder>
+public interface IWithQueryBody<TBuilder>
 {
     TBuilder WithQueryBody(Action<ISelectOrGroupClauseBuilder> selectOrGroupCallback, Action<IQueryBodyBuilder> queryBodyCallback);
     TBuilder WithQueryBody(QueryBodySyntax queryBodySyntax);

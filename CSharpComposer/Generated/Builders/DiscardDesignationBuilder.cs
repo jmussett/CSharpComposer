@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithDiscardDesignationBuilder<TBuilder>
+public interface IWithDiscardDesignation<TBuilder>
 {
     TBuilder WithDiscardDesignation();
     TBuilder WithDiscardDesignation(DiscardDesignationSyntax discardDesignationSyntax);

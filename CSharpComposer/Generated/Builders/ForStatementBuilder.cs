@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IForStatementBuilder : IWithVariableDeclarationBuilder<IForStatementBuilder>, IWithExpressionBuilder<IForStatementBuilder>, IStatementBuilder<IForStatementBuilder>
+public partial interface IForStatementBuilder : IWithVariableDeclaration<IForStatementBuilder>, IWithExpression<IForStatementBuilder>, IStatementBuilder<IForStatementBuilder>
 {
     IForStatementBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
     IForStatementBuilder WithVariableDeclaration(VariableDeclarationSyntax declaration);
@@ -16,7 +16,7 @@ public partial interface IForStatementBuilder : IWithVariableDeclarationBuilder<
     IForStatementBuilder AddIncrementor(ExpressionSyntax incrementor);
 }
 
-public interface IWithForStatementBuilder<TBuilder>
+public interface IWithForStatement<TBuilder>
 {
     TBuilder WithForStatement(Action<IStatementBuilder> statementCallback, Action<IForStatementBuilder> forStatementCallback);
     TBuilder WithForStatement(ForStatementSyntax forStatementSyntax);

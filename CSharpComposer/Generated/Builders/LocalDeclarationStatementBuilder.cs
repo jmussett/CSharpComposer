@@ -11,7 +11,7 @@ public partial interface ILocalDeclarationStatementBuilder : IStatementBuilder<I
     ILocalDeclarationStatementBuilder AddModifier(SyntaxToken modifier);
 }
 
-public interface IWithLocalDeclarationStatementBuilder<TBuilder>
+public interface IWithLocalDeclarationStatement<TBuilder>
 {
     TBuilder WithLocalDeclarationStatement(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<ILocalDeclarationStatementBuilder> localDeclarationStatementCallback);
     TBuilder WithLocalDeclarationStatement(LocalDeclarationStatementSyntax localDeclarationStatementSyntax);

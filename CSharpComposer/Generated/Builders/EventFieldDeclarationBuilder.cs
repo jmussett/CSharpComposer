@@ -8,7 +8,7 @@ public partial interface IEventFieldDeclarationBuilder
 {
 }
 
-public interface IWithEventFieldDeclarationBuilder<TBuilder>
+public interface IWithEventFieldDeclaration<TBuilder>
 {
     TBuilder WithEventFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IEventFieldDeclarationBuilder> eventFieldDeclarationCallback);
     TBuilder WithEventFieldDeclaration(EventFieldDeclarationSyntax eventFieldDeclarationSyntax);

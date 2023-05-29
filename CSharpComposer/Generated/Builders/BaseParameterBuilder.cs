@@ -14,7 +14,7 @@ public partial interface IBaseParameterBuilder<TBuilder>
 {
 }
 
-public interface IWithBaseParameterBuilder<TBuilder>
+public interface IWithBaseParameter<TBuilder>
 {
     TBuilder WithBaseParameter(Action<IBaseParameterBuilder> baseParameterCallback);
     TBuilder WithBaseParameter(BaseParameterSyntax baseParameterSyntax);

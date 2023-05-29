@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithConstantPatternBuilder<TBuilder>
+public interface IWithConstantPattern<TBuilder>
 {
     TBuilder WithConstantPattern(Action<IExpressionBuilder> expressionCallback);
     TBuilder WithConstantPattern(ConstantPatternSyntax constantPatternSyntax);

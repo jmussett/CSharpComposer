@@ -9,7 +9,7 @@ public partial interface IImplicitArrayCreationExpressionBuilder
     IImplicitArrayCreationExpressionBuilder AddComma(SyntaxToken comma);
 }
 
-public interface IWithImplicitArrayCreationExpressionBuilder<TBuilder>
+public interface IWithImplicitArrayCreationExpression<TBuilder>
 {
     TBuilder WithImplicitArrayCreationExpression(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback, Action<IImplicitArrayCreationExpressionBuilder> implicitArrayCreationExpressionCallback);
     TBuilder WithImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax implicitArrayCreationExpressionSyntax);

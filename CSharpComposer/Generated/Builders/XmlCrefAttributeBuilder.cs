@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithXmlCrefAttributeBuilder<TBuilder>
+public interface IWithXmlCrefAttribute<TBuilder>
 {
     TBuilder WithXmlCrefAttribute(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, XmlCrefAttributeStartQuoteToken xmlCrefAttributeStartQuoteToken, Action<ICrefBuilder> crefCallback, XmlCrefAttributeEndQuoteToken xmlCrefAttributeEndQuoteToken);
     TBuilder WithXmlCrefAttribute(XmlCrefAttributeSyntax xmlCrefAttributeSyntax);

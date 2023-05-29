@@ -11,7 +11,7 @@ public partial interface ISwitchLabelBuilder
     void AsDefaultSwitchLabel();
 }
 
-public interface IWithSwitchLabelBuilder<TBuilder>
+public interface IWithSwitchLabel<TBuilder>
 {
     TBuilder WithSwitchLabel(Action<ISwitchLabelBuilder> switchLabelCallback);
     TBuilder WithSwitchLabel(SwitchLabelSyntax switchLabelSyntax);

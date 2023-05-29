@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithConditionalExpressionBuilder<TBuilder>
+public interface IWithConditionalExpression<TBuilder>
 {
     TBuilder WithConditionalExpression(Action<IExpressionBuilder> conditionCallback, Action<IExpressionBuilder> whenTrueCallback, Action<IExpressionBuilder> whenFalseCallback);
     TBuilder WithConditionalExpression(ConditionalExpressionSyntax conditionalExpressionSyntax);

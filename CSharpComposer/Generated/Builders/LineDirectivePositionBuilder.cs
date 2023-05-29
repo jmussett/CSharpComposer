@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithLineDirectivePositionBuilder<TBuilder>
+public interface IWithLineDirectivePosition<TBuilder>
 {
     TBuilder WithLineDirectivePosition(int line, int character);
     TBuilder WithLineDirectivePosition(LineDirectivePositionSyntax lineDirectivePositionSyntax);

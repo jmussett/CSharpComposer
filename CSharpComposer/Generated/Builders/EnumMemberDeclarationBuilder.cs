@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEnumMemberDeclarationBuilder : IWithEqualsValueClauseBuilder<IEnumMemberDeclarationBuilder>, IMemberDeclarationBuilder<IEnumMemberDeclarationBuilder>
+public partial interface IEnumMemberDeclarationBuilder : IWithEqualsValueClause<IEnumMemberDeclarationBuilder>, IMemberDeclarationBuilder<IEnumMemberDeclarationBuilder>
 {
     IEnumMemberDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
     IEnumMemberDeclarationBuilder WithEqualsValueClause(EqualsValueClauseSyntax equalsValue);
 }
 
-public interface IWithEnumMemberDeclarationBuilder<TBuilder>
+public interface IWithEnumMemberDeclaration<TBuilder>
 {
     TBuilder WithEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback);
     TBuilder WithEnumMemberDeclaration(EnumMemberDeclarationSyntax enumMemberDeclarationSyntax);

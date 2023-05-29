@@ -12,7 +12,7 @@ public partial interface IRangeExpressionBuilder
     IRangeExpressionBuilder WithRightOperand(ExpressionSyntax rightOperand);
 }
 
-public interface IWithRangeExpressionBuilder<TBuilder>
+public interface IWithRangeExpression<TBuilder>
 {
     TBuilder WithRangeExpression(Action<IRangeExpressionBuilder> rangeExpressionCallback);
     TBuilder WithRangeExpression(RangeExpressionSyntax rangeExpressionSyntax);

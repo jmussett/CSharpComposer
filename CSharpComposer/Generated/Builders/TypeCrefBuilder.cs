@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithTypeCrefBuilder<TBuilder>
+public interface IWithTypeCref<TBuilder>
 {
     TBuilder WithTypeCref(Action<ITypeBuilder> typeCallback);
     TBuilder WithTypeCref(TypeCrefSyntax typeCrefSyntax);

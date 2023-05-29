@@ -10,13 +10,13 @@ public partial interface IBaseObjectCreationExpressionBuilder
     void AsObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback);
 }
 
-public partial interface IBaseObjectCreationExpressionBuilder<TBuilder> : IWithInitializerExpressionBuilder<TBuilder>
+public partial interface IBaseObjectCreationExpressionBuilder<TBuilder> : IWithInitializerExpression<TBuilder>
 {
     TBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
     TBuilder WithInitializerExpression(InitializerExpressionSyntax initializer);
 }
 
-public interface IWithBaseObjectCreationExpressionBuilder<TBuilder>
+public interface IWithBaseObjectCreationExpression<TBuilder>
 {
     TBuilder WithBaseObjectCreationExpression(Action<IBaseObjectCreationExpressionBuilder> baseObjectCreationExpressionCallback);
     TBuilder WithBaseObjectCreationExpression(BaseObjectCreationExpressionSyntax baseObjectCreationExpressionSyntax);

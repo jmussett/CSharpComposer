@@ -10,7 +10,7 @@ public partial interface IPositionalPatternClauseBuilder
     IPositionalPatternClauseBuilder AddSubpattern(SubpatternSyntax subpattern);
 }
 
-public interface IWithPositionalPatternClauseBuilder<TBuilder>
+public interface IWithPositionalPatternClause<TBuilder>
 {
     TBuilder WithPositionalPatternClause(Action<IPositionalPatternClauseBuilder> positionalPatternClauseCallback);
     TBuilder WithPositionalPatternClause(PositionalPatternClauseSyntax positionalPatternClauseSyntax);

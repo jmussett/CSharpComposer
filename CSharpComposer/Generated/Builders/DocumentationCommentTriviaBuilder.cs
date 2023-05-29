@@ -10,7 +10,7 @@ public partial interface IDocumentationCommentTriviaBuilder
     IDocumentationCommentTriviaBuilder AddContent(XmlNodeSyntax content);
 }
 
-public interface IWithDocumentationCommentTriviaBuilder<TBuilder>
+public interface IWithDocumentationCommentTrivia<TBuilder>
 {
     TBuilder WithDocumentationCommentTrivia(DocumentationCommentTriviaKind kind, Action<IDocumentationCommentTriviaBuilder> documentationCommentTriviaCallback);
     TBuilder WithDocumentationCommentTrivia(DocumentationCommentTriviaSyntax documentationCommentTriviaSyntax);

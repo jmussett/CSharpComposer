@@ -14,7 +14,7 @@ public partial interface IXmlNodeBuilder
     void AsXmlComment(Action<IXmlCommentBuilder> xmlCommentCallback);
 }
 
-public interface IWithXmlNodeBuilder<TBuilder>
+public interface IWithXmlNode<TBuilder>
 {
     TBuilder WithXmlNode(Action<IXmlNodeBuilder> xmlNodeCallback);
     TBuilder WithXmlNode(XmlNodeSyntax xmlNodeSyntax);

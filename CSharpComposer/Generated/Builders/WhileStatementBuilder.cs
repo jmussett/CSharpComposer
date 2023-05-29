@@ -8,7 +8,7 @@ public partial interface IWhileStatementBuilder : IStatementBuilder<IWhileStatem
 {
 }
 
-public interface IWithWhileStatementBuilder<TBuilder>
+public interface IWithWhileStatement<TBuilder>
 {
     TBuilder WithWhileStatement(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IWhileStatementBuilder> whileStatementCallback);
     TBuilder WithWhileStatement(WhileStatementSyntax whileStatementSyntax);

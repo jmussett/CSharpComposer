@@ -11,7 +11,7 @@ public partial interface ITypeParameterBuilder
     ITypeParameterBuilder WithVarianceKeyword(VarianceKeyword varianceKeyword);
 }
 
-public interface IWithTypeParameterBuilder<TBuilder>
+public interface IWithTypeParameter<TBuilder>
 {
     TBuilder WithTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
     TBuilder WithTypeParameter(TypeParameterSyntax typeParameterSyntax);

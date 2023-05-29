@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithBadDirectiveTriviaBuilder<TBuilder>
+public interface IWithBadDirectiveTrivia<TBuilder>
 {
     TBuilder WithBadDirectiveTrivia(string identifier, bool isActive);
     TBuilder WithBadDirectiveTrivia(BadDirectiveTriviaSyntax badDirectiveTriviaSyntax);

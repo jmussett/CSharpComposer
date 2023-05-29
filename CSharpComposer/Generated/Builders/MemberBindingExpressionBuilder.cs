@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithMemberBindingExpressionBuilder<TBuilder>
+public interface IWithMemberBindingExpression<TBuilder>
 {
     TBuilder WithMemberBindingExpression(Action<ISimpleNameBuilder> nameCallback);
     TBuilder WithMemberBindingExpression(MemberBindingExpressionSyntax memberBindingExpressionSyntax);

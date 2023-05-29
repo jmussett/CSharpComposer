@@ -33,7 +33,7 @@ public partial interface IMemberDeclarationBuilder<TBuilder>
 {
 }
 
-public interface IWithMemberDeclarationBuilder<TBuilder>
+public interface IWithMemberDeclaration<TBuilder>
 {
     TBuilder WithMemberDeclaration(Action<IMemberDeclarationBuilder> memberDeclarationCallback);
     TBuilder WithMemberDeclaration(MemberDeclarationSyntax memberDeclarationSyntax);

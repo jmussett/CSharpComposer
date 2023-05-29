@@ -10,7 +10,7 @@ public partial interface IVariableDeclarationBuilder
     IVariableDeclarationBuilder AddVariable(VariableDeclaratorSyntax variable);
 }
 
-public interface IWithVariableDeclarationBuilder<TBuilder>
+public interface IWithVariableDeclaration<TBuilder>
 {
     TBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
     TBuilder WithVariableDeclaration(VariableDeclarationSyntax variableDeclarationSyntax);

@@ -10,7 +10,7 @@ public partial interface IConstructorInitializerBuilder
     IConstructorInitializerBuilder AddArgument(ArgumentSyntax argument);
 }
 
-public interface IWithConstructorInitializerBuilder<TBuilder>
+public interface IWithConstructorInitializer<TBuilder>
 {
     TBuilder WithConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
     TBuilder WithConstructorInitializer(ConstructorInitializerSyntax constructorInitializerSyntax);

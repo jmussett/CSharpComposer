@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithPragmaChecksumDirectiveTriviaBuilder<TBuilder>
+public interface IWithPragmaChecksumDirectiveTrivia<TBuilder>
 {
     TBuilder WithPragmaChecksumDirectiveTrivia(string file, string guid, string bytes, bool isActive);
     TBuilder WithPragmaChecksumDirectiveTrivia(PragmaChecksumDirectiveTriviaSyntax pragmaChecksumDirectiveTriviaSyntax);

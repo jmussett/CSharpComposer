@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IXmlNameBuilder : IWithXmlPrefixBuilder<IXmlNameBuilder>
+public partial interface IXmlNameBuilder : IWithXmlPrefix<IXmlNameBuilder>
 {
     IXmlNameBuilder WithXmlPrefix(string prefix);
     IXmlNameBuilder WithXmlPrefix(XmlPrefixSyntax prefix);
 }
 
-public interface IWithXmlNameBuilder<TBuilder>
+public interface IWithXmlName<TBuilder>
 {
     TBuilder WithXmlName(string localName, Action<IXmlNameBuilder> xmlNameCallback);
     TBuilder WithXmlName(XmlNameSyntax xmlNameSyntax);

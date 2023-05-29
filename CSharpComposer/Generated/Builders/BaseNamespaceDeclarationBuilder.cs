@@ -14,7 +14,7 @@ public partial interface IBaseNamespaceDeclarationBuilder<TBuilder> : IMemberDec
 {
 }
 
-public interface IWithBaseNamespaceDeclarationBuilder<TBuilder>
+public interface IWithBaseNamespaceDeclaration<TBuilder>
 {
     TBuilder WithBaseNamespaceDeclaration(Action<IBaseNamespaceDeclarationBuilder> baseNamespaceDeclarationCallback);
     TBuilder WithBaseNamespaceDeclaration(BaseNamespaceDeclarationSyntax baseNamespaceDeclarationSyntax);

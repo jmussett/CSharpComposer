@@ -10,7 +10,7 @@ public partial interface IBaseFieldDeclarationBuilder
     void AsEventFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IEventFieldDeclarationBuilder> eventFieldDeclarationCallback);
 }
 
-public interface IWithBaseFieldDeclarationBuilder<TBuilder>
+public interface IWithBaseFieldDeclaration<TBuilder>
 {
     TBuilder WithBaseFieldDeclaration(Action<IBaseFieldDeclarationBuilder> baseFieldDeclarationCallback);
     TBuilder WithBaseFieldDeclaration(BaseFieldDeclarationSyntax baseFieldDeclarationSyntax);

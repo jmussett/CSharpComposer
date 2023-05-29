@@ -10,7 +10,7 @@ public partial interface IEnumDeclarationBuilder : IBaseTypeDeclarationBuilder<I
     IEnumDeclarationBuilder AddMember(EnumMemberDeclarationSyntax member);
 }
 
-public interface IWithEnumDeclarationBuilder<TBuilder>
+public interface IWithEnumDeclaration<TBuilder>
 {
     TBuilder WithEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback);
     TBuilder WithEnumDeclaration(EnumDeclarationSyntax enumDeclarationSyntax);

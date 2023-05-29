@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithLetClauseBuilder<TBuilder>
+public interface IWithLetClause<TBuilder>
 {
     TBuilder WithLetClause(string identifier, Action<IExpressionBuilder> expressionCallback);
     TBuilder WithLetClause(LetClauseSyntax letClauseSyntax);

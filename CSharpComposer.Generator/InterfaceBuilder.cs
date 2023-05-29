@@ -96,7 +96,7 @@ internal class InterfaceBuilder
         if (_tree.Types.Any(t => t.Children.Any(f => _tree.AnyValidFieldMethod(t, f, false))))
         {
             builder
-                .WithInterface($"IWith{typeName}Builder", x =>
+                .WithInterface($"IWith{typeName}", x =>
                 {
                     x.WithAccessModifier(TypeAccessModifier.Public);
                     x.WithTypeParameter("TBuilder");
@@ -134,7 +134,7 @@ internal class InterfaceBuilder
             {
                 if (!NodeValidator.IsAnyList(field.Type))
                 {
-                    x.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}Builder", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                    x.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
                 }
                 else
                 {

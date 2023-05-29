@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IAnonymousObjectMemberDeclaratorBuilder : IWithNameEqualsBuilder<IAnonymousObjectMemberDeclaratorBuilder>
+public partial interface IAnonymousObjectMemberDeclaratorBuilder : IWithNameEquals<IAnonymousObjectMemberDeclaratorBuilder>
 {
     IAnonymousObjectMemberDeclaratorBuilder WithNameEquals(string nameIdentifier);
     IAnonymousObjectMemberDeclaratorBuilder WithNameEquals(NameEqualsSyntax nameEquals);
 }
 
-public interface IWithAnonymousObjectMemberDeclaratorBuilder<TBuilder>
+public interface IWithAnonymousObjectMemberDeclarator<TBuilder>
 {
     TBuilder WithAnonymousObjectMemberDeclarator(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder> anonymousObjectMemberDeclaratorCallback);
     TBuilder WithAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax anonymousObjectMemberDeclaratorSyntax);

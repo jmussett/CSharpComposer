@@ -8,7 +8,7 @@ public partial interface IDoStatementBuilder : IStatementBuilder<IDoStatementBui
 {
 }
 
-public interface IWithDoStatementBuilder<TBuilder>
+public interface IWithDoStatement<TBuilder>
 {
     TBuilder WithDoStatement(Action<IStatementBuilder> statementCallback, Action<IExpressionBuilder> conditionCallback, Action<IDoStatementBuilder> doStatementCallback);
     TBuilder WithDoStatement(DoStatementSyntax doStatementSyntax);

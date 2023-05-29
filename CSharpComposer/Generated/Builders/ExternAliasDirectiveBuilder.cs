@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithExternAliasDirectiveBuilder<TBuilder>
+public interface IWithExternAliasDirective<TBuilder>
 {
     TBuilder WithExternAliasDirective(string identifier);
     TBuilder WithExternAliasDirective(ExternAliasDirectiveSyntax externAliasDirectiveSyntax);

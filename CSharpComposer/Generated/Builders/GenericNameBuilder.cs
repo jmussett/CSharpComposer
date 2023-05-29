@@ -10,7 +10,7 @@ public partial interface IGenericNameBuilder
     IGenericNameBuilder AddTypeArgument(TypeSyntax argument);
 }
 
-public interface IWithGenericNameBuilder<TBuilder>
+public interface IWithGenericName<TBuilder>
 {
     TBuilder WithGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback);
     TBuilder WithGenericName(GenericNameSyntax genericNameSyntax);

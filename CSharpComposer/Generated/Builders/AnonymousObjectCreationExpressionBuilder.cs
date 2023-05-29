@@ -10,7 +10,7 @@ public partial interface IAnonymousObjectCreationExpressionBuilder
     IAnonymousObjectCreationExpressionBuilder AddInitializer(AnonymousObjectMemberDeclaratorSyntax initializer);
 }
 
-public interface IWithAnonymousObjectCreationExpressionBuilder<TBuilder>
+public interface IWithAnonymousObjectCreationExpression<TBuilder>
 {
     TBuilder WithAnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder> anonymousObjectCreationExpressionCallback);
     TBuilder WithAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax anonymousObjectCreationExpressionSyntax);

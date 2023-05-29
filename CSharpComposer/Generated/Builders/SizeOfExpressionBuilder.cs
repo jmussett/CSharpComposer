@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithSizeOfExpressionBuilder<TBuilder>
+public interface IWithSizeOfExpression<TBuilder>
 {
     TBuilder WithSizeOfExpression(Action<ITypeBuilder> typeCallback);
     TBuilder WithSizeOfExpression(SizeOfExpressionSyntax sizeOfExpressionSyntax);

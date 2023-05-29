@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithElseClauseBuilder<TBuilder>
+public interface IWithElseClause<TBuilder>
 {
     TBuilder WithElseClause(Action<IStatementBuilder> statementCallback);
     TBuilder WithElseClause(ElseClauseSyntax elseClauseSyntax);

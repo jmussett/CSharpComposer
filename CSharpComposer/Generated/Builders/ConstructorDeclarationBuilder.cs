@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IConstructorDeclarationBuilder : IWithConstructorInitializerBuilder<IConstructorDeclarationBuilder>, IWithBlockBuilder<IConstructorDeclarationBuilder>, IWithArrowExpressionClauseBuilder<IConstructorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IConstructorDeclarationBuilder>
+public partial interface IConstructorDeclarationBuilder : IWithConstructorInitializer<IConstructorDeclarationBuilder>, IWithBlock<IConstructorDeclarationBuilder>, IWithArrowExpressionClause<IConstructorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IConstructorDeclarationBuilder>
 {
     IConstructorDeclarationBuilder WithConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
     IConstructorDeclarationBuilder WithConstructorInitializer(ConstructorInitializerSyntax initializer);
 }
 
-public interface IWithConstructorDeclarationBuilder<TBuilder>
+public interface IWithConstructorDeclaration<TBuilder>
 {
     TBuilder WithConstructorDeclaration(string identifier, Action<IConstructorDeclarationBuilder> constructorDeclarationCallback);
     TBuilder WithConstructorDeclaration(ConstructorDeclarationSyntax constructorDeclarationSyntax);

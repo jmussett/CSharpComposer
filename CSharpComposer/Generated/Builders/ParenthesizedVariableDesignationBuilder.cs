@@ -10,7 +10,7 @@ public partial interface IParenthesizedVariableDesignationBuilder
     IParenthesizedVariableDesignationBuilder AddVariable(VariableDesignationSyntax variable);
 }
 
-public interface IWithParenthesizedVariableDesignationBuilder<TBuilder>
+public interface IWithParenthesizedVariableDesignation<TBuilder>
 {
     TBuilder WithParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback);
     TBuilder WithParenthesizedVariableDesignation(ParenthesizedVariableDesignationSyntax parenthesizedVariableDesignationSyntax);

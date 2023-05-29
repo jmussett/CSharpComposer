@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithPredefinedTypeBuilder<TBuilder>
+public interface IWithPredefinedType<TBuilder>
 {
     TBuilder WithPredefinedType(PredefinedTypeKeyword predefinedTypeKeyword);
     TBuilder WithPredefinedType(PredefinedTypeSyntax predefinedTypeSyntax);

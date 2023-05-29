@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithShebangDirectiveTriviaBuilder<TBuilder>
+public interface IWithShebangDirectiveTrivia<TBuilder>
 {
     TBuilder WithShebangDirectiveTrivia(bool isActive);
     TBuilder WithShebangDirectiveTrivia(ShebangDirectiveTriviaSyntax shebangDirectiveTriviaSyntax);

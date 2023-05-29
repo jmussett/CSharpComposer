@@ -8,7 +8,7 @@ public partial interface IFieldDeclarationBuilder
 {
 }
 
-public interface IWithFieldDeclarationBuilder<TBuilder>
+public interface IWithFieldDeclaration<TBuilder>
 {
     TBuilder WithFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IFieldDeclarationBuilder> fieldDeclarationCallback);
     TBuilder WithFieldDeclaration(FieldDeclarationSyntax fieldDeclarationSyntax);

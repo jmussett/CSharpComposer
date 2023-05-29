@@ -10,7 +10,7 @@ public partial interface ISelectOrGroupClauseBuilder
     void AsGroupClause(Action<IExpressionBuilder> groupExpressionCallback, Action<IExpressionBuilder> byExpressionCallback);
 }
 
-public interface IWithSelectOrGroupClauseBuilder<TBuilder>
+public interface IWithSelectOrGroupClause<TBuilder>
 {
     TBuilder WithSelectOrGroupClause(Action<ISelectOrGroupClauseBuilder> selectOrGroupClauseCallback);
     TBuilder WithSelectOrGroupClause(SelectOrGroupClauseSyntax selectOrGroupClauseSyntax);

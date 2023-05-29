@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithPostfixUnaryExpressionBuilder<TBuilder>
+public interface IWithPostfixUnaryExpression<TBuilder>
 {
     TBuilder WithPostfixUnaryExpression(PostfixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback);
     TBuilder WithPostfixUnaryExpression(PostfixUnaryExpressionSyntax postfixUnaryExpressionSyntax);

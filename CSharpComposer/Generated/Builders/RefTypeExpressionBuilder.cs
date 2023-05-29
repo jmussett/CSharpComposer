@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithRefTypeExpressionBuilder<TBuilder>
+public interface IWithRefTypeExpression<TBuilder>
 {
     TBuilder WithRefTypeExpression(Action<IExpressionBuilder> expressionCallback);
     TBuilder WithRefTypeExpression(RefTypeExpressionSyntax refTypeExpressionSyntax);

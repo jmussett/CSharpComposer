@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IFunctionPointerTypeBuilder : IWithFunctionPointerCallingConventionBuilder<IFunctionPointerTypeBuilder>
+public partial interface IFunctionPointerTypeBuilder : IWithFunctionPointerCallingConvention<IFunctionPointerTypeBuilder>
 {
     IFunctionPointerTypeBuilder WithFunctionPointerCallingConvention(FunctionPointerCallingConventionManagedOrUnmanagedKeyword functionPointerCallingConventionManagedOrUnmanagedKeyword, Action<IFunctionPointerCallingConventionBuilder> functionPointerCallingConventionCallback);
     IFunctionPointerTypeBuilder WithFunctionPointerCallingConvention(FunctionPointerCallingConventionSyntax callingConvention);
@@ -12,7 +12,7 @@ public partial interface IFunctionPointerTypeBuilder : IWithFunctionPointerCalli
     IFunctionPointerTypeBuilder AddParameter(FunctionPointerParameterSyntax parameter);
 }
 
-public interface IWithFunctionPointerTypeBuilder<TBuilder>
+public interface IWithFunctionPointerType<TBuilder>
 {
     TBuilder WithFunctionPointerType(Action<IFunctionPointerTypeBuilder> functionPointerTypeCallback);
     TBuilder WithFunctionPointerType(FunctionPointerTypeSyntax functionPointerTypeSyntax);

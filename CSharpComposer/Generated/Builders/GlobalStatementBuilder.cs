@@ -8,7 +8,7 @@ public partial interface IGlobalStatementBuilder : IMemberDeclarationBuilder<IGl
 {
 }
 
-public interface IWithGlobalStatementBuilder<TBuilder>
+public interface IWithGlobalStatement<TBuilder>
 {
     TBuilder WithGlobalStatement(Action<IStatementBuilder> statementCallback, Action<IGlobalStatementBuilder> globalStatementCallback);
     TBuilder WithGlobalStatement(GlobalStatementSyntax globalStatementSyntax);

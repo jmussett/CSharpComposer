@@ -10,7 +10,7 @@ public partial interface IInterpolatedStringExpressionBuilder
     IInterpolatedStringExpressionBuilder AddContent(InterpolatedStringContentSyntax content);
 }
 
-public interface IWithInterpolatedStringExpressionBuilder<TBuilder>
+public interface IWithInterpolatedStringExpression<TBuilder>
 {
     TBuilder WithInterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder> interpolatedStringExpressionCallback);
     TBuilder WithInterpolatedStringExpression(InterpolatedStringExpressionSyntax interpolatedStringExpressionSyntax);

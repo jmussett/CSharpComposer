@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithPointerTypeBuilder<TBuilder>
+public interface IWithPointerType<TBuilder>
 {
     TBuilder WithPointerType(Action<ITypeBuilder> elementTypeCallback);
     TBuilder WithPointerType(PointerTypeSyntax pointerTypeSyntax);

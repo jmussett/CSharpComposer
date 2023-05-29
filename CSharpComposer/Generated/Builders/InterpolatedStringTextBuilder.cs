@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithInterpolatedStringTextBuilder<TBuilder>
+public interface IWithInterpolatedStringText<TBuilder>
 {
     TBuilder WithInterpolatedStringText();
     TBuilder WithInterpolatedStringText(InterpolatedStringTextSyntax interpolatedStringTextSyntax);

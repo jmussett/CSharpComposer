@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithOmittedTypeArgumentBuilder<TBuilder>
+public interface IWithOmittedTypeArgument<TBuilder>
 {
     TBuilder WithOmittedTypeArgument();
     TBuilder WithOmittedTypeArgument(OmittedTypeArgumentSyntax omittedTypeArgumentSyntax);

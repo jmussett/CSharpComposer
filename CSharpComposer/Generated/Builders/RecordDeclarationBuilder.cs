@@ -13,7 +13,7 @@ public partial interface IRecordDeclarationBuilder : ITypeDeclarationBuilder<IRe
     IRecordDeclarationBuilder WithCloseBraceToken();
 }
 
-public interface IWithRecordDeclarationBuilder<TBuilder>
+public interface IWithRecordDeclaration<TBuilder>
 {
     TBuilder WithRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback);
     TBuilder WithRecordDeclaration(RecordDeclarationSyntax recordDeclarationSyntax);

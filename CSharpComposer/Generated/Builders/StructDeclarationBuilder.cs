@@ -8,7 +8,7 @@ public partial interface IStructDeclarationBuilder : ITypeDeclarationBuilder<ISt
 {
 }
 
-public interface IWithStructDeclarationBuilder<TBuilder>
+public interface IWithStructDeclaration<TBuilder>
 {
     TBuilder WithStructDeclaration(string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback);
     TBuilder WithStructDeclaration(StructDeclarationSyntax structDeclarationSyntax);

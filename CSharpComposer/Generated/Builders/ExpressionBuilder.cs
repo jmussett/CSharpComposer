@@ -68,7 +68,7 @@ public partial interface IExpressionBuilder
     void AsSwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder> switchExpressionCallback);
 }
 
-public interface IWithExpressionBuilder<TBuilder>
+public interface IWithExpression<TBuilder>
 {
     TBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
     TBuilder WithExpression(ExpressionSyntax expressionSyntax);

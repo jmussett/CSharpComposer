@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithGroupClauseBuilder<TBuilder>
+public interface IWithGroupClause<TBuilder>
 {
     TBuilder WithGroupClause(Action<IExpressionBuilder> groupExpressionCallback, Action<IExpressionBuilder> byExpressionCallback);
     TBuilder WithGroupClause(GroupClauseSyntax groupClauseSyntax);

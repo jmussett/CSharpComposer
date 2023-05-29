@@ -8,7 +8,7 @@ public partial interface IClassDeclarationBuilder : ITypeDeclarationBuilder<ICla
 {
 }
 
-public interface IWithClassDeclarationBuilder<TBuilder>
+public interface IWithClassDeclaration<TBuilder>
 {
     TBuilder WithClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback);
     TBuilder WithClassDeclaration(ClassDeclarationSyntax classDeclarationSyntax);

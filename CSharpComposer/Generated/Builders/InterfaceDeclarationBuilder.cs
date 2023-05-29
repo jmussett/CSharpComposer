@@ -8,7 +8,7 @@ public partial interface IInterfaceDeclarationBuilder : ITypeDeclarationBuilder<
 {
 }
 
-public interface IWithInterfaceDeclarationBuilder<TBuilder>
+public interface IWithInterfaceDeclaration<TBuilder>
 {
     TBuilder WithInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback);
     TBuilder WithInterfaceDeclaration(InterfaceDeclarationSyntax interfaceDeclarationSyntax);

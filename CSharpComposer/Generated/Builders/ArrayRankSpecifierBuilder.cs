@@ -10,7 +10,7 @@ public partial interface IArrayRankSpecifierBuilder
     IArrayRankSpecifierBuilder AddSize(ExpressionSyntax size);
 }
 
-public interface IWithArrayRankSpecifierBuilder<TBuilder>
+public interface IWithArrayRankSpecifier<TBuilder>
 {
     TBuilder WithArrayRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback);
     TBuilder WithArrayRankSpecifier(ArrayRankSpecifierSyntax arrayRankSpecifierSyntax);

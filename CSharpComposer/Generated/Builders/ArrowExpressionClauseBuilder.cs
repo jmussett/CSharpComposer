@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithArrowExpressionClauseBuilder<TBuilder>
+public interface IWithArrowExpressionClause<TBuilder>
 {
     TBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
     TBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax arrowExpressionClauseSyntax);

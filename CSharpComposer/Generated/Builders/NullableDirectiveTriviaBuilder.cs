@@ -9,7 +9,7 @@ public partial interface INullableDirectiveTriviaBuilder
     INullableDirectiveTriviaBuilder WithTargetToken(TargetToken targetToken);
 }
 
-public interface IWithNullableDirectiveTriviaBuilder<TBuilder>
+public interface IWithNullableDirectiveTrivia<TBuilder>
 {
     TBuilder WithNullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder> nullableDirectiveTriviaCallback);
     TBuilder WithNullableDirectiveTrivia(NullableDirectiveTriviaSyntax nullableDirectiveTriviaSyntax);

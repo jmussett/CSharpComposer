@@ -9,7 +9,7 @@ public partial interface ICatchDeclarationBuilder
     ICatchDeclarationBuilder WithIdentifier(string identifier);
 }
 
-public interface IWithCatchDeclarationBuilder<TBuilder>
+public interface IWithCatchDeclaration<TBuilder>
 {
     TBuilder WithCatchDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback);
     TBuilder WithCatchDeclaration(CatchDeclarationSyntax catchDeclarationSyntax);

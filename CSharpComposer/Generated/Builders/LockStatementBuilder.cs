@@ -8,7 +8,7 @@ public partial interface ILockStatementBuilder : IStatementBuilder<ILockStatemen
 {
 }
 
-public interface IWithLockStatementBuilder<TBuilder>
+public interface IWithLockStatement<TBuilder>
 {
     TBuilder WithLockStatement(Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<ILockStatementBuilder> lockStatementCallback);
     TBuilder WithLockStatement(LockStatementSyntax lockStatementSyntax);
