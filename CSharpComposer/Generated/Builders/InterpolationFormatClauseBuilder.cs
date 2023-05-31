@@ -10,6 +10,12 @@ public interface IWithInterpolationFormatClause<TBuilder>
     TBuilder WithInterpolationFormatClause(InterpolationFormatClauseSyntax interpolationFormatClauseSyntax);
 }
 
+public interface IAddInterpolationFormatClause<TBuilder>
+{
+    TBuilder AddInterpolationFormatClause();
+    TBuilder AddInterpolationFormatClause(InterpolationFormatClauseSyntax interpolationFormatClauseSyntax);
+}
+
 public partial class InterpolationFormatClauseBuilder
 {
     public static InterpolationFormatClauseSyntax CreateSyntax()

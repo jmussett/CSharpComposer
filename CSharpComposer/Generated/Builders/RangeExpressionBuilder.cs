@@ -18,6 +18,12 @@ public interface IWithRangeExpression<TBuilder>
     TBuilder WithRangeExpression(RangeExpressionSyntax rangeExpressionSyntax);
 }
 
+public interface IAddRangeExpression<TBuilder>
+{
+    TBuilder AddRangeExpression(Action<IRangeExpressionBuilder> rangeExpressionCallback);
+    TBuilder AddRangeExpression(RangeExpressionSyntax rangeExpressionSyntax);
+}
+
 public partial class RangeExpressionBuilder : IRangeExpressionBuilder
 {
     public RangeExpressionSyntax Syntax { get; set; }

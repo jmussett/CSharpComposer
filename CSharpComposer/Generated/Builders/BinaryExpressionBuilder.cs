@@ -10,6 +10,12 @@ public interface IWithBinaryExpression<TBuilder>
     TBuilder WithBinaryExpression(BinaryExpressionSyntax binaryExpressionSyntax);
 }
 
+public interface IAddBinaryExpression<TBuilder>
+{
+    TBuilder AddBinaryExpression(BinaryExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback);
+    TBuilder AddBinaryExpression(BinaryExpressionSyntax binaryExpressionSyntax);
+}
+
 public partial class BinaryExpressionBuilder
 {
     public static BinaryExpressionSyntax CreateSyntax(BinaryExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback)

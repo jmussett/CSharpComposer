@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IInterfaceDeclarationBuilder : ITypeDeclarationBuilder<IInterfaceDeclarationBuilder>
+public partial interface IInterfaceDeclarationBuilder : IAddTypeParameter<IInterfaceDeclarationBuilder>, IAddBaseType<IInterfaceDeclarationBuilder>, ITypeDeclarationBuilder<IInterfaceDeclarationBuilder>
 {
 }
 
@@ -12,6 +12,12 @@ public interface IWithInterfaceDeclaration<TBuilder>
 {
     TBuilder WithInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback);
     TBuilder WithInterfaceDeclaration(InterfaceDeclarationSyntax interfaceDeclarationSyntax);
+}
+
+public interface IAddInterfaceDeclaration<TBuilder>
+{
+    TBuilder AddInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback);
+    TBuilder AddInterfaceDeclaration(InterfaceDeclarationSyntax interfaceDeclarationSyntax);
 }
 
 public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
@@ -52,7 +58,7 @@ public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
         return this;
     }
 
-    public IInterfaceDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IInterfaceDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
@@ -71,40 +77,40 @@ public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
         return this;
     }
 
-    public IInterfaceDeclarationBuilder AddBase(Action<IBaseTypeBuilder> typeCallback)
+    public IInterfaceDeclarationBuilder AddBaseType(Action<IBaseTypeBuilder> typeCallback)
     {
         var type = BaseTypeBuilder.CreateSyntax(typeCallback);
         Syntax = Syntax.AddBaseListTypes(type);
         return this;
     }
 
-    public IInterfaceDeclarationBuilder AddBase(BaseTypeSyntax type)
+    public IInterfaceDeclarationBuilder AddBaseType(BaseTypeSyntax type)
     {
         Syntax = Syntax.AddBaseListTypes(type);
         return this;
     }
 
-    public IInterfaceDeclarationBuilder AddConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
+    public IInterfaceDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
     {
         var constraintClause = TypeParameterConstraintClauseBuilder.CreateSyntax(nameIdentifier, typeParameterConstraintClauseCallback);
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;
     }
 
-    public IInterfaceDeclarationBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
+    public IInterfaceDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
     {
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;
     }
 
-    public IInterfaceDeclarationBuilder AddMember(Action<IMemberDeclarationBuilder> memberCallback)
+    public IInterfaceDeclarationBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback)
     {
         var member = MemberDeclarationBuilder.CreateSyntax(memberCallback);
         Syntax = Syntax.AddMembers(member);
         return this;
     }
 
-    public IInterfaceDeclarationBuilder AddMember(MemberDeclarationSyntax member)
+    public IInterfaceDeclarationBuilder AddMemberDeclaration(MemberDeclarationSyntax member)
     {
         Syntax = Syntax.AddMembers(member);
         return this;

@@ -14,6 +14,12 @@ public interface IWithFileScopedNamespaceDeclaration<TBuilder>
     TBuilder WithFileScopedNamespaceDeclaration(FileScopedNamespaceDeclarationSyntax fileScopedNamespaceDeclarationSyntax);
 }
 
+public interface IAddFileScopedNamespaceDeclaration<TBuilder>
+{
+    TBuilder AddFileScopedNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder> fileScopedNamespaceDeclarationCallback);
+    TBuilder AddFileScopedNamespaceDeclaration(FileScopedNamespaceDeclarationSyntax fileScopedNamespaceDeclarationSyntax);
+}
+
 public partial class FileScopedNamespaceDeclarationBuilder : IFileScopedNamespaceDeclarationBuilder
 {
     public FileScopedNamespaceDeclarationSyntax Syntax { get; set; }
@@ -51,46 +57,46 @@ public partial class FileScopedNamespaceDeclarationBuilder : IFileScopedNamespac
         return this;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IFileScopedNamespaceDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddExtern(string identifier)
+    public IFileScopedNamespaceDeclarationBuilder AddExternAliasDirective(string identifier)
     {
         var @extern = ExternAliasDirectiveBuilder.CreateSyntax(identifier);
         Syntax = Syntax.AddExterns(@extern);
         return this;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddExtern(ExternAliasDirectiveSyntax @extern)
+    public IFileScopedNamespaceDeclarationBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax @extern)
     {
         Syntax = Syntax.AddExterns(@extern);
         return this;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddUsing(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
+    public IFileScopedNamespaceDeclarationBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
     {
         var @using = UsingDirectiveBuilder.CreateSyntax(nameCallback, usingDirectiveCallback);
         Syntax = Syntax.AddUsings(@using);
         return this;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddUsing(UsingDirectiveSyntax @using)
+    public IFileScopedNamespaceDeclarationBuilder AddUsingDirective(UsingDirectiveSyntax @using)
     {
         Syntax = Syntax.AddUsings(@using);
         return this;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddMember(Action<IMemberDeclarationBuilder> memberCallback)
+    public IFileScopedNamespaceDeclarationBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback)
     {
         var member = MemberDeclarationBuilder.CreateSyntax(memberCallback);
         Syntax = Syntax.AddMembers(member);
         return this;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddMember(MemberDeclarationSyntax member)
+    public IFileScopedNamespaceDeclarationBuilder AddMemberDeclaration(MemberDeclarationSyntax member)
     {
         Syntax = Syntax.AddMembers(member);
         return this;

@@ -10,6 +10,12 @@ public interface IWithDefaultExpression<TBuilder>
     TBuilder WithDefaultExpression(DefaultExpressionSyntax defaultExpressionSyntax);
 }
 
+public interface IAddDefaultExpression<TBuilder>
+{
+    TBuilder AddDefaultExpression(Action<ITypeBuilder> typeCallback);
+    TBuilder AddDefaultExpression(DefaultExpressionSyntax defaultExpressionSyntax);
+}
+
 public partial class DefaultExpressionBuilder
 {
     public static DefaultExpressionSyntax CreateSyntax(Action<ITypeBuilder> typeCallback)

@@ -16,6 +16,12 @@ public interface IWithSimpleName<TBuilder>
     TBuilder WithSimpleName(SimpleNameSyntax simpleNameSyntax);
 }
 
+public interface IAddSimpleName<TBuilder>
+{
+    TBuilder AddSimpleName(Action<ISimpleNameBuilder> simpleNameCallback);
+    TBuilder AddSimpleName(SimpleNameSyntax simpleNameSyntax);
+}
+
 public partial class SimpleNameBuilder : ISimpleNameBuilder
 {
     public SimpleNameSyntax? Syntax { get; set; }

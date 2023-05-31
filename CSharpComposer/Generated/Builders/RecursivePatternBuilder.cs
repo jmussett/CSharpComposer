@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IRecursivePatternBuilder : IWithType<IRecursivePatternBuilder>, IWithPositionalPatternClause<IRecursivePatternBuilder>, IWithPropertyPatternClause<IRecursivePatternBuilder>, IWithVariableDesignation<IRecursivePatternBuilder>
+public partial interface IRecursivePatternBuilder : IWithType<IRecursivePatternBuilder>, IWithPositionalPatternClause<IRecursivePatternBuilder>, IWithPropertyPatternClause<IRecursivePatternBuilder>
 {
     IRecursivePatternBuilder WithType(Action<ITypeBuilder> typeCallback);
     IRecursivePatternBuilder WithType(TypeSyntax type);
@@ -14,14 +14,20 @@ public partial interface IRecursivePatternBuilder : IWithType<IRecursivePatternB
     IRecursivePatternBuilder WithPropertyPatternClause(PropertyPatternClauseSyntax propertyPatternClause);
     IRecursivePatternBuilder WithSingleVariableDesignation(SingleVariableDesignationSyntax singleVariableDesignation);
     IRecursivePatternBuilder WithDiscardDesignation(DiscardDesignationSyntax discardDesignation);
-    IRecursivePatternBuilder WithVariableDesignation(Action<IVariableDesignationBuilder> designationCallback);
-    IRecursivePatternBuilder WithVariableDesignation(VariableDesignationSyntax designation);
+    IRecursivePatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback);
+    IRecursivePatternBuilder WithDesignation(VariableDesignationSyntax designation);
 }
 
 public interface IWithRecursivePattern<TBuilder>
 {
     TBuilder WithRecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback);
     TBuilder WithRecursivePattern(RecursivePatternSyntax recursivePatternSyntax);
+}
+
+public interface IAddRecursivePattern<TBuilder>
+{
+    TBuilder AddRecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback);
+    TBuilder AddRecursivePattern(RecursivePatternSyntax recursivePatternSyntax);
 }
 
 public partial class RecursivePatternBuilder : IRecursivePatternBuilder
@@ -92,14 +98,14 @@ public partial class RecursivePatternBuilder : IRecursivePatternBuilder
         return this;
     }
 
-    public IRecursivePatternBuilder WithVariableDesignation(Action<IVariableDesignationBuilder> designationCallback)
+    public IRecursivePatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback)
     {
         var designationSyntax = VariableDesignationBuilder.CreateSyntax(designationCallback);
         Syntax = Syntax.WithDesignation(designationSyntax);
         return this;
     }
 
-    public IRecursivePatternBuilder WithVariableDesignation(VariableDesignationSyntax designation)
+    public IRecursivePatternBuilder WithDesignation(VariableDesignationSyntax designation)
     {
         Syntax = Syntax.WithDesignation(designation);
         return this;

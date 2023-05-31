@@ -20,6 +20,12 @@ public interface IWithLambdaExpression<TBuilder>
     TBuilder WithLambdaExpression(LambdaExpressionSyntax lambdaExpressionSyntax);
 }
 
+public interface IAddLambdaExpression<TBuilder>
+{
+    TBuilder AddLambdaExpression(Action<ILambdaExpressionBuilder> lambdaExpressionCallback);
+    TBuilder AddLambdaExpression(LambdaExpressionSyntax lambdaExpressionSyntax);
+}
+
 public partial class LambdaExpressionBuilder : ILambdaExpressionBuilder
 {
     public LambdaExpressionSyntax? Syntax { get; set; }

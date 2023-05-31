@@ -10,6 +10,12 @@ public interface IWithOmittedTypeArgument<TBuilder>
     TBuilder WithOmittedTypeArgument(OmittedTypeArgumentSyntax omittedTypeArgumentSyntax);
 }
 
+public interface IAddOmittedTypeArgument<TBuilder>
+{
+    TBuilder AddOmittedTypeArgument();
+    TBuilder AddOmittedTypeArgument(OmittedTypeArgumentSyntax omittedTypeArgumentSyntax);
+}
+
 public partial class OmittedTypeArgumentBuilder
 {
     public static OmittedTypeArgumentSyntax CreateSyntax()

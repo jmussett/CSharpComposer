@@ -10,6 +10,12 @@ public interface IWithBinaryPattern<TBuilder>
     TBuilder WithBinaryPattern(BinaryPatternSyntax binaryPatternSyntax);
 }
 
+public interface IAddBinaryPattern<TBuilder>
+{
+    TBuilder AddBinaryPattern(BinaryPatternKind kind, Action<IPatternBuilder> leftCallback, Action<IPatternBuilder> rightCallback);
+    TBuilder AddBinaryPattern(BinaryPatternSyntax binaryPatternSyntax);
+}
+
 public partial class BinaryPatternBuilder
 {
     public static BinaryPatternSyntax CreateSyntax(BinaryPatternKind kind, Action<IPatternBuilder> leftCallback, Action<IPatternBuilder> rightCallback)

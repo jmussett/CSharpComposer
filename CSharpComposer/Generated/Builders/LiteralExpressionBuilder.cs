@@ -21,6 +21,12 @@ public interface IWithLiteralExpression<TBuilder>
     TBuilder WithLiteralExpression(LiteralExpressionSyntax literalExpressionSyntax);
 }
 
+public interface IAddLiteralExpression<TBuilder>
+{
+    TBuilder AddLiteralExpression(Action<ILiteralExpressionBuilder> literalExpressionCallback);
+    TBuilder AddLiteralExpression(LiteralExpressionSyntax literalExpressionSyntax);
+}
+
 public partial class LiteralExpressionBuilder : ILiteralExpressionBuilder
 {
     public LiteralExpressionSyntax? Syntax { get; set; }

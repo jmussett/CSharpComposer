@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IAnonymousMethodExpressionBuilder : IWithExpression<IAnonymousMethodExpressionBuilder>, IAnonymousFunctionExpressionBuilder<IAnonymousMethodExpressionBuilder>
+public partial interface IAnonymousMethodExpressionBuilder : IAddParameter<IAnonymousMethodExpressionBuilder>, IAnonymousFunctionExpressionBuilder<IAnonymousMethodExpressionBuilder>
 {
     IAnonymousMethodExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     IAnonymousMethodExpressionBuilder AddParameter(ParameterSyntax parameter);
@@ -14,6 +14,12 @@ public interface IWithAnonymousMethodExpression<TBuilder>
 {
     TBuilder WithAnonymousMethodExpression(Action<IBlockBuilder> blockBlockCallback, Action<IAnonymousMethodExpressionBuilder> anonymousMethodExpressionCallback);
     TBuilder WithAnonymousMethodExpression(AnonymousMethodExpressionSyntax anonymousMethodExpressionSyntax);
+}
+
+public interface IAddAnonymousMethodExpression<TBuilder>
+{
+    TBuilder AddAnonymousMethodExpression(Action<IBlockBuilder> blockBlockCallback, Action<IAnonymousMethodExpressionBuilder> anonymousMethodExpressionCallback);
+    TBuilder AddAnonymousMethodExpression(AnonymousMethodExpressionSyntax anonymousMethodExpressionSyntax);
 }
 
 public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressionBuilder
@@ -35,7 +41,7 @@ public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressi
         return builder.Syntax;
     }
 
-    public IAnonymousMethodExpressionBuilder AddModifier(SyntaxToken modifier)
+    public IAnonymousMethodExpressionBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
@@ -54,14 +60,14 @@ public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressi
         return this;
     }
 
-    public IAnonymousMethodExpressionBuilder WithExpression(Action<IExpressionBuilder> expressionBodyCallback)
+    public IAnonymousMethodExpressionBuilder WithExpressionBody(Action<IExpressionBuilder> expressionBodyCallback)
     {
         var expressionBodySyntax = ExpressionBuilder.CreateSyntax(expressionBodyCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IAnonymousMethodExpressionBuilder WithExpression(ExpressionSyntax expressionBody)
+    public IAnonymousMethodExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;

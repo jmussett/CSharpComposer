@@ -14,6 +14,12 @@ public interface IWithGlobalStatement<TBuilder>
     TBuilder WithGlobalStatement(GlobalStatementSyntax globalStatementSyntax);
 }
 
+public interface IAddGlobalStatement<TBuilder>
+{
+    TBuilder AddGlobalStatement(Action<IStatementBuilder> statementCallback, Action<IGlobalStatementBuilder> globalStatementCallback);
+    TBuilder AddGlobalStatement(GlobalStatementSyntax globalStatementSyntax);
+}
+
 public partial class GlobalStatementBuilder : IGlobalStatementBuilder
 {
     public GlobalStatementSyntax Syntax { get; set; }
@@ -49,7 +55,7 @@ public partial class GlobalStatementBuilder : IGlobalStatementBuilder
         return this;
     }
 
-    public IGlobalStatementBuilder AddModifier(SyntaxToken modifier)
+    public IGlobalStatementBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

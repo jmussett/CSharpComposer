@@ -16,6 +16,12 @@ public interface IWithThrowStatement<TBuilder>
     TBuilder WithThrowStatement(ThrowStatementSyntax throwStatementSyntax);
 }
 
+public interface IAddThrowStatement<TBuilder>
+{
+    TBuilder AddThrowStatement(Action<IThrowStatementBuilder> throwStatementCallback);
+    TBuilder AddThrowStatement(ThrowStatementSyntax throwStatementSyntax);
+}
+
 public partial class ThrowStatementBuilder : IThrowStatementBuilder
 {
     public ThrowStatementSyntax Syntax { get; set; }

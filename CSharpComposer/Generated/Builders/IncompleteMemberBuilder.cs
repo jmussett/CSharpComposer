@@ -16,6 +16,12 @@ public interface IWithIncompleteMember<TBuilder>
     TBuilder WithIncompleteMember(IncompleteMemberSyntax incompleteMemberSyntax);
 }
 
+public interface IAddIncompleteMember<TBuilder>
+{
+    TBuilder AddIncompleteMember(Action<IIncompleteMemberBuilder> incompleteMemberCallback);
+    TBuilder AddIncompleteMember(IncompleteMemberSyntax incompleteMemberSyntax);
+}
+
 public partial class IncompleteMemberBuilder : IIncompleteMemberBuilder
 {
     public IncompleteMemberSyntax Syntax { get; set; }
@@ -50,7 +56,7 @@ public partial class IncompleteMemberBuilder : IIncompleteMemberBuilder
         return this;
     }
 
-    public IIncompleteMemberBuilder AddModifier(SyntaxToken modifier)
+    public IIncompleteMemberBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IDocumentationCommentTriviaBuilder
 {
-    IDocumentationCommentTriviaBuilder AddContent(Action<IXmlNodeBuilder> contentCallback);
-    IDocumentationCommentTriviaBuilder AddContent(XmlNodeSyntax content);
+    IDocumentationCommentTriviaBuilder AddContentXmlNode(Action<IXmlNodeBuilder> contentCallback);
+    IDocumentationCommentTriviaBuilder AddContentXmlNode(XmlNodeSyntax content);
 }
 
 public interface IWithDocumentationCommentTrivia<TBuilder>
 {
     TBuilder WithDocumentationCommentTrivia(DocumentationCommentTriviaKind kind, Action<IDocumentationCommentTriviaBuilder> documentationCommentTriviaCallback);
     TBuilder WithDocumentationCommentTrivia(DocumentationCommentTriviaSyntax documentationCommentTriviaSyntax);
+}
+
+public interface IAddDocumentationCommentTrivia<TBuilder>
+{
+    TBuilder AddDocumentationCommentTrivia(DocumentationCommentTriviaKind kind, Action<IDocumentationCommentTriviaBuilder> documentationCommentTriviaCallback);
+    TBuilder AddDocumentationCommentTrivia(DocumentationCommentTriviaSyntax documentationCommentTriviaSyntax);
 }
 
 public partial class DocumentationCommentTriviaBuilder : IDocumentationCommentTriviaBuilder
@@ -40,14 +46,14 @@ public partial class DocumentationCommentTriviaBuilder : IDocumentationCommentTr
         return builder.Syntax;
     }
 
-    public IDocumentationCommentTriviaBuilder AddContent(Action<IXmlNodeBuilder> contentCallback)
+    public IDocumentationCommentTriviaBuilder AddContentXmlNode(Action<IXmlNodeBuilder> contentCallback)
     {
         var content = XmlNodeBuilder.CreateSyntax(contentCallback);
         Syntax = Syntax.AddContent(content);
         return this;
     }
 
-    public IDocumentationCommentTriviaBuilder AddContent(XmlNodeSyntax content)
+    public IDocumentationCommentTriviaBuilder AddContentXmlNode(XmlNodeSyntax content)
     {
         Syntax = Syntax.AddContent(content);
         return this;

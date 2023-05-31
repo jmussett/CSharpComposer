@@ -4,18 +4,24 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IJoinClauseBuilder : IWithType<IJoinClauseBuilder>, IWithJoinIntoClause<IJoinClauseBuilder>
+public partial interface IJoinClauseBuilder : IWithType<IJoinClauseBuilder>
 {
     IJoinClauseBuilder WithType(Action<ITypeBuilder> typeCallback);
     IJoinClauseBuilder WithType(TypeSyntax type);
-    IJoinClauseBuilder WithJoinIntoClause(string identifier);
-    IJoinClauseBuilder WithJoinIntoClause(JoinIntoClauseSyntax into);
+    IJoinClauseBuilder WithInto(string identifier);
+    IJoinClauseBuilder WithInto(JoinIntoClauseSyntax into);
 }
 
 public interface IWithJoinClause<TBuilder>
 {
     TBuilder WithJoinClause(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder> joinClauseCallback);
     TBuilder WithJoinClause(JoinClauseSyntax joinClauseSyntax);
+}
+
+public interface IAddJoinClause<TBuilder>
+{
+    TBuilder AddJoinClause(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder> joinClauseCallback);
+    TBuilder AddJoinClause(JoinClauseSyntax joinClauseSyntax);
 }
 
 public partial class JoinClauseBuilder : IJoinClauseBuilder
@@ -56,14 +62,14 @@ public partial class JoinClauseBuilder : IJoinClauseBuilder
         return this;
     }
 
-    public IJoinClauseBuilder WithJoinIntoClause(string identifier)
+    public IJoinClauseBuilder WithInto(string identifier)
     {
         var intoSyntax = JoinIntoClauseBuilder.CreateSyntax(identifier);
         Syntax = Syntax.WithInto(intoSyntax);
         return this;
     }
 
-    public IJoinClauseBuilder WithJoinIntoClause(JoinIntoClauseSyntax into)
+    public IJoinClauseBuilder WithInto(JoinIntoClauseSyntax into)
     {
         Syntax = Syntax.WithInto(into);
         return this;

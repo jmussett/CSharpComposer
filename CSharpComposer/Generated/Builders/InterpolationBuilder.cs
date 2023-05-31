@@ -4,18 +4,24 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IInterpolationBuilder : IWithInterpolationAlignmentClause<IInterpolationBuilder>, IWithInterpolationFormatClause<IInterpolationBuilder>
+public partial interface IInterpolationBuilder
 {
-    IInterpolationBuilder WithInterpolationAlignmentClause(Action<IExpressionBuilder> valueCallback);
-    IInterpolationBuilder WithInterpolationAlignmentClause(InterpolationAlignmentClauseSyntax alignmentClause);
-    IInterpolationBuilder WithInterpolationFormatClause();
-    IInterpolationBuilder WithInterpolationFormatClause(InterpolationFormatClauseSyntax formatClause);
+    IInterpolationBuilder WithAlignmentClause(Action<IExpressionBuilder> valueCallback);
+    IInterpolationBuilder WithAlignmentClause(InterpolationAlignmentClauseSyntax alignmentClause);
+    IInterpolationBuilder WithFormatClause();
+    IInterpolationBuilder WithFormatClause(InterpolationFormatClauseSyntax formatClause);
 }
 
 public interface IWithInterpolation<TBuilder>
 {
     TBuilder WithInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder> interpolationCallback);
     TBuilder WithInterpolation(InterpolationSyntax interpolationSyntax);
+}
+
+public interface IAddInterpolation<TBuilder>
+{
+    TBuilder AddInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder> interpolationCallback);
+    TBuilder AddInterpolation(InterpolationSyntax interpolationSyntax);
 }
 
 public partial class InterpolationBuilder : IInterpolationBuilder
@@ -38,27 +44,27 @@ public partial class InterpolationBuilder : IInterpolationBuilder
         return builder.Syntax;
     }
 
-    public IInterpolationBuilder WithInterpolationAlignmentClause(Action<IExpressionBuilder> valueCallback)
+    public IInterpolationBuilder WithAlignmentClause(Action<IExpressionBuilder> valueCallback)
     {
         var alignmentClauseSyntax = InterpolationAlignmentClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithAlignmentClause(alignmentClauseSyntax);
         return this;
     }
 
-    public IInterpolationBuilder WithInterpolationAlignmentClause(InterpolationAlignmentClauseSyntax alignmentClause)
+    public IInterpolationBuilder WithAlignmentClause(InterpolationAlignmentClauseSyntax alignmentClause)
     {
         Syntax = Syntax.WithAlignmentClause(alignmentClause);
         return this;
     }
 
-    public IInterpolationBuilder WithInterpolationFormatClause()
+    public IInterpolationBuilder WithFormatClause()
     {
         var formatClauseSyntax = InterpolationFormatClauseBuilder.CreateSyntax();
         Syntax = Syntax.WithFormatClause(formatClauseSyntax);
         return this;
     }
 
-    public IInterpolationBuilder WithInterpolationFormatClause(InterpolationFormatClauseSyntax formatClause)
+    public IInterpolationBuilder WithFormatClause(InterpolationFormatClauseSyntax formatClause)
     {
         Syntax = Syntax.WithFormatClause(formatClause);
         return this;

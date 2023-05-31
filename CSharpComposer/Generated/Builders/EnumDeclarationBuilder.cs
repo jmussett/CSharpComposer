@@ -4,16 +4,22 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEnumDeclarationBuilder : IBaseTypeDeclarationBuilder<IEnumDeclarationBuilder>
+public partial interface IEnumDeclarationBuilder : IAddBaseType<IEnumDeclarationBuilder>, IBaseTypeDeclarationBuilder<IEnumDeclarationBuilder>
 {
-    IEnumDeclarationBuilder AddMember(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback);
-    IEnumDeclarationBuilder AddMember(EnumMemberDeclarationSyntax member);
+    IEnumDeclarationBuilder AddEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback);
+    IEnumDeclarationBuilder AddEnumMemberDeclaration(EnumMemberDeclarationSyntax member);
 }
 
 public interface IWithEnumDeclaration<TBuilder>
 {
     TBuilder WithEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback);
     TBuilder WithEnumDeclaration(EnumDeclarationSyntax enumDeclarationSyntax);
+}
+
+public interface IAddEnumDeclaration<TBuilder>
+{
+    TBuilder AddEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback);
+    TBuilder AddEnumDeclaration(EnumDeclarationSyntax enumDeclarationSyntax);
 }
 
 public partial class EnumDeclarationBuilder : IEnumDeclarationBuilder
@@ -54,33 +60,33 @@ public partial class EnumDeclarationBuilder : IEnumDeclarationBuilder
         return this;
     }
 
-    public IEnumDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IEnumDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
     }
 
-    public IEnumDeclarationBuilder AddBase(Action<IBaseTypeBuilder> typeCallback)
+    public IEnumDeclarationBuilder AddBaseType(Action<IBaseTypeBuilder> typeCallback)
     {
         var type = BaseTypeBuilder.CreateSyntax(typeCallback);
         Syntax = Syntax.AddBaseListTypes(type);
         return this;
     }
 
-    public IEnumDeclarationBuilder AddBase(BaseTypeSyntax type)
+    public IEnumDeclarationBuilder AddBaseType(BaseTypeSyntax type)
     {
         Syntax = Syntax.AddBaseListTypes(type);
         return this;
     }
 
-    public IEnumDeclarationBuilder AddMember(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback)
+    public IEnumDeclarationBuilder AddEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback)
     {
         var member = EnumMemberDeclarationBuilder.CreateSyntax(identifier, enumMemberDeclarationCallback);
         Syntax = Syntax.AddMembers(member);
         return this;
     }
 
-    public IEnumDeclarationBuilder AddMember(EnumMemberDeclarationSyntax member)
+    public IEnumDeclarationBuilder AddEnumMemberDeclaration(EnumMemberDeclarationSyntax member)
     {
         Syntax = Syntax.AddMembers(member);
         return this;

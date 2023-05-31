@@ -10,6 +10,12 @@ public interface IWithDiscardDesignation<TBuilder>
     TBuilder WithDiscardDesignation(DiscardDesignationSyntax discardDesignationSyntax);
 }
 
+public interface IAddDiscardDesignation<TBuilder>
+{
+    TBuilder AddDiscardDesignation();
+    TBuilder AddDiscardDesignation(DiscardDesignationSyntax discardDesignationSyntax);
+}
+
 public partial class DiscardDesignationBuilder
 {
     public static DiscardDesignationSyntax CreateSyntax()

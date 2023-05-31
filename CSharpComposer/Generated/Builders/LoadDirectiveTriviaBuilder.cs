@@ -10,6 +10,12 @@ public interface IWithLoadDirectiveTrivia<TBuilder>
     TBuilder WithLoadDirectiveTrivia(LoadDirectiveTriviaSyntax loadDirectiveTriviaSyntax);
 }
 
+public interface IAddLoadDirectiveTrivia<TBuilder>
+{
+    TBuilder AddLoadDirectiveTrivia(string file, bool isActive);
+    TBuilder AddLoadDirectiveTrivia(LoadDirectiveTriviaSyntax loadDirectiveTriviaSyntax);
+}
+
 public partial class LoadDirectiveTriviaBuilder
 {
     public static LoadDirectiveTriviaSyntax CreateSyntax(string file, bool isActive)

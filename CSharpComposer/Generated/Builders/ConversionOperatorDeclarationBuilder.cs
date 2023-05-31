@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IConversionOperatorDeclarationBuilder : IWithExplicitInterfaceSpecifier<IConversionOperatorDeclarationBuilder>, IWithBlock<IConversionOperatorDeclarationBuilder>, IWithArrowExpressionClause<IConversionOperatorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IConversionOperatorDeclarationBuilder>
+public partial interface IConversionOperatorDeclarationBuilder : IWithExplicitInterfaceSpecifier<IConversionOperatorDeclarationBuilder>, IAddParameter<IConversionOperatorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IConversionOperatorDeclarationBuilder>
 {
     IConversionOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
     IConversionOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier);
@@ -15,6 +15,12 @@ public interface IWithConversionOperatorDeclaration<TBuilder>
 {
     TBuilder WithConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder> conversionOperatorDeclarationCallback);
     TBuilder WithConversionOperatorDeclaration(ConversionOperatorDeclarationSyntax conversionOperatorDeclarationSyntax);
+}
+
+public interface IAddConversionOperatorDeclaration<TBuilder>
+{
+    TBuilder AddConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder> conversionOperatorDeclarationCallback);
+    TBuilder AddConversionOperatorDeclaration(ConversionOperatorDeclarationSyntax conversionOperatorDeclarationSyntax);
 }
 
 public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorDeclarationBuilder
@@ -43,27 +49,27 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         return builder.Syntax;
     }
 
-    public IConversionOperatorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
+    public IConversionOperatorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
+    public IConversionOperatorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
+    public IConversionOperatorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder WithBlock(BlockSyntax body)
+    public IConversionOperatorDeclarationBuilder WithBody(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;
@@ -86,7 +92,7 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IConversionOperatorDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

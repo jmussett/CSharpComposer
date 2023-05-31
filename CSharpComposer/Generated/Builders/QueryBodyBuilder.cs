@@ -4,18 +4,24 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IQueryBodyBuilder : IWithQueryContinuation<IQueryBodyBuilder>
+public partial interface IQueryBodyBuilder
 {
-    IQueryBodyBuilder AddClause(Action<IQueryClauseBuilder> clauseCallback);
-    IQueryBodyBuilder AddClause(QueryClauseSyntax clause);
-    IQueryBodyBuilder WithQueryContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback);
-    IQueryBodyBuilder WithQueryContinuation(QueryContinuationSyntax continuation);
+    IQueryBodyBuilder AddQueryClause(Action<IQueryClauseBuilder> clauseCallback);
+    IQueryBodyBuilder AddQueryClause(QueryClauseSyntax clause);
+    IQueryBodyBuilder WithContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback);
+    IQueryBodyBuilder WithContinuation(QueryContinuationSyntax continuation);
 }
 
 public interface IWithQueryBody<TBuilder>
 {
     TBuilder WithQueryBody(Action<ISelectOrGroupClauseBuilder> selectOrGroupCallback, Action<IQueryBodyBuilder> queryBodyCallback);
     TBuilder WithQueryBody(QueryBodySyntax queryBodySyntax);
+}
+
+public interface IAddQueryBody<TBuilder>
+{
+    TBuilder AddQueryBody(Action<ISelectOrGroupClauseBuilder> selectOrGroupCallback, Action<IQueryBodyBuilder> queryBodyCallback);
+    TBuilder AddQueryBody(QueryBodySyntax queryBodySyntax);
 }
 
 public partial class QueryBodyBuilder : IQueryBodyBuilder
@@ -36,27 +42,27 @@ public partial class QueryBodyBuilder : IQueryBodyBuilder
         return builder.Syntax;
     }
 
-    public IQueryBodyBuilder AddClause(Action<IQueryClauseBuilder> clauseCallback)
+    public IQueryBodyBuilder AddQueryClause(Action<IQueryClauseBuilder> clauseCallback)
     {
         var clause = QueryClauseBuilder.CreateSyntax(clauseCallback);
         Syntax = Syntax.AddClauses(clause);
         return this;
     }
 
-    public IQueryBodyBuilder AddClause(QueryClauseSyntax clause)
+    public IQueryBodyBuilder AddQueryClause(QueryClauseSyntax clause)
     {
         Syntax = Syntax.AddClauses(clause);
         return this;
     }
 
-    public IQueryBodyBuilder WithQueryContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback)
+    public IQueryBodyBuilder WithContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback)
     {
         var continuationSyntax = QueryContinuationBuilder.CreateSyntax(identifier, bodySelectOrGroupCallback, bodyQueryBodyCallback);
         Syntax = Syntax.WithContinuation(continuationSyntax);
         return this;
     }
 
-    public IQueryBodyBuilder WithQueryContinuation(QueryContinuationSyntax continuation)
+    public IQueryBodyBuilder WithContinuation(QueryContinuationSyntax continuation)
     {
         Syntax = Syntax.WithContinuation(continuation);
         return this;

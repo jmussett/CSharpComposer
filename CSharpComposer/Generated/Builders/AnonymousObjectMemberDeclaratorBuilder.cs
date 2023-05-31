@@ -16,6 +16,12 @@ public interface IWithAnonymousObjectMemberDeclarator<TBuilder>
     TBuilder WithAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax anonymousObjectMemberDeclaratorSyntax);
 }
 
+public interface IAddAnonymousObjectMemberDeclarator<TBuilder>
+{
+    TBuilder AddAnonymousObjectMemberDeclarator(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder> anonymousObjectMemberDeclaratorCallback);
+    TBuilder AddAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax anonymousObjectMemberDeclaratorSyntax);
+}
+
 public partial class AnonymousObjectMemberDeclaratorBuilder : IAnonymousObjectMemberDeclaratorBuilder
 {
     public AnonymousObjectMemberDeclaratorSyntax Syntax { get; set; }

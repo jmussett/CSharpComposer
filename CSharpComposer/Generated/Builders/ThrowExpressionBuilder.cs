@@ -10,6 +10,12 @@ public interface IWithThrowExpression<TBuilder>
     TBuilder WithThrowExpression(ThrowExpressionSyntax throwExpressionSyntax);
 }
 
+public interface IAddThrowExpression<TBuilder>
+{
+    TBuilder AddThrowExpression(Action<IExpressionBuilder> expressionCallback);
+    TBuilder AddThrowExpression(ThrowExpressionSyntax throwExpressionSyntax);
+}
+
 public partial class ThrowExpressionBuilder
 {
     public static ThrowExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback)

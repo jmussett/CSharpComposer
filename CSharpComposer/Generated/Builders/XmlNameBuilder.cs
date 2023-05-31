@@ -4,16 +4,22 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IXmlNameBuilder : IWithXmlPrefix<IXmlNameBuilder>
+public partial interface IXmlNameBuilder
 {
-    IXmlNameBuilder WithXmlPrefix(string prefix);
-    IXmlNameBuilder WithXmlPrefix(XmlPrefixSyntax prefix);
+    IXmlNameBuilder WithPrefix(string prefix);
+    IXmlNameBuilder WithPrefix(XmlPrefixSyntax prefix);
 }
 
 public interface IWithXmlName<TBuilder>
 {
     TBuilder WithXmlName(string localName, Action<IXmlNameBuilder> xmlNameCallback);
     TBuilder WithXmlName(XmlNameSyntax xmlNameSyntax);
+}
+
+public interface IAddXmlName<TBuilder>
+{
+    TBuilder AddXmlName(string localName, Action<IXmlNameBuilder> xmlNameCallback);
+    TBuilder AddXmlName(XmlNameSyntax xmlNameSyntax);
 }
 
 public partial class XmlNameBuilder : IXmlNameBuilder
@@ -34,14 +40,14 @@ public partial class XmlNameBuilder : IXmlNameBuilder
         return builder.Syntax;
     }
 
-    public IXmlNameBuilder WithXmlPrefix(string prefix)
+    public IXmlNameBuilder WithPrefix(string prefix)
     {
         var prefixSyntax = XmlPrefixBuilder.CreateSyntax(prefix);
         Syntax = Syntax.WithPrefix(prefixSyntax);
         return this;
     }
 
-    public IXmlNameBuilder WithXmlPrefix(XmlPrefixSyntax prefix)
+    public IXmlNameBuilder WithPrefix(XmlPrefixSyntax prefix)
     {
         Syntax = Syntax.WithPrefix(prefix);
         return this;

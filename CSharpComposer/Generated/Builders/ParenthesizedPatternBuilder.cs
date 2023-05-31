@@ -10,6 +10,12 @@ public interface IWithParenthesizedPattern<TBuilder>
     TBuilder WithParenthesizedPattern(ParenthesizedPatternSyntax parenthesizedPatternSyntax);
 }
 
+public interface IAddParenthesizedPattern<TBuilder>
+{
+    TBuilder AddParenthesizedPattern(Action<IPatternBuilder> patternCallback);
+    TBuilder AddParenthesizedPattern(ParenthesizedPatternSyntax parenthesizedPatternSyntax);
+}
+
 public partial class ParenthesizedPatternBuilder
 {
     public static ParenthesizedPatternSyntax CreateSyntax(Action<IPatternBuilder> patternCallback)

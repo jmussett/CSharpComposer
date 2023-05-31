@@ -14,6 +14,12 @@ public interface IWithEmptyStatement<TBuilder>
     TBuilder WithEmptyStatement(EmptyStatementSyntax emptyStatementSyntax);
 }
 
+public interface IAddEmptyStatement<TBuilder>
+{
+    TBuilder AddEmptyStatement(Action<IEmptyStatementBuilder> emptyStatementCallback);
+    TBuilder AddEmptyStatement(EmptyStatementSyntax emptyStatementSyntax);
+}
+
 public partial class EmptyStatementBuilder : IEmptyStatementBuilder
 {
     public EmptyStatementSyntax Syntax { get; set; }

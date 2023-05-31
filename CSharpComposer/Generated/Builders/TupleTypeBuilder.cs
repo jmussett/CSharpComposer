@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ITupleTypeBuilder
 {
-    ITupleTypeBuilder AddElement(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder> tupleElementCallback);
-    ITupleTypeBuilder AddElement(TupleElementSyntax element);
+    ITupleTypeBuilder AddTupleElement(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder> tupleElementCallback);
+    ITupleTypeBuilder AddTupleElement(TupleElementSyntax element);
 }
 
 public interface IWithTupleType<TBuilder>
 {
     TBuilder WithTupleType(Action<ITupleTypeBuilder> tupleTypeCallback);
     TBuilder WithTupleType(TupleTypeSyntax tupleTypeSyntax);
+}
+
+public interface IAddTupleType<TBuilder>
+{
+    TBuilder AddTupleType(Action<ITupleTypeBuilder> tupleTypeCallback);
+    TBuilder AddTupleType(TupleTypeSyntax tupleTypeSyntax);
 }
 
 public partial class TupleTypeBuilder : ITupleTypeBuilder
@@ -35,14 +41,14 @@ public partial class TupleTypeBuilder : ITupleTypeBuilder
         return builder.Syntax;
     }
 
-    public ITupleTypeBuilder AddElement(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder> tupleElementCallback)
+    public ITupleTypeBuilder AddTupleElement(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder> tupleElementCallback)
     {
         var element = TupleElementBuilder.CreateSyntax(typeCallback, tupleElementCallback);
         Syntax = Syntax.AddElements(element);
         return this;
     }
 
-    public ITupleTypeBuilder AddElement(TupleElementSyntax element)
+    public ITupleTypeBuilder AddTupleElement(TupleElementSyntax element)
     {
         Syntax = Syntax.AddElements(element);
         return this;

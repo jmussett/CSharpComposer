@@ -4,16 +4,22 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ISubpatternBuilder : IWithBaseExpressionColon<ISubpatternBuilder>
+public partial interface ISubpatternBuilder
 {
-    ISubpatternBuilder WithBaseExpressionColon(Action<IBaseExpressionColonBuilder> expressionColonCallback);
-    ISubpatternBuilder WithBaseExpressionColon(BaseExpressionColonSyntax expressionColon);
+    ISubpatternBuilder WithExpressionColon(Action<IBaseExpressionColonBuilder> expressionColonCallback);
+    ISubpatternBuilder WithExpressionColon(BaseExpressionColonSyntax expressionColon);
 }
 
 public interface IWithSubpattern<TBuilder>
 {
     TBuilder WithSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback);
     TBuilder WithSubpattern(SubpatternSyntax subpatternSyntax);
+}
+
+public interface IAddSubpattern<TBuilder>
+{
+    TBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback);
+    TBuilder AddSubpattern(SubpatternSyntax subpatternSyntax);
 }
 
 public partial class SubpatternBuilder : ISubpatternBuilder
@@ -34,14 +40,14 @@ public partial class SubpatternBuilder : ISubpatternBuilder
         return builder.Syntax;
     }
 
-    public ISubpatternBuilder WithBaseExpressionColon(Action<IBaseExpressionColonBuilder> expressionColonCallback)
+    public ISubpatternBuilder WithExpressionColon(Action<IBaseExpressionColonBuilder> expressionColonCallback)
     {
         var expressionColonSyntax = BaseExpressionColonBuilder.CreateSyntax(expressionColonCallback);
         Syntax = Syntax.WithExpressionColon(expressionColonSyntax);
         return this;
     }
 
-    public ISubpatternBuilder WithBaseExpressionColon(BaseExpressionColonSyntax expressionColon)
+    public ISubpatternBuilder WithExpressionColon(BaseExpressionColonSyntax expressionColon)
     {
         Syntax = Syntax.WithExpressionColon(expressionColon);
         return this;

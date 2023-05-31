@@ -6,20 +6,26 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ICompilationUnitBuilder
 {
-    ICompilationUnitBuilder AddExtern(string identifier);
-    ICompilationUnitBuilder AddExtern(ExternAliasDirectiveSyntax @extern);
-    ICompilationUnitBuilder AddUsing(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
-    ICompilationUnitBuilder AddUsing(UsingDirectiveSyntax @using);
+    ICompilationUnitBuilder AddExternAliasDirective(string identifier);
+    ICompilationUnitBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax @extern);
+    ICompilationUnitBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
+    ICompilationUnitBuilder AddUsingDirective(UsingDirectiveSyntax @using);
     ICompilationUnitBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
     ICompilationUnitBuilder AddAttribute(AttributeSyntax attribute);
-    ICompilationUnitBuilder AddMember(Action<IMemberDeclarationBuilder> memberCallback);
-    ICompilationUnitBuilder AddMember(MemberDeclarationSyntax member);
+    ICompilationUnitBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback);
+    ICompilationUnitBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
 public interface IWithCompilationUnit<TBuilder>
 {
     TBuilder WithCompilationUnit(Action<ICompilationUnitBuilder> compilationUnitCallback);
     TBuilder WithCompilationUnit(CompilationUnitSyntax compilationUnitSyntax);
+}
+
+public interface IAddCompilationUnit<TBuilder>
+{
+    TBuilder AddCompilationUnit(Action<ICompilationUnitBuilder> compilationUnitCallback);
+    TBuilder AddCompilationUnit(CompilationUnitSyntax compilationUnitSyntax);
 }
 
 public partial class CompilationUnitBuilder : ICompilationUnitBuilder
@@ -40,27 +46,27 @@ public partial class CompilationUnitBuilder : ICompilationUnitBuilder
         return builder.Syntax;
     }
 
-    public ICompilationUnitBuilder AddExtern(string identifier)
+    public ICompilationUnitBuilder AddExternAliasDirective(string identifier)
     {
         var @extern = ExternAliasDirectiveBuilder.CreateSyntax(identifier);
         Syntax = Syntax.AddExterns(@extern);
         return this;
     }
 
-    public ICompilationUnitBuilder AddExtern(ExternAliasDirectiveSyntax @extern)
+    public ICompilationUnitBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax @extern)
     {
         Syntax = Syntax.AddExterns(@extern);
         return this;
     }
 
-    public ICompilationUnitBuilder AddUsing(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
+    public ICompilationUnitBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
     {
         var @using = UsingDirectiveBuilder.CreateSyntax(nameCallback, usingDirectiveCallback);
         Syntax = Syntax.AddUsings(@using);
         return this;
     }
 
-    public ICompilationUnitBuilder AddUsing(UsingDirectiveSyntax @using)
+    public ICompilationUnitBuilder AddUsingDirective(UsingDirectiveSyntax @using)
     {
         Syntax = Syntax.AddUsings(@using);
         return this;
@@ -83,14 +89,14 @@ public partial class CompilationUnitBuilder : ICompilationUnitBuilder
         return this;
     }
 
-    public ICompilationUnitBuilder AddMember(Action<IMemberDeclarationBuilder> memberCallback)
+    public ICompilationUnitBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback)
     {
         var member = MemberDeclarationBuilder.CreateSyntax(memberCallback);
         Syntax = Syntax.AddMembers(member);
         return this;
     }
 
-    public ICompilationUnitBuilder AddMember(MemberDeclarationSyntax member)
+    public ICompilationUnitBuilder AddMemberDeclaration(MemberDeclarationSyntax member)
     {
         Syntax = Syntax.AddMembers(member);
         return this;

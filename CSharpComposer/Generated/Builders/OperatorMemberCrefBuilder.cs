@@ -7,14 +7,20 @@ namespace CSharpComposer;
 public partial interface IOperatorMemberCrefBuilder
 {
     IOperatorMemberCrefBuilder WithCheckedKeyword();
-    IOperatorMemberCrefBuilder AddParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
-    IOperatorMemberCrefBuilder AddParameter(CrefParameterSyntax parameter);
+    IOperatorMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
+    IOperatorMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
 public interface IWithOperatorMemberCref<TBuilder>
 {
     TBuilder WithOperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder> operatorMemberCrefCallback);
     TBuilder WithOperatorMemberCref(OperatorMemberCrefSyntax operatorMemberCrefSyntax);
+}
+
+public interface IAddOperatorMemberCref<TBuilder>
+{
+    TBuilder AddOperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder> operatorMemberCrefCallback);
+    TBuilder AddOperatorMemberCref(OperatorMemberCrefSyntax operatorMemberCrefSyntax);
 }
 
 public partial class OperatorMemberCrefBuilder : IOperatorMemberCrefBuilder
@@ -68,14 +74,14 @@ public partial class OperatorMemberCrefBuilder : IOperatorMemberCrefBuilder
         return this;
     }
 
-    public IOperatorMemberCrefBuilder AddParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
+    public IOperatorMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
     {
         var parameter = CrefParameterBuilder.CreateSyntax(typeCallback, crefParameterCallback);
         Syntax = Syntax.AddParametersParameters(parameter);
         return this;
     }
 
-    public IOperatorMemberCrefBuilder AddParameter(CrefParameterSyntax parameter)
+    public IOperatorMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter)
     {
         Syntax = Syntax.AddParametersParameters(parameter);
         return this;

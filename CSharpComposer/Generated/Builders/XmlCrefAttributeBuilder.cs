@@ -10,6 +10,12 @@ public interface IWithXmlCrefAttribute<TBuilder>
     TBuilder WithXmlCrefAttribute(XmlCrefAttributeSyntax xmlCrefAttributeSyntax);
 }
 
+public interface IAddXmlCrefAttribute<TBuilder>
+{
+    TBuilder AddXmlCrefAttribute(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, XmlCrefAttributeStartQuoteToken xmlCrefAttributeStartQuoteToken, Action<ICrefBuilder> crefCallback, XmlCrefAttributeEndQuoteToken xmlCrefAttributeEndQuoteToken);
+    TBuilder AddXmlCrefAttribute(XmlCrefAttributeSyntax xmlCrefAttributeSyntax);
+}
+
 public partial class XmlCrefAttributeBuilder
 {
     public static XmlCrefAttributeSyntax CreateSyntax(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, XmlCrefAttributeStartQuoteToken xmlCrefAttributeStartQuoteToken, Action<ICrefBuilder> crefCallback, XmlCrefAttributeEndQuoteToken xmlCrefAttributeEndQuoteToken)

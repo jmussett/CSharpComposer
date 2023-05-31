@@ -10,6 +10,12 @@ public interface IWithXmlElementEndTag<TBuilder>
     TBuilder WithXmlElementEndTag(XmlElementEndTagSyntax xmlElementEndTagSyntax);
 }
 
+public interface IAddXmlElementEndTag<TBuilder>
+{
+    TBuilder AddXmlElementEndTag(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback);
+    TBuilder AddXmlElementEndTag(XmlElementEndTagSyntax xmlElementEndTagSyntax);
+}
+
 public partial class XmlElementEndTagBuilder
 {
     public static XmlElementEndTagSyntax CreateSyntax(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback)

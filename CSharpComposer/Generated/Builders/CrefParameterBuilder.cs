@@ -15,6 +15,12 @@ public interface IWithCrefParameter<TBuilder>
     TBuilder WithCrefParameter(CrefParameterSyntax crefParameterSyntax);
 }
 
+public interface IAddCrefParameter<TBuilder>
+{
+    TBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
+    TBuilder AddCrefParameter(CrefParameterSyntax crefParameterSyntax);
+}
+
 public partial class CrefParameterBuilder : ICrefParameterBuilder
 {
     public CrefParameterSyntax Syntax { get; set; }

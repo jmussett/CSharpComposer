@@ -10,6 +10,12 @@ public interface IWithSimpleBaseType<TBuilder>
     TBuilder WithSimpleBaseType(SimpleBaseTypeSyntax simpleBaseTypeSyntax);
 }
 
+public interface IAddSimpleBaseType<TBuilder>
+{
+    TBuilder AddSimpleBaseType(Action<ITypeBuilder> typeCallback);
+    TBuilder AddSimpleBaseType(SimpleBaseTypeSyntax simpleBaseTypeSyntax);
+}
+
 public partial class SimpleBaseTypeBuilder
 {
     public static SimpleBaseTypeSyntax CreateSyntax(Action<ITypeBuilder> typeCallback)

@@ -6,13 +6,19 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IXmlProcessingInstructionBuilder
 {
-    IXmlProcessingInstructionBuilder AddTextToken(SyntaxToken textToken);
+    IXmlProcessingInstructionBuilder AddToken(SyntaxToken textToken);
 }
 
 public interface IWithXmlProcessingInstruction<TBuilder>
 {
     TBuilder WithXmlProcessingInstruction(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlProcessingInstructionBuilder> xmlProcessingInstructionCallback);
     TBuilder WithXmlProcessingInstruction(XmlProcessingInstructionSyntax xmlProcessingInstructionSyntax);
+}
+
+public interface IAddXmlProcessingInstruction<TBuilder>
+{
+    TBuilder AddXmlProcessingInstruction(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlProcessingInstructionBuilder> xmlProcessingInstructionCallback);
+    TBuilder AddXmlProcessingInstruction(XmlProcessingInstructionSyntax xmlProcessingInstructionSyntax);
 }
 
 public partial class XmlProcessingInstructionBuilder : IXmlProcessingInstructionBuilder
@@ -35,7 +41,7 @@ public partial class XmlProcessingInstructionBuilder : IXmlProcessingInstruction
         return builder.Syntax;
     }
 
-    public IXmlProcessingInstructionBuilder AddTextToken(SyntaxToken textToken)
+    public IXmlProcessingInstructionBuilder AddToken(SyntaxToken textToken)
     {
         Syntax = Syntax.AddTextTokens(textToken);
         return this;

@@ -14,6 +14,12 @@ public interface IWithExpressionStatement<TBuilder>
     TBuilder WithExpressionStatement(ExpressionStatementSyntax expressionStatementSyntax);
 }
 
+public interface IAddExpressionStatement<TBuilder>
+{
+    TBuilder AddExpressionStatement(Action<IExpressionBuilder> expressionCallback, Action<IExpressionStatementBuilder> expressionStatementCallback);
+    TBuilder AddExpressionStatement(ExpressionStatementSyntax expressionStatementSyntax);
+}
+
 public partial class ExpressionStatementBuilder : IExpressionStatementBuilder
 {
     public ExpressionStatementSyntax Syntax { get; set; }

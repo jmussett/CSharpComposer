@@ -10,6 +10,12 @@ public interface IWithElifDirectiveTrivia<TBuilder>
     TBuilder WithElifDirectiveTrivia(ElifDirectiveTriviaSyntax elifDirectiveTriviaSyntax);
 }
 
+public interface IAddElifDirectiveTrivia<TBuilder>
+{
+    TBuilder AddElifDirectiveTrivia(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue);
+    TBuilder AddElifDirectiveTrivia(ElifDirectiveTriviaSyntax elifDirectiveTriviaSyntax);
+}
+
 public partial class ElifDirectiveTriviaBuilder
 {
     public static ElifDirectiveTriviaSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue)

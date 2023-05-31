@@ -10,6 +10,12 @@ public interface IWithFinallyClause<TBuilder>
     TBuilder WithFinallyClause(FinallyClauseSyntax finallyClauseSyntax);
 }
 
+public interface IAddFinallyClause<TBuilder>
+{
+    TBuilder AddFinallyClause(Action<IBlockBuilder> blockBlockCallback);
+    TBuilder AddFinallyClause(FinallyClauseSyntax finallyClauseSyntax);
+}
+
 public partial class FinallyClauseBuilder
 {
     public static FinallyClauseSyntax CreateSyntax(Action<IBlockBuilder> blockBlockCallback)

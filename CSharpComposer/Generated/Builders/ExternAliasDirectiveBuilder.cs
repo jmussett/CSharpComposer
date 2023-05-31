@@ -10,6 +10,12 @@ public interface IWithExternAliasDirective<TBuilder>
     TBuilder WithExternAliasDirective(ExternAliasDirectiveSyntax externAliasDirectiveSyntax);
 }
 
+public interface IAddExternAliasDirective<TBuilder>
+{
+    TBuilder AddExternAliasDirective(string identifier);
+    TBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax externAliasDirectiveSyntax);
+}
+
 public partial class ExternAliasDirectiveBuilder
 {
     public static ExternAliasDirectiveSyntax CreateSyntax(string identifier)

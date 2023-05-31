@@ -10,6 +10,12 @@ public interface IWithDeclarationPattern<TBuilder>
     TBuilder WithDeclarationPattern(DeclarationPatternSyntax declarationPatternSyntax);
 }
 
+public interface IAddDeclarationPattern<TBuilder>
+{
+    TBuilder AddDeclarationPattern(Action<ITypeBuilder> typeCallback, Action<IVariableDesignationBuilder> designationCallback);
+    TBuilder AddDeclarationPattern(DeclarationPatternSyntax declarationPatternSyntax);
+}
+
 public partial class DeclarationPatternBuilder
 {
     public static DeclarationPatternSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IVariableDesignationBuilder> designationCallback)

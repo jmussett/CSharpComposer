@@ -4,20 +4,26 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IDelegateDeclarationBuilder : IMemberDeclarationBuilder<IDelegateDeclarationBuilder>
+public partial interface IDelegateDeclarationBuilder : IAddTypeParameter<IDelegateDeclarationBuilder>, IAddParameter<IDelegateDeclarationBuilder>, IMemberDeclarationBuilder<IDelegateDeclarationBuilder>
 {
     IDelegateDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
     IDelegateDeclarationBuilder AddTypeParameter(TypeParameterSyntax parameter);
     IDelegateDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     IDelegateDeclarationBuilder AddParameter(ParameterSyntax parameter);
-    IDelegateDeclarationBuilder AddConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
-    IDelegateDeclarationBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
+    IDelegateDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
+    IDelegateDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
 public interface IWithDelegateDeclaration<TBuilder>
 {
     TBuilder WithDelegateDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback);
     TBuilder WithDelegateDeclaration(DelegateDeclarationSyntax delegateDeclarationSyntax);
+}
+
+public interface IAddDelegateDeclaration<TBuilder>
+{
+    TBuilder AddDelegateDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback);
+    TBuilder AddDelegateDeclaration(DelegateDeclarationSyntax delegateDeclarationSyntax);
 }
 
 public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
@@ -59,7 +65,7 @@ public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
         return this;
     }
 
-    public IDelegateDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IDelegateDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
@@ -91,14 +97,14 @@ public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
         return this;
     }
 
-    public IDelegateDeclarationBuilder AddConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
+    public IDelegateDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
     {
         var constraintClause = TypeParameterConstraintClauseBuilder.CreateSyntax(nameIdentifier, typeParameterConstraintClauseCallback);
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;
     }
 
-    public IDelegateDeclarationBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
+    public IDelegateDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
     {
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;

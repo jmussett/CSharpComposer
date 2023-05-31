@@ -16,6 +16,12 @@ public interface IWithConditionalDirectiveTrivia<TBuilder>
     TBuilder WithConditionalDirectiveTrivia(ConditionalDirectiveTriviaSyntax conditionalDirectiveTriviaSyntax);
 }
 
+public interface IAddConditionalDirectiveTrivia<TBuilder>
+{
+    TBuilder AddConditionalDirectiveTrivia(Action<IConditionalDirectiveTriviaBuilder> conditionalDirectiveTriviaCallback);
+    TBuilder AddConditionalDirectiveTrivia(ConditionalDirectiveTriviaSyntax conditionalDirectiveTriviaSyntax);
+}
+
 public partial class ConditionalDirectiveTriviaBuilder : IConditionalDirectiveTriviaBuilder
 {
     public ConditionalDirectiveTriviaSyntax? Syntax { get; set; }

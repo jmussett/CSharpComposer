@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IVariableDeclarationBuilder
 {
-    IVariableDeclarationBuilder AddVariable(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback);
-    IVariableDeclarationBuilder AddVariable(VariableDeclaratorSyntax variable);
+    IVariableDeclarationBuilder AddVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback);
+    IVariableDeclarationBuilder AddVariableDeclarator(VariableDeclaratorSyntax variable);
 }
 
 public interface IWithVariableDeclaration<TBuilder>
 {
     TBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
     TBuilder WithVariableDeclaration(VariableDeclarationSyntax variableDeclarationSyntax);
+}
+
+public interface IAddVariableDeclaration<TBuilder>
+{
+    TBuilder AddVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
+    TBuilder AddVariableDeclaration(VariableDeclarationSyntax variableDeclarationSyntax);
 }
 
 public partial class VariableDeclarationBuilder : IVariableDeclarationBuilder
@@ -34,14 +40,14 @@ public partial class VariableDeclarationBuilder : IVariableDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IVariableDeclarationBuilder AddVariable(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback)
+    public IVariableDeclarationBuilder AddVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback)
     {
         var variable = VariableDeclaratorBuilder.CreateSyntax(identifier, variableDeclaratorCallback);
         Syntax = Syntax.AddVariables(variable);
         return this;
     }
 
-    public IVariableDeclarationBuilder AddVariable(VariableDeclaratorSyntax variable)
+    public IVariableDeclarationBuilder AddVariableDeclarator(VariableDeclaratorSyntax variable)
     {
         Syntax = Syntax.AddVariables(variable);
         return this;

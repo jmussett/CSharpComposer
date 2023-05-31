@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IParenthesizedLambdaExpressionBuilder : IWithType<IParenthesizedLambdaExpressionBuilder>, IWithBlock<IParenthesizedLambdaExpressionBuilder>, IWithExpression<IParenthesizedLambdaExpressionBuilder>, ILambdaExpressionBuilder<IParenthesizedLambdaExpressionBuilder>
+public partial interface IParenthesizedLambdaExpressionBuilder : IAddParameter<IParenthesizedLambdaExpressionBuilder>, IWithBlock<IParenthesizedLambdaExpressionBuilder>, ILambdaExpressionBuilder<IParenthesizedLambdaExpressionBuilder>
 {
-    IParenthesizedLambdaExpressionBuilder WithType(Action<ITypeBuilder> returnTypeCallback);
-    IParenthesizedLambdaExpressionBuilder WithType(TypeSyntax returnType);
+    IParenthesizedLambdaExpressionBuilder WithReturnType(Action<ITypeBuilder> returnTypeCallback);
+    IParenthesizedLambdaExpressionBuilder WithReturnType(TypeSyntax returnType);
     IParenthesizedLambdaExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     IParenthesizedLambdaExpressionBuilder AddParameter(ParameterSyntax parameter);
 }
@@ -16,6 +16,12 @@ public interface IWithParenthesizedLambdaExpression<TBuilder>
 {
     TBuilder WithParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder> parenthesizedLambdaExpressionCallback);
     TBuilder WithParenthesizedLambdaExpression(ParenthesizedLambdaExpressionSyntax parenthesizedLambdaExpressionSyntax);
+}
+
+public interface IAddParenthesizedLambdaExpression<TBuilder>
+{
+    TBuilder AddParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder> parenthesizedLambdaExpressionCallback);
+    TBuilder AddParenthesizedLambdaExpression(ParenthesizedLambdaExpressionSyntax parenthesizedLambdaExpressionSyntax);
 }
 
 public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambdaExpressionBuilder
@@ -50,14 +56,14 @@ public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambda
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder WithExpression(Action<IExpressionBuilder> expressionBodyCallback)
+    public IParenthesizedLambdaExpressionBuilder WithExpressionBody(Action<IExpressionBuilder> expressionBodyCallback)
     {
         var expressionBodySyntax = ExpressionBuilder.CreateSyntax(expressionBodyCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder WithExpression(ExpressionSyntax expressionBody)
+    public IParenthesizedLambdaExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
@@ -80,20 +86,20 @@ public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambda
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder AddModifier(SyntaxToken modifier)
+    public IParenthesizedLambdaExpressionBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder WithType(Action<ITypeBuilder> returnTypeCallback)
+    public IParenthesizedLambdaExpressionBuilder WithReturnType(Action<ITypeBuilder> returnTypeCallback)
     {
         var returnTypeSyntax = TypeBuilder.CreateSyntax(returnTypeCallback);
         Syntax = Syntax.WithReturnType(returnTypeSyntax);
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder WithType(TypeSyntax returnType)
+    public IParenthesizedLambdaExpressionBuilder WithReturnType(TypeSyntax returnType)
     {
         Syntax = Syntax.WithReturnType(returnType);
         return this;

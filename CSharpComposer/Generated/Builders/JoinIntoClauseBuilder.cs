@@ -10,6 +10,12 @@ public interface IWithJoinIntoClause<TBuilder>
     TBuilder WithJoinIntoClause(JoinIntoClauseSyntax joinIntoClauseSyntax);
 }
 
+public interface IAddJoinIntoClause<TBuilder>
+{
+    TBuilder AddJoinIntoClause(string identifier);
+    TBuilder AddJoinIntoClause(JoinIntoClauseSyntax joinIntoClauseSyntax);
+}
+
 public partial class JoinIntoClauseBuilder
 {
     public static JoinIntoClauseSyntax CreateSyntax(string identifier)

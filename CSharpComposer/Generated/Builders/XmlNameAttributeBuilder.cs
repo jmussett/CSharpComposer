@@ -10,6 +10,12 @@ public interface IWithXmlNameAttribute<TBuilder>
     TBuilder WithXmlNameAttribute(XmlNameAttributeSyntax xmlNameAttributeSyntax);
 }
 
+public interface IAddXmlNameAttribute<TBuilder>
+{
+    TBuilder AddXmlNameAttribute(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, XmlNameAttributeStartQuoteToken xmlNameAttributeStartQuoteToken, string identifierIdentifier, XmlNameAttributeEndQuoteToken xmlNameAttributeEndQuoteToken);
+    TBuilder AddXmlNameAttribute(XmlNameAttributeSyntax xmlNameAttributeSyntax);
+}
+
 public partial class XmlNameAttributeBuilder
 {
     public static XmlNameAttributeSyntax CreateSyntax(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, XmlNameAttributeStartQuoteToken xmlNameAttributeStartQuoteToken, string identifierIdentifier, XmlNameAttributeEndQuoteToken xmlNameAttributeEndQuoteToken)

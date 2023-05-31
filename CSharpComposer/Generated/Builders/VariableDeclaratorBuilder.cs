@@ -4,18 +4,24 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IVariableDeclaratorBuilder : IWithEqualsValueClause<IVariableDeclaratorBuilder>
+public partial interface IVariableDeclaratorBuilder
 {
     IVariableDeclaratorBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     IVariableDeclaratorBuilder AddArgument(ArgumentSyntax argument);
-    IVariableDeclaratorBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
-    IVariableDeclaratorBuilder WithEqualsValueClause(EqualsValueClauseSyntax initializer);
+    IVariableDeclaratorBuilder WithInitializer(Action<IExpressionBuilder> valueCallback);
+    IVariableDeclaratorBuilder WithInitializer(EqualsValueClauseSyntax initializer);
 }
 
 public interface IWithVariableDeclarator<TBuilder>
 {
     TBuilder WithVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback);
     TBuilder WithVariableDeclarator(VariableDeclaratorSyntax variableDeclaratorSyntax);
+}
+
+public interface IAddVariableDeclarator<TBuilder>
+{
+    TBuilder AddVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback);
+    TBuilder AddVariableDeclarator(VariableDeclaratorSyntax variableDeclaratorSyntax);
 }
 
 public partial class VariableDeclaratorBuilder : IVariableDeclaratorBuilder
@@ -49,14 +55,14 @@ public partial class VariableDeclaratorBuilder : IVariableDeclaratorBuilder
         return this;
     }
 
-    public IVariableDeclaratorBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback)
+    public IVariableDeclaratorBuilder WithInitializer(Action<IExpressionBuilder> valueCallback)
     {
         var initializerSyntax = EqualsValueClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IVariableDeclaratorBuilder WithEqualsValueClause(EqualsValueClauseSyntax initializer)
+    public IVariableDeclaratorBuilder WithInitializer(EqualsValueClauseSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

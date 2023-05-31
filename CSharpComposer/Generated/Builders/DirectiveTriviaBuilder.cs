@@ -33,6 +33,12 @@ public interface IWithDirectiveTrivia<TBuilder>
     TBuilder WithDirectiveTrivia(DirectiveTriviaSyntax directiveTriviaSyntax);
 }
 
+public interface IAddDirectiveTrivia<TBuilder>
+{
+    TBuilder AddDirectiveTrivia(Action<IDirectiveTriviaBuilder> directiveTriviaCallback);
+    TBuilder AddDirectiveTrivia(DirectiveTriviaSyntax directiveTriviaSyntax);
+}
+
 public partial class DirectiveTriviaBuilder : IDirectiveTriviaBuilder
 {
     public DirectiveTriviaSyntax? Syntax { get; set; }

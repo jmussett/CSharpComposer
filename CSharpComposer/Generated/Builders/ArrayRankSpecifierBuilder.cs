@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IArrayRankSpecifierBuilder
 {
-    IArrayRankSpecifierBuilder AddSize(Action<IExpressionBuilder> sizeCallback);
-    IArrayRankSpecifierBuilder AddSize(ExpressionSyntax size);
+    IArrayRankSpecifierBuilder AddSizeExpression(Action<IExpressionBuilder> sizeCallback);
+    IArrayRankSpecifierBuilder AddSizeExpression(ExpressionSyntax size);
 }
 
 public interface IWithArrayRankSpecifier<TBuilder>
 {
     TBuilder WithArrayRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback);
     TBuilder WithArrayRankSpecifier(ArrayRankSpecifierSyntax arrayRankSpecifierSyntax);
+}
+
+public interface IAddArrayRankSpecifier<TBuilder>
+{
+    TBuilder AddArrayRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback);
+    TBuilder AddArrayRankSpecifier(ArrayRankSpecifierSyntax arrayRankSpecifierSyntax);
 }
 
 public partial class ArrayRankSpecifierBuilder : IArrayRankSpecifierBuilder
@@ -35,14 +41,14 @@ public partial class ArrayRankSpecifierBuilder : IArrayRankSpecifierBuilder
         return builder.Syntax;
     }
 
-    public IArrayRankSpecifierBuilder AddSize(Action<IExpressionBuilder> sizeCallback)
+    public IArrayRankSpecifierBuilder AddSizeExpression(Action<IExpressionBuilder> sizeCallback)
     {
         var size = ExpressionBuilder.CreateSyntax(sizeCallback);
         Syntax = Syntax.AddSizes(size);
         return this;
     }
 
-    public IArrayRankSpecifierBuilder AddSize(ExpressionSyntax size)
+    public IArrayRankSpecifierBuilder AddSizeExpression(ExpressionSyntax size)
     {
         Syntax = Syntax.AddSizes(size);
         return this;

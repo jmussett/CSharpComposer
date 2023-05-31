@@ -8,14 +8,20 @@ public partial interface ISwitchStatementBuilder : IStatementBuilder<ISwitchStat
 {
     ISwitchStatementBuilder WithOpenParenToken();
     ISwitchStatementBuilder WithCloseParenToken();
-    ISwitchStatementBuilder AddSection(Action<ISwitchSectionBuilder> switchSectionCallback);
-    ISwitchStatementBuilder AddSection(SwitchSectionSyntax section);
+    ISwitchStatementBuilder AddSwitchSection(Action<ISwitchSectionBuilder> switchSectionCallback);
+    ISwitchStatementBuilder AddSwitchSection(SwitchSectionSyntax section);
 }
 
 public interface IWithSwitchStatement<TBuilder>
 {
     TBuilder WithSwitchStatement(Action<IExpressionBuilder> expressionCallback, Action<ISwitchStatementBuilder> switchStatementCallback);
     TBuilder WithSwitchStatement(SwitchStatementSyntax switchStatementSyntax);
+}
+
+public interface IAddSwitchStatement<TBuilder>
+{
+    TBuilder AddSwitchStatement(Action<IExpressionBuilder> expressionCallback, Action<ISwitchStatementBuilder> switchStatementCallback);
+    TBuilder AddSwitchStatement(SwitchStatementSyntax switchStatementSyntax);
 }
 
 public partial class SwitchStatementBuilder : ISwitchStatementBuilder
@@ -68,14 +74,14 @@ public partial class SwitchStatementBuilder : ISwitchStatementBuilder
         return this;
     }
 
-    public ISwitchStatementBuilder AddSection(Action<ISwitchSectionBuilder> switchSectionCallback)
+    public ISwitchStatementBuilder AddSwitchSection(Action<ISwitchSectionBuilder> switchSectionCallback)
     {
         var section = SwitchSectionBuilder.CreateSyntax(switchSectionCallback);
         Syntax = Syntax.AddSections(section);
         return this;
     }
 
-    public ISwitchStatementBuilder AddSection(SwitchSectionSyntax section)
+    public ISwitchStatementBuilder AddSwitchSection(SwitchSectionSyntax section)
     {
         Syntax = Syntax.AddSections(section);
         return this;

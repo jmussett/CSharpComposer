@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IPragmaWarningDirectiveTriviaBuilder
 {
-    IPragmaWarningDirectiveTriviaBuilder AddErrorCode(Action<IExpressionBuilder> errorCodeCallback);
-    IPragmaWarningDirectiveTriviaBuilder AddErrorCode(ExpressionSyntax errorCode);
+    IPragmaWarningDirectiveTriviaBuilder AddErrorCodeExpression(Action<IExpressionBuilder> errorCodeCallback);
+    IPragmaWarningDirectiveTriviaBuilder AddErrorCodeExpression(ExpressionSyntax errorCode);
 }
 
 public interface IWithPragmaWarningDirectiveTrivia<TBuilder>
 {
     TBuilder WithPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder> pragmaWarningDirectiveTriviaCallback);
     TBuilder WithPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaSyntax pragmaWarningDirectiveTriviaSyntax);
+}
+
+public interface IAddPragmaWarningDirectiveTrivia<TBuilder>
+{
+    TBuilder AddPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder> pragmaWarningDirectiveTriviaCallback);
+    TBuilder AddPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaSyntax pragmaWarningDirectiveTriviaSyntax);
 }
 
 public partial class PragmaWarningDirectiveTriviaBuilder : IPragmaWarningDirectiveTriviaBuilder
@@ -43,14 +49,14 @@ public partial class PragmaWarningDirectiveTriviaBuilder : IPragmaWarningDirecti
         return builder.Syntax;
     }
 
-    public IPragmaWarningDirectiveTriviaBuilder AddErrorCode(Action<IExpressionBuilder> errorCodeCallback)
+    public IPragmaWarningDirectiveTriviaBuilder AddErrorCodeExpression(Action<IExpressionBuilder> errorCodeCallback)
     {
         var errorCode = ExpressionBuilder.CreateSyntax(errorCodeCallback);
         Syntax = Syntax.AddErrorCodes(errorCode);
         return this;
     }
 
-    public IPragmaWarningDirectiveTriviaBuilder AddErrorCode(ExpressionSyntax errorCode)
+    public IPragmaWarningDirectiveTriviaBuilder AddErrorCodeExpression(ExpressionSyntax errorCode)
     {
         Syntax = Syntax.AddErrorCodes(errorCode);
         return this;

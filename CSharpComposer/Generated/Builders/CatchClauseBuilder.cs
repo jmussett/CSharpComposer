@@ -4,18 +4,24 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ICatchClauseBuilder : IWithCatchDeclaration<ICatchClauseBuilder>, IWithCatchFilterClause<ICatchClauseBuilder>
+public partial interface ICatchClauseBuilder
 {
-    ICatchClauseBuilder WithCatchDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback);
-    ICatchClauseBuilder WithCatchDeclaration(CatchDeclarationSyntax declaration);
-    ICatchClauseBuilder WithCatchFilterClause(Action<IExpressionBuilder> filterExpressionCallback);
-    ICatchClauseBuilder WithCatchFilterClause(CatchFilterClauseSyntax filter);
+    ICatchClauseBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback);
+    ICatchClauseBuilder WithDeclaration(CatchDeclarationSyntax declaration);
+    ICatchClauseBuilder WithFilter(Action<IExpressionBuilder> filterExpressionCallback);
+    ICatchClauseBuilder WithFilter(CatchFilterClauseSyntax filter);
 }
 
 public interface IWithCatchClause<TBuilder>
 {
     TBuilder WithCatchClause(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
     TBuilder WithCatchClause(CatchClauseSyntax catchClauseSyntax);
+}
+
+public interface IAddCatchClause<TBuilder>
+{
+    TBuilder AddCatchClause(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
+    TBuilder AddCatchClause(CatchClauseSyntax catchClauseSyntax);
 }
 
 public partial class CatchClauseBuilder : ICatchClauseBuilder
@@ -37,27 +43,27 @@ public partial class CatchClauseBuilder : ICatchClauseBuilder
         return builder.Syntax;
     }
 
-    public ICatchClauseBuilder WithCatchDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback)
+    public ICatchClauseBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback)
     {
         var declarationSyntax = CatchDeclarationBuilder.CreateSyntax(typeCallback, catchDeclarationCallback);
         Syntax = Syntax.WithDeclaration(declarationSyntax);
         return this;
     }
 
-    public ICatchClauseBuilder WithCatchDeclaration(CatchDeclarationSyntax declaration)
+    public ICatchClauseBuilder WithDeclaration(CatchDeclarationSyntax declaration)
     {
         Syntax = Syntax.WithDeclaration(declaration);
         return this;
     }
 
-    public ICatchClauseBuilder WithCatchFilterClause(Action<IExpressionBuilder> filterExpressionCallback)
+    public ICatchClauseBuilder WithFilter(Action<IExpressionBuilder> filterExpressionCallback)
     {
         var filterSyntax = CatchFilterClauseBuilder.CreateSyntax(filterExpressionCallback);
         Syntax = Syntax.WithFilter(filterSyntax);
         return this;
     }
 
-    public ICatchClauseBuilder WithCatchFilterClause(CatchFilterClauseSyntax filter)
+    public ICatchClauseBuilder WithFilter(CatchFilterClauseSyntax filter)
     {
         Syntax = Syntax.WithFilter(filter);
         return this;

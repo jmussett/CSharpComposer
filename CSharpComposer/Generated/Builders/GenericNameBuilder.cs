@@ -4,16 +4,22 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IGenericNameBuilder
+public partial interface IGenericNameBuilder : IAddType<IGenericNameBuilder>
 {
-    IGenericNameBuilder AddTypeArgument(Action<ITypeBuilder> argumentCallback);
-    IGenericNameBuilder AddTypeArgument(TypeSyntax argument);
+    IGenericNameBuilder AddType(Action<ITypeBuilder> argumentCallback);
+    IGenericNameBuilder AddType(TypeSyntax argument);
 }
 
 public interface IWithGenericName<TBuilder>
 {
     TBuilder WithGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback);
     TBuilder WithGenericName(GenericNameSyntax genericNameSyntax);
+}
+
+public interface IAddGenericName<TBuilder>
+{
+    TBuilder AddGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback);
+    TBuilder AddGenericName(GenericNameSyntax genericNameSyntax);
 }
 
 public partial class GenericNameBuilder : IGenericNameBuilder
@@ -35,14 +41,14 @@ public partial class GenericNameBuilder : IGenericNameBuilder
         return builder.Syntax;
     }
 
-    public IGenericNameBuilder AddTypeArgument(Action<ITypeBuilder> argumentCallback)
+    public IGenericNameBuilder AddType(Action<ITypeBuilder> argumentCallback)
     {
         var argument = TypeBuilder.CreateSyntax(argumentCallback);
         Syntax = Syntax.AddTypeArgumentListArguments(argument);
         return this;
     }
 
-    public IGenericNameBuilder AddTypeArgument(TypeSyntax argument)
+    public IGenericNameBuilder AddType(TypeSyntax argument)
     {
         Syntax = Syntax.AddTypeArgumentListArguments(argument);
         return this;

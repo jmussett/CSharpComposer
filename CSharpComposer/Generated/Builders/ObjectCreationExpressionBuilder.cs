@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IObjectCreationExpressionBuilder : IWithInitializerExpression<IObjectCreationExpressionBuilder>, IBaseObjectCreationExpressionBuilder<IObjectCreationExpressionBuilder>
+public partial interface IObjectCreationExpressionBuilder : IAddArgument<IObjectCreationExpressionBuilder>, IBaseObjectCreationExpressionBuilder<IObjectCreationExpressionBuilder>
 {
     IObjectCreationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     IObjectCreationExpressionBuilder AddArgument(ArgumentSyntax argument);
@@ -14,6 +14,12 @@ public interface IWithObjectCreationExpression<TBuilder>
 {
     TBuilder WithObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback);
     TBuilder WithObjectCreationExpression(ObjectCreationExpressionSyntax objectCreationExpressionSyntax);
+}
+
+public interface IAddObjectCreationExpression<TBuilder>
+{
+    TBuilder AddObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback);
+    TBuilder AddObjectCreationExpression(ObjectCreationExpressionSyntax objectCreationExpressionSyntax);
 }
 
 public partial class ObjectCreationExpressionBuilder : IObjectCreationExpressionBuilder
@@ -48,14 +54,14 @@ public partial class ObjectCreationExpressionBuilder : IObjectCreationExpression
         return this;
     }
 
-    public IObjectCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public IObjectCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
     {
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IObjectCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer)
+    public IObjectCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

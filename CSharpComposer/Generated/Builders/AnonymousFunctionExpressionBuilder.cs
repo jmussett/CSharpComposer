@@ -21,6 +21,12 @@ public interface IWithAnonymousFunctionExpression<TBuilder>
     TBuilder WithAnonymousFunctionExpression(AnonymousFunctionExpressionSyntax anonymousFunctionExpressionSyntax);
 }
 
+public interface IAddAnonymousFunctionExpression<TBuilder>
+{
+    TBuilder AddAnonymousFunctionExpression(Action<IAnonymousFunctionExpressionBuilder> anonymousFunctionExpressionCallback);
+    TBuilder AddAnonymousFunctionExpression(AnonymousFunctionExpressionSyntax anonymousFunctionExpressionSyntax);
+}
+
 public partial class AnonymousFunctionExpressionBuilder : IAnonymousFunctionExpressionBuilder
 {
     public AnonymousFunctionExpressionSyntax? Syntax { get; set; }

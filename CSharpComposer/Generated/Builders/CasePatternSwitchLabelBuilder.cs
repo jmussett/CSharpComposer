@@ -16,6 +16,12 @@ public interface IWithCasePatternSwitchLabel<TBuilder>
     TBuilder WithCasePatternSwitchLabel(CasePatternSwitchLabelSyntax casePatternSwitchLabelSyntax);
 }
 
+public interface IAddCasePatternSwitchLabel<TBuilder>
+{
+    TBuilder AddCasePatternSwitchLabel(Action<IPatternBuilder> patternCallback, Action<ICasePatternSwitchLabelBuilder> casePatternSwitchLabelCallback);
+    TBuilder AddCasePatternSwitchLabel(CasePatternSwitchLabelSyntax casePatternSwitchLabelSyntax);
+}
+
 public partial class CasePatternSwitchLabelBuilder : ICasePatternSwitchLabelBuilder
 {
     public CasePatternSwitchLabelSyntax Syntax { get; set; }

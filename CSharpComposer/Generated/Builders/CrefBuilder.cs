@@ -20,6 +20,12 @@ public interface IWithCref<TBuilder>
     TBuilder WithCref(CrefSyntax crefSyntax);
 }
 
+public interface IAddCref<TBuilder>
+{
+    TBuilder AddCref(Action<ICrefBuilder> crefCallback);
+    TBuilder AddCref(CrefSyntax crefSyntax);
+}
+
 public partial class CrefBuilder : ICrefBuilder
 {
     public CrefSyntax? Syntax { get; set; }

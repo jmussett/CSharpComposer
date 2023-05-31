@@ -15,6 +15,12 @@ public interface IWithOrdering<TBuilder>
     TBuilder WithOrdering(OrderingSyntax orderingSyntax);
 }
 
+public interface IAddOrdering<TBuilder>
+{
+    TBuilder AddOrdering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder> orderingCallback);
+    TBuilder AddOrdering(OrderingSyntax orderingSyntax);
+}
+
 public partial class OrderingBuilder : IOrderingBuilder
 {
     public OrderingSyntax Syntax { get; set; }

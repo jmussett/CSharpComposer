@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IIndexerMemberCrefBuilder
 {
-    IIndexerMemberCrefBuilder AddParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
-    IIndexerMemberCrefBuilder AddParameter(CrefParameterSyntax parameter);
+    IIndexerMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
+    IIndexerMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
 public interface IWithIndexerMemberCref<TBuilder>
 {
     TBuilder WithIndexerMemberCref(Action<IIndexerMemberCrefBuilder> indexerMemberCrefCallback);
     TBuilder WithIndexerMemberCref(IndexerMemberCrefSyntax indexerMemberCrefSyntax);
+}
+
+public interface IAddIndexerMemberCref<TBuilder>
+{
+    TBuilder AddIndexerMemberCref(Action<IIndexerMemberCrefBuilder> indexerMemberCrefCallback);
+    TBuilder AddIndexerMemberCref(IndexerMemberCrefSyntax indexerMemberCrefSyntax);
 }
 
 public partial class IndexerMemberCrefBuilder : IIndexerMemberCrefBuilder
@@ -34,14 +40,14 @@ public partial class IndexerMemberCrefBuilder : IIndexerMemberCrefBuilder
         return builder.Syntax;
     }
 
-    public IIndexerMemberCrefBuilder AddParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
+    public IIndexerMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
     {
         var parameter = CrefParameterBuilder.CreateSyntax(typeCallback, crefParameterCallback);
         Syntax = Syntax.AddParametersParameters(parameter);
         return this;
     }
 
-    public IIndexerMemberCrefBuilder AddParameter(CrefParameterSyntax parameter)
+    public IIndexerMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter)
     {
         Syntax = Syntax.AddParametersParameters(parameter);
         return this;

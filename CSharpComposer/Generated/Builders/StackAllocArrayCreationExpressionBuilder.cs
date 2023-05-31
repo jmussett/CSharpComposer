@@ -4,16 +4,22 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IStackAllocArrayCreationExpressionBuilder : IWithInitializerExpression<IStackAllocArrayCreationExpressionBuilder>
+public partial interface IStackAllocArrayCreationExpressionBuilder
 {
-    IStackAllocArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
-    IStackAllocArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer);
+    IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
+    IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
 public interface IWithStackAllocArrayCreationExpression<TBuilder>
 {
     TBuilder WithStackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder> stackAllocArrayCreationExpressionCallback);
     TBuilder WithStackAllocArrayCreationExpression(StackAllocArrayCreationExpressionSyntax stackAllocArrayCreationExpressionSyntax);
+}
+
+public interface IAddStackAllocArrayCreationExpression<TBuilder>
+{
+    TBuilder AddStackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder> stackAllocArrayCreationExpressionCallback);
+    TBuilder AddStackAllocArrayCreationExpression(StackAllocArrayCreationExpressionSyntax stackAllocArrayCreationExpressionSyntax);
 }
 
 public partial class StackAllocArrayCreationExpressionBuilder : IStackAllocArrayCreationExpressionBuilder
@@ -35,14 +41,14 @@ public partial class StackAllocArrayCreationExpressionBuilder : IStackAllocArray
         return builder.Syntax;
     }
 
-    public IStackAllocArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
     {
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IStackAllocArrayCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer)
+    public IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

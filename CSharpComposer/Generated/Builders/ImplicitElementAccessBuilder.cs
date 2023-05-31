@@ -16,6 +16,12 @@ public interface IWithImplicitElementAccess<TBuilder>
     TBuilder WithImplicitElementAccess(ImplicitElementAccessSyntax implicitElementAccessSyntax);
 }
 
+public interface IAddImplicitElementAccess<TBuilder>
+{
+    TBuilder AddImplicitElementAccess(Action<IImplicitElementAccessBuilder> implicitElementAccessCallback);
+    TBuilder AddImplicitElementAccess(ImplicitElementAccessSyntax implicitElementAccessSyntax);
+}
+
 public partial class ImplicitElementAccessBuilder : IImplicitElementAccessBuilder
 {
     public ImplicitElementAccessSyntax Syntax { get; set; }

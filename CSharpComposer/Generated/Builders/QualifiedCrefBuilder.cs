@@ -10,6 +10,12 @@ public interface IWithQualifiedCref<TBuilder>
     TBuilder WithQualifiedCref(QualifiedCrefSyntax qualifiedCrefSyntax);
 }
 
+public interface IAddQualifiedCref<TBuilder>
+{
+    TBuilder AddQualifiedCref(Action<ITypeBuilder> containerCallback, Action<IMemberCrefBuilder> memberCallback);
+    TBuilder AddQualifiedCref(QualifiedCrefSyntax qualifiedCrefSyntax);
+}
+
 public partial class QualifiedCrefBuilder
 {
     public static QualifiedCrefSyntax CreateSyntax(Action<ITypeBuilder> containerCallback, Action<IMemberCrefBuilder> memberCallback)

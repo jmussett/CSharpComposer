@@ -17,6 +17,12 @@ public interface IWithGotoStatement<TBuilder>
     TBuilder WithGotoStatement(GotoStatementSyntax gotoStatementSyntax);
 }
 
+public interface IAddGotoStatement<TBuilder>
+{
+    TBuilder AddGotoStatement(GotoStatementKind kind, Action<IGotoStatementBuilder> gotoStatementCallback);
+    TBuilder AddGotoStatement(GotoStatementSyntax gotoStatementSyntax);
+}
+
 public partial class GotoStatementBuilder : IGotoStatementBuilder
 {
     public GotoStatementSyntax Syntax { get; set; }

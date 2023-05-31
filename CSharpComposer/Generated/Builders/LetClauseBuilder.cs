@@ -10,6 +10,12 @@ public interface IWithLetClause<TBuilder>
     TBuilder WithLetClause(LetClauseSyntax letClauseSyntax);
 }
 
+public interface IAddLetClause<TBuilder>
+{
+    TBuilder AddLetClause(string identifier, Action<IExpressionBuilder> expressionCallback);
+    TBuilder AddLetClause(LetClauseSyntax letClauseSyntax);
+}
+
 public partial class LetClauseBuilder
 {
     public static LetClauseSyntax CreateSyntax(string identifier, Action<IExpressionBuilder> expressionCallback)

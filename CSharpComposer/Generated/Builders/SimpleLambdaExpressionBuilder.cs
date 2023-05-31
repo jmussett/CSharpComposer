@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ISimpleLambdaExpressionBuilder : IWithBlock<ISimpleLambdaExpressionBuilder>, IWithExpression<ISimpleLambdaExpressionBuilder>, ILambdaExpressionBuilder<ISimpleLambdaExpressionBuilder>
+public partial interface ISimpleLambdaExpressionBuilder : IWithBlock<ISimpleLambdaExpressionBuilder>, ILambdaExpressionBuilder<ISimpleLambdaExpressionBuilder>
 {
 }
 
@@ -12,6 +12,12 @@ public interface IWithSimpleLambdaExpression<TBuilder>
 {
     TBuilder WithSimpleLambdaExpression(string parameterIdentifier, Action<IParameterBuilder> parameterParameterCallback, Action<ISimpleLambdaExpressionBuilder> simpleLambdaExpressionCallback);
     TBuilder WithSimpleLambdaExpression(SimpleLambdaExpressionSyntax simpleLambdaExpressionSyntax);
+}
+
+public interface IAddSimpleLambdaExpression<TBuilder>
+{
+    TBuilder AddSimpleLambdaExpression(string parameterIdentifier, Action<IParameterBuilder> parameterParameterCallback, Action<ISimpleLambdaExpressionBuilder> simpleLambdaExpressionCallback);
+    TBuilder AddSimpleLambdaExpression(SimpleLambdaExpressionSyntax simpleLambdaExpressionSyntax);
 }
 
 public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuilder
@@ -46,14 +52,14 @@ public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuil
         return this;
     }
 
-    public ISimpleLambdaExpressionBuilder WithExpression(Action<IExpressionBuilder> expressionBodyCallback)
+    public ISimpleLambdaExpressionBuilder WithExpressionBody(Action<IExpressionBuilder> expressionBodyCallback)
     {
         var expressionBodySyntax = ExpressionBuilder.CreateSyntax(expressionBodyCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public ISimpleLambdaExpressionBuilder WithExpression(ExpressionSyntax expressionBody)
+    public ISimpleLambdaExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
@@ -76,7 +82,7 @@ public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuil
         return this;
     }
 
-    public ISimpleLambdaExpressionBuilder AddModifier(SyntaxToken modifier)
+    public ISimpleLambdaExpressionBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

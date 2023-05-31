@@ -10,6 +10,12 @@ public interface IWithDefaultConstraint<TBuilder>
     TBuilder WithDefaultConstraint(DefaultConstraintSyntax defaultConstraintSyntax);
 }
 
+public interface IAddDefaultConstraint<TBuilder>
+{
+    TBuilder AddDefaultConstraint();
+    TBuilder AddDefaultConstraint(DefaultConstraintSyntax defaultConstraintSyntax);
+}
+
 public partial class DefaultConstraintBuilder
 {
     public static DefaultConstraintSyntax CreateSyntax()

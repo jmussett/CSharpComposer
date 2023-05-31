@@ -20,6 +20,12 @@ public interface IWithBaseNamespaceDeclaration<TBuilder>
     TBuilder WithBaseNamespaceDeclaration(BaseNamespaceDeclarationSyntax baseNamespaceDeclarationSyntax);
 }
 
+public interface IAddBaseNamespaceDeclaration<TBuilder>
+{
+    TBuilder AddBaseNamespaceDeclaration(Action<IBaseNamespaceDeclarationBuilder> baseNamespaceDeclarationCallback);
+    TBuilder AddBaseNamespaceDeclaration(BaseNamespaceDeclarationSyntax baseNamespaceDeclarationSyntax);
+}
+
 public partial class BaseNamespaceDeclarationBuilder : IBaseNamespaceDeclarationBuilder
 {
     public BaseNamespaceDeclarationSyntax? Syntax { get; set; }

@@ -17,6 +17,12 @@ public interface IWithSwitchLabel<TBuilder>
     TBuilder WithSwitchLabel(SwitchLabelSyntax switchLabelSyntax);
 }
 
+public interface IAddSwitchLabel<TBuilder>
+{
+    TBuilder AddSwitchLabel(Action<ISwitchLabelBuilder> switchLabelCallback);
+    TBuilder AddSwitchLabel(SwitchLabelSyntax switchLabelSyntax);
+}
+
 public partial class SwitchLabelBuilder : ISwitchLabelBuilder
 {
     public SwitchLabelSyntax? Syntax { get; set; }

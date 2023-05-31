@@ -21,6 +21,12 @@ public interface IWithCommonForEachStatement<TBuilder>
     TBuilder WithCommonForEachStatement(CommonForEachStatementSyntax commonForEachStatementSyntax);
 }
 
+public interface IAddCommonForEachStatement<TBuilder>
+{
+    TBuilder AddCommonForEachStatement(Action<ICommonForEachStatementBuilder> commonForEachStatementCallback);
+    TBuilder AddCommonForEachStatement(CommonForEachStatementSyntax commonForEachStatementSyntax);
+}
+
 public partial class CommonForEachStatementBuilder : ICommonForEachStatementBuilder
 {
     public CommonForEachStatementSyntax? Syntax { get; set; }

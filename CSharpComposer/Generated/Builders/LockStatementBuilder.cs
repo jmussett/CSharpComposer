@@ -14,6 +14,12 @@ public interface IWithLockStatement<TBuilder>
     TBuilder WithLockStatement(LockStatementSyntax lockStatementSyntax);
 }
 
+public interface IAddLockStatement<TBuilder>
+{
+    TBuilder AddLockStatement(Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<ILockStatementBuilder> lockStatementCallback);
+    TBuilder AddLockStatement(LockStatementSyntax lockStatementSyntax);
+}
+
 public partial class LockStatementBuilder : ILockStatementBuilder
 {
     public LockStatementSyntax Syntax { get; set; }

@@ -14,6 +14,12 @@ public interface IWithWhileStatement<TBuilder>
     TBuilder WithWhileStatement(WhileStatementSyntax whileStatementSyntax);
 }
 
+public interface IAddWhileStatement<TBuilder>
+{
+    TBuilder AddWhileStatement(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IWhileStatementBuilder> whileStatementCallback);
+    TBuilder AddWhileStatement(WhileStatementSyntax whileStatementSyntax);
+}
+
 public partial class WhileStatementBuilder : IWhileStatementBuilder
 {
     public WhileStatementSyntax Syntax { get; set; }

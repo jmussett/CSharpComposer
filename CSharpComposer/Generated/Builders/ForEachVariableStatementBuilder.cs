@@ -14,6 +14,12 @@ public interface IWithForEachVariableStatement<TBuilder>
     TBuilder WithForEachVariableStatement(ForEachVariableStatementSyntax forEachVariableStatementSyntax);
 }
 
+public interface IAddForEachVariableStatement<TBuilder>
+{
+    TBuilder AddForEachVariableStatement(Action<IExpressionBuilder> variableCallback, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachVariableStatementBuilder> forEachVariableStatementCallback);
+    TBuilder AddForEachVariableStatement(ForEachVariableStatementSyntax forEachVariableStatementSyntax);
+}
+
 public partial class ForEachVariableStatementBuilder : IForEachVariableStatementBuilder
 {
     public ForEachVariableStatementSyntax Syntax { get; set; }

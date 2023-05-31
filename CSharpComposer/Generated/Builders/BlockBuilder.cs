@@ -16,6 +16,12 @@ public interface IWithBlock<TBuilder>
     TBuilder WithBlock(BlockSyntax blockSyntax);
 }
 
+public interface IAddBlock<TBuilder>
+{
+    TBuilder AddBlock(Action<IBlockBuilder> blockCallback);
+    TBuilder AddBlock(BlockSyntax blockSyntax);
+}
+
 public partial class BlockBuilder : IBlockBuilder
 {
     public BlockSyntax Syntax { get; set; }

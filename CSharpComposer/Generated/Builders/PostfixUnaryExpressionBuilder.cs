@@ -10,6 +10,12 @@ public interface IWithPostfixUnaryExpression<TBuilder>
     TBuilder WithPostfixUnaryExpression(PostfixUnaryExpressionSyntax postfixUnaryExpressionSyntax);
 }
 
+public interface IAddPostfixUnaryExpression<TBuilder>
+{
+    TBuilder AddPostfixUnaryExpression(PostfixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback);
+    TBuilder AddPostfixUnaryExpression(PostfixUnaryExpressionSyntax postfixUnaryExpressionSyntax);
+}
+
 public partial class PostfixUnaryExpressionBuilder
 {
     public static PostfixUnaryExpressionSyntax CreateSyntax(PostfixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback)

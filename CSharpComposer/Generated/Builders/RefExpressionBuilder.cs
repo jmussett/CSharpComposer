@@ -10,6 +10,12 @@ public interface IWithRefExpression<TBuilder>
     TBuilder WithRefExpression(RefExpressionSyntax refExpressionSyntax);
 }
 
+public interface IAddRefExpression<TBuilder>
+{
+    TBuilder AddRefExpression(Action<IExpressionBuilder> expressionCallback);
+    TBuilder AddRefExpression(RefExpressionSyntax refExpressionSyntax);
+}
+
 public partial class RefExpressionBuilder
 {
     public static RefExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback)

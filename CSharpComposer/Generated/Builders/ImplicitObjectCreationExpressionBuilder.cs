@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IImplicitObjectCreationExpressionBuilder : IWithInitializerExpression<IImplicitObjectCreationExpressionBuilder>, IBaseObjectCreationExpressionBuilder<IImplicitObjectCreationExpressionBuilder>
+public partial interface IImplicitObjectCreationExpressionBuilder : IAddArgument<IImplicitObjectCreationExpressionBuilder>, IBaseObjectCreationExpressionBuilder<IImplicitObjectCreationExpressionBuilder>
 {
     IImplicitObjectCreationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     IImplicitObjectCreationExpressionBuilder AddArgument(ArgumentSyntax argument);
@@ -14,6 +14,12 @@ public interface IWithImplicitObjectCreationExpression<TBuilder>
 {
     TBuilder WithImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder> implicitObjectCreationExpressionCallback);
     TBuilder WithImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax implicitObjectCreationExpressionSyntax);
+}
+
+public interface IAddImplicitObjectCreationExpression<TBuilder>
+{
+    TBuilder AddImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder> implicitObjectCreationExpressionCallback);
+    TBuilder AddImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax implicitObjectCreationExpressionSyntax);
 }
 
 public partial class ImplicitObjectCreationExpressionBuilder : IImplicitObjectCreationExpressionBuilder
@@ -48,14 +54,14 @@ public partial class ImplicitObjectCreationExpressionBuilder : IImplicitObjectCr
         return this;
     }
 
-    public IImplicitObjectCreationExpressionBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public IImplicitObjectCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
     {
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IImplicitObjectCreationExpressionBuilder WithInitializerExpression(InitializerExpressionSyntax initializer)
+    public IImplicitObjectCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;

@@ -10,6 +10,12 @@ public interface IWithExplicitInterfaceSpecifier<TBuilder>
     TBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifierSyntax);
 }
 
+public interface IAddExplicitInterfaceSpecifier<TBuilder>
+{
+    TBuilder AddExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
+    TBuilder AddExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifierSyntax);
+}
+
 public partial class ExplicitInterfaceSpecifierBuilder
 {
     public static ExplicitInterfaceSpecifierSyntax CreateSyntax(Action<INameBuilder> nameCallback)

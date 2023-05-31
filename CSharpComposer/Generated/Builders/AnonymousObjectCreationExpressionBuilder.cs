@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IAnonymousObjectCreationExpressionBuilder
 {
-    IAnonymousObjectCreationExpressionBuilder AddInitializer(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder> anonymousObjectMemberDeclaratorCallback);
-    IAnonymousObjectCreationExpressionBuilder AddInitializer(AnonymousObjectMemberDeclaratorSyntax initializer);
+    IAnonymousObjectCreationExpressionBuilder AddInitializerAnonymousObjectMemberDeclarator(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder> anonymousObjectMemberDeclaratorCallback);
+    IAnonymousObjectCreationExpressionBuilder AddInitializerAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax initializer);
 }
 
 public interface IWithAnonymousObjectCreationExpression<TBuilder>
 {
     TBuilder WithAnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder> anonymousObjectCreationExpressionCallback);
     TBuilder WithAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax anonymousObjectCreationExpressionSyntax);
+}
+
+public interface IAddAnonymousObjectCreationExpression<TBuilder>
+{
+    TBuilder AddAnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder> anonymousObjectCreationExpressionCallback);
+    TBuilder AddAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax anonymousObjectCreationExpressionSyntax);
 }
 
 public partial class AnonymousObjectCreationExpressionBuilder : IAnonymousObjectCreationExpressionBuilder
@@ -36,14 +42,14 @@ public partial class AnonymousObjectCreationExpressionBuilder : IAnonymousObject
         return builder.Syntax;
     }
 
-    public IAnonymousObjectCreationExpressionBuilder AddInitializer(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder> anonymousObjectMemberDeclaratorCallback)
+    public IAnonymousObjectCreationExpressionBuilder AddInitializerAnonymousObjectMemberDeclarator(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder> anonymousObjectMemberDeclaratorCallback)
     {
         var initializer = AnonymousObjectMemberDeclaratorBuilder.CreateSyntax(expressionCallback, anonymousObjectMemberDeclaratorCallback);
         Syntax = Syntax.AddInitializers(initializer);
         return this;
     }
 
-    public IAnonymousObjectCreationExpressionBuilder AddInitializer(AnonymousObjectMemberDeclaratorSyntax initializer)
+    public IAnonymousObjectCreationExpressionBuilder AddInitializerAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax initializer)
     {
         Syntax = Syntax.AddInitializers(initializer);
         return this;

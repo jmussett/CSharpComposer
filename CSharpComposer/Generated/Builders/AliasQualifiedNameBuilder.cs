@@ -10,6 +10,12 @@ public interface IWithAliasQualifiedName<TBuilder>
     TBuilder WithAliasQualifiedName(AliasQualifiedNameSyntax aliasQualifiedNameSyntax);
 }
 
+public interface IAddAliasQualifiedName<TBuilder>
+{
+    TBuilder AddAliasQualifiedName(string aliasIdentifier, Action<ISimpleNameBuilder> nameCallback);
+    TBuilder AddAliasQualifiedName(AliasQualifiedNameSyntax aliasQualifiedNameSyntax);
+}
+
 public partial class AliasQualifiedNameBuilder
 {
     public static AliasQualifiedNameSyntax CreateSyntax(string aliasIdentifier, Action<ISimpleNameBuilder> nameCallback)

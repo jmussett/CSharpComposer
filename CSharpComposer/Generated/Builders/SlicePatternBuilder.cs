@@ -16,6 +16,12 @@ public interface IWithSlicePattern<TBuilder>
     TBuilder WithSlicePattern(SlicePatternSyntax slicePatternSyntax);
 }
 
+public interface IAddSlicePattern<TBuilder>
+{
+    TBuilder AddSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback);
+    TBuilder AddSlicePattern(SlicePatternSyntax slicePatternSyntax);
+}
+
 public partial class SlicePatternBuilder : ISlicePatternBuilder
 {
     public SlicePatternSyntax Syntax { get; set; }

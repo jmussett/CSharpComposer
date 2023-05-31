@@ -16,6 +16,12 @@ public interface IWithInitializerExpression<TBuilder>
     TBuilder WithInitializerExpression(InitializerExpressionSyntax initializerExpressionSyntax);
 }
 
+public interface IAddInitializerExpression<TBuilder>
+{
+    TBuilder AddInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
+    TBuilder AddInitializerExpression(InitializerExpressionSyntax initializerExpressionSyntax);
+}
+
 public partial class InitializerExpressionBuilder : IInitializerExpressionBuilder
 {
     public InitializerExpressionSyntax Syntax { get; set; }

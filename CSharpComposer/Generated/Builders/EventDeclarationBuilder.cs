@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEventDeclarationBuilder : IWithExplicitInterfaceSpecifier<IEventDeclarationBuilder>, IBasePropertyDeclarationBuilder<IEventDeclarationBuilder>
+public partial interface IEventDeclarationBuilder : IWithExplicitInterfaceSpecifier<IEventDeclarationBuilder>, IAddAccessorDeclaration<IEventDeclarationBuilder>, IBasePropertyDeclarationBuilder<IEventDeclarationBuilder>
 {
-    IEventDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
-    IEventDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor);
+    IEventDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
+    IEventDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor);
     IEventDeclarationBuilder WithSemicolonToken();
 }
 
@@ -15,6 +15,12 @@ public interface IWithEventDeclaration<TBuilder>
 {
     TBuilder WithEventDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder> eventDeclarationCallback);
     TBuilder WithEventDeclaration(EventDeclarationSyntax eventDeclarationSyntax);
+}
+
+public interface IAddEventDeclaration<TBuilder>
+{
+    TBuilder AddEventDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder> eventDeclarationCallback);
+    TBuilder AddEventDeclaration(EventDeclarationSyntax eventDeclarationSyntax);
 }
 
 public partial class EventDeclarationBuilder : IEventDeclarationBuilder
@@ -37,14 +43,14 @@ public partial class EventDeclarationBuilder : IEventDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IEventDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
+    public IEventDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
     {
         var accessor = AccessorDeclarationBuilder.CreateSyntax(kind, accessorDeclarationCallback);
         Syntax = Syntax.AddAccessorListAccessors(accessor);
         return this;
     }
 
-    public IEventDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor)
+    public IEventDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor)
     {
         Syntax = Syntax.AddAccessorListAccessors(accessor);
         return this;
@@ -73,7 +79,7 @@ public partial class EventDeclarationBuilder : IEventDeclarationBuilder
         return this;
     }
 
-    public IEventDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IEventDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

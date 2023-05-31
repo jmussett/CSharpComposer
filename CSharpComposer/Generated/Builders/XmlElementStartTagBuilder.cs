@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IXmlElementStartTagBuilder
 {
-    IXmlElementStartTagBuilder AddAttribute(Action<IXmlAttributeBuilder> attributeCallback);
-    IXmlElementStartTagBuilder AddAttribute(XmlAttributeSyntax attribute);
+    IXmlElementStartTagBuilder AddXmlAttribute(Action<IXmlAttributeBuilder> attributeCallback);
+    IXmlElementStartTagBuilder AddXmlAttribute(XmlAttributeSyntax attribute);
 }
 
 public interface IWithXmlElementStartTag<TBuilder>
 {
     TBuilder WithXmlElementStartTag(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlElementStartTagBuilder> xmlElementStartTagCallback);
     TBuilder WithXmlElementStartTag(XmlElementStartTagSyntax xmlElementStartTagSyntax);
+}
+
+public interface IAddXmlElementStartTag<TBuilder>
+{
+    TBuilder AddXmlElementStartTag(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlElementStartTagBuilder> xmlElementStartTagCallback);
+    TBuilder AddXmlElementStartTag(XmlElementStartTagSyntax xmlElementStartTagSyntax);
 }
 
 public partial class XmlElementStartTagBuilder : IXmlElementStartTagBuilder
@@ -36,14 +42,14 @@ public partial class XmlElementStartTagBuilder : IXmlElementStartTagBuilder
         return builder.Syntax;
     }
 
-    public IXmlElementStartTagBuilder AddAttribute(Action<IXmlAttributeBuilder> attributeCallback)
+    public IXmlElementStartTagBuilder AddXmlAttribute(Action<IXmlAttributeBuilder> attributeCallback)
     {
         var attribute = XmlAttributeBuilder.CreateSyntax(attributeCallback);
         Syntax = Syntax.AddAttributes(attribute);
         return this;
     }
 
-    public IXmlElementStartTagBuilder AddAttribute(XmlAttributeSyntax attribute)
+    public IXmlElementStartTagBuilder AddXmlAttribute(XmlAttributeSyntax attribute)
     {
         Syntax = Syntax.AddAttributes(attribute);
         return this;

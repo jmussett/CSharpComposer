@@ -1,12 +1,7 @@
 ﻿using Humanizer;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SyntaxBuilder.Builders;
 using CSharpComposer.Generator.Models;
 using SyntaxBuilder.Types;
-using System.Diagnostics.CodeAnalysis;
-using System.Security.AccessControl;
-using System.Xml.Linq;
 using SyntaxBuilder;
 
 namespace CSharpComposer.Generator;
@@ -233,13 +228,33 @@ internal class MethodBuilder
     private void WithListTypeMethods<TBuilder>(TBuilder builder, bool isImplementation, string returnType, Field field)
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
-        var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
+        var listType = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
+
+        if (listType is null || NodeValidator.IsAnyList(listType))
+        {
+            var referenceField = _tree.GetReferenceListType(listType ?? field.Type);
+            listType = NameFactory.ExtractSyntaxTypeFromListType(referenceField.Type);
+        }
+
+        var listTypeName = listType is null ? null : NameFactory.CreateTypeName(listType);
+
+        var singularName = NameFactory.CreateSingularName(field);
+        var methodName = $"Add{singularName}";
+
+        if (listTypeName is not null && (listTypeName.Contains(singularName) || singularName.Contains(listTypeName)))
+        {
+            methodName = $"Add{listTypeName}";
+        }
+        else if (listTypeName is not null)
+        {
+            methodName = $"Add{singularName}{listTypeName}";
+        }
 
         // Exclude builder methods for syntaz tokens.
-        if (!NodeValidator.IsSyntaxToken(listTypeName))
+        if (!NodeValidator.IsSyntaxToken(listType))
         {
             builder.WithMethod(
-                $"Add{NameFactory.CreateSingularName(field)}",
+                methodName,
                 x => x.AsType(returnType),
                 x => {
                     var listTypeField = field;
@@ -335,7 +350,7 @@ internal class MethodBuilder
         }
         
         builder.WithMethod(
-            $"Add{NameFactory.CreateSingularName(field)}",
+            methodName,
             x => x.AsType(returnType),
             x => {
                 var listTypeField = field;
@@ -470,10 +485,8 @@ internal class MethodBuilder
             }
         }
 
-        var methodName = isUnique ? $"With{NameFactory.CreateTypeName(field.Type)}" : $"With{field.Name}";
-
         builder.WithMethod(
-            methodName,
+            $"With{field.Name}",
             x => x.AsType(returnType),
             x =>
             {
@@ -526,7 +539,7 @@ internal class MethodBuilder
         );
 
         builder.WithMethod(
-            methodName,
+            $"With{field.Name}",
             x => x.AsType(returnType),
             x =>
             {

@@ -14,6 +14,12 @@ public interface IWithFunctionPointerParameter<TBuilder>
     TBuilder WithFunctionPointerParameter(FunctionPointerParameterSyntax functionPointerParameterSyntax);
 }
 
+public interface IAddFunctionPointerParameter<TBuilder>
+{
+    TBuilder AddFunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder> functionPointerParameterCallback);
+    TBuilder AddFunctionPointerParameter(FunctionPointerParameterSyntax functionPointerParameterSyntax);
+}
+
 public partial class FunctionPointerParameterBuilder : IFunctionPointerParameterBuilder
 {
     public FunctionPointerParameterSyntax Syntax { get; set; }
@@ -49,7 +55,7 @@ public partial class FunctionPointerParameterBuilder : IFunctionPointerParameter
         return this;
     }
 
-    public IFunctionPointerParameterBuilder AddModifier(SyntaxToken modifier)
+    public IFunctionPointerParameterBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

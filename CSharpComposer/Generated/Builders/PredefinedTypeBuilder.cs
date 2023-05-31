@@ -10,6 +10,12 @@ public interface IWithPredefinedType<TBuilder>
     TBuilder WithPredefinedType(PredefinedTypeSyntax predefinedTypeSyntax);
 }
 
+public interface IAddPredefinedType<TBuilder>
+{
+    TBuilder AddPredefinedType(PredefinedTypeKeyword predefinedTypeKeyword);
+    TBuilder AddPredefinedType(PredefinedTypeSyntax predefinedTypeSyntax);
+}
+
 public partial class PredefinedTypeBuilder
 {
     public static PredefinedTypeSyntax CreateSyntax(PredefinedTypeKeyword predefinedTypeKeyword)

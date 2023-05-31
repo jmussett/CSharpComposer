@@ -18,6 +18,12 @@ public interface IWithName<TBuilder>
     TBuilder WithName(NameSyntax nameSyntax);
 }
 
+public interface IAddName<TBuilder>
+{
+    TBuilder AddName(Action<INameBuilder> nameCallback);
+    TBuilder AddName(NameSyntax nameSyntax);
+}
+
 public partial class NameBuilder : INameBuilder
 {
     public NameSyntax? Syntax { get; set; }

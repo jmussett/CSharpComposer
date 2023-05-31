@@ -18,6 +18,12 @@ public interface IWithTypeParameterConstraint<TBuilder>
     TBuilder WithTypeParameterConstraint(TypeParameterConstraintSyntax typeParameterConstraintSyntax);
 }
 
+public interface IAddTypeParameterConstraint<TBuilder>
+{
+    TBuilder AddTypeParameterConstraint(Action<ITypeParameterConstraintBuilder> typeParameterConstraintCallback);
+    TBuilder AddTypeParameterConstraint(TypeParameterConstraintSyntax typeParameterConstraintSyntax);
+}
+
 public partial class TypeParameterConstraintBuilder : ITypeParameterConstraintBuilder
 {
     public TypeParameterConstraintSyntax? Syntax { get; set; }

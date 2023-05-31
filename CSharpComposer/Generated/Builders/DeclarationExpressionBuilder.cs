@@ -10,6 +10,12 @@ public interface IWithDeclarationExpression<TBuilder>
     TBuilder WithDeclarationExpression(DeclarationExpressionSyntax declarationExpressionSyntax);
 }
 
+public interface IAddDeclarationExpression<TBuilder>
+{
+    TBuilder AddDeclarationExpression(Action<ITypeBuilder> typeCallback, Action<IVariableDesignationBuilder> designationCallback);
+    TBuilder AddDeclarationExpression(DeclarationExpressionSyntax declarationExpressionSyntax);
+}
+
 public partial class DeclarationExpressionBuilder
 {
     public static DeclarationExpressionSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IVariableDesignationBuilder> designationCallback)

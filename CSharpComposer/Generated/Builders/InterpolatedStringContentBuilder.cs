@@ -16,6 +16,12 @@ public interface IWithInterpolatedStringContent<TBuilder>
     TBuilder WithInterpolatedStringContent(InterpolatedStringContentSyntax interpolatedStringContentSyntax);
 }
 
+public interface IAddInterpolatedStringContent<TBuilder>
+{
+    TBuilder AddInterpolatedStringContent(Action<IInterpolatedStringContentBuilder> interpolatedStringContentCallback);
+    TBuilder AddInterpolatedStringContent(InterpolatedStringContentSyntax interpolatedStringContentSyntax);
+}
+
 public partial class InterpolatedStringContentBuilder : IInterpolatedStringContentBuilder
 {
     public InterpolatedStringContentSyntax? Syntax { get; set; }

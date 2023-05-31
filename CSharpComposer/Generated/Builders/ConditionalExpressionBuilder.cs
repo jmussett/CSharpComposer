@@ -10,6 +10,12 @@ public interface IWithConditionalExpression<TBuilder>
     TBuilder WithConditionalExpression(ConditionalExpressionSyntax conditionalExpressionSyntax);
 }
 
+public interface IAddConditionalExpression<TBuilder>
+{
+    TBuilder AddConditionalExpression(Action<IExpressionBuilder> conditionCallback, Action<IExpressionBuilder> whenTrueCallback, Action<IExpressionBuilder> whenFalseCallback);
+    TBuilder AddConditionalExpression(ConditionalExpressionSyntax conditionalExpressionSyntax);
+}
+
 public partial class ConditionalExpressionBuilder
 {
     public static ConditionalExpressionSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback, Action<IExpressionBuilder> whenTrueCallback, Action<IExpressionBuilder> whenFalseCallback)

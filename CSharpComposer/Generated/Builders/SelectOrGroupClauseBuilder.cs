@@ -16,6 +16,12 @@ public interface IWithSelectOrGroupClause<TBuilder>
     TBuilder WithSelectOrGroupClause(SelectOrGroupClauseSyntax selectOrGroupClauseSyntax);
 }
 
+public interface IAddSelectOrGroupClause<TBuilder>
+{
+    TBuilder AddSelectOrGroupClause(Action<ISelectOrGroupClauseBuilder> selectOrGroupClauseCallback);
+    TBuilder AddSelectOrGroupClause(SelectOrGroupClauseSyntax selectOrGroupClauseSyntax);
+}
+
 public partial class SelectOrGroupClauseBuilder : ISelectOrGroupClauseBuilder
 {
     public SelectOrGroupClauseSyntax? Syntax { get; set; }

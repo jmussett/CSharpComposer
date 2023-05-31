@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IRecordDeclarationBuilder : ITypeDeclarationBuilder<IRecordDeclarationBuilder>
+public partial interface IRecordDeclarationBuilder : IAddTypeParameter<IRecordDeclarationBuilder>, IAddParameter<IRecordDeclarationBuilder>, IAddBaseType<IRecordDeclarationBuilder>, ITypeDeclarationBuilder<IRecordDeclarationBuilder>
 {
     IRecordDeclarationBuilder WithClassOrStructKeyword(ClassOrStructKeyword classOrStructKeyword);
     IRecordDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
@@ -17,6 +17,12 @@ public interface IWithRecordDeclaration<TBuilder>
 {
     TBuilder WithRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback);
     TBuilder WithRecordDeclaration(RecordDeclarationSyntax recordDeclarationSyntax);
+}
+
+public interface IAddRecordDeclaration<TBuilder>
+{
+    TBuilder AddRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback);
+    TBuilder AddRecordDeclaration(RecordDeclarationSyntax recordDeclarationSyntax);
 }
 
 public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
@@ -61,7 +67,7 @@ public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
         return this;
     }
 
-    public IRecordDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IRecordDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
@@ -104,27 +110,27 @@ public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
         return this;
     }
 
-    public IRecordDeclarationBuilder AddBase(Action<IBaseTypeBuilder> typeCallback)
+    public IRecordDeclarationBuilder AddBaseType(Action<IBaseTypeBuilder> typeCallback)
     {
         var type = BaseTypeBuilder.CreateSyntax(typeCallback);
         Syntax = Syntax.AddBaseListTypes(type);
         return this;
     }
 
-    public IRecordDeclarationBuilder AddBase(BaseTypeSyntax type)
+    public IRecordDeclarationBuilder AddBaseType(BaseTypeSyntax type)
     {
         Syntax = Syntax.AddBaseListTypes(type);
         return this;
     }
 
-    public IRecordDeclarationBuilder AddConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
+    public IRecordDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
     {
         var constraintClause = TypeParameterConstraintClauseBuilder.CreateSyntax(nameIdentifier, typeParameterConstraintClauseCallback);
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;
     }
 
-    public IRecordDeclarationBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
+    public IRecordDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
     {
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;
@@ -136,14 +142,14 @@ public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
         return this;
     }
 
-    public IRecordDeclarationBuilder AddMember(Action<IMemberDeclarationBuilder> memberCallback)
+    public IRecordDeclarationBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback)
     {
         var member = MemberDeclarationBuilder.CreateSyntax(memberCallback);
         Syntax = Syntax.AddMembers(member);
         return this;
     }
 
-    public IRecordDeclarationBuilder AddMember(MemberDeclarationSyntax member)
+    public IRecordDeclarationBuilder AddMemberDeclaration(MemberDeclarationSyntax member)
     {
         Syntax = Syntax.AddMembers(member);
         return this;

@@ -10,6 +10,12 @@ public interface IWithUnaryPattern<TBuilder>
     TBuilder WithUnaryPattern(UnaryPatternSyntax unaryPatternSyntax);
 }
 
+public interface IAddUnaryPattern<TBuilder>
+{
+    TBuilder AddUnaryPattern(Action<IPatternBuilder> patternCallback);
+    TBuilder AddUnaryPattern(UnaryPatternSyntax unaryPatternSyntax);
+}
+
 public partial class UnaryPatternBuilder
 {
     public static UnaryPatternSyntax CreateSyntax(Action<IPatternBuilder> patternCallback)

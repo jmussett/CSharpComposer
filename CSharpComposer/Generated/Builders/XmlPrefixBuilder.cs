@@ -10,6 +10,12 @@ public interface IWithXmlPrefix<TBuilder>
     TBuilder WithXmlPrefix(XmlPrefixSyntax xmlPrefixSyntax);
 }
 
+public interface IAddXmlPrefix<TBuilder>
+{
+    TBuilder AddXmlPrefix(string prefix);
+    TBuilder AddXmlPrefix(XmlPrefixSyntax xmlPrefixSyntax);
+}
+
 public partial class XmlPrefixBuilder
 {
     public static XmlPrefixSyntax CreateSyntax(string prefix)

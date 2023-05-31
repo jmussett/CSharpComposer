@@ -15,6 +15,12 @@ public interface IWithClassOrStructConstraint<TBuilder>
     TBuilder WithClassOrStructConstraint(ClassOrStructConstraintSyntax classOrStructConstraintSyntax);
 }
 
+public interface IAddClassOrStructConstraint<TBuilder>
+{
+    TBuilder AddClassOrStructConstraint(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder> classOrStructConstraintCallback);
+    TBuilder AddClassOrStructConstraint(ClassOrStructConstraintSyntax classOrStructConstraintSyntax);
+}
+
 public partial class ClassOrStructConstraintBuilder : IClassOrStructConstraintBuilder
 {
     public ClassOrStructConstraintSyntax Syntax { get; set; }

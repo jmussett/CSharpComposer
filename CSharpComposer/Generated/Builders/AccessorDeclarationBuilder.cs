@@ -4,21 +4,27 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IAccessorDeclarationBuilder : IWithBlock<IAccessorDeclarationBuilder>, IWithArrowExpressionClause<IAccessorDeclarationBuilder>
+public partial interface IAccessorDeclarationBuilder
 {
-    IAccessorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
-    IAccessorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
-    IAccessorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback);
-    IAccessorDeclarationBuilder WithBlock(BlockSyntax body);
+    IAccessorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
+    IAccessorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
+    IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    IAccessorDeclarationBuilder WithBody(BlockSyntax body);
     IAccessorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
     IAccessorDeclarationBuilder AddAttribute(AttributeSyntax attribute);
-    IAccessorDeclarationBuilder AddModifier(SyntaxToken modifier);
+    IAccessorDeclarationBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithAccessorDeclaration<TBuilder>
 {
     TBuilder WithAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
     TBuilder WithAccessorDeclaration(AccessorDeclarationSyntax accessorDeclarationSyntax);
+}
+
+public interface IAddAccessorDeclaration<TBuilder>
+{
+    TBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
+    TBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessorDeclarationSyntax);
 }
 
 public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
@@ -58,27 +64,27 @@ public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IAccessorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
+    public IAccessorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IAccessorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
+    public IAccessorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IAccessorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
+    public IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IAccessorDeclarationBuilder WithBlock(BlockSyntax body)
+    public IAccessorDeclarationBuilder WithBody(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;
@@ -101,7 +107,7 @@ public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
         return this;
     }
 
-    public IAccessorDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IAccessorDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

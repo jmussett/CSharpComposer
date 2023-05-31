@@ -74,6 +74,12 @@ public interface IWithExpression<TBuilder>
     TBuilder WithExpression(ExpressionSyntax expressionSyntax);
 }
 
+public interface IAddExpression<TBuilder>
+{
+    TBuilder AddExpression(Action<IExpressionBuilder> expressionCallback);
+    TBuilder AddExpression(ExpressionSyntax expressionSyntax);
+}
+
 public partial class ExpressionBuilder : IExpressionBuilder
 {
     public ExpressionSyntax? Syntax { get; set; }

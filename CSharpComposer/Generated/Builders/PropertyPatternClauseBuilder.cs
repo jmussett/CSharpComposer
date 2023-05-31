@@ -16,6 +16,12 @@ public interface IWithPropertyPatternClause<TBuilder>
     TBuilder WithPropertyPatternClause(PropertyPatternClauseSyntax propertyPatternClauseSyntax);
 }
 
+public interface IAddPropertyPatternClause<TBuilder>
+{
+    TBuilder AddPropertyPatternClause(Action<IPropertyPatternClauseBuilder> propertyPatternClauseCallback);
+    TBuilder AddPropertyPatternClause(PropertyPatternClauseSyntax propertyPatternClauseSyntax);
+}
+
 public partial class PropertyPatternClauseBuilder : IPropertyPatternClauseBuilder
 {
     public PropertyPatternClauseSyntax Syntax { get; set; }

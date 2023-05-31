@@ -16,6 +16,12 @@ public interface IWithFromClause<TBuilder>
     TBuilder WithFromClause(FromClauseSyntax fromClauseSyntax);
 }
 
+public interface IAddFromClause<TBuilder>
+{
+    TBuilder AddFromClause(string identifier, Action<IExpressionBuilder> expressionCallback, Action<IFromClauseBuilder> fromClauseCallback);
+    TBuilder AddFromClause(FromClauseSyntax fromClauseSyntax);
+}
+
 public partial class FromClauseBuilder : IFromClauseBuilder
 {
     public FromClauseSyntax Syntax { get; set; }

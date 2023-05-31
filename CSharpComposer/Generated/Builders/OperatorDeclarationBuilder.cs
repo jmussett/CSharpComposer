@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IOperatorDeclarationBuilder : IWithExplicitInterfaceSpecifier<IOperatorDeclarationBuilder>, IWithBlock<IOperatorDeclarationBuilder>, IWithArrowExpressionClause<IOperatorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IOperatorDeclarationBuilder>
+public partial interface IOperatorDeclarationBuilder : IWithExplicitInterfaceSpecifier<IOperatorDeclarationBuilder>, IAddParameter<IOperatorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IOperatorDeclarationBuilder>
 {
     IOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
     IOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier);
@@ -15,6 +15,12 @@ public interface IWithOperatorDeclaration<TBuilder>
 {
     TBuilder WithOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder> operatorDeclarationCallback);
     TBuilder WithOperatorDeclaration(OperatorDeclarationSyntax operatorDeclarationSyntax);
+}
+
+public interface IAddOperatorDeclaration<TBuilder>
+{
+    TBuilder AddOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder> operatorDeclarationCallback);
+    TBuilder AddOperatorDeclaration(OperatorDeclarationSyntax operatorDeclarationSyntax);
 }
 
 public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
@@ -65,27 +71,27 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IOperatorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
+    public IOperatorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IOperatorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
+    public IOperatorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IOperatorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
+    public IOperatorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IOperatorDeclarationBuilder WithBlock(BlockSyntax body)
+    public IOperatorDeclarationBuilder WithBody(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;
@@ -108,7 +114,7 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         return this;
     }
 
-    public IOperatorDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IOperatorDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

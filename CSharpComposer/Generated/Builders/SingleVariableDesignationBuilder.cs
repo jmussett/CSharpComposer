@@ -10,6 +10,12 @@ public interface IWithSingleVariableDesignation<TBuilder>
     TBuilder WithSingleVariableDesignation(SingleVariableDesignationSyntax singleVariableDesignationSyntax);
 }
 
+public interface IAddSingleVariableDesignation<TBuilder>
+{
+    TBuilder AddSingleVariableDesignation(string identifier);
+    TBuilder AddSingleVariableDesignation(SingleVariableDesignationSyntax singleVariableDesignationSyntax);
+}
+
 public partial class SingleVariableDesignationBuilder
 {
     public static SingleVariableDesignationSyntax CreateSyntax(string identifier)

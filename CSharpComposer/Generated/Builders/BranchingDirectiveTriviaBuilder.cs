@@ -17,6 +17,12 @@ public interface IWithBranchingDirectiveTrivia<TBuilder>
     TBuilder WithBranchingDirectiveTrivia(BranchingDirectiveTriviaSyntax branchingDirectiveTriviaSyntax);
 }
 
+public interface IAddBranchingDirectiveTrivia<TBuilder>
+{
+    TBuilder AddBranchingDirectiveTrivia(Action<IBranchingDirectiveTriviaBuilder> branchingDirectiveTriviaCallback);
+    TBuilder AddBranchingDirectiveTrivia(BranchingDirectiveTriviaSyntax branchingDirectiveTriviaSyntax);
+}
+
 public partial class BranchingDirectiveTriviaBuilder : IBranchingDirectiveTriviaBuilder
 {
     public BranchingDirectiveTriviaSyntax? Syntax { get; set; }

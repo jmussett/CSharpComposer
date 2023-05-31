@@ -10,6 +10,12 @@ public interface IWithAwaitExpression<TBuilder>
     TBuilder WithAwaitExpression(AwaitExpressionSyntax awaitExpressionSyntax);
 }
 
+public interface IAddAwaitExpression<TBuilder>
+{
+    TBuilder AddAwaitExpression(Action<IExpressionBuilder> expressionCallback);
+    TBuilder AddAwaitExpression(AwaitExpressionSyntax awaitExpressionSyntax);
+}
+
 public partial class AwaitExpressionBuilder
 {
     public static AwaitExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback)

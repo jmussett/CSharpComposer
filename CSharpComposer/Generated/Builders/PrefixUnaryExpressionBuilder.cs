@@ -10,6 +10,12 @@ public interface IWithPrefixUnaryExpression<TBuilder>
     TBuilder WithPrefixUnaryExpression(PrefixUnaryExpressionSyntax prefixUnaryExpressionSyntax);
 }
 
+public interface IAddPrefixUnaryExpression<TBuilder>
+{
+    TBuilder AddPrefixUnaryExpression(PrefixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback);
+    TBuilder AddPrefixUnaryExpression(PrefixUnaryExpressionSyntax prefixUnaryExpressionSyntax);
+}
+
 public partial class PrefixUnaryExpressionBuilder
 {
     public static PrefixUnaryExpressionSyntax CreateSyntax(PrefixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback)

@@ -39,6 +39,12 @@ public interface IWithMemberDeclaration<TBuilder>
     TBuilder WithMemberDeclaration(MemberDeclarationSyntax memberDeclarationSyntax);
 }
 
+public interface IAddMemberDeclaration<TBuilder>
+{
+    TBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberDeclarationCallback);
+    TBuilder AddMemberDeclaration(MemberDeclarationSyntax memberDeclarationSyntax);
+}
+
 public partial class MemberDeclarationBuilder : IMemberDeclarationBuilder
 {
     public MemberDeclarationSyntax? Syntax { get; set; }

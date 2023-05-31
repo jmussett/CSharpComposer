@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IDestructorDeclarationBuilder : IWithBlock<IDestructorDeclarationBuilder>, IWithArrowExpressionClause<IDestructorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IDestructorDeclarationBuilder>
+public partial interface IDestructorDeclarationBuilder : IAddParameter<IDestructorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IDestructorDeclarationBuilder>
 {
 }
 
@@ -12,6 +12,12 @@ public interface IWithDestructorDeclaration<TBuilder>
 {
     TBuilder WithDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback);
     TBuilder WithDestructorDeclaration(DestructorDeclarationSyntax destructorDeclarationSyntax);
+}
+
+public interface IAddDestructorDeclaration<TBuilder>
+{
+    TBuilder AddDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback);
+    TBuilder AddDestructorDeclaration(DestructorDeclarationSyntax destructorDeclarationSyntax);
 }
 
 public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilder
@@ -34,27 +40,27 @@ public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilde
         return builder.Syntax;
     }
 
-    public IDestructorDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
+    public IDestructorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IDestructorDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
+    public IDestructorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IDestructorDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
+    public IDestructorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IDestructorDeclarationBuilder WithBlock(BlockSyntax body)
+    public IDestructorDeclarationBuilder WithBody(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;
@@ -77,7 +83,7 @@ public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilde
         return this;
     }
 
-    public IDestructorDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IDestructorDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

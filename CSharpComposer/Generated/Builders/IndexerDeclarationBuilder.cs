@@ -4,12 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IIndexerDeclarationBuilder : IWithExplicitInterfaceSpecifier<IIndexerDeclarationBuilder>, IWithArrowExpressionClause<IIndexerDeclarationBuilder>, IBasePropertyDeclarationBuilder<IIndexerDeclarationBuilder>
+public partial interface IIndexerDeclarationBuilder : IWithExplicitInterfaceSpecifier<IIndexerDeclarationBuilder>, IAddAccessorDeclaration<IIndexerDeclarationBuilder>, IBasePropertyDeclarationBuilder<IIndexerDeclarationBuilder>
 {
-    IIndexerDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
-    IIndexerDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
-    IIndexerDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
-    IIndexerDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor);
+    IIndexerDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
+    IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
+    IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
+    IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor);
     IIndexerDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     IIndexerDeclarationBuilder AddParameter(ParameterSyntax parameter);
 }
@@ -18,6 +18,12 @@ public interface IWithIndexerDeclaration<TBuilder>
 {
     TBuilder WithIndexerDeclaration(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder> indexerDeclarationCallback);
     TBuilder WithIndexerDeclaration(IndexerDeclarationSyntax indexerDeclarationSyntax);
+}
+
+public interface IAddIndexerDeclaration<TBuilder>
+{
+    TBuilder AddIndexerDeclaration(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder> indexerDeclarationCallback);
+    TBuilder AddIndexerDeclaration(IndexerDeclarationSyntax indexerDeclarationSyntax);
 }
 
 public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
@@ -40,27 +46,27 @@ public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IIndexerDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
+    public IIndexerDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IIndexerDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
+    public IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IIndexerDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
+    public IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
     {
         var accessor = AccessorDeclarationBuilder.CreateSyntax(kind, accessorDeclarationCallback);
         Syntax = Syntax.AddAccessorListAccessors(accessor);
         return this;
     }
 
-    public IIndexerDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor)
+    public IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor)
     {
         Syntax = Syntax.AddAccessorListAccessors(accessor);
         return this;
@@ -83,7 +89,7 @@ public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
         return this;
     }
 
-    public IIndexerDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IIndexerDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

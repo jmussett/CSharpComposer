@@ -4,22 +4,28 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IForStatementBuilder : IWithVariableDeclaration<IForStatementBuilder>, IWithExpression<IForStatementBuilder>, IStatementBuilder<IForStatementBuilder>
+public partial interface IForStatementBuilder : IStatementBuilder<IForStatementBuilder>
 {
-    IForStatementBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
-    IForStatementBuilder WithVariableDeclaration(VariableDeclarationSyntax declaration);
-    IForStatementBuilder AddInitializer(Action<IExpressionBuilder> initializerCallback);
-    IForStatementBuilder AddInitializer(ExpressionSyntax initializer);
-    IForStatementBuilder WithExpression(Action<IExpressionBuilder> conditionCallback);
-    IForStatementBuilder WithExpression(ExpressionSyntax condition);
-    IForStatementBuilder AddIncrementor(Action<IExpressionBuilder> incrementorCallback);
-    IForStatementBuilder AddIncrementor(ExpressionSyntax incrementor);
+    IForStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
+    IForStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration);
+    IForStatementBuilder AddInitializerExpression(Action<IExpressionBuilder> initializerCallback);
+    IForStatementBuilder AddInitializerExpression(ExpressionSyntax initializer);
+    IForStatementBuilder WithCondition(Action<IExpressionBuilder> conditionCallback);
+    IForStatementBuilder WithCondition(ExpressionSyntax condition);
+    IForStatementBuilder AddIncrementorExpression(Action<IExpressionBuilder> incrementorCallback);
+    IForStatementBuilder AddIncrementorExpression(ExpressionSyntax incrementor);
 }
 
 public interface IWithForStatement<TBuilder>
 {
     TBuilder WithForStatement(Action<IStatementBuilder> statementCallback, Action<IForStatementBuilder> forStatementCallback);
     TBuilder WithForStatement(ForStatementSyntax forStatementSyntax);
+}
+
+public interface IAddForStatement<TBuilder>
+{
+    TBuilder AddForStatement(Action<IStatementBuilder> statementCallback, Action<IForStatementBuilder> forStatementCallback);
+    TBuilder AddForStatement(ForStatementSyntax forStatementSyntax);
 }
 
 public partial class ForStatementBuilder : IForStatementBuilder
@@ -45,27 +51,27 @@ public partial class ForStatementBuilder : IForStatementBuilder
         return builder.Syntax;
     }
 
-    public IForStatementBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
+    public IForStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
     {
         var declarationSyntax = VariableDeclarationBuilder.CreateSyntax(typeCallback, variableDeclarationCallback);
         Syntax = Syntax.WithDeclaration(declarationSyntax);
         return this;
     }
 
-    public IForStatementBuilder WithVariableDeclaration(VariableDeclarationSyntax declaration)
+    public IForStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration)
     {
         Syntax = Syntax.WithDeclaration(declaration);
         return this;
     }
 
-    public IForStatementBuilder AddInitializer(Action<IExpressionBuilder> initializerCallback)
+    public IForStatementBuilder AddInitializerExpression(Action<IExpressionBuilder> initializerCallback)
     {
         var initializer = ExpressionBuilder.CreateSyntax(initializerCallback);
         Syntax = Syntax.AddInitializers(initializer);
         return this;
     }
 
-    public IForStatementBuilder AddInitializer(ExpressionSyntax initializer)
+    public IForStatementBuilder AddInitializerExpression(ExpressionSyntax initializer)
     {
         Syntax = Syntax.AddInitializers(initializer);
         return this;
@@ -88,27 +94,27 @@ public partial class ForStatementBuilder : IForStatementBuilder
         return this;
     }
 
-    public IForStatementBuilder WithExpression(Action<IExpressionBuilder> conditionCallback)
+    public IForStatementBuilder WithCondition(Action<IExpressionBuilder> conditionCallback)
     {
         var conditionSyntax = ExpressionBuilder.CreateSyntax(conditionCallback);
         Syntax = Syntax.WithCondition(conditionSyntax);
         return this;
     }
 
-    public IForStatementBuilder WithExpression(ExpressionSyntax condition)
+    public IForStatementBuilder WithCondition(ExpressionSyntax condition)
     {
         Syntax = Syntax.WithCondition(condition);
         return this;
     }
 
-    public IForStatementBuilder AddIncrementor(Action<IExpressionBuilder> incrementorCallback)
+    public IForStatementBuilder AddIncrementorExpression(Action<IExpressionBuilder> incrementorCallback)
     {
         var incrementor = ExpressionBuilder.CreateSyntax(incrementorCallback);
         Syntax = Syntax.AddIncrementors(incrementor);
         return this;
     }
 
-    public IForStatementBuilder AddIncrementor(ExpressionSyntax incrementor)
+    public IForStatementBuilder AddIncrementorExpression(ExpressionSyntax incrementor)
     {
         Syntax = Syntax.AddIncrementors(incrementor);
         return this;

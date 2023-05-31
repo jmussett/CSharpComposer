@@ -10,6 +10,12 @@ public interface IWithFunctionPointerUnmanagedCallingConvention<TBuilder>
     TBuilder WithFunctionPointerUnmanagedCallingConvention(FunctionPointerUnmanagedCallingConventionSyntax functionPointerUnmanagedCallingConventionSyntax);
 }
 
+public interface IAddFunctionPointerUnmanagedCallingConvention<TBuilder>
+{
+    TBuilder AddFunctionPointerUnmanagedCallingConvention(string name);
+    TBuilder AddFunctionPointerUnmanagedCallingConvention(FunctionPointerUnmanagedCallingConventionSyntax functionPointerUnmanagedCallingConventionSyntax);
+}
+
 public partial class FunctionPointerUnmanagedCallingConventionBuilder
 {
     public static FunctionPointerUnmanagedCallingConventionSyntax CreateSyntax(string name)

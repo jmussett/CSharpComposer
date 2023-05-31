@@ -18,6 +18,12 @@ public interface IWithAttributeArgument<TBuilder>
     TBuilder WithAttributeArgument(AttributeArgumentSyntax attributeArgumentSyntax);
 }
 
+public interface IAddAttributeArgument<TBuilder>
+{
+    TBuilder AddAttributeArgument(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder> attributeArgumentCallback);
+    TBuilder AddAttributeArgument(AttributeArgumentSyntax attributeArgumentSyntax);
+}
+
 public partial class AttributeArgumentBuilder : IAttributeArgumentBuilder
 {
     public AttributeArgumentSyntax Syntax { get; set; }

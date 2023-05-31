@@ -14,6 +14,12 @@ public interface IWithContinueStatement<TBuilder>
     TBuilder WithContinueStatement(ContinueStatementSyntax continueStatementSyntax);
 }
 
+public interface IAddContinueStatement<TBuilder>
+{
+    TBuilder AddContinueStatement(Action<IContinueStatementBuilder> continueStatementCallback);
+    TBuilder AddContinueStatement(ContinueStatementSyntax continueStatementSyntax);
+}
+
 public partial class ContinueStatementBuilder : IContinueStatementBuilder
 {
     public ContinueStatementSyntax Syntax { get; set; }

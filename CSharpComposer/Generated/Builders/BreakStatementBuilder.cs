@@ -14,6 +14,12 @@ public interface IWithBreakStatement<TBuilder>
     TBuilder WithBreakStatement(BreakStatementSyntax breakStatementSyntax);
 }
 
+public interface IAddBreakStatement<TBuilder>
+{
+    TBuilder AddBreakStatement(Action<IBreakStatementBuilder> breakStatementCallback);
+    TBuilder AddBreakStatement(BreakStatementSyntax breakStatementSyntax);
+}
+
 public partial class BreakStatementBuilder : IBreakStatementBuilder
 {
     public BreakStatementSyntax Syntax { get; set; }

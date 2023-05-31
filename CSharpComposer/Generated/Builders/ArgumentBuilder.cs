@@ -17,6 +17,12 @@ public interface IWithArgument<TBuilder>
     TBuilder WithArgument(ArgumentSyntax argumentSyntax);
 }
 
+public interface IAddArgument<TBuilder>
+{
+    TBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
+    TBuilder AddArgument(ArgumentSyntax argumentSyntax);
+}
+
 public partial class ArgumentBuilder : IArgumentBuilder
 {
     public ArgumentSyntax Syntax { get; set; }

@@ -16,6 +16,12 @@ public interface IWithBaseFieldDeclaration<TBuilder>
     TBuilder WithBaseFieldDeclaration(BaseFieldDeclarationSyntax baseFieldDeclarationSyntax);
 }
 
+public interface IAddBaseFieldDeclaration<TBuilder>
+{
+    TBuilder AddBaseFieldDeclaration(Action<IBaseFieldDeclarationBuilder> baseFieldDeclarationCallback);
+    TBuilder AddBaseFieldDeclaration(BaseFieldDeclarationSyntax baseFieldDeclarationSyntax);
+}
+
 public partial class BaseFieldDeclarationBuilder : IBaseFieldDeclarationBuilder
 {
     public BaseFieldDeclarationSyntax? Syntax { get; set; }

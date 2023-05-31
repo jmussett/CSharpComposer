@@ -10,6 +10,12 @@ public interface IWithWhenClause<TBuilder>
     TBuilder WithWhenClause(WhenClauseSyntax whenClauseSyntax);
 }
 
+public interface IAddWhenClause<TBuilder>
+{
+    TBuilder AddWhenClause(Action<IExpressionBuilder> conditionCallback);
+    TBuilder AddWhenClause(WhenClauseSyntax whenClauseSyntax);
+}
+
 public partial class WhenClauseBuilder
 {
     public static WhenClauseSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback)

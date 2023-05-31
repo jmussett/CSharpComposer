@@ -6,8 +6,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ISwitchSectionBuilder
 {
-    ISwitchSectionBuilder AddLabel(Action<ISwitchLabelBuilder> labelCallback);
-    ISwitchSectionBuilder AddLabel(SwitchLabelSyntax label);
+    ISwitchSectionBuilder AddSwitchLabel(Action<ISwitchLabelBuilder> labelCallback);
+    ISwitchSectionBuilder AddSwitchLabel(SwitchLabelSyntax label);
     ISwitchSectionBuilder AddStatement(Action<IStatementBuilder> statementCallback);
     ISwitchSectionBuilder AddStatement(StatementSyntax statement);
 }
@@ -16,6 +16,12 @@ public interface IWithSwitchSection<TBuilder>
 {
     TBuilder WithSwitchSection(Action<ISwitchSectionBuilder> switchSectionCallback);
     TBuilder WithSwitchSection(SwitchSectionSyntax switchSectionSyntax);
+}
+
+public interface IAddSwitchSection<TBuilder>
+{
+    TBuilder AddSwitchSection(Action<ISwitchSectionBuilder> switchSectionCallback);
+    TBuilder AddSwitchSection(SwitchSectionSyntax switchSectionSyntax);
 }
 
 public partial class SwitchSectionBuilder : ISwitchSectionBuilder
@@ -35,14 +41,14 @@ public partial class SwitchSectionBuilder : ISwitchSectionBuilder
         return builder.Syntax;
     }
 
-    public ISwitchSectionBuilder AddLabel(Action<ISwitchLabelBuilder> labelCallback)
+    public ISwitchSectionBuilder AddSwitchLabel(Action<ISwitchLabelBuilder> labelCallback)
     {
         var label = SwitchLabelBuilder.CreateSyntax(labelCallback);
         Syntax = Syntax.AddLabels(label);
         return this;
     }
 
-    public ISwitchSectionBuilder AddLabel(SwitchLabelSyntax label)
+    public ISwitchSectionBuilder AddSwitchLabel(SwitchLabelSyntax label)
     {
         Syntax = Syntax.AddLabels(label);
         return this;

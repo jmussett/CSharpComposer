@@ -10,6 +10,12 @@ public interface IWithConditionalAccessExpression<TBuilder>
     TBuilder WithConditionalAccessExpression(ConditionalAccessExpressionSyntax conditionalAccessExpressionSyntax);
 }
 
+public interface IAddConditionalAccessExpression<TBuilder>
+{
+    TBuilder AddConditionalAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IExpressionBuilder> whenNotNullCallback);
+    TBuilder AddConditionalAccessExpression(ConditionalAccessExpressionSyntax conditionalAccessExpressionSyntax);
+}
+
 public partial class ConditionalAccessExpressionBuilder
 {
     public static ConditionalAccessExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IExpressionBuilder> whenNotNullCallback)

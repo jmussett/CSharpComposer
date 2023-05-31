@@ -10,6 +10,12 @@ public interface IWithOmittedArraySizeExpression<TBuilder>
     TBuilder WithOmittedArraySizeExpression(OmittedArraySizeExpressionSyntax omittedArraySizeExpressionSyntax);
 }
 
+public interface IAddOmittedArraySizeExpression<TBuilder>
+{
+    TBuilder AddOmittedArraySizeExpression();
+    TBuilder AddOmittedArraySizeExpression(OmittedArraySizeExpressionSyntax omittedArraySizeExpressionSyntax);
+}
+
 public partial class OmittedArraySizeExpressionBuilder
 {
     public static OmittedArraySizeExpressionSyntax CreateSyntax()

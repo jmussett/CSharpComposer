@@ -10,6 +10,12 @@ public interface IWithIdentifierName<TBuilder>
     TBuilder WithIdentifierName(IdentifierNameSyntax identifierNameSyntax);
 }
 
+public interface IAddIdentifierName<TBuilder>
+{
+    TBuilder AddIdentifierName(string identifier);
+    TBuilder AddIdentifierName(IdentifierNameSyntax identifierNameSyntax);
+}
+
 public partial class IdentifierNameBuilder
 {
     public static IdentifierNameSyntax CreateSyntax(string identifier)

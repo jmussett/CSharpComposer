@@ -23,6 +23,12 @@ public interface IWithBasePropertyDeclaration<TBuilder>
     TBuilder WithBasePropertyDeclaration(BasePropertyDeclarationSyntax basePropertyDeclarationSyntax);
 }
 
+public interface IAddBasePropertyDeclaration<TBuilder>
+{
+    TBuilder AddBasePropertyDeclaration(Action<IBasePropertyDeclarationBuilder> basePropertyDeclarationCallback);
+    TBuilder AddBasePropertyDeclaration(BasePropertyDeclarationSyntax basePropertyDeclarationSyntax);
+}
+
 public partial class BasePropertyDeclarationBuilder : IBasePropertyDeclarationBuilder
 {
     public BasePropertyDeclarationSyntax? Syntax { get; set; }

@@ -10,6 +10,12 @@ public interface IWithAssignmentExpression<TBuilder>
     TBuilder WithAssignmentExpression(AssignmentExpressionSyntax assignmentExpressionSyntax);
 }
 
+public interface IAddAssignmentExpression<TBuilder>
+{
+    TBuilder AddAssignmentExpression(AssignmentExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback);
+    TBuilder AddAssignmentExpression(AssignmentExpressionSyntax assignmentExpressionSyntax);
+}
+
 public partial class AssignmentExpressionBuilder
 {
     public static AssignmentExpressionSyntax CreateSyntax(AssignmentExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback)

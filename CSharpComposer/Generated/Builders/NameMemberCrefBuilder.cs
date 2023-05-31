@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface INameMemberCrefBuilder
 {
-    INameMemberCrefBuilder AddParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
-    INameMemberCrefBuilder AddParameter(CrefParameterSyntax parameter);
+    INameMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
+    INameMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
 public interface IWithNameMemberCref<TBuilder>
 {
     TBuilder WithNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder> nameMemberCrefCallback);
     TBuilder WithNameMemberCref(NameMemberCrefSyntax nameMemberCrefSyntax);
+}
+
+public interface IAddNameMemberCref<TBuilder>
+{
+    TBuilder AddNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder> nameMemberCrefCallback);
+    TBuilder AddNameMemberCref(NameMemberCrefSyntax nameMemberCrefSyntax);
 }
 
 public partial class NameMemberCrefBuilder : INameMemberCrefBuilder
@@ -34,14 +40,14 @@ public partial class NameMemberCrefBuilder : INameMemberCrefBuilder
         return builder.Syntax;
     }
 
-    public INameMemberCrefBuilder AddParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
+    public INameMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
     {
         var parameter = CrefParameterBuilder.CreateSyntax(typeCallback, crefParameterCallback);
         Syntax = Syntax.AddParametersParameters(parameter);
         return this;
     }
 
-    public INameMemberCrefBuilder AddParameter(CrefParameterSyntax parameter)
+    public INameMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter)
     {
         Syntax = Syntax.AddParametersParameters(parameter);
         return this;

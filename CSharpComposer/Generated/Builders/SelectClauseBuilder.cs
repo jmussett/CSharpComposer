@@ -10,6 +10,12 @@ public interface IWithSelectClause<TBuilder>
     TBuilder WithSelectClause(SelectClauseSyntax selectClauseSyntax);
 }
 
+public interface IAddSelectClause<TBuilder>
+{
+    TBuilder AddSelectClause(Action<IExpressionBuilder> expressionCallback);
+    TBuilder AddSelectClause(SelectClauseSyntax selectClauseSyntax);
+}
+
 public partial class SelectClauseBuilder
 {
     public static SelectClauseSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback)

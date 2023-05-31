@@ -4,18 +4,24 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IParameterBuilder : IWithType<IParameterBuilder>, IWithEqualsValueClause<IParameterBuilder>, IBaseParameterBuilder<IParameterBuilder>
+public partial interface IParameterBuilder : IWithType<IParameterBuilder>, IBaseParameterBuilder<IParameterBuilder>
 {
     IParameterBuilder WithType(Action<ITypeBuilder> typeCallback);
     IParameterBuilder WithType(TypeSyntax type);
-    IParameterBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
-    IParameterBuilder WithEqualsValueClause(EqualsValueClauseSyntax @default);
+    IParameterBuilder WithDefault(Action<IExpressionBuilder> valueCallback);
+    IParameterBuilder WithDefault(EqualsValueClauseSyntax @default);
 }
 
 public interface IWithParameter<TBuilder>
 {
     TBuilder WithParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     TBuilder WithParameter(ParameterSyntax parameterSyntax);
+}
+
+public interface IAddParameter<TBuilder>
+{
+    TBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
+    TBuilder AddParameter(ParameterSyntax parameterSyntax);
 }
 
 public partial class ParameterBuilder : IParameterBuilder
@@ -53,7 +59,7 @@ public partial class ParameterBuilder : IParameterBuilder
         return this;
     }
 
-    public IParameterBuilder AddModifier(SyntaxToken modifier)
+    public IParameterBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
@@ -72,14 +78,14 @@ public partial class ParameterBuilder : IParameterBuilder
         return this;
     }
 
-    public IParameterBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback)
+    public IParameterBuilder WithDefault(Action<IExpressionBuilder> valueCallback)
     {
         var defaultSyntax = EqualsValueClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithDefault(defaultSyntax);
         return this;
     }
 
-    public IParameterBuilder WithEqualsValueClause(EqualsValueClauseSyntax @default)
+    public IParameterBuilder WithDefault(EqualsValueClauseSyntax @default)
     {
         Syntax = Syntax.WithDefault(@default);
         return this;

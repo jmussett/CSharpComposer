@@ -16,6 +16,12 @@ public interface IWithTupleExpression<TBuilder>
     TBuilder WithTupleExpression(TupleExpressionSyntax tupleExpressionSyntax);
 }
 
+public interface IAddTupleExpression<TBuilder>
+{
+    TBuilder AddTupleExpression(Action<ITupleExpressionBuilder> tupleExpressionCallback);
+    TBuilder AddTupleExpression(TupleExpressionSyntax tupleExpressionSyntax);
+}
+
 public partial class TupleExpressionBuilder : ITupleExpressionBuilder
 {
     public TupleExpressionSyntax Syntax { get; set; }

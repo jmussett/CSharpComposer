@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IPrimaryConstructorBaseTypeBuilder
+public partial interface IPrimaryConstructorBaseTypeBuilder : IAddArgument<IPrimaryConstructorBaseTypeBuilder>
 {
     IPrimaryConstructorBaseTypeBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     IPrimaryConstructorBaseTypeBuilder AddArgument(ArgumentSyntax argument);
@@ -14,6 +14,12 @@ public interface IWithPrimaryConstructorBaseType<TBuilder>
 {
     TBuilder WithPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback);
     TBuilder WithPrimaryConstructorBaseType(PrimaryConstructorBaseTypeSyntax primaryConstructorBaseTypeSyntax);
+}
+
+public interface IAddPrimaryConstructorBaseType<TBuilder>
+{
+    TBuilder AddPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback);
+    TBuilder AddPrimaryConstructorBaseType(PrimaryConstructorBaseTypeSyntax primaryConstructorBaseTypeSyntax);
 }
 
 public partial class PrimaryConstructorBaseTypeBuilder : IPrimaryConstructorBaseTypeBuilder

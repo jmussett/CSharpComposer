@@ -10,6 +10,12 @@ public interface IWithPointerType<TBuilder>
     TBuilder WithPointerType(PointerTypeSyntax pointerTypeSyntax);
 }
 
+public interface IAddPointerType<TBuilder>
+{
+    TBuilder AddPointerType(Action<ITypeBuilder> elementTypeCallback);
+    TBuilder AddPointerType(PointerTypeSyntax pointerTypeSyntax);
+}
+
 public partial class PointerTypeBuilder
 {
     public static PointerTypeSyntax CreateSyntax(Action<ITypeBuilder> elementTypeCallback)

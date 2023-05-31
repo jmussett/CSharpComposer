@@ -14,6 +14,12 @@ public interface IWithLabeledStatement<TBuilder>
     TBuilder WithLabeledStatement(LabeledStatementSyntax labeledStatementSyntax);
 }
 
+public interface IAddLabeledStatement<TBuilder>
+{
+    TBuilder AddLabeledStatement(string identifier, Action<IStatementBuilder> statementCallback, Action<ILabeledStatementBuilder> labeledStatementCallback);
+    TBuilder AddLabeledStatement(LabeledStatementSyntax labeledStatementSyntax);
+}
+
 public partial class LabeledStatementBuilder : ILabeledStatementBuilder
 {
     public LabeledStatementSyntax Syntax { get; set; }

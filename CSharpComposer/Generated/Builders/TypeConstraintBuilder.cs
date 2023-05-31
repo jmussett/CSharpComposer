@@ -10,6 +10,12 @@ public interface IWithTypeConstraint<TBuilder>
     TBuilder WithTypeConstraint(TypeConstraintSyntax typeConstraintSyntax);
 }
 
+public interface IAddTypeConstraint<TBuilder>
+{
+    TBuilder AddTypeConstraint(Action<ITypeBuilder> typeCallback);
+    TBuilder AddTypeConstraint(TypeConstraintSyntax typeConstraintSyntax);
+}
+
 public partial class TypeConstraintBuilder
 {
     public static TypeConstraintSyntax CreateSyntax(Action<ITypeBuilder> typeCallback)

@@ -4,11 +4,11 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IUsingDirectiveBuilder : IWithNameEquals<IUsingDirectiveBuilder>
+public partial interface IUsingDirectiveBuilder
 {
     IUsingDirectiveBuilder WithStaticKeyword(StaticKeyword staticKeyword);
-    IUsingDirectiveBuilder WithNameEquals(string nameIdentifier);
-    IUsingDirectiveBuilder WithNameEquals(NameEqualsSyntax alias);
+    IUsingDirectiveBuilder WithAlias(string nameIdentifier);
+    IUsingDirectiveBuilder WithAlias(NameEqualsSyntax alias);
     IUsingDirectiveBuilder WithGlobalKeyword();
 }
 
@@ -16,6 +16,12 @@ public interface IWithUsingDirective<TBuilder>
 {
     TBuilder WithUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
     TBuilder WithUsingDirective(UsingDirectiveSyntax usingDirectiveSyntax);
+}
+
+public interface IAddUsingDirective<TBuilder>
+{
+    TBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
+    TBuilder AddUsingDirective(UsingDirectiveSyntax usingDirectiveSyntax);
 }
 
 public partial class UsingDirectiveBuilder : IUsingDirectiveBuilder
@@ -47,14 +53,14 @@ public partial class UsingDirectiveBuilder : IUsingDirectiveBuilder
         return this;
     }
 
-    public IUsingDirectiveBuilder WithNameEquals(string nameIdentifier)
+    public IUsingDirectiveBuilder WithAlias(string nameIdentifier)
     {
         var aliasSyntax = NameEqualsBuilder.CreateSyntax(nameIdentifier);
         Syntax = Syntax.WithAlias(aliasSyntax);
         return this;
     }
 
-    public IUsingDirectiveBuilder WithNameEquals(NameEqualsSyntax alias)
+    public IUsingDirectiveBuilder WithAlias(NameEqualsSyntax alias)
     {
         Syntax = Syntax.WithAlias(alias);
         return this;

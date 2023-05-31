@@ -27,6 +27,12 @@ public interface IWithType<TBuilder>
     TBuilder WithType(TypeSyntax typeSyntax);
 }
 
+public interface IAddType<TBuilder>
+{
+    TBuilder AddType(Action<ITypeBuilder> typeCallback);
+    TBuilder AddType(TypeSyntax typeSyntax);
+}
+
 public partial class TypeBuilder : ITypeBuilder
 {
     public TypeSyntax? Syntax { get; set; }

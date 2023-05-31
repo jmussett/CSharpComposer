@@ -10,6 +10,12 @@ public interface IWithEqualsValueClause<TBuilder>
     TBuilder WithEqualsValueClause(EqualsValueClauseSyntax equalsValueClauseSyntax);
 }
 
+public interface IAddEqualsValueClause<TBuilder>
+{
+    TBuilder AddEqualsValueClause(Action<IExpressionBuilder> valueCallback);
+    TBuilder AddEqualsValueClause(EqualsValueClauseSyntax equalsValueClauseSyntax);
+}
+
 public partial class EqualsValueClauseBuilder
 {
     public static EqualsValueClauseSyntax CreateSyntax(Action<IExpressionBuilder> valueCallback)

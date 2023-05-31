@@ -4,20 +4,26 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IPropertyDeclarationBuilder : IWithExplicitInterfaceSpecifier<IPropertyDeclarationBuilder>, IWithArrowExpressionClause<IPropertyDeclarationBuilder>, IWithEqualsValueClause<IPropertyDeclarationBuilder>, IBasePropertyDeclarationBuilder<IPropertyDeclarationBuilder>
+public partial interface IPropertyDeclarationBuilder : IWithExplicitInterfaceSpecifier<IPropertyDeclarationBuilder>, IAddAccessorDeclaration<IPropertyDeclarationBuilder>, IBasePropertyDeclarationBuilder<IPropertyDeclarationBuilder>
 {
-    IPropertyDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
-    IPropertyDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
-    IPropertyDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
-    IPropertyDeclarationBuilder WithEqualsValueClause(EqualsValueClauseSyntax initializer);
-    IPropertyDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
-    IPropertyDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor);
+    IPropertyDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
+    IPropertyDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
+    IPropertyDeclarationBuilder WithInitializer(Action<IExpressionBuilder> valueCallback);
+    IPropertyDeclarationBuilder WithInitializer(EqualsValueClauseSyntax initializer);
+    IPropertyDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
+    IPropertyDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor);
 }
 
 public interface IWithPropertyDeclaration<TBuilder>
 {
     TBuilder WithPropertyDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder> propertyDeclarationCallback);
     TBuilder WithPropertyDeclaration(PropertyDeclarationSyntax propertyDeclarationSyntax);
+}
+
+public interface IAddPropertyDeclaration<TBuilder>
+{
+    TBuilder AddPropertyDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder> propertyDeclarationCallback);
+    TBuilder AddPropertyDeclaration(PropertyDeclarationSyntax propertyDeclarationSyntax);
 }
 
 public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
@@ -39,40 +45,40 @@ public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IPropertyDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
+    public IPropertyDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IPropertyDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
+    public IPropertyDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IPropertyDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback)
+    public IPropertyDeclarationBuilder WithInitializer(Action<IExpressionBuilder> valueCallback)
     {
         var initializerSyntax = EqualsValueClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);
         return this;
     }
 
-    public IPropertyDeclarationBuilder WithEqualsValueClause(EqualsValueClauseSyntax initializer)
+    public IPropertyDeclarationBuilder WithInitializer(EqualsValueClauseSyntax initializer)
     {
         Syntax = Syntax.WithInitializer(initializer);
         return this;
     }
 
-    public IPropertyDeclarationBuilder AddAccessor(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
+    public IPropertyDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
     {
         var accessor = AccessorDeclarationBuilder.CreateSyntax(kind, accessorDeclarationCallback);
         Syntax = Syntax.AddAccessorListAccessors(accessor);
         return this;
     }
 
-    public IPropertyDeclarationBuilder AddAccessor(AccessorDeclarationSyntax accessor)
+    public IPropertyDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor)
     {
         Syntax = Syntax.AddAccessorListAccessors(accessor);
         return this;
@@ -95,7 +101,7 @@ public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
         return this;
     }
 
-    public IPropertyDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IPropertyDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

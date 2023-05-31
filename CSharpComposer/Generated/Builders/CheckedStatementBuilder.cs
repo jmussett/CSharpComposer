@@ -14,6 +14,12 @@ public interface IWithCheckedStatement<TBuilder>
     TBuilder WithCheckedStatement(CheckedStatementSyntax checkedStatementSyntax);
 }
 
+public interface IAddCheckedStatement<TBuilder>
+{
+    TBuilder AddCheckedStatement(CheckedStatementKind kind, Action<IBlockBuilder> blockBlockCallback, Action<ICheckedStatementBuilder> checkedStatementCallback);
+    TBuilder AddCheckedStatement(CheckedStatementSyntax checkedStatementSyntax);
+}
+
 public partial class CheckedStatementBuilder : ICheckedStatementBuilder
 {
     public CheckedStatementSyntax Syntax { get; set; }

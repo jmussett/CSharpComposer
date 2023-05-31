@@ -4,20 +4,26 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IListPatternBuilder : IWithVariableDesignation<IListPatternBuilder>
+public partial interface IListPatternBuilder
 {
     IListPatternBuilder AddPattern(Action<IPatternBuilder> patternCallback);
     IListPatternBuilder AddPattern(PatternSyntax pattern);
     IListPatternBuilder WithSingleVariableDesignation(SingleVariableDesignationSyntax singleVariableDesignation);
     IListPatternBuilder WithDiscardDesignation(DiscardDesignationSyntax discardDesignation);
-    IListPatternBuilder WithVariableDesignation(Action<IVariableDesignationBuilder> designationCallback);
-    IListPatternBuilder WithVariableDesignation(VariableDesignationSyntax designation);
+    IListPatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback);
+    IListPatternBuilder WithDesignation(VariableDesignationSyntax designation);
 }
 
 public interface IWithListPattern<TBuilder>
 {
     TBuilder WithListPattern(Action<IListPatternBuilder> listPatternCallback);
     TBuilder WithListPattern(ListPatternSyntax listPatternSyntax);
+}
+
+public interface IAddListPattern<TBuilder>
+{
+    TBuilder AddListPattern(Action<IListPatternBuilder> listPatternCallback);
+    TBuilder AddListPattern(ListPatternSyntax listPatternSyntax);
 }
 
 public partial class ListPatternBuilder : IListPatternBuilder
@@ -64,14 +70,14 @@ public partial class ListPatternBuilder : IListPatternBuilder
         return this;
     }
 
-    public IListPatternBuilder WithVariableDesignation(Action<IVariableDesignationBuilder> designationCallback)
+    public IListPatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback)
     {
         var designationSyntax = VariableDesignationBuilder.CreateSyntax(designationCallback);
         Syntax = Syntax.WithDesignation(designationSyntax);
         return this;
     }
 
-    public IListPatternBuilder WithVariableDesignation(VariableDesignationSyntax designation)
+    public IListPatternBuilder WithDesignation(VariableDesignationSyntax designation)
     {
         Syntax = Syntax.WithDesignation(designation);
         return this;

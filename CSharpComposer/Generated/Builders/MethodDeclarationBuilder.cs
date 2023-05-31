@@ -4,20 +4,26 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IMethodDeclarationBuilder : IWithExplicitInterfaceSpecifier<IMethodDeclarationBuilder>, IWithBlock<IMethodDeclarationBuilder>, IWithArrowExpressionClause<IMethodDeclarationBuilder>, IBaseMethodDeclarationBuilder<IMethodDeclarationBuilder>
+public partial interface IMethodDeclarationBuilder : IWithExplicitInterfaceSpecifier<IMethodDeclarationBuilder>, IAddTypeParameter<IMethodDeclarationBuilder>, IAddParameter<IMethodDeclarationBuilder>, IBaseMethodDeclarationBuilder<IMethodDeclarationBuilder>
 {
     IMethodDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
     IMethodDeclarationBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier);
     IMethodDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
     IMethodDeclarationBuilder AddTypeParameter(TypeParameterSyntax parameter);
-    IMethodDeclarationBuilder AddConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
-    IMethodDeclarationBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
+    IMethodDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
+    IMethodDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
 public interface IWithMethodDeclaration<TBuilder>
 {
     TBuilder WithMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder> methodDeclarationCallback);
     TBuilder WithMethodDeclaration(MethodDeclarationSyntax methodDeclarationSyntax);
+}
+
+public interface IAddMethodDeclaration<TBuilder>
+{
+    TBuilder AddMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder> methodDeclarationCallback);
+    TBuilder AddMethodDeclaration(MethodDeclarationSyntax methodDeclarationSyntax);
 }
 
 public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
@@ -40,27 +46,27 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return builder.Syntax;
     }
 
-    public IMethodDeclarationBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
+    public IMethodDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public IMethodDeclarationBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
+    public IMethodDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public IMethodDeclarationBuilder WithBlock(Action<IBlockBuilder> blockCallback)
+    public IMethodDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public IMethodDeclarationBuilder WithBlock(BlockSyntax body)
+    public IMethodDeclarationBuilder WithBody(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;
@@ -83,7 +89,7 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return this;
     }
 
-    public IMethodDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IMethodDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
@@ -128,14 +134,14 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return this;
     }
 
-    public IMethodDeclarationBuilder AddConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
+    public IMethodDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
     {
         var constraintClause = TypeParameterConstraintClauseBuilder.CreateSyntax(nameIdentifier, typeParameterConstraintClauseCallback);
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;
     }
 
-    public IMethodDeclarationBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
+    public IMethodDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
     {
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;

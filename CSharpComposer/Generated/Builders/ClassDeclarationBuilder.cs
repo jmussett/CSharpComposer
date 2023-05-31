@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IClassDeclarationBuilder : ITypeDeclarationBuilder<IClassDeclarationBuilder>
+public partial interface IClassDeclarationBuilder : IAddTypeParameter<IClassDeclarationBuilder>, IAddBaseType<IClassDeclarationBuilder>, ITypeDeclarationBuilder<IClassDeclarationBuilder>
 {
 }
 
@@ -12,6 +12,12 @@ public interface IWithClassDeclaration<TBuilder>
 {
     TBuilder WithClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback);
     TBuilder WithClassDeclaration(ClassDeclarationSyntax classDeclarationSyntax);
+}
+
+public interface IAddClassDeclaration<TBuilder>
+{
+    TBuilder AddClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback);
+    TBuilder AddClassDeclaration(ClassDeclarationSyntax classDeclarationSyntax);
 }
 
 public partial class ClassDeclarationBuilder : IClassDeclarationBuilder
@@ -52,7 +58,7 @@ public partial class ClassDeclarationBuilder : IClassDeclarationBuilder
         return this;
     }
 
-    public IClassDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IClassDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
@@ -71,40 +77,40 @@ public partial class ClassDeclarationBuilder : IClassDeclarationBuilder
         return this;
     }
 
-    public IClassDeclarationBuilder AddBase(Action<IBaseTypeBuilder> typeCallback)
+    public IClassDeclarationBuilder AddBaseType(Action<IBaseTypeBuilder> typeCallback)
     {
         var type = BaseTypeBuilder.CreateSyntax(typeCallback);
         Syntax = Syntax.AddBaseListTypes(type);
         return this;
     }
 
-    public IClassDeclarationBuilder AddBase(BaseTypeSyntax type)
+    public IClassDeclarationBuilder AddBaseType(BaseTypeSyntax type)
     {
         Syntax = Syntax.AddBaseListTypes(type);
         return this;
     }
 
-    public IClassDeclarationBuilder AddConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
+    public IClassDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
     {
         var constraintClause = TypeParameterConstraintClauseBuilder.CreateSyntax(nameIdentifier, typeParameterConstraintClauseCallback);
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;
     }
 
-    public IClassDeclarationBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
+    public IClassDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
     {
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;
     }
 
-    public IClassDeclarationBuilder AddMember(Action<IMemberDeclarationBuilder> memberCallback)
+    public IClassDeclarationBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback)
     {
         var member = MemberDeclarationBuilder.CreateSyntax(memberCallback);
         Syntax = Syntax.AddMembers(member);
         return this;
     }
 
-    public IClassDeclarationBuilder AddMember(MemberDeclarationSyntax member)
+    public IClassDeclarationBuilder AddMemberDeclaration(MemberDeclarationSyntax member)
     {
         Syntax = Syntax.AddMembers(member);
         return this;

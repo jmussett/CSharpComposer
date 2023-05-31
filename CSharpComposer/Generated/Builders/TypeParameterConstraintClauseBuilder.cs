@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ITypeParameterConstraintClauseBuilder
 {
-    ITypeParameterConstraintClauseBuilder AddConstraint(Action<ITypeParameterConstraintBuilder> constraintCallback);
-    ITypeParameterConstraintClauseBuilder AddConstraint(TypeParameterConstraintSyntax constraint);
+    ITypeParameterConstraintClauseBuilder AddTypeParameterConstraint(Action<ITypeParameterConstraintBuilder> constraintCallback);
+    ITypeParameterConstraintClauseBuilder AddTypeParameterConstraint(TypeParameterConstraintSyntax constraint);
 }
 
 public interface IWithTypeParameterConstraintClause<TBuilder>
 {
     TBuilder WithTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
     TBuilder WithTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax typeParameterConstraintClauseSyntax);
+}
+
+public interface IAddTypeParameterConstraintClause<TBuilder>
+{
+    TBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
+    TBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax typeParameterConstraintClauseSyntax);
 }
 
 public partial class TypeParameterConstraintClauseBuilder : ITypeParameterConstraintClauseBuilder
@@ -36,14 +42,14 @@ public partial class TypeParameterConstraintClauseBuilder : ITypeParameterConstr
         return builder.Syntax;
     }
 
-    public ITypeParameterConstraintClauseBuilder AddConstraint(Action<ITypeParameterConstraintBuilder> constraintCallback)
+    public ITypeParameterConstraintClauseBuilder AddTypeParameterConstraint(Action<ITypeParameterConstraintBuilder> constraintCallback)
     {
         var constraint = TypeParameterConstraintBuilder.CreateSyntax(constraintCallback);
         Syntax = Syntax.AddConstraints(constraint);
         return this;
     }
 
-    public ITypeParameterConstraintClauseBuilder AddConstraint(TypeParameterConstraintSyntax constraint)
+    public ITypeParameterConstraintClauseBuilder AddTypeParameterConstraint(TypeParameterConstraintSyntax constraint)
     {
         Syntax = Syntax.AddConstraints(constraint);
         return this;

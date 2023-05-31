@@ -16,6 +16,12 @@ public interface IWithInstanceExpression<TBuilder>
     TBuilder WithInstanceExpression(InstanceExpressionSyntax instanceExpressionSyntax);
 }
 
+public interface IAddInstanceExpression<TBuilder>
+{
+    TBuilder AddInstanceExpression(Action<IInstanceExpressionBuilder> instanceExpressionCallback);
+    TBuilder AddInstanceExpression(InstanceExpressionSyntax instanceExpressionSyntax);
+}
+
 public partial class InstanceExpressionBuilder : IInstanceExpressionBuilder
 {
     public InstanceExpressionSyntax? Syntax { get; set; }

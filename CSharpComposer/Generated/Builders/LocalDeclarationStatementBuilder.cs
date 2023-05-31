@@ -8,13 +8,19 @@ public partial interface ILocalDeclarationStatementBuilder : IStatementBuilder<I
 {
     ILocalDeclarationStatementBuilder WithAwaitKeyword();
     ILocalDeclarationStatementBuilder WithUsingKeyword();
-    ILocalDeclarationStatementBuilder AddModifier(SyntaxToken modifier);
+    ILocalDeclarationStatementBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithLocalDeclarationStatement<TBuilder>
 {
     TBuilder WithLocalDeclarationStatement(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<ILocalDeclarationStatementBuilder> localDeclarationStatementCallback);
     TBuilder WithLocalDeclarationStatement(LocalDeclarationStatementSyntax localDeclarationStatementSyntax);
+}
+
+public interface IAddLocalDeclarationStatement<TBuilder>
+{
+    TBuilder AddLocalDeclarationStatement(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<ILocalDeclarationStatementBuilder> localDeclarationStatementCallback);
+    TBuilder AddLocalDeclarationStatement(LocalDeclarationStatementSyntax localDeclarationStatementSyntax);
 }
 
 public partial class LocalDeclarationStatementBuilder : ILocalDeclarationStatementBuilder
@@ -65,7 +71,7 @@ public partial class LocalDeclarationStatementBuilder : ILocalDeclarationStateme
         return this;
     }
 
-    public ILocalDeclarationStatementBuilder AddModifier(SyntaxToken modifier)
+    public ILocalDeclarationStatementBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

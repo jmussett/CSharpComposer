@@ -6,13 +6,19 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IImplicitArrayCreationExpressionBuilder
 {
-    IImplicitArrayCreationExpressionBuilder AddComma(SyntaxToken comma);
+    IImplicitArrayCreationExpressionBuilder AddCommaToken(SyntaxToken comma);
 }
 
 public interface IWithImplicitArrayCreationExpression<TBuilder>
 {
     TBuilder WithImplicitArrayCreationExpression(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback, Action<IImplicitArrayCreationExpressionBuilder> implicitArrayCreationExpressionCallback);
     TBuilder WithImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax implicitArrayCreationExpressionSyntax);
+}
+
+public interface IAddImplicitArrayCreationExpression<TBuilder>
+{
+    TBuilder AddImplicitArrayCreationExpression(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback, Action<IImplicitArrayCreationExpressionBuilder> implicitArrayCreationExpressionCallback);
+    TBuilder AddImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax implicitArrayCreationExpressionSyntax);
 }
 
 public partial class ImplicitArrayCreationExpressionBuilder : IImplicitArrayCreationExpressionBuilder
@@ -36,7 +42,7 @@ public partial class ImplicitArrayCreationExpressionBuilder : IImplicitArrayCrea
         return builder.Syntax;
     }
 
-    public IImplicitArrayCreationExpressionBuilder AddComma(SyntaxToken comma)
+    public IImplicitArrayCreationExpressionBuilder AddCommaToken(SyntaxToken comma)
     {
         Syntax = Syntax.AddCommas(comma);
         return this;

@@ -10,6 +10,12 @@ public interface IWithShebangDirectiveTrivia<TBuilder>
     TBuilder WithShebangDirectiveTrivia(ShebangDirectiveTriviaSyntax shebangDirectiveTriviaSyntax);
 }
 
+public interface IAddShebangDirectiveTrivia<TBuilder>
+{
+    TBuilder AddShebangDirectiveTrivia(bool isActive);
+    TBuilder AddShebangDirectiveTrivia(ShebangDirectiveTriviaSyntax shebangDirectiveTriviaSyntax);
+}
+
 public partial class ShebangDirectiveTriviaBuilder
 {
     public static ShebangDirectiveTriviaSyntax CreateSyntax(bool isActive)

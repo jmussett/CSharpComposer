@@ -7,14 +7,20 @@ namespace CSharpComposer;
 public partial interface IConversionOperatorMemberCrefBuilder
 {
     IConversionOperatorMemberCrefBuilder WithCheckedKeyword();
-    IConversionOperatorMemberCrefBuilder AddParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
-    IConversionOperatorMemberCrefBuilder AddParameter(CrefParameterSyntax parameter);
+    IConversionOperatorMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
+    IConversionOperatorMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
 public interface IWithConversionOperatorMemberCref<TBuilder>
 {
     TBuilder WithConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder> conversionOperatorMemberCrefCallback);
     TBuilder WithConversionOperatorMemberCref(ConversionOperatorMemberCrefSyntax conversionOperatorMemberCrefSyntax);
+}
+
+public interface IAddConversionOperatorMemberCref<TBuilder>
+{
+    TBuilder AddConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder> conversionOperatorMemberCrefCallback);
+    TBuilder AddConversionOperatorMemberCref(ConversionOperatorMemberCrefSyntax conversionOperatorMemberCrefSyntax);
 }
 
 public partial class ConversionOperatorMemberCrefBuilder : IConversionOperatorMemberCrefBuilder
@@ -48,14 +54,14 @@ public partial class ConversionOperatorMemberCrefBuilder : IConversionOperatorMe
         return this;
     }
 
-    public IConversionOperatorMemberCrefBuilder AddParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
+    public IConversionOperatorMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
     {
         var parameter = CrefParameterBuilder.CreateSyntax(typeCallback, crefParameterCallback);
         Syntax = Syntax.AddParametersParameters(parameter);
         return this;
     }
 
-    public IConversionOperatorMemberCrefBuilder AddParameter(CrefParameterSyntax parameter)
+    public IConversionOperatorMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter)
     {
         Syntax = Syntax.AddParametersParameters(parameter);
         return this;

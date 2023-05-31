@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IParenthesizedVariableDesignationBuilder
 {
-    IParenthesizedVariableDesignationBuilder AddVariable(Action<IVariableDesignationBuilder> variableCallback);
-    IParenthesizedVariableDesignationBuilder AddVariable(VariableDesignationSyntax variable);
+    IParenthesizedVariableDesignationBuilder AddVariableDesignation(Action<IVariableDesignationBuilder> variableCallback);
+    IParenthesizedVariableDesignationBuilder AddVariableDesignation(VariableDesignationSyntax variable);
 }
 
 public interface IWithParenthesizedVariableDesignation<TBuilder>
 {
     TBuilder WithParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback);
     TBuilder WithParenthesizedVariableDesignation(ParenthesizedVariableDesignationSyntax parenthesizedVariableDesignationSyntax);
+}
+
+public interface IAddParenthesizedVariableDesignation<TBuilder>
+{
+    TBuilder AddParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback);
+    TBuilder AddParenthesizedVariableDesignation(ParenthesizedVariableDesignationSyntax parenthesizedVariableDesignationSyntax);
 }
 
 public partial class ParenthesizedVariableDesignationBuilder : IParenthesizedVariableDesignationBuilder
@@ -35,14 +41,14 @@ public partial class ParenthesizedVariableDesignationBuilder : IParenthesizedVar
         return builder.Syntax;
     }
 
-    public IParenthesizedVariableDesignationBuilder AddVariable(Action<IVariableDesignationBuilder> variableCallback)
+    public IParenthesizedVariableDesignationBuilder AddVariableDesignation(Action<IVariableDesignationBuilder> variableCallback)
     {
         var variable = VariableDesignationBuilder.CreateSyntax(variableCallback);
         Syntax = Syntax.AddVariables(variable);
         return this;
     }
 
-    public IParenthesizedVariableDesignationBuilder AddVariable(VariableDesignationSyntax variable)
+    public IParenthesizedVariableDesignationBuilder AddVariableDesignation(VariableDesignationSyntax variable)
     {
         Syntax = Syntax.AddVariables(variable);
         return this;

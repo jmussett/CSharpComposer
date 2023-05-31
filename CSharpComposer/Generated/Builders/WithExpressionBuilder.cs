@@ -10,6 +10,12 @@ public interface IWithWithExpression<TBuilder>
     TBuilder WithWithExpression(WithExpressionSyntax withExpressionSyntax);
 }
 
+public interface IAddWithExpression<TBuilder>
+{
+    TBuilder AddWithExpression(Action<IExpressionBuilder> expressionCallback, InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback);
+    TBuilder AddWithExpression(WithExpressionSyntax withExpressionSyntax);
+}
+
 public partial class WithExpressionBuilder
 {
     public static WithExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback)

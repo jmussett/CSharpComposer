@@ -14,6 +14,12 @@ public interface IWithDoStatement<TBuilder>
     TBuilder WithDoStatement(DoStatementSyntax doStatementSyntax);
 }
 
+public interface IAddDoStatement<TBuilder>
+{
+    TBuilder AddDoStatement(Action<IStatementBuilder> statementCallback, Action<IExpressionBuilder> conditionCallback, Action<IDoStatementBuilder> doStatementCallback);
+    TBuilder AddDoStatement(DoStatementSyntax doStatementSyntax);
+}
+
 public partial class DoStatementBuilder : IDoStatementBuilder
 {
     public DoStatementSyntax Syntax { get; set; }

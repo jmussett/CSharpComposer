@@ -13,10 +13,10 @@ public partial interface IBaseTypeDeclarationBuilder
     void AsEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback);
 }
 
-public partial interface IBaseTypeDeclarationBuilder<TBuilder> : IMemberDeclarationBuilder<TBuilder>
+public partial interface IBaseTypeDeclarationBuilder<TBuilder> : IAddBaseType<TBuilder>, IMemberDeclarationBuilder<TBuilder>
 {
-    TBuilder AddBase(Action<IBaseTypeBuilder> typeCallback);
-    TBuilder AddBase(BaseTypeSyntax type);
+    TBuilder AddBaseType(Action<IBaseTypeBuilder> typeCallback);
+    TBuilder AddBaseType(BaseTypeSyntax type);
     TBuilder WithSemicolonToken();
 }
 
@@ -24,6 +24,12 @@ public interface IWithBaseTypeDeclaration<TBuilder>
 {
     TBuilder WithBaseTypeDeclaration(Action<IBaseTypeDeclarationBuilder> baseTypeDeclarationCallback);
     TBuilder WithBaseTypeDeclaration(BaseTypeDeclarationSyntax baseTypeDeclarationSyntax);
+}
+
+public interface IAddBaseTypeDeclaration<TBuilder>
+{
+    TBuilder AddBaseTypeDeclaration(Action<IBaseTypeDeclarationBuilder> baseTypeDeclarationCallback);
+    TBuilder AddBaseTypeDeclaration(BaseTypeDeclarationSyntax baseTypeDeclarationSyntax);
 }
 
 public partial class BaseTypeDeclarationBuilder : IBaseTypeDeclarationBuilder

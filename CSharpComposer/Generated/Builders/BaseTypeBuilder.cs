@@ -16,6 +16,12 @@ public interface IWithBaseType<TBuilder>
     TBuilder WithBaseType(BaseTypeSyntax baseTypeSyntax);
 }
 
+public interface IAddBaseType<TBuilder>
+{
+    TBuilder AddBaseType(Action<IBaseTypeBuilder> baseTypeCallback);
+    TBuilder AddBaseType(BaseTypeSyntax baseTypeSyntax);
+}
+
 public partial class BaseTypeBuilder : IBaseTypeBuilder
 {
     public BaseTypeSyntax? Syntax { get; set; }

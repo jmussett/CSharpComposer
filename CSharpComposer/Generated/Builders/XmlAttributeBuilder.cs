@@ -17,6 +17,12 @@ public interface IWithXmlAttribute<TBuilder>
     TBuilder WithXmlAttribute(XmlAttributeSyntax xmlAttributeSyntax);
 }
 
+public interface IAddXmlAttribute<TBuilder>
+{
+    TBuilder AddXmlAttribute(Action<IXmlAttributeBuilder> xmlAttributeCallback);
+    TBuilder AddXmlAttribute(XmlAttributeSyntax xmlAttributeSyntax);
+}
+
 public partial class XmlAttributeBuilder : IXmlAttributeBuilder
 {
     public XmlAttributeSyntax? Syntax { get; set; }

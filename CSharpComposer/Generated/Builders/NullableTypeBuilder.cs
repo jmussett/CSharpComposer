@@ -10,6 +10,12 @@ public interface IWithNullableType<TBuilder>
     TBuilder WithNullableType(NullableTypeSyntax nullableTypeSyntax);
 }
 
+public interface IAddNullableType<TBuilder>
+{
+    TBuilder AddNullableType(Action<ITypeBuilder> elementTypeCallback);
+    TBuilder AddNullableType(NullableTypeSyntax nullableTypeSyntax);
+}
+
 public partial class NullableTypeBuilder
 {
     public static NullableTypeSyntax CreateSyntax(Action<ITypeBuilder> elementTypeCallback)

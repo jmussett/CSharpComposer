@@ -15,6 +15,12 @@ public interface IWithNamespaceDeclaration<TBuilder>
     TBuilder WithNamespaceDeclaration(NamespaceDeclarationSyntax namespaceDeclarationSyntax);
 }
 
+public interface IAddNamespaceDeclaration<TBuilder>
+{
+    TBuilder AddNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder> namespaceDeclarationCallback);
+    TBuilder AddNamespaceDeclaration(NamespaceDeclarationSyntax namespaceDeclarationSyntax);
+}
+
 public partial class NamespaceDeclarationBuilder : INamespaceDeclarationBuilder
 {
     public NamespaceDeclarationSyntax Syntax { get; set; }
@@ -53,46 +59,46 @@ public partial class NamespaceDeclarationBuilder : INamespaceDeclarationBuilder
         return this;
     }
 
-    public INamespaceDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public INamespaceDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
     }
 
-    public INamespaceDeclarationBuilder AddExtern(string identifier)
+    public INamespaceDeclarationBuilder AddExternAliasDirective(string identifier)
     {
         var @extern = ExternAliasDirectiveBuilder.CreateSyntax(identifier);
         Syntax = Syntax.AddExterns(@extern);
         return this;
     }
 
-    public INamespaceDeclarationBuilder AddExtern(ExternAliasDirectiveSyntax @extern)
+    public INamespaceDeclarationBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax @extern)
     {
         Syntax = Syntax.AddExterns(@extern);
         return this;
     }
 
-    public INamespaceDeclarationBuilder AddUsing(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
+    public INamespaceDeclarationBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
     {
         var @using = UsingDirectiveBuilder.CreateSyntax(nameCallback, usingDirectiveCallback);
         Syntax = Syntax.AddUsings(@using);
         return this;
     }
 
-    public INamespaceDeclarationBuilder AddUsing(UsingDirectiveSyntax @using)
+    public INamespaceDeclarationBuilder AddUsingDirective(UsingDirectiveSyntax @using)
     {
         Syntax = Syntax.AddUsings(@using);
         return this;
     }
 
-    public INamespaceDeclarationBuilder AddMember(Action<IMemberDeclarationBuilder> memberCallback)
+    public INamespaceDeclarationBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback)
     {
         var member = MemberDeclarationBuilder.CreateSyntax(memberCallback);
         Syntax = Syntax.AddMembers(member);
         return this;
     }
 
-    public INamespaceDeclarationBuilder AddMember(MemberDeclarationSyntax member)
+    public INamespaceDeclarationBuilder AddMemberDeclaration(MemberDeclarationSyntax member)
     {
         Syntax = Syntax.AddMembers(member);
         return this;

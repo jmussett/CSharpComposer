@@ -10,6 +10,12 @@ public interface IWithDefineDirectiveTrivia<TBuilder>
     TBuilder WithDefineDirectiveTrivia(DefineDirectiveTriviaSyntax defineDirectiveTriviaSyntax);
 }
 
+public interface IAddDefineDirectiveTrivia<TBuilder>
+{
+    TBuilder AddDefineDirectiveTrivia(string name, bool isActive);
+    TBuilder AddDefineDirectiveTrivia(DefineDirectiveTriviaSyntax defineDirectiveTriviaSyntax);
+}
+
 public partial class DefineDirectiveTriviaBuilder
 {
     public static DefineDirectiveTriviaSyntax CreateSyntax(string name, bool isActive)

@@ -43,6 +43,12 @@ public interface IWithStatement<TBuilder>
     TBuilder WithStatement(StatementSyntax statementSyntax);
 }
 
+public interface IAddStatement<TBuilder>
+{
+    TBuilder AddStatement(Action<IStatementBuilder> statementCallback);
+    TBuilder AddStatement(StatementSyntax statementSyntax);
+}
+
 public partial class StatementBuilder : IStatementBuilder
 {
     public StatementSyntax? Syntax { get; set; }

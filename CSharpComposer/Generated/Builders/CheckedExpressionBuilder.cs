@@ -10,6 +10,12 @@ public interface IWithCheckedExpression<TBuilder>
     TBuilder WithCheckedExpression(CheckedExpressionSyntax checkedExpressionSyntax);
 }
 
+public interface IAddCheckedExpression<TBuilder>
+{
+    TBuilder AddCheckedExpression(CheckedExpressionKind kind, Action<IExpressionBuilder> expressionCallback);
+    TBuilder AddCheckedExpression(CheckedExpressionSyntax checkedExpressionSyntax);
+}
+
 public partial class CheckedExpressionBuilder
 {
     public static CheckedExpressionSyntax CreateSyntax(CheckedExpressionKind kind, Action<IExpressionBuilder> expressionCallback)

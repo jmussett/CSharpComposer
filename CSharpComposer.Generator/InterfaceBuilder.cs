@@ -92,7 +92,7 @@ internal class InterfaceBuilder
 
         var typeName = NameFactory.CreateTypeName(type.Name!);
 
-        // TODO: ITypeDEclarationInterface, remove with type? derived type children cointains choice? 
+        // TODO: ITypeDeclarationInterface, remove with type? derived type children cointains choice? 
         if (_tree.Types.Any(t => t.Children.Any(f => _tree.AnyValidFieldMethod(t, f, false))))
         {
             builder
@@ -119,6 +119,32 @@ internal class InterfaceBuilder
 
                     return x;
                 });
+
+            // TODO: Remove when unused
+            builder
+               .WithInterface($"IAdd{typeName}", x =>
+               {
+                   x.WithAccessModifier(TypeAccessModifier.Public);
+                   x.WithTypeParameter("TBuilder");
+
+                   if (type is AbstractNode)
+                   {
+                       x.WithMethod($"Add{typeName}", x => x.AsType("TBuilder"), x => x.WithParameter($"{typeName.Camelize()}Callback", $"Action<{interfaceName}>"));
+                   }
+                   else if (type is Node node)
+                   {
+                       x.WithMethod($"Add{typeName}", x => x.AsType("TBuilder"), x =>
+                       {
+                           _parameterBuilder.WithParameters(x, node);
+
+                           return x;
+                       });
+                   }
+
+                   x.WithMethod($"Add{typeName}", x => x.AsType("TBuilder"), x => x.WithParameter(type.Name.Camelize(), type.Name));
+
+                   return x;
+               });
         }
 
         return builder;
@@ -128,7 +154,9 @@ internal class InterfaceBuilder
     {
         foreach (var child in children.Where(x => _tree.AnyValidFieldMethod(type, x, false, isChoice)))
         {
-            if (child is Field field && !NodeValidator.IsSyntaxToken(field.Type)
+            if (child is Field field && !NodeValidator.IsSyntaxToken(field.Type) 
+                // Only use interfaces where the field names match the types
+                && field.Name == NameFactory.CreateTypeName(field.Type)
                 // Only use method builders with unique type, otherwise we get conflicting methods.
                 && type.Children.GetNestedChildren().Count(x => x.Type == field.Type) == 1)
             {
@@ -138,7 +166,18 @@ internal class InterfaceBuilder
                 }
                 else
                 {
-                    // TODO: List types
+                    var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
+
+                    if (listTypeName is null || NodeValidator.IsAnyList(listTypeName))
+                    {
+                        var referenceField = _tree.GetReferenceListType(listTypeName ?? field.Type);
+                        listTypeName = NameFactory.ExtractSyntaxTypeFromListType(referenceField.Type);
+                    }
+
+                    // TODO: modifiers?
+                    if (NodeValidator.IsSyntaxToken(listTypeName)) continue;
+
+                    x.WithBaseType(x => x.AsGeneric($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
                 }
             }
             else if (child is Sequence sequence)

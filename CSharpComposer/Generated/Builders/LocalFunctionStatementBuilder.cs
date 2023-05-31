@@ -4,25 +4,31 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ILocalFunctionStatementBuilder : IWithBlock<ILocalFunctionStatementBuilder>, IWithArrowExpressionClause<ILocalFunctionStatementBuilder>, IStatementBuilder<ILocalFunctionStatementBuilder>
+public partial interface ILocalFunctionStatementBuilder : IAddTypeParameter<ILocalFunctionStatementBuilder>, IAddParameter<ILocalFunctionStatementBuilder>, IStatementBuilder<ILocalFunctionStatementBuilder>
 {
-    ILocalFunctionStatementBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
-    ILocalFunctionStatementBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody);
-    ILocalFunctionStatementBuilder WithBlock(Action<IBlockBuilder> blockCallback);
-    ILocalFunctionStatementBuilder WithBlock(BlockSyntax body);
-    ILocalFunctionStatementBuilder AddModifier(SyntaxToken modifier);
+    ILocalFunctionStatementBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
+    ILocalFunctionStatementBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
+    ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    ILocalFunctionStatementBuilder WithBody(BlockSyntax body);
+    ILocalFunctionStatementBuilder AddModifierToken(SyntaxToken modifier);
     ILocalFunctionStatementBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
     ILocalFunctionStatementBuilder AddTypeParameter(TypeParameterSyntax parameter);
     ILocalFunctionStatementBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     ILocalFunctionStatementBuilder AddParameter(ParameterSyntax parameter);
-    ILocalFunctionStatementBuilder AddConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
-    ILocalFunctionStatementBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
+    ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
+    ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
 public interface IWithLocalFunctionStatement<TBuilder>
 {
     TBuilder WithLocalFunctionStatement(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder> localFunctionStatementCallback);
     TBuilder WithLocalFunctionStatement(LocalFunctionStatementSyntax localFunctionStatementSyntax);
+}
+
+public interface IAddLocalFunctionStatement<TBuilder>
+{
+    TBuilder AddLocalFunctionStatement(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder> localFunctionStatementCallback);
+    TBuilder AddLocalFunctionStatement(LocalFunctionStatementSyntax localFunctionStatementSyntax);
 }
 
 public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuilder
@@ -45,27 +51,27 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         return builder.Syntax;
     }
 
-    public ILocalFunctionStatementBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback)
+    public ILocalFunctionStatementBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback)
     {
         var expressionBodySyntax = ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
         Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
         return this;
     }
 
-    public ILocalFunctionStatementBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax expressionBody)
+    public ILocalFunctionStatementBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody)
     {
         Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 
-    public ILocalFunctionStatementBuilder WithBlock(Action<IBlockBuilder> blockCallback)
+    public ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder> blockCallback)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
         return this;
     }
 
-    public ILocalFunctionStatementBuilder WithBlock(BlockSyntax body)
+    public ILocalFunctionStatementBuilder WithBody(BlockSyntax body)
     {
         Syntax = Syntax.WithBody(body);
         return this;
@@ -88,7 +94,7 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         return this;
     }
 
-    public ILocalFunctionStatementBuilder AddModifier(SyntaxToken modifier)
+    public ILocalFunctionStatementBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
@@ -120,14 +126,14 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         return this;
     }
 
-    public ILocalFunctionStatementBuilder AddConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
+    public ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback)
     {
         var constraintClause = TypeParameterConstraintClauseBuilder.CreateSyntax(nameIdentifier, typeParameterConstraintClauseCallback);
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;
     }
 
-    public ILocalFunctionStatementBuilder AddConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
+    public ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause)
     {
         Syntax = Syntax.AddConstraintClauses(constraintClause);
         return this;

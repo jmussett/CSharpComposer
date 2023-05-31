@@ -10,6 +10,12 @@ public interface IWithBaseExpression<TBuilder>
     TBuilder WithBaseExpression(BaseExpressionSyntax baseExpressionSyntax);
 }
 
+public interface IAddBaseExpression<TBuilder>
+{
+    TBuilder AddBaseExpression();
+    TBuilder AddBaseExpression(BaseExpressionSyntax baseExpressionSyntax);
+}
+
 public partial class BaseExpressionBuilder
 {
     public static BaseExpressionSyntax CreateSyntax()

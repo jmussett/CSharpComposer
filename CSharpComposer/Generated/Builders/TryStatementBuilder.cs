@@ -4,18 +4,24 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ITryStatementBuilder : IWithFinallyClause<ITryStatementBuilder>, IStatementBuilder<ITryStatementBuilder>
+public partial interface ITryStatementBuilder : IStatementBuilder<ITryStatementBuilder>
 {
-    ITryStatementBuilder AddCatch(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
-    ITryStatementBuilder AddCatch(CatchClauseSyntax @catch);
-    ITryStatementBuilder WithFinallyClause(Action<IBlockBuilder> blockBlockCallback);
-    ITryStatementBuilder WithFinallyClause(FinallyClauseSyntax @finally);
+    ITryStatementBuilder AddCatchClause(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
+    ITryStatementBuilder AddCatchClause(CatchClauseSyntax @catch);
+    ITryStatementBuilder WithFinally(Action<IBlockBuilder> blockBlockCallback);
+    ITryStatementBuilder WithFinally(FinallyClauseSyntax @finally);
 }
 
 public interface IWithTryStatement<TBuilder>
 {
     TBuilder WithTryStatement(Action<IBlockBuilder> blockBlockCallback, Action<ITryStatementBuilder> tryStatementCallback);
     TBuilder WithTryStatement(TryStatementSyntax tryStatementSyntax);
+}
+
+public interface IAddTryStatement<TBuilder>
+{
+    TBuilder AddTryStatement(Action<IBlockBuilder> blockBlockCallback, Action<ITryStatementBuilder> tryStatementCallback);
+    TBuilder AddTryStatement(TryStatementSyntax tryStatementSyntax);
 }
 
 public partial class TryStatementBuilder : ITryStatementBuilder
@@ -54,27 +60,27 @@ public partial class TryStatementBuilder : ITryStatementBuilder
         return this;
     }
 
-    public ITryStatementBuilder AddCatch(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback)
+    public ITryStatementBuilder AddCatchClause(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback)
     {
         var @catch = CatchClauseBuilder.CreateSyntax(blockBlockCallback, catchClauseCallback);
         Syntax = Syntax.AddCatches(@catch);
         return this;
     }
 
-    public ITryStatementBuilder AddCatch(CatchClauseSyntax @catch)
+    public ITryStatementBuilder AddCatchClause(CatchClauseSyntax @catch)
     {
         Syntax = Syntax.AddCatches(@catch);
         return this;
     }
 
-    public ITryStatementBuilder WithFinallyClause(Action<IBlockBuilder> blockBlockCallback)
+    public ITryStatementBuilder WithFinally(Action<IBlockBuilder> blockBlockCallback)
     {
         var finallySyntax = FinallyClauseBuilder.CreateSyntax(blockBlockCallback);
         Syntax = Syntax.WithFinally(finallySyntax);
         return this;
     }
 
-    public ITryStatementBuilder WithFinallyClause(FinallyClauseSyntax @finally)
+    public ITryStatementBuilder WithFinally(FinallyClauseSyntax @finally)
     {
         Syntax = Syntax.WithFinally(@finally);
         return this;

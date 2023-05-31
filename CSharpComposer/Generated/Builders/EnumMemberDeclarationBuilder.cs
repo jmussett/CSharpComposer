@@ -4,16 +4,22 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEnumMemberDeclarationBuilder : IWithEqualsValueClause<IEnumMemberDeclarationBuilder>, IMemberDeclarationBuilder<IEnumMemberDeclarationBuilder>
+public partial interface IEnumMemberDeclarationBuilder : IMemberDeclarationBuilder<IEnumMemberDeclarationBuilder>
 {
-    IEnumMemberDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback);
-    IEnumMemberDeclarationBuilder WithEqualsValueClause(EqualsValueClauseSyntax equalsValue);
+    IEnumMemberDeclarationBuilder WithEqualsValue(Action<IExpressionBuilder> valueCallback);
+    IEnumMemberDeclarationBuilder WithEqualsValue(EqualsValueClauseSyntax equalsValue);
 }
 
 public interface IWithEnumMemberDeclaration<TBuilder>
 {
     TBuilder WithEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback);
     TBuilder WithEnumMemberDeclaration(EnumMemberDeclarationSyntax enumMemberDeclarationSyntax);
+}
+
+public interface IAddEnumMemberDeclaration<TBuilder>
+{
+    TBuilder AddEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback);
+    TBuilder AddEnumMemberDeclaration(EnumMemberDeclarationSyntax enumMemberDeclarationSyntax);
 }
 
 public partial class EnumMemberDeclarationBuilder : IEnumMemberDeclarationBuilder
@@ -51,20 +57,20 @@ public partial class EnumMemberDeclarationBuilder : IEnumMemberDeclarationBuilde
         return this;
     }
 
-    public IEnumMemberDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IEnumMemberDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;
     }
 
-    public IEnumMemberDeclarationBuilder WithEqualsValueClause(Action<IExpressionBuilder> valueCallback)
+    public IEnumMemberDeclarationBuilder WithEqualsValue(Action<IExpressionBuilder> valueCallback)
     {
         var equalsValueSyntax = EqualsValueClauseBuilder.CreateSyntax(valueCallback);
         Syntax = Syntax.WithEqualsValue(equalsValueSyntax);
         return this;
     }
 
-    public IEnumMemberDeclarationBuilder WithEqualsValueClause(EqualsValueClauseSyntax equalsValue)
+    public IEnumMemberDeclarationBuilder WithEqualsValue(EqualsValueClauseSyntax equalsValue)
     {
         Syntax = Syntax.WithEqualsValue(equalsValue);
         return this;

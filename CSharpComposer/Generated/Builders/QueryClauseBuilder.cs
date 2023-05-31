@@ -19,6 +19,12 @@ public interface IWithQueryClause<TBuilder>
     TBuilder WithQueryClause(QueryClauseSyntax queryClauseSyntax);
 }
 
+public interface IAddQueryClause<TBuilder>
+{
+    TBuilder AddQueryClause(Action<IQueryClauseBuilder> queryClauseCallback);
+    TBuilder AddQueryClause(QueryClauseSyntax queryClauseSyntax);
+}
+
 public partial class QueryClauseBuilder : IQueryClauseBuilder
 {
     public QueryClauseSyntax? Syntax { get; set; }

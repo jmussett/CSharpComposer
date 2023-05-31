@@ -10,6 +10,12 @@ public interface IWithCatchFilterClause<TBuilder>
     TBuilder WithCatchFilterClause(CatchFilterClauseSyntax catchFilterClauseSyntax);
 }
 
+public interface IAddCatchFilterClause<TBuilder>
+{
+    TBuilder AddCatchFilterClause(Action<IExpressionBuilder> filterExpressionCallback);
+    TBuilder AddCatchFilterClause(CatchFilterClauseSyntax catchFilterClauseSyntax);
+}
+
 public partial class CatchFilterClauseBuilder
 {
     public static CatchFilterClauseSyntax CreateSyntax(Action<IExpressionBuilder> filterExpressionCallback)

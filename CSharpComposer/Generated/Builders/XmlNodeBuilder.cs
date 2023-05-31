@@ -20,6 +20,12 @@ public interface IWithXmlNode<TBuilder>
     TBuilder WithXmlNode(XmlNodeSyntax xmlNodeSyntax);
 }
 
+public interface IAddXmlNode<TBuilder>
+{
+    TBuilder AddXmlNode(Action<IXmlNodeBuilder> xmlNodeCallback);
+    TBuilder AddXmlNode(XmlNodeSyntax xmlNodeSyntax);
+}
+
 public partial class XmlNodeBuilder : IXmlNodeBuilder
 {
     public XmlNodeSyntax? Syntax { get; set; }

@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IAttributeBuilder
 {
-    IAttributeBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder> attributeArgumentCallback);
-    IAttributeBuilder AddArgument(AttributeArgumentSyntax argument);
+    IAttributeBuilder AddAttributeArgument(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder> attributeArgumentCallback);
+    IAttributeBuilder AddAttributeArgument(AttributeArgumentSyntax argument);
 }
 
 public interface IWithAttribute<TBuilder>
 {
     TBuilder WithAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
     TBuilder WithAttribute(AttributeSyntax attributeSyntax);
+}
+
+public interface IAddAttribute<TBuilder>
+{
+    TBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
+    TBuilder AddAttribute(AttributeSyntax attributeSyntax);
 }
 
 public partial class AttributeBuilder : IAttributeBuilder
@@ -34,14 +40,14 @@ public partial class AttributeBuilder : IAttributeBuilder
         return builder.Syntax;
     }
 
-    public IAttributeBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder> attributeArgumentCallback)
+    public IAttributeBuilder AddAttributeArgument(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder> attributeArgumentCallback)
     {
         var argument = AttributeArgumentBuilder.CreateSyntax(expressionCallback, attributeArgumentCallback);
         Syntax = Syntax.AddArgumentListArguments(argument);
         return this;
     }
 
-    public IAttributeBuilder AddArgument(AttributeArgumentSyntax argument)
+    public IAttributeBuilder AddAttributeArgument(AttributeArgumentSyntax argument)
     {
         Syntax = Syntax.AddArgumentListArguments(argument);
         return this;

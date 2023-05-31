@@ -10,6 +10,12 @@ public interface IWithEndRegionDirectiveTrivia<TBuilder>
     TBuilder WithEndRegionDirectiveTrivia(EndRegionDirectiveTriviaSyntax endRegionDirectiveTriviaSyntax);
 }
 
+public interface IAddEndRegionDirectiveTrivia<TBuilder>
+{
+    TBuilder AddEndRegionDirectiveTrivia(bool isActive);
+    TBuilder AddEndRegionDirectiveTrivia(EndRegionDirectiveTriviaSyntax endRegionDirectiveTriviaSyntax);
+}
+
 public partial class EndRegionDirectiveTriviaBuilder
 {
     public static EndRegionDirectiveTriviaSyntax CreateSyntax(bool isActive)

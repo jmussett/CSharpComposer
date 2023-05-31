@@ -14,6 +14,12 @@ public interface IWithEventFieldDeclaration<TBuilder>
     TBuilder WithEventFieldDeclaration(EventFieldDeclarationSyntax eventFieldDeclarationSyntax);
 }
 
+public interface IAddEventFieldDeclaration<TBuilder>
+{
+    TBuilder AddEventFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IEventFieldDeclarationBuilder> eventFieldDeclarationCallback);
+    TBuilder AddEventFieldDeclaration(EventFieldDeclarationSyntax eventFieldDeclarationSyntax);
+}
+
 public partial class EventFieldDeclarationBuilder : IEventFieldDeclarationBuilder
 {
     public EventFieldDeclarationSyntax Syntax { get; set; }
@@ -51,7 +57,7 @@ public partial class EventFieldDeclarationBuilder : IEventFieldDeclarationBuilde
         return this;
     }
 
-    public IEventFieldDeclarationBuilder AddModifier(SyntaxToken modifier)
+    public IEventFieldDeclarationBuilder AddModifierToken(SyntaxToken modifier)
     {
         Syntax = Syntax.AddModifiers(modifier);
         return this;

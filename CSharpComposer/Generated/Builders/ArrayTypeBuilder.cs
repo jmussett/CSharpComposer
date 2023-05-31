@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IArrayTypeBuilder
 {
-    IArrayTypeBuilder AddRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback);
-    IArrayTypeBuilder AddRankSpecifier(ArrayRankSpecifierSyntax rankSpecifier);
+    IArrayTypeBuilder AddArrayRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback);
+    IArrayTypeBuilder AddArrayRankSpecifier(ArrayRankSpecifierSyntax rankSpecifier);
 }
 
 public interface IWithArrayType<TBuilder>
 {
     TBuilder WithArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder> arrayTypeCallback);
     TBuilder WithArrayType(ArrayTypeSyntax arrayTypeSyntax);
+}
+
+public interface IAddArrayType<TBuilder>
+{
+    TBuilder AddArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder> arrayTypeCallback);
+    TBuilder AddArrayType(ArrayTypeSyntax arrayTypeSyntax);
 }
 
 public partial class ArrayTypeBuilder : IArrayTypeBuilder
@@ -34,14 +40,14 @@ public partial class ArrayTypeBuilder : IArrayTypeBuilder
         return builder.Syntax;
     }
 
-    public IArrayTypeBuilder AddRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback)
+    public IArrayTypeBuilder AddArrayRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback)
     {
         var rankSpecifier = ArrayRankSpecifierBuilder.CreateSyntax(arrayRankSpecifierCallback);
         Syntax = Syntax.AddRankSpecifiers(rankSpecifier);
         return this;
     }
 
-    public IArrayTypeBuilder AddRankSpecifier(ArrayRankSpecifierSyntax rankSpecifier)
+    public IArrayTypeBuilder AddArrayRankSpecifier(ArrayRankSpecifierSyntax rankSpecifier)
     {
         Syntax = Syntax.AddRankSpecifiers(rankSpecifier);
         return this;

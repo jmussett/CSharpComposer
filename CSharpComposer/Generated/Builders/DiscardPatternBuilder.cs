@@ -10,6 +10,12 @@ public interface IWithDiscardPattern<TBuilder>
     TBuilder WithDiscardPattern(DiscardPatternSyntax discardPatternSyntax);
 }
 
+public interface IAddDiscardPattern<TBuilder>
+{
+    TBuilder AddDiscardPattern();
+    TBuilder AddDiscardPattern(DiscardPatternSyntax discardPatternSyntax);
+}
+
 public partial class DiscardPatternBuilder
 {
     public static DiscardPatternSyntax CreateSyntax()

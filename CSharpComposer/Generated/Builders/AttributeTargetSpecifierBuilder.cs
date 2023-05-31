@@ -10,6 +10,12 @@ public interface IWithAttributeTargetSpecifier<TBuilder>
     TBuilder WithAttributeTargetSpecifier(AttributeTargetSpecifierSyntax attributeTargetSpecifierSyntax);
 }
 
+public interface IAddAttributeTargetSpecifier<TBuilder>
+{
+    TBuilder AddAttributeTargetSpecifier(string identifier);
+    TBuilder AddAttributeTargetSpecifier(AttributeTargetSpecifierSyntax attributeTargetSpecifierSyntax);
+}
+
 public partial class AttributeTargetSpecifierBuilder
 {
     public static AttributeTargetSpecifierSyntax CreateSyntax(string identifier)

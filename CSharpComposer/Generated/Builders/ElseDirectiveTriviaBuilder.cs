@@ -10,6 +10,12 @@ public interface IWithElseDirectiveTrivia<TBuilder>
     TBuilder WithElseDirectiveTrivia(ElseDirectiveTriviaSyntax elseDirectiveTriviaSyntax);
 }
 
+public interface IAddElseDirectiveTrivia<TBuilder>
+{
+    TBuilder AddElseDirectiveTrivia(bool isActive, bool branchTaken);
+    TBuilder AddElseDirectiveTrivia(ElseDirectiveTriviaSyntax elseDirectiveTriviaSyntax);
+}
+
 public partial class ElseDirectiveTriviaBuilder
 {
     public static ElseDirectiveTriviaSyntax CreateSyntax(bool isActive, bool branchTaken)

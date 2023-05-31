@@ -10,6 +10,12 @@ public interface IWithConstructorConstraint<TBuilder>
     TBuilder WithConstructorConstraint(ConstructorConstraintSyntax constructorConstraintSyntax);
 }
 
+public interface IAddConstructorConstraint<TBuilder>
+{
+    TBuilder AddConstructorConstraint();
+    TBuilder AddConstructorConstraint(ConstructorConstraintSyntax constructorConstraintSyntax);
+}
+
 public partial class ConstructorConstraintBuilder
 {
     public static ConstructorConstraintSyntax CreateSyntax()

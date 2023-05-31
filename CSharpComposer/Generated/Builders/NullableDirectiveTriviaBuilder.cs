@@ -15,6 +15,12 @@ public interface IWithNullableDirectiveTrivia<TBuilder>
     TBuilder WithNullableDirectiveTrivia(NullableDirectiveTriviaSyntax nullableDirectiveTriviaSyntax);
 }
 
+public interface IAddNullableDirectiveTrivia<TBuilder>
+{
+    TBuilder AddNullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder> nullableDirectiveTriviaCallback);
+    TBuilder AddNullableDirectiveTrivia(NullableDirectiveTriviaSyntax nullableDirectiveTriviaSyntax);
+}
+
 public partial class NullableDirectiveTriviaBuilder : INullableDirectiveTriviaBuilder
 {
     public NullableDirectiveTriviaSyntax Syntax { get; set; }

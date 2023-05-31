@@ -15,6 +15,12 @@ public interface IWithCatchDeclaration<TBuilder>
     TBuilder WithCatchDeclaration(CatchDeclarationSyntax catchDeclarationSyntax);
 }
 
+public interface IAddCatchDeclaration<TBuilder>
+{
+    TBuilder AddCatchDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback);
+    TBuilder AddCatchDeclaration(CatchDeclarationSyntax catchDeclarationSyntax);
+}
+
 public partial class CatchDeclarationBuilder : ICatchDeclarationBuilder
 {
     public CatchDeclarationSyntax Syntax { get; set; }

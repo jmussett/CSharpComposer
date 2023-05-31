@@ -10,6 +10,12 @@ public interface IWithThisExpression<TBuilder>
     TBuilder WithThisExpression(ThisExpressionSyntax thisExpressionSyntax);
 }
 
+public interface IAddThisExpression<TBuilder>
+{
+    TBuilder AddThisExpression();
+    TBuilder AddThisExpression(ThisExpressionSyntax thisExpressionSyntax);
+}
+
 public partial class ThisExpressionBuilder
 {
     public static ThisExpressionSyntax CreateSyntax()

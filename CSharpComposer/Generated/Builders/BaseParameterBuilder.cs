@@ -20,6 +20,12 @@ public interface IWithBaseParameter<TBuilder>
     TBuilder WithBaseParameter(BaseParameterSyntax baseParameterSyntax);
 }
 
+public interface IAddBaseParameter<TBuilder>
+{
+    TBuilder AddBaseParameter(Action<IBaseParameterBuilder> baseParameterCallback);
+    TBuilder AddBaseParameter(BaseParameterSyntax baseParameterSyntax);
+}
+
 public partial class BaseParameterBuilder : IBaseParameterBuilder
 {
     public BaseParameterSyntax? Syntax { get; set; }

@@ -10,6 +10,12 @@ public interface IWithParenthesizedExpression<TBuilder>
     TBuilder WithParenthesizedExpression(ParenthesizedExpressionSyntax parenthesizedExpressionSyntax);
 }
 
+public interface IAddParenthesizedExpression<TBuilder>
+{
+    TBuilder AddParenthesizedExpression(Action<IExpressionBuilder> expressionCallback);
+    TBuilder AddParenthesizedExpression(ParenthesizedExpressionSyntax parenthesizedExpressionSyntax);
+}
+
 public partial class ParenthesizedExpressionBuilder
 {
     public static ParenthesizedExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback)

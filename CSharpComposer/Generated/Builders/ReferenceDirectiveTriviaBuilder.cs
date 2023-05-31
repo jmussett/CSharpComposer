@@ -10,6 +10,12 @@ public interface IWithReferenceDirectiveTrivia<TBuilder>
     TBuilder WithReferenceDirectiveTrivia(ReferenceDirectiveTriviaSyntax referenceDirectiveTriviaSyntax);
 }
 
+public interface IAddReferenceDirectiveTrivia<TBuilder>
+{
+    TBuilder AddReferenceDirectiveTrivia(string file, bool isActive);
+    TBuilder AddReferenceDirectiveTrivia(ReferenceDirectiveTriviaSyntax referenceDirectiveTriviaSyntax);
+}
+
 public partial class ReferenceDirectiveTriviaBuilder
 {
     public static ReferenceDirectiveTriviaSyntax CreateSyntax(string file, bool isActive)

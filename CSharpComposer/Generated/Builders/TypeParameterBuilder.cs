@@ -17,6 +17,12 @@ public interface IWithTypeParameter<TBuilder>
     TBuilder WithTypeParameter(TypeParameterSyntax typeParameterSyntax);
 }
 
+public interface IAddTypeParameter<TBuilder>
+{
+    TBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
+    TBuilder AddTypeParameter(TypeParameterSyntax typeParameterSyntax);
+}
+
 public partial class TypeParameterBuilder : ITypeParameterBuilder
 {
     public TypeParameterSyntax Syntax { get; set; }

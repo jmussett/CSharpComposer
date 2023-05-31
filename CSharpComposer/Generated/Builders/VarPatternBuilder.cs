@@ -10,6 +10,12 @@ public interface IWithVarPattern<TBuilder>
     TBuilder WithVarPattern(VarPatternSyntax varPatternSyntax);
 }
 
+public interface IAddVarPattern<TBuilder>
+{
+    TBuilder AddVarPattern(Action<IVariableDesignationBuilder> designationCallback);
+    TBuilder AddVarPattern(VarPatternSyntax varPatternSyntax);
+}
+
 public partial class VarPatternBuilder
 {
     public static VarPatternSyntax CreateSyntax(Action<IVariableDesignationBuilder> designationCallback)

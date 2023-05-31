@@ -10,6 +10,12 @@ public interface IWithRegionDirectiveTrivia<TBuilder>
     TBuilder WithRegionDirectiveTrivia(RegionDirectiveTriviaSyntax regionDirectiveTriviaSyntax);
 }
 
+public interface IAddRegionDirectiveTrivia<TBuilder>
+{
+    TBuilder AddRegionDirectiveTrivia(bool isActive);
+    TBuilder AddRegionDirectiveTrivia(RegionDirectiveTriviaSyntax regionDirectiveTriviaSyntax);
+}
+
 public partial class RegionDirectiveTriviaBuilder
 {
     public static RegionDirectiveTriviaSyntax CreateSyntax(bool isActive)

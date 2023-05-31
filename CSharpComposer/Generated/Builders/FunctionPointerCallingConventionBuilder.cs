@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IFunctionPointerCallingConventionBuilder
 {
-    IFunctionPointerCallingConventionBuilder AddUnmanagedCallingConvention(string name);
-    IFunctionPointerCallingConventionBuilder AddUnmanagedCallingConvention(FunctionPointerUnmanagedCallingConventionSyntax callingConvention);
+    IFunctionPointerCallingConventionBuilder AddFunctionPointerUnmanagedCallingConvention(string name);
+    IFunctionPointerCallingConventionBuilder AddFunctionPointerUnmanagedCallingConvention(FunctionPointerUnmanagedCallingConventionSyntax callingConvention);
 }
 
 public interface IWithFunctionPointerCallingConvention<TBuilder>
 {
     TBuilder WithFunctionPointerCallingConvention(FunctionPointerCallingConventionManagedOrUnmanagedKeyword functionPointerCallingConventionManagedOrUnmanagedKeyword, Action<IFunctionPointerCallingConventionBuilder> functionPointerCallingConventionCallback);
     TBuilder WithFunctionPointerCallingConvention(FunctionPointerCallingConventionSyntax functionPointerCallingConventionSyntax);
+}
+
+public interface IAddFunctionPointerCallingConvention<TBuilder>
+{
+    TBuilder AddFunctionPointerCallingConvention(FunctionPointerCallingConventionManagedOrUnmanagedKeyword functionPointerCallingConventionManagedOrUnmanagedKeyword, Action<IFunctionPointerCallingConventionBuilder> functionPointerCallingConventionCallback);
+    TBuilder AddFunctionPointerCallingConvention(FunctionPointerCallingConventionSyntax functionPointerCallingConventionSyntax);
 }
 
 public partial class FunctionPointerCallingConventionBuilder : IFunctionPointerCallingConventionBuilder
@@ -39,14 +45,14 @@ public partial class FunctionPointerCallingConventionBuilder : IFunctionPointerC
         return builder.Syntax;
     }
 
-    public IFunctionPointerCallingConventionBuilder AddUnmanagedCallingConvention(string name)
+    public IFunctionPointerCallingConventionBuilder AddFunctionPointerUnmanagedCallingConvention(string name)
     {
         var callingConvention = FunctionPointerUnmanagedCallingConventionBuilder.CreateSyntax(name);
         Syntax = Syntax.AddUnmanagedCallingConventionListCallingConventions(callingConvention);
         return this;
     }
 
-    public IFunctionPointerCallingConventionBuilder AddUnmanagedCallingConvention(FunctionPointerUnmanagedCallingConventionSyntax callingConvention)
+    public IFunctionPointerCallingConventionBuilder AddFunctionPointerUnmanagedCallingConvention(FunctionPointerUnmanagedCallingConventionSyntax callingConvention)
     {
         Syntax = Syntax.AddUnmanagedCallingConventionListCallingConventions(callingConvention);
         return this;

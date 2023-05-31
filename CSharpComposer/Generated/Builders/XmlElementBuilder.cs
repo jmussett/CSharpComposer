@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IXmlElementBuilder
 {
-    IXmlElementBuilder AddContent(Action<IXmlNodeBuilder> contentCallback);
-    IXmlElementBuilder AddContent(XmlNodeSyntax content);
+    IXmlElementBuilder AddContentXmlNode(Action<IXmlNodeBuilder> contentCallback);
+    IXmlElementBuilder AddContentXmlNode(XmlNodeSyntax content);
 }
 
 public interface IWithXmlElement<TBuilder>
 {
     TBuilder WithXmlElement(string nameStartTagLocalName, Action<IXmlNameBuilder> nameStartTagXmlNameCallback, Action<IXmlElementStartTagBuilder> startTagXmlElementStartTagCallback, string nameEndTagLocalName, Action<IXmlNameBuilder> nameEndTagXmlNameCallback, Action<IXmlElementBuilder> xmlElementCallback);
     TBuilder WithXmlElement(XmlElementSyntax xmlElementSyntax);
+}
+
+public interface IAddXmlElement<TBuilder>
+{
+    TBuilder AddXmlElement(string nameStartTagLocalName, Action<IXmlNameBuilder> nameStartTagXmlNameCallback, Action<IXmlElementStartTagBuilder> startTagXmlElementStartTagCallback, string nameEndTagLocalName, Action<IXmlNameBuilder> nameEndTagXmlNameCallback, Action<IXmlElementBuilder> xmlElementCallback);
+    TBuilder AddXmlElement(XmlElementSyntax xmlElementSyntax);
 }
 
 public partial class XmlElementBuilder : IXmlElementBuilder
@@ -35,14 +41,14 @@ public partial class XmlElementBuilder : IXmlElementBuilder
         return builder.Syntax;
     }
 
-    public IXmlElementBuilder AddContent(Action<IXmlNodeBuilder> contentCallback)
+    public IXmlElementBuilder AddContentXmlNode(Action<IXmlNodeBuilder> contentCallback)
     {
         var content = XmlNodeBuilder.CreateSyntax(contentCallback);
         Syntax = Syntax.AddContent(content);
         return this;
     }
 
-    public IXmlElementBuilder AddContent(XmlNodeSyntax content)
+    public IXmlElementBuilder AddContentXmlNode(XmlNodeSyntax content)
     {
         Syntax = Syntax.AddContent(content);
         return this;

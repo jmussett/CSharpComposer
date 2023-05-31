@@ -10,6 +10,12 @@ public interface IWithRelationalPattern<TBuilder>
     TBuilder WithRelationalPattern(RelationalPatternSyntax relationalPatternSyntax);
 }
 
+public interface IAddRelationalPattern<TBuilder>
+{
+    TBuilder AddRelationalPattern(RelationalPatternOperatorToken relationalPatternOperatorToken, Action<IExpressionBuilder> expressionCallback);
+    TBuilder AddRelationalPattern(RelationalPatternSyntax relationalPatternSyntax);
+}
+
 public partial class RelationalPatternBuilder
 {
     public static RelationalPatternSyntax CreateSyntax(RelationalPatternOperatorToken relationalPatternOperatorToken, Action<IExpressionBuilder> expressionCallback)

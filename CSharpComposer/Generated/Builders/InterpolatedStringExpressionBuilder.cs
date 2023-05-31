@@ -6,14 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IInterpolatedStringExpressionBuilder
 {
-    IInterpolatedStringExpressionBuilder AddContent(Action<IInterpolatedStringContentBuilder> contentCallback);
-    IInterpolatedStringExpressionBuilder AddContent(InterpolatedStringContentSyntax content);
+    IInterpolatedStringExpressionBuilder AddInterpolatedStringContent(Action<IInterpolatedStringContentBuilder> contentCallback);
+    IInterpolatedStringExpressionBuilder AddInterpolatedStringContent(InterpolatedStringContentSyntax content);
 }
 
 public interface IWithInterpolatedStringExpression<TBuilder>
 {
     TBuilder WithInterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder> interpolatedStringExpressionCallback);
     TBuilder WithInterpolatedStringExpression(InterpolatedStringExpressionSyntax interpolatedStringExpressionSyntax);
+}
+
+public interface IAddInterpolatedStringExpression<TBuilder>
+{
+    TBuilder AddInterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder> interpolatedStringExpressionCallback);
+    TBuilder AddInterpolatedStringExpression(InterpolatedStringExpressionSyntax interpolatedStringExpressionSyntax);
 }
 
 public partial class InterpolatedStringExpressionBuilder : IInterpolatedStringExpressionBuilder
@@ -47,14 +53,14 @@ public partial class InterpolatedStringExpressionBuilder : IInterpolatedStringEx
         return builder.Syntax;
     }
 
-    public IInterpolatedStringExpressionBuilder AddContent(Action<IInterpolatedStringContentBuilder> contentCallback)
+    public IInterpolatedStringExpressionBuilder AddInterpolatedStringContent(Action<IInterpolatedStringContentBuilder> contentCallback)
     {
         var content = InterpolatedStringContentBuilder.CreateSyntax(contentCallback);
         Syntax = Syntax.AddContents(content);
         return this;
     }
 
-    public IInterpolatedStringExpressionBuilder AddContent(InterpolatedStringContentSyntax content)
+    public IInterpolatedStringExpressionBuilder AddInterpolatedStringContent(InterpolatedStringContentSyntax content)
     {
         Syntax = Syntax.AddContents(content);
         return this;

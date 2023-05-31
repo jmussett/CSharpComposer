@@ -10,16 +10,22 @@ public partial interface IBaseObjectCreationExpressionBuilder
     void AsObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback);
 }
 
-public partial interface IBaseObjectCreationExpressionBuilder<TBuilder> : IWithInitializerExpression<TBuilder>
+public partial interface IBaseObjectCreationExpressionBuilder<TBuilder>
 {
-    TBuilder WithInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
-    TBuilder WithInitializerExpression(InitializerExpressionSyntax initializer);
+    TBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
+    TBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
 public interface IWithBaseObjectCreationExpression<TBuilder>
 {
     TBuilder WithBaseObjectCreationExpression(Action<IBaseObjectCreationExpressionBuilder> baseObjectCreationExpressionCallback);
     TBuilder WithBaseObjectCreationExpression(BaseObjectCreationExpressionSyntax baseObjectCreationExpressionSyntax);
+}
+
+public interface IAddBaseObjectCreationExpression<TBuilder>
+{
+    TBuilder AddBaseObjectCreationExpression(Action<IBaseObjectCreationExpressionBuilder> baseObjectCreationExpressionCallback);
+    TBuilder AddBaseObjectCreationExpression(BaseObjectCreationExpressionSyntax baseObjectCreationExpressionSyntax);
 }
 
 public partial class BaseObjectCreationExpressionBuilder : IBaseObjectCreationExpressionBuilder

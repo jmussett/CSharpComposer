@@ -10,6 +10,12 @@ public interface IWithErrorDirectiveTrivia<TBuilder>
     TBuilder WithErrorDirectiveTrivia(ErrorDirectiveTriviaSyntax errorDirectiveTriviaSyntax);
 }
 
+public interface IAddErrorDirectiveTrivia<TBuilder>
+{
+    TBuilder AddErrorDirectiveTrivia(bool isActive);
+    TBuilder AddErrorDirectiveTrivia(ErrorDirectiveTriviaSyntax errorDirectiveTriviaSyntax);
+}
+
 public partial class ErrorDirectiveTriviaBuilder
 {
     public static ErrorDirectiveTriviaSyntax CreateSyntax(bool isActive)

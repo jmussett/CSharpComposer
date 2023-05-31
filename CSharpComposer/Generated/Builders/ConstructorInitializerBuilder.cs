@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IConstructorInitializerBuilder
+public partial interface IConstructorInitializerBuilder : IAddArgument<IConstructorInitializerBuilder>
 {
     IConstructorInitializerBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     IConstructorInitializerBuilder AddArgument(ArgumentSyntax argument);
@@ -14,6 +14,12 @@ public interface IWithConstructorInitializer<TBuilder>
 {
     TBuilder WithConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
     TBuilder WithConstructorInitializer(ConstructorInitializerSyntax constructorInitializerSyntax);
+}
+
+public interface IAddConstructorInitializer<TBuilder>
+{
+    TBuilder AddConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
+    TBuilder AddConstructorInitializer(ConstructorInitializerSyntax constructorInitializerSyntax);
 }
 
 public partial class ConstructorInitializerBuilder : IConstructorInitializerBuilder

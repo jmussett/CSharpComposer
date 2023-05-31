@@ -4,10 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IUsingStatementBuilder : IWithVariableDeclaration<IUsingStatementBuilder>, IWithExpression<IUsingStatementBuilder>, IStatementBuilder<IUsingStatementBuilder>
+public partial interface IUsingStatementBuilder : IWithExpression<IUsingStatementBuilder>, IStatementBuilder<IUsingStatementBuilder>
 {
-    IUsingStatementBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
-    IUsingStatementBuilder WithVariableDeclaration(VariableDeclarationSyntax declaration);
+    IUsingStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
+    IUsingStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration);
     IUsingStatementBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
     IUsingStatementBuilder WithExpression(ExpressionSyntax expression);
     IUsingStatementBuilder WithAwaitKeyword();
@@ -17,6 +17,12 @@ public interface IWithUsingStatement<TBuilder>
 {
     TBuilder WithUsingStatement(Action<IStatementBuilder> statementCallback, Action<IUsingStatementBuilder> usingStatementCallback);
     TBuilder WithUsingStatement(UsingStatementSyntax usingStatementSyntax);
+}
+
+public interface IAddUsingStatement<TBuilder>
+{
+    TBuilder AddUsingStatement(Action<IStatementBuilder> statementCallback, Action<IUsingStatementBuilder> usingStatementCallback);
+    TBuilder AddUsingStatement(UsingStatementSyntax usingStatementSyntax);
 }
 
 public partial class UsingStatementBuilder : IUsingStatementBuilder
@@ -40,14 +46,14 @@ public partial class UsingStatementBuilder : IUsingStatementBuilder
         return builder.Syntax;
     }
 
-    public IUsingStatementBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
+    public IUsingStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
     {
         var declarationSyntax = VariableDeclarationBuilder.CreateSyntax(typeCallback, variableDeclarationCallback);
         Syntax = Syntax.WithDeclaration(declarationSyntax);
         return this;
     }
 
-    public IUsingStatementBuilder WithVariableDeclaration(VariableDeclarationSyntax declaration)
+    public IUsingStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration)
     {
         Syntax = Syntax.WithDeclaration(declaration);
         return this;

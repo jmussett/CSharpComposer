@@ -26,6 +26,12 @@ public interface IWithPattern<TBuilder>
     TBuilder WithPattern(PatternSyntax patternSyntax);
 }
 
+public interface IAddPattern<TBuilder>
+{
+    TBuilder AddPattern(Action<IPatternBuilder> patternCallback);
+    TBuilder AddPattern(PatternSyntax patternSyntax);
+}
+
 public partial class PatternBuilder : IPatternBuilder
 {
     public PatternSyntax? Syntax { get; set; }

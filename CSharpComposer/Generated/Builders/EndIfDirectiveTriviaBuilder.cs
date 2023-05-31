@@ -10,6 +10,12 @@ public interface IWithEndIfDirectiveTrivia<TBuilder>
     TBuilder WithEndIfDirectiveTrivia(EndIfDirectiveTriviaSyntax endIfDirectiveTriviaSyntax);
 }
 
+public interface IAddEndIfDirectiveTrivia<TBuilder>
+{
+    TBuilder AddEndIfDirectiveTrivia(bool isActive);
+    TBuilder AddEndIfDirectiveTrivia(EndIfDirectiveTriviaSyntax endIfDirectiveTriviaSyntax);
+}
+
 public partial class EndIfDirectiveTriviaBuilder
 {
     public static EndIfDirectiveTriviaSyntax CreateSyntax(bool isActive)
