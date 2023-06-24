@@ -4,14 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ICompilationUnitBuilder
+public partial interface ICompilationUnitBuilder : IAddAttribute<ICompilationUnitBuilder>
 {
     ICompilationUnitBuilder AddExternAliasDirective(string identifier);
     ICompilationUnitBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax @extern);
     ICompilationUnitBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
     ICompilationUnitBuilder AddUsingDirective(UsingDirectiveSyntax @using);
-    ICompilationUnitBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
-    ICompilationUnitBuilder AddAttribute(AttributeSyntax attribute);
     ICompilationUnitBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback);
     ICompilationUnitBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }

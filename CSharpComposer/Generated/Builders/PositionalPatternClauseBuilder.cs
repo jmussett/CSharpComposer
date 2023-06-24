@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IPositionalPatternClauseBuilder
+public partial interface IPositionalPatternClauseBuilder : IAddSubpattern<IPositionalPatternClauseBuilder>
 {
-    IPositionalPatternClauseBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback);
-    IPositionalPatternClauseBuilder AddSubpattern(SubpatternSyntax subpattern);
 }
 
 public interface IWithPositionalPatternClause<TBuilder>

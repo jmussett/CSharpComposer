@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ILocalDeclarationStatementBuilder : IStatementBuilder<ILocalDeclarationStatementBuilder>
+public partial interface ILocalDeclarationStatementBuilder : IStatementBuilder<ILocalDeclarationStatementBuilder>, IAddAttribute<ILocalDeclarationStatementBuilder>
 {
     ILocalDeclarationStatementBuilder WithAwaitKeyword();
     ILocalDeclarationStatementBuilder WithUsingKeyword();

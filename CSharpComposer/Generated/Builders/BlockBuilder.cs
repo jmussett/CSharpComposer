@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IBlockBuilder : IStatementBuilder<IBlockBuilder>
+public partial interface IBlockBuilder : IStatementBuilder<IBlockBuilder>, IAddAttribute<IBlockBuilder>, IAddStatement<IBlockBuilder>
 {
-    IBlockBuilder AddStatement(Action<IStatementBuilder> statementCallback);
-    IBlockBuilder AddStatement(StatementSyntax statement);
 }
 
 public interface IWithBlock<TBuilder>

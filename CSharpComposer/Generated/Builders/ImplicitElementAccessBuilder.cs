@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IImplicitElementAccessBuilder
+public partial interface IImplicitElementAccessBuilder : IAddArgument<IImplicitElementAccessBuilder>
 {
-    IImplicitElementAccessBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
-    IImplicitElementAccessBuilder AddArgument(ArgumentSyntax argument);
 }
 
 public interface IWithImplicitElementAccess<TBuilder>

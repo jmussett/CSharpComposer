@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ICheckedStatementBuilder : IStatementBuilder<ICheckedStatementBuilder>
+public partial interface ICheckedStatementBuilder : IStatementBuilder<ICheckedStatementBuilder>, IAddAttribute<ICheckedStatementBuilder>
 {
 }
 

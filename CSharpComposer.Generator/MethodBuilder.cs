@@ -170,33 +170,26 @@ internal class MethodBuilder
             // Add method-specific interfaces instead of using regular methods if the field names match the types and if the child field is unique.
             if (!isImplementation 
                 && !NodeValidator.IsSyntaxToken(field.Type)
-                // Only use interfaces where the field names match the types
-                && field.Name == NameFactory.CreateTypeName(field.Type)
                 // Only use method builders with unique type, otherwise we get conflicting methods.
                 && type.Children.GetNestedChildren().Count(x => x.Type == field.Type) == 1)
             {
-                if (!NodeValidator.IsAnyList(field.Type))
+                // Only use interfaces where the field names match the types
+                if (!NodeValidator.IsAnyList(field.Type) && field.Name == NameFactory.CreateTypeName(field.Type))
                 {
                     builder.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
 
                     continue;
                 }
 
-                var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
-
-                if (listTypeName is null || NodeValidator.IsAnyList(listTypeName))
-                {
-                    var referenceField = _tree.GetReferenceListType(listTypeName ?? field.Type);
-                    listTypeName = NameFactory.ExtractSyntaxTypeFromListType(referenceField.Type);
-                }
+                var listTypeName = NameFactory.ExtractReferenceTypeFromListType(_tree, field.Type);
 
                 // TODO: modifiers?
-                if (!NodeValidator.IsSyntaxToken(listTypeName))
+                if (listTypeName is not null && !NodeValidator.IsSyntaxToken(listTypeName) && (field.Name == NameFactory.CreateTypeName(field.Type) || NameFactory.CreateSingularName(field) == NameFactory.CreateTypeName(listTypeName)))
                 {
                     builder.WithBaseType(x => x.AsGeneric($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
-                };
 
-                continue;
+                    continue;
+                };
             }
 
             // Remove overriden field methods from interfaces
@@ -224,8 +217,6 @@ internal class MethodBuilder
 
             if (NodeValidator.IsAnyList(field.Type))
             {
-                var listType = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
-
                 WithListTypeMethods(builder, isImplementation, returnType, field);
             }
             else if (NodeValidator.IsSyntaxToken(field.Type))
@@ -260,13 +251,7 @@ internal class MethodBuilder
     private void WithListTypeMethods<TBuilder>(TBuilder builder, bool isImplementation, string returnType, Field field)
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
-        var listType = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
-
-        if (listType is null || NodeValidator.IsAnyList(listType))
-        {
-            var referenceField = _tree.GetReferenceListType(listType ?? field.Type);
-            listType = NameFactory.ExtractSyntaxTypeFromListType(referenceField.Type);
-        }
+        var listType = NameFactory.ExtractReferenceTypeFromListType(_tree, field.Type);
 
         var listTypeName = listType is null ? null : NameFactory.CreateTypeName(listType);
 

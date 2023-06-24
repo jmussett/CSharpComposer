@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IListPatternBuilder
+public partial interface IListPatternBuilder : IAddPattern<IListPatternBuilder>
 {
-    IListPatternBuilder AddPattern(Action<IPatternBuilder> patternCallback);
-    IListPatternBuilder AddPattern(PatternSyntax pattern);
     IListPatternBuilder WithSingleVariableDesignation(SingleVariableDesignationSyntax singleVariableDesignation);
     IListPatternBuilder WithDiscardDesignation(DiscardDesignationSyntax discardDesignation);
     IListPatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback);

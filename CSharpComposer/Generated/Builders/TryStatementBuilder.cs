@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ITryStatementBuilder : IStatementBuilder<ITryStatementBuilder>
+public partial interface ITryStatementBuilder : IStatementBuilder<ITryStatementBuilder>, IAddAttribute<ITryStatementBuilder>
 {
     ITryStatementBuilder AddCatchClause(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
     ITryStatementBuilder AddCatchClause(CatchClauseSyntax @catch);

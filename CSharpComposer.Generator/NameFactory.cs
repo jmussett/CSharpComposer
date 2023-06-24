@@ -115,6 +115,20 @@ internal static partial class NameFactory
         return match.Success ? match.Groups[1].Value : null;
     }
 
+    public static string? ExtractReferenceTypeFromListType(Tree tree, string listTypeName)
+    {
+        var extractedTypeName = ExtractSyntaxTypeFromListType(listTypeName);
+
+        if (extractedTypeName is null || NodeValidator.IsAnyList(extractedTypeName))
+        {
+            var referenceField = tree.GetReferenceListType(extractedTypeName ?? listTypeName);
+            extractedTypeName = referenceField is null ? null : ExtractSyntaxTypeFromListType(referenceField.Type);
+        }
+
+        return extractedTypeName;
+    }
+
+
     public static string? ExtractParentTypeFromListType(string? listTypeName)
     {
         if (string.IsNullOrEmpty(listTypeName))

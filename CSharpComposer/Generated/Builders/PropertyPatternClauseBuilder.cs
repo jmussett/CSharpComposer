@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IPropertyPatternClauseBuilder
+public partial interface IPropertyPatternClauseBuilder : IAddSubpattern<IPropertyPatternClauseBuilder>
 {
-    IPropertyPatternClauseBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback);
-    IPropertyPatternClauseBuilder AddSubpattern(SubpatternSyntax subpattern);
 }
 
 public interface IWithPropertyPatternClause<TBuilder>

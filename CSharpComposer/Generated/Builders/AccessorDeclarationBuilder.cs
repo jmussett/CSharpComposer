@@ -4,14 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IAccessorDeclarationBuilder
+public partial interface IAccessorDeclarationBuilder : IAddAttribute<IAccessorDeclarationBuilder>
 {
     IAccessorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IAccessorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
     IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
     IAccessorDeclarationBuilder WithBody(BlockSyntax body);
-    IAccessorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
-    IAccessorDeclarationBuilder AddAttribute(AttributeSyntax attribute);
     IAccessorDeclarationBuilder AddModifierToken(SyntaxToken modifier);
 }
 

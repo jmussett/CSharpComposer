@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IIfStatementBuilder : IStatementBuilder<IIfStatementBuilder>
+public partial interface IIfStatementBuilder : IStatementBuilder<IIfStatementBuilder>, IAddAttribute<IIfStatementBuilder>
 {
     IIfStatementBuilder WithElse(Action<IStatementBuilder> statementCallback);
     IIfStatementBuilder WithElse(ElseClauseSyntax @else);

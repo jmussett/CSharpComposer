@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IThrowStatementBuilder : IStatementBuilder<IThrowStatementBuilder>, IWithExpression<IThrowStatementBuilder>
+public partial interface IThrowStatementBuilder : IStatementBuilder<IThrowStatementBuilder>, IAddAttribute<IThrowStatementBuilder>, IWithExpression<IThrowStatementBuilder>
 {
 }
 

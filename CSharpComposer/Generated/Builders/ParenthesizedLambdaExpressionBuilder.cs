@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IParenthesizedLambdaExpressionBuilder : ILambdaExpressionBuilder<IParenthesizedLambdaExpressionBuilder>, IWithBlock<IParenthesizedLambdaExpressionBuilder>, IAddParameter<IParenthesizedLambdaExpressionBuilder>
+public partial interface IParenthesizedLambdaExpressionBuilder : ILambdaExpressionBuilder<IParenthesizedLambdaExpressionBuilder>, IWithBlock<IParenthesizedLambdaExpressionBuilder>, IAddAttribute<IParenthesizedLambdaExpressionBuilder>, IAddParameter<IParenthesizedLambdaExpressionBuilder>
 {
     IParenthesizedLambdaExpressionBuilder WithReturnType(Action<ITypeBuilder> returnTypeCallback);
     IParenthesizedLambdaExpressionBuilder WithReturnType(TypeSyntax returnType);

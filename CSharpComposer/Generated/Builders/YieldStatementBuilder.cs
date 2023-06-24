@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IYieldStatementBuilder : IStatementBuilder<IYieldStatementBuilder>, IWithExpression<IYieldStatementBuilder>
+public partial interface IYieldStatementBuilder : IStatementBuilder<IYieldStatementBuilder>, IAddAttribute<IYieldStatementBuilder>, IWithExpression<IYieldStatementBuilder>
 {
 }
 

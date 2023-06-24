@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ITypeParameterBuilder
+public partial interface ITypeParameterBuilder : IAddAttribute<ITypeParameterBuilder>
 {
-    ITypeParameterBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
-    ITypeParameterBuilder AddAttribute(AttributeSyntax attribute);
     ITypeParameterBuilder WithVarianceKeyword(VarianceKeyword varianceKeyword);
 }
 

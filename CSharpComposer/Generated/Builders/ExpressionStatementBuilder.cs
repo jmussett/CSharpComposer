@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IExpressionStatementBuilder : IStatementBuilder<IExpressionStatementBuilder>
+public partial interface IExpressionStatementBuilder : IStatementBuilder<IExpressionStatementBuilder>, IAddAttribute<IExpressionStatementBuilder>
 {
 }
 

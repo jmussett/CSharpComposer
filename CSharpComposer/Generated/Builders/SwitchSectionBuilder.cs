@@ -4,12 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ISwitchSectionBuilder
+public partial interface ISwitchSectionBuilder : IAddStatement<ISwitchSectionBuilder>
 {
     ISwitchSectionBuilder AddSwitchLabel(Action<ISwitchLabelBuilder> labelCallback);
     ISwitchSectionBuilder AddSwitchLabel(SwitchLabelSyntax label);
-    ISwitchSectionBuilder AddStatement(Action<IStatementBuilder> statementCallback);
-    ISwitchSectionBuilder AddStatement(StatementSyntax statement);
 }
 
 public interface IWithSwitchSection<TBuilder>

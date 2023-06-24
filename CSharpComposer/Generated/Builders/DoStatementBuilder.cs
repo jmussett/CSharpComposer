@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IDoStatementBuilder : IStatementBuilder<IDoStatementBuilder>
+public partial interface IDoStatementBuilder : IStatementBuilder<IDoStatementBuilder>, IAddAttribute<IDoStatementBuilder>
 {
 }
 

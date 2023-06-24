@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IOperatorDeclarationBuilder : IBaseMethodDeclarationBuilder<IOperatorDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IOperatorDeclarationBuilder>, IAddParameter<IOperatorDeclarationBuilder>
+public partial interface IOperatorDeclarationBuilder : IBaseMethodDeclarationBuilder<IOperatorDeclarationBuilder>, IAddAttribute<IOperatorDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IOperatorDeclarationBuilder>, IAddParameter<IOperatorDeclarationBuilder>
 {
     IOperatorDeclarationBuilder WithCheckedKeyword();
 }

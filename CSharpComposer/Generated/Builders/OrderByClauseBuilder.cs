@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IOrderByClauseBuilder
+public partial interface IOrderByClauseBuilder : IAddOrdering<IOrderByClauseBuilder>
 {
-    IOrderByClauseBuilder AddOrdering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder> orderingCallback);
-    IOrderByClauseBuilder AddOrdering(OrderingSyntax ordering);
 }
 
 public interface IWithOrderByClause<TBuilder>

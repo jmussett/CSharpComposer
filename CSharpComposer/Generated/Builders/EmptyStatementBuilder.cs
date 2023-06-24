@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEmptyStatementBuilder : IStatementBuilder<IEmptyStatementBuilder>
+public partial interface IEmptyStatementBuilder : IStatementBuilder<IEmptyStatementBuilder>, IAddAttribute<IEmptyStatementBuilder>
 {
 }
 

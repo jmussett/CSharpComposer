@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IElementBindingExpressionBuilder
+public partial interface IElementBindingExpressionBuilder : IAddArgument<IElementBindingExpressionBuilder>
 {
-    IElementBindingExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
-    IElementBindingExpressionBuilder AddArgument(ArgumentSyntax argument);
 }
 
 public interface IWithElementBindingExpression<TBuilder>

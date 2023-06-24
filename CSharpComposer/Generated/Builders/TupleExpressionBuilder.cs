@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ITupleExpressionBuilder
+public partial interface ITupleExpressionBuilder : IAddArgument<ITupleExpressionBuilder>
 {
-    ITupleExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
-    ITupleExpressionBuilder AddArgument(ArgumentSyntax argument);
 }
 
 public interface IWithTupleExpression<TBuilder>

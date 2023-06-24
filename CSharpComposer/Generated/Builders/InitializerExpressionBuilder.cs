@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IInitializerExpressionBuilder
+public partial interface IInitializerExpressionBuilder : IAddExpression<IInitializerExpressionBuilder>
 {
-    IInitializerExpressionBuilder AddExpression(Action<IExpressionBuilder> expressionCallback);
-    IInitializerExpressionBuilder AddExpression(ExpressionSyntax expression);
 }
 
 public interface IWithInitializerExpression<TBuilder>

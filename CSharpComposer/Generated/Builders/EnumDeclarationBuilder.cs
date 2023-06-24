@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEnumDeclarationBuilder : IBaseTypeDeclarationBuilder<IEnumDeclarationBuilder>, IAddBaseType<IEnumDeclarationBuilder>
+public partial interface IEnumDeclarationBuilder : IBaseTypeDeclarationBuilder<IEnumDeclarationBuilder>, IAddAttribute<IEnumDeclarationBuilder>, IAddBaseType<IEnumDeclarationBuilder>
 {
     IEnumDeclarationBuilder AddEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback);
     IEnumDeclarationBuilder AddEnumMemberDeclaration(EnumMemberDeclarationSyntax member);

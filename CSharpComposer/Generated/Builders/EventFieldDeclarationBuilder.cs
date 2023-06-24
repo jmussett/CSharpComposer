@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEventFieldDeclarationBuilder
+public partial interface IEventFieldDeclarationBuilder : IAddAttribute<IEventFieldDeclarationBuilder>
 {
 }
 
