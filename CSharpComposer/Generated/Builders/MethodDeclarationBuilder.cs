@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IMethodDeclarationBuilder : IBaseMethodDeclarationBuilder<IMethodDeclarationBuilder>, IAddAttribute<IMethodDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IMethodDeclarationBuilder>, IAddTypeParameter<IMethodDeclarationBuilder>, IAddParameter<IMethodDeclarationBuilder>
 {
+    IMethodDeclarationBuilder AddModifierToken(SyntaxToken modifier);
     IMethodDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
     IMethodDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }

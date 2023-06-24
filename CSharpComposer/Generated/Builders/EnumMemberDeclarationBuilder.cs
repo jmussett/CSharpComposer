@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IEnumMemberDeclarationBuilder : IMemberDeclarationBuilder<IEnumMemberDeclarationBuilder>, IAddAttribute<IEnumMemberDeclarationBuilder>
 {
+    IEnumMemberDeclarationBuilder AddModifierToken(SyntaxToken modifier);
     IEnumMemberDeclarationBuilder WithEqualsValue(Action<IExpressionBuilder> valueCallback);
     IEnumMemberDeclarationBuilder WithEqualsValue(EqualsValueClauseSyntax equalsValue);
 }

@@ -198,7 +198,7 @@ internal class MethodBuilder
             {
                 _tree.TryGetBaseField(type, field, out var baseType, out var baseField);
 
-                if (baseField is not null && !baseField.IsOptional)
+                if (baseField is not null && !baseField.IsOptional && !NodeValidator.IsAnyList(field.Type))
                 {
                     continue;
                 }

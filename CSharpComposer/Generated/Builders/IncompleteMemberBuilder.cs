@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IIncompleteMemberBuilder : IMemberDeclarationBuilder<IIncompleteMemberBuilder>, IAddAttribute<IIncompleteMemberBuilder>, IWithType<IIncompleteMemberBuilder>
 {
+    IIncompleteMemberBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithIncompleteMember<TBuilder>

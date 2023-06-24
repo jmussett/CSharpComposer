@@ -10,6 +10,7 @@ public partial interface IPropertyDeclarationBuilder : IBasePropertyDeclarationB
     IPropertyDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
     IPropertyDeclarationBuilder WithInitializer(Action<IExpressionBuilder> valueCallback);
     IPropertyDeclarationBuilder WithInitializer(EqualsValueClauseSyntax initializer);
+    IPropertyDeclarationBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithPropertyDeclaration<TBuilder>

@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IParameterBuilder : IBaseParameterBuilder<IParameterBuilder>, IAddAttribute<IParameterBuilder>, IWithType<IParameterBuilder>
 {
+    IParameterBuilder AddModifierToken(SyntaxToken modifier);
     IParameterBuilder WithDefault(Action<IExpressionBuilder> valueCallback);
     IParameterBuilder WithDefault(EqualsValueClauseSyntax @default);
 }

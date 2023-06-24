@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ISimpleLambdaExpressionBuilder : ILambdaExpressionBuilder<ISimpleLambdaExpressionBuilder>, IWithBlock<ISimpleLambdaExpressionBuilder>, IAddAttribute<ISimpleLambdaExpressionBuilder>
 {
+    ISimpleLambdaExpressionBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithSimpleLambdaExpression<TBuilder>

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IFileScopedNamespaceDeclarationBuilder : IBaseNamespaceDeclarationBuilder<IFileScopedNamespaceDeclarationBuilder>, IAddAttribute<IFileScopedNamespaceDeclarationBuilder>
 {
+    IFileScopedNamespaceDeclarationBuilder AddModifierToken(SyntaxToken modifier);
+    IFileScopedNamespaceDeclarationBuilder AddExternAliasDirective(string identifier);
+    IFileScopedNamespaceDeclarationBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax @extern);
+    IFileScopedNamespaceDeclarationBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
+    IFileScopedNamespaceDeclarationBuilder AddUsingDirective(UsingDirectiveSyntax @using);
+    IFileScopedNamespaceDeclarationBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback);
+    IFileScopedNamespaceDeclarationBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
 public interface IWithFileScopedNamespaceDeclaration<TBuilder>

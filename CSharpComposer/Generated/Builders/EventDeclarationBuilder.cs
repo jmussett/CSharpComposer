@@ -7,6 +7,7 @@ namespace CSharpComposer;
 public partial interface IEventDeclarationBuilder : IBasePropertyDeclarationBuilder<IEventDeclarationBuilder>, IAddAccessorDeclaration<IEventDeclarationBuilder>, IAddAttribute<IEventDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IEventDeclarationBuilder>
 {
     IEventDeclarationBuilder WithSemicolonToken();
+    IEventDeclarationBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithEventDeclaration<TBuilder>

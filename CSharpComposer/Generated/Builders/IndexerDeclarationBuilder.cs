@@ -8,6 +8,7 @@ public partial interface IIndexerDeclarationBuilder : IBasePropertyDeclarationBu
 {
     IIndexerDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
+    IIndexerDeclarationBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithIndexerDeclaration<TBuilder>

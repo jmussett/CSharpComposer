@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IAnonymousMethodExpressionBuilder : IAnonymousFunctionExpressionBuilder<IAnonymousMethodExpressionBuilder>, IAddParameter<IAnonymousMethodExpressionBuilder>
 {
+    IAnonymousMethodExpressionBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithAnonymousMethodExpression<TBuilder>

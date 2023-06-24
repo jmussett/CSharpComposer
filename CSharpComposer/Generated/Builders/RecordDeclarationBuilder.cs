@@ -6,8 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IRecordDeclarationBuilder : ITypeDeclarationBuilder<IRecordDeclarationBuilder>, IAddAttribute<IRecordDeclarationBuilder>, IAddTypeParameter<IRecordDeclarationBuilder>, IAddParameter<IRecordDeclarationBuilder>, IAddBaseType<IRecordDeclarationBuilder>
 {
+    IRecordDeclarationBuilder AddModifierToken(SyntaxToken modifier);
     IRecordDeclarationBuilder WithClassOrStructKeyword(ClassOrStructKeyword classOrStructKeyword);
+    IRecordDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
+    IRecordDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
     IRecordDeclarationBuilder WithOpenBraceToken();
+    IRecordDeclarationBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback);
+    IRecordDeclarationBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
     IRecordDeclarationBuilder WithCloseBraceToken();
 }
 

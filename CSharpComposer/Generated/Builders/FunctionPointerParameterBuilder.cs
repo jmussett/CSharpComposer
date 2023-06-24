@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IFunctionPointerParameterBuilder : IBaseParameterBuilder<IFunctionPointerParameterBuilder>, IAddAttribute<IFunctionPointerParameterBuilder>
 {
+    IFunctionPointerParameterBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithFunctionPointerParameter<TBuilder>

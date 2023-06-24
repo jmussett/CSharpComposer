@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IGlobalStatementBuilder : IMemberDeclarationBuilder<IGlobalStatementBuilder>, IAddAttribute<IGlobalStatementBuilder>
 {
+    IGlobalStatementBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithGlobalStatement<TBuilder>

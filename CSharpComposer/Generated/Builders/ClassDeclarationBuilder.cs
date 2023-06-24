@@ -6,6 +6,11 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IClassDeclarationBuilder : ITypeDeclarationBuilder<IClassDeclarationBuilder>, IAddAttribute<IClassDeclarationBuilder>, IAddTypeParameter<IClassDeclarationBuilder>, IAddBaseType<IClassDeclarationBuilder>
 {
+    IClassDeclarationBuilder AddModifierToken(SyntaxToken modifier);
+    IClassDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
+    IClassDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
+    IClassDeclarationBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback);
+    IClassDeclarationBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
 public interface IWithClassDeclaration<TBuilder>
