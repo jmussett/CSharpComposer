@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IPrimaryConstructorBaseTypeBuilder : IAddArgument<IPrimaryConstructorBaseTypeBuilder>
 {
-    IPrimaryConstructorBaseTypeBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
-    IPrimaryConstructorBaseTypeBuilder AddArgument(ArgumentSyntax argument);
 }
 
 public interface IWithPrimaryConstructorBaseType<TBuilder>

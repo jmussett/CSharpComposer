@@ -12,10 +12,8 @@ public partial interface ITypeDeclarationBuilder
     void AsRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback);
 }
 
-public partial interface ITypeDeclarationBuilder<TBuilder> : IAddTypeParameter<TBuilder>, IBaseTypeDeclarationBuilder<TBuilder>
+public partial interface ITypeDeclarationBuilder<TBuilder> : IBaseTypeDeclarationBuilder<TBuilder>, IAddTypeParameter<TBuilder>
 {
-    TBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
-    TBuilder AddTypeParameter(TypeParameterSyntax parameter);
 }
 
 public interface IWithTypeDeclaration<TBuilder>

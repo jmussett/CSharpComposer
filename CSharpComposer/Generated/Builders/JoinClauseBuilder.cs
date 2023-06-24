@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IJoinClauseBuilder : IWithType<IJoinClauseBuilder>
 {
-    IJoinClauseBuilder WithType(Action<ITypeBuilder> typeCallback);
-    IJoinClauseBuilder WithType(TypeSyntax type);
     IJoinClauseBuilder WithInto(string identifier);
     IJoinClauseBuilder WithInto(JoinIntoClauseSyntax into);
 }

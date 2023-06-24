@@ -4,14 +4,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IPropertyDeclarationBuilder : IWithExplicitInterfaceSpecifier<IPropertyDeclarationBuilder>, IAddAccessorDeclaration<IPropertyDeclarationBuilder>, IBasePropertyDeclarationBuilder<IPropertyDeclarationBuilder>
+public partial interface IPropertyDeclarationBuilder : IBasePropertyDeclarationBuilder<IPropertyDeclarationBuilder>, IAddAccessorDeclaration<IPropertyDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IPropertyDeclarationBuilder>
 {
     IPropertyDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IPropertyDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
     IPropertyDeclarationBuilder WithInitializer(Action<IExpressionBuilder> valueCallback);
     IPropertyDeclarationBuilder WithInitializer(EqualsValueClauseSyntax initializer);
-    IPropertyDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
-    IPropertyDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor);
 }
 
 public interface IWithPropertyDeclaration<TBuilder>

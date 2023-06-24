@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IConstructorDeclarationBuilder : IAddParameter<IConstructorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IConstructorDeclarationBuilder>
+public partial interface IConstructorDeclarationBuilder : IBaseMethodDeclarationBuilder<IConstructorDeclarationBuilder>, IAddParameter<IConstructorDeclarationBuilder>
 {
     IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
     IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerSyntax initializer);

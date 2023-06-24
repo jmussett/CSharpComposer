@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IEventDeclarationBuilder : IWithExplicitInterfaceSpecifier<IEventDeclarationBuilder>, IAddAccessorDeclaration<IEventDeclarationBuilder>, IBasePropertyDeclarationBuilder<IEventDeclarationBuilder>
+public partial interface IEventDeclarationBuilder : IBasePropertyDeclarationBuilder<IEventDeclarationBuilder>, IAddAccessorDeclaration<IEventDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IEventDeclarationBuilder>
 {
-    IEventDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
-    IEventDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor);
     IEventDeclarationBuilder WithSemicolonToken();
 }
 

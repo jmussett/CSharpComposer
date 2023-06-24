@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IGenericNameBuilder : IAddType<IGenericNameBuilder>
 {
-    IGenericNameBuilder AddType(Action<ITypeBuilder> argumentCallback);
-    IGenericNameBuilder AddType(TypeSyntax argument);
 }
 
 public interface IWithGenericName<TBuilder>

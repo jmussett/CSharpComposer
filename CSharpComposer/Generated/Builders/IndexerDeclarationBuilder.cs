@@ -4,12 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IIndexerDeclarationBuilder : IWithExplicitInterfaceSpecifier<IIndexerDeclarationBuilder>, IAddAccessorDeclaration<IIndexerDeclarationBuilder>, IBasePropertyDeclarationBuilder<IIndexerDeclarationBuilder>
+public partial interface IIndexerDeclarationBuilder : IBasePropertyDeclarationBuilder<IIndexerDeclarationBuilder>, IAddAccessorDeclaration<IIndexerDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IIndexerDeclarationBuilder>
 {
     IIndexerDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
-    IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor);
     IIndexerDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     IIndexerDeclarationBuilder AddParameter(ParameterSyntax parameter);
 }

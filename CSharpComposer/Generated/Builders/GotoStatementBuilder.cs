@@ -4,11 +4,9 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IGotoStatementBuilder : IWithExpression<IGotoStatementBuilder>, IStatementBuilder<IGotoStatementBuilder>
+public partial interface IGotoStatementBuilder : IStatementBuilder<IGotoStatementBuilder>, IWithExpression<IGotoStatementBuilder>
 {
     IGotoStatementBuilder WithCaseOrDefaultKeyword(CaseOrDefaultKeyword caseOrDefaultKeyword);
-    IGotoStatementBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
-    IGotoStatementBuilder WithExpression(ExpressionSyntax expression);
 }
 
 public interface IWithGotoStatement<TBuilder>

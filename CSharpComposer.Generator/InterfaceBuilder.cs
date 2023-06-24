@@ -71,8 +71,6 @@ internal class InterfaceBuilder
                         x.WithTypeParameter(returnType);
                     }
 
-                    WithFieldMethods(x, type, type.Children, returnType);
-
                     if (NodeValidator.IsValidNode(type.Base))
                     {
                         var baseType = _tree.Types.First(x => x.Name == type.Base);
@@ -95,6 +93,7 @@ internal class InterfaceBuilder
         // TODO: ITypeDeclarationInterface, remove with type? derived type children cointains choice? 
         if (_tree.Types.Any(t => t.Children.Any(f => _tree.AnyValidFieldMethod(t, f, false))))
         {
+            // TODO: Remove when unused
             builder
                 .WithInterface($"IWith{typeName}", x =>
                 {
@@ -149,46 +148,4 @@ internal class InterfaceBuilder
 
         return builder;
     }
-
-    private void WithFieldMethods(IInterfaceDeclarationBuilder x, TreeType type, List<TreeTypeChild> children, string returnType, bool isChoice = false)
-    {
-        foreach (var child in children.Where(x => _tree.AnyValidFieldMethod(type, x, false, isChoice)))
-        {
-            if (child is Field field && !NodeValidator.IsSyntaxToken(field.Type) 
-                // Only use interfaces where the field names match the types
-                && field.Name == NameFactory.CreateTypeName(field.Type)
-                // Only use method builders with unique type, otherwise we get conflicting methods.
-                && type.Children.GetNestedChildren().Count(x => x.Type == field.Type) == 1)
-            {
-                if (!NodeValidator.IsAnyList(field.Type))
-                {
-                    x.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
-                }
-                else
-                {
-                    var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
-
-                    if (listTypeName is null || NodeValidator.IsAnyList(listTypeName))
-                    {
-                        var referenceField = _tree.GetReferenceListType(listTypeName ?? field.Type);
-                        listTypeName = NameFactory.ExtractSyntaxTypeFromListType(referenceField.Type);
-                    }
-
-                    // TODO: modifiers?
-                    if (NodeValidator.IsSyntaxToken(listTypeName)) continue;
-
-                    x.WithBaseType(x => x.AsGeneric($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
-                }
-            }
-            else if (child is Sequence sequence)
-            {
-                WithFieldMethods(x, type, sequence.Children, returnType, isChoice);
-            }
-            else if (child is Choice choice)
-            {
-                WithFieldMethods(x, type, choice.Children, returnType, true);
-            }
-        }
-    }
-
 }

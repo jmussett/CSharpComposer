@@ -167,6 +167,38 @@ internal class MethodBuilder
                 continue;
             }
 
+            // Add method-specific interfaces instead of using regular methods if the field names match the types and if the child field is unique.
+            if (!isImplementation 
+                && !NodeValidator.IsSyntaxToken(field.Type)
+                // Only use interfaces where the field names match the types
+                && field.Name == NameFactory.CreateTypeName(field.Type)
+                // Only use method builders with unique type, otherwise we get conflicting methods.
+                && type.Children.GetNestedChildren().Count(x => x.Type == field.Type) == 1)
+            {
+                if (!NodeValidator.IsAnyList(field.Type))
+                {
+                    builder.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
+
+                    continue;
+                }
+
+                var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(field.Type);
+
+                if (listTypeName is null || NodeValidator.IsAnyList(listTypeName))
+                {
+                    var referenceField = _tree.GetReferenceListType(listTypeName ?? field.Type);
+                    listTypeName = NameFactory.ExtractSyntaxTypeFromListType(referenceField.Type);
+                }
+
+                // TODO: modifiers?
+                if (!NodeValidator.IsSyntaxToken(listTypeName))
+                {
+                    builder.WithBaseType(x => x.AsGeneric($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                };
+
+                continue;
+            }
+
             // Remove overriden field methods from interfaces
             // TODO: don't remove if overriding field is optional?
             if (!isImplementation && field.IsOverride)

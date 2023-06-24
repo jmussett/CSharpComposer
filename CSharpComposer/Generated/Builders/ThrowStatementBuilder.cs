@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IThrowStatementBuilder : IWithExpression<IThrowStatementBuilder>, IStatementBuilder<IThrowStatementBuilder>
+public partial interface IThrowStatementBuilder : IStatementBuilder<IThrowStatementBuilder>, IWithExpression<IThrowStatementBuilder>
 {
-    IThrowStatementBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
-    IThrowStatementBuilder WithExpression(ExpressionSyntax expression);
 }
 
 public interface IWithThrowStatement<TBuilder>

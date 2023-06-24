@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IInvocationExpressionBuilder : IAddArgument<IInvocationExpressionBuilder>
 {
-    IInvocationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
-    IInvocationExpressionBuilder AddArgument(ArgumentSyntax argument);
 }
 
 public interface IWithInvocationExpression<TBuilder>

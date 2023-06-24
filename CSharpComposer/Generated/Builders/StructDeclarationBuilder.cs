@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IStructDeclarationBuilder : IAddTypeParameter<IStructDeclarationBuilder>, IAddBaseType<IStructDeclarationBuilder>, ITypeDeclarationBuilder<IStructDeclarationBuilder>
+public partial interface IStructDeclarationBuilder : ITypeDeclarationBuilder<IStructDeclarationBuilder>, IAddTypeParameter<IStructDeclarationBuilder>, IAddBaseType<IStructDeclarationBuilder>
 {
 }
 

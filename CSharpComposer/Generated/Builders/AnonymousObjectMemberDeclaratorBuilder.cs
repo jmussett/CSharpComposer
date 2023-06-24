@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IAnonymousObjectMemberDeclaratorBuilder : IWithNameEquals<IAnonymousObjectMemberDeclaratorBuilder>
 {
-    IAnonymousObjectMemberDeclaratorBuilder WithNameEquals(string nameIdentifier);
-    IAnonymousObjectMemberDeclaratorBuilder WithNameEquals(NameEqualsSyntax nameEquals);
 }
 
 public interface IWithAnonymousObjectMemberDeclarator<TBuilder>

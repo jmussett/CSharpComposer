@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ICasePatternSwitchLabelBuilder : IWithWhenClause<ICasePatternSwitchLabelBuilder>
 {
-    ICasePatternSwitchLabelBuilder WithWhenClause(Action<IExpressionBuilder> conditionCallback);
-    ICasePatternSwitchLabelBuilder WithWhenClause(WhenClauseSyntax whenClause);
 }
 
 public interface IWithCasePatternSwitchLabel<TBuilder>

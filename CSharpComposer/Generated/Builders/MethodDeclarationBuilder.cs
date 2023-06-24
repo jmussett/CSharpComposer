@@ -4,12 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IMethodDeclarationBuilder : IWithExplicitInterfaceSpecifier<IMethodDeclarationBuilder>, IAddTypeParameter<IMethodDeclarationBuilder>, IAddParameter<IMethodDeclarationBuilder>, IBaseMethodDeclarationBuilder<IMethodDeclarationBuilder>
+public partial interface IMethodDeclarationBuilder : IBaseMethodDeclarationBuilder<IMethodDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IMethodDeclarationBuilder>, IAddTypeParameter<IMethodDeclarationBuilder>, IAddParameter<IMethodDeclarationBuilder>
 {
-    IMethodDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
-    IMethodDeclarationBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier);
-    IMethodDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
-    IMethodDeclarationBuilder AddTypeParameter(TypeParameterSyntax parameter);
     IMethodDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
     IMethodDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }

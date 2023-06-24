@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IConversionOperatorDeclarationBuilder : IWithExplicitInterfaceSpecifier<IConversionOperatorDeclarationBuilder>, IAddParameter<IConversionOperatorDeclarationBuilder>, IBaseMethodDeclarationBuilder<IConversionOperatorDeclarationBuilder>
+public partial interface IConversionOperatorDeclarationBuilder : IBaseMethodDeclarationBuilder<IConversionOperatorDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IConversionOperatorDeclarationBuilder>, IAddParameter<IConversionOperatorDeclarationBuilder>
 {
-    IConversionOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
-    IConversionOperatorDeclarationBuilder WithExplicitInterfaceSpecifier(ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier);
     IConversionOperatorDeclarationBuilder WithCheckedKeyword();
 }
 

@@ -4,12 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IDelegateDeclarationBuilder : IAddTypeParameter<IDelegateDeclarationBuilder>, IAddParameter<IDelegateDeclarationBuilder>, IMemberDeclarationBuilder<IDelegateDeclarationBuilder>
+public partial interface IDelegateDeclarationBuilder : IMemberDeclarationBuilder<IDelegateDeclarationBuilder>, IAddTypeParameter<IDelegateDeclarationBuilder>, IAddParameter<IDelegateDeclarationBuilder>
 {
-    IDelegateDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
-    IDelegateDeclarationBuilder AddTypeParameter(TypeParameterSyntax parameter);
-    IDelegateDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
-    IDelegateDeclarationBuilder AddParameter(ParameterSyntax parameter);
     IDelegateDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
     IDelegateDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }

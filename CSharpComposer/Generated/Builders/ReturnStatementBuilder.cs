@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IReturnStatementBuilder : IWithExpression<IReturnStatementBuilder>, IStatementBuilder<IReturnStatementBuilder>
+public partial interface IReturnStatementBuilder : IStatementBuilder<IReturnStatementBuilder>, IWithExpression<IReturnStatementBuilder>
 {
-    IReturnStatementBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
-    IReturnStatementBuilder WithExpression(ExpressionSyntax expression);
 }
 
 public interface IWithReturnStatement<TBuilder>

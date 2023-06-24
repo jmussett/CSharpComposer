@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IYieldStatementBuilder : IWithExpression<IYieldStatementBuilder>, IStatementBuilder<IYieldStatementBuilder>
+public partial interface IYieldStatementBuilder : IStatementBuilder<IYieldStatementBuilder>, IWithExpression<IYieldStatementBuilder>
 {
-    IYieldStatementBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
-    IYieldStatementBuilder WithExpression(ExpressionSyntax expression);
 }
 
 public interface IWithYieldStatement<TBuilder>

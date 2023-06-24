@@ -6,10 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IAttributeArgumentBuilder : IWithNameEquals<IAttributeArgumentBuilder>, IWithNameColon<IAttributeArgumentBuilder>
 {
-    IAttributeArgumentBuilder WithNameEquals(string nameIdentifier);
-    IAttributeArgumentBuilder WithNameEquals(NameEqualsSyntax nameEquals);
-    IAttributeArgumentBuilder WithNameColon(string nameIdentifier);
-    IAttributeArgumentBuilder WithNameColon(NameColonSyntax nameColon);
 }
 
 public interface IWithAttributeArgument<TBuilder>

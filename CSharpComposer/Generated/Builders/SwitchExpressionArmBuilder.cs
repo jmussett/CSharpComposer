@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ISwitchExpressionArmBuilder : IWithWhenClause<ISwitchExpressionArmBuilder>
 {
-    ISwitchExpressionArmBuilder WithWhenClause(Action<IExpressionBuilder> conditionCallback);
-    ISwitchExpressionArmBuilder WithWhenClause(WhenClauseSyntax whenClause);
 }
 
 public interface IWithSwitchExpressionArm<TBuilder>

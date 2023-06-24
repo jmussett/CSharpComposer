@@ -4,12 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IUsingStatementBuilder : IWithExpression<IUsingStatementBuilder>, IStatementBuilder<IUsingStatementBuilder>
+public partial interface IUsingStatementBuilder : IStatementBuilder<IUsingStatementBuilder>, IWithExpression<IUsingStatementBuilder>
 {
     IUsingStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
     IUsingStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration);
-    IUsingStatementBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
-    IUsingStatementBuilder WithExpression(ExpressionSyntax expression);
     IUsingStatementBuilder WithAwaitKeyword();
 }
 

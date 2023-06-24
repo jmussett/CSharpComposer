@@ -6,12 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IRecursivePatternBuilder : IWithType<IRecursivePatternBuilder>, IWithPositionalPatternClause<IRecursivePatternBuilder>, IWithPropertyPatternClause<IRecursivePatternBuilder>
 {
-    IRecursivePatternBuilder WithType(Action<ITypeBuilder> typeCallback);
-    IRecursivePatternBuilder WithType(TypeSyntax type);
-    IRecursivePatternBuilder WithPositionalPatternClause(Action<IPositionalPatternClauseBuilder> positionalPatternClauseCallback);
-    IRecursivePatternBuilder WithPositionalPatternClause(PositionalPatternClauseSyntax positionalPatternClause);
-    IRecursivePatternBuilder WithPropertyPatternClause(Action<IPropertyPatternClauseBuilder> propertyPatternClauseCallback);
-    IRecursivePatternBuilder WithPropertyPatternClause(PropertyPatternClauseSyntax propertyPatternClause);
     IRecursivePatternBuilder WithSingleVariableDesignation(SingleVariableDesignationSyntax singleVariableDesignation);
     IRecursivePatternBuilder WithDiscardDesignation(DiscardDesignationSyntax discardDesignation);
     IRecursivePatternBuilder WithDesignation(Action<IVariableDesignationBuilder> designationCallback);

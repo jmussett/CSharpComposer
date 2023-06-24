@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IFromClauseBuilder : IWithType<IFromClauseBuilder>
 {
-    IFromClauseBuilder WithType(Action<ITypeBuilder> typeCallback);
-    IFromClauseBuilder WithType(TypeSyntax type);
 }
 
 public interface IWithFromClause<TBuilder>

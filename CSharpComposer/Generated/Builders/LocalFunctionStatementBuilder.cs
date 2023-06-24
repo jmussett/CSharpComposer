@@ -4,17 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ILocalFunctionStatementBuilder : IAddTypeParameter<ILocalFunctionStatementBuilder>, IAddParameter<ILocalFunctionStatementBuilder>, IStatementBuilder<ILocalFunctionStatementBuilder>
+public partial interface ILocalFunctionStatementBuilder : IStatementBuilder<ILocalFunctionStatementBuilder>, IAddTypeParameter<ILocalFunctionStatementBuilder>, IAddParameter<ILocalFunctionStatementBuilder>
 {
     ILocalFunctionStatementBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     ILocalFunctionStatementBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
     ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder> blockCallback);
     ILocalFunctionStatementBuilder WithBody(BlockSyntax body);
     ILocalFunctionStatementBuilder AddModifierToken(SyntaxToken modifier);
-    ILocalFunctionStatementBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
-    ILocalFunctionStatementBuilder AddTypeParameter(TypeParameterSyntax parameter);
-    ILocalFunctionStatementBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
-    ILocalFunctionStatementBuilder AddParameter(ParameterSyntax parameter);
     ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
     ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }

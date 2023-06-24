@@ -4,12 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IParenthesizedLambdaExpressionBuilder : IAddParameter<IParenthesizedLambdaExpressionBuilder>, IWithBlock<IParenthesizedLambdaExpressionBuilder>, ILambdaExpressionBuilder<IParenthesizedLambdaExpressionBuilder>
+public partial interface IParenthesizedLambdaExpressionBuilder : ILambdaExpressionBuilder<IParenthesizedLambdaExpressionBuilder>, IWithBlock<IParenthesizedLambdaExpressionBuilder>, IAddParameter<IParenthesizedLambdaExpressionBuilder>
 {
     IParenthesizedLambdaExpressionBuilder WithReturnType(Action<ITypeBuilder> returnTypeCallback);
     IParenthesizedLambdaExpressionBuilder WithReturnType(TypeSyntax returnType);
-    IParenthesizedLambdaExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
-    IParenthesizedLambdaExpressionBuilder AddParameter(ParameterSyntax parameter);
 }
 
 public interface IWithParenthesizedLambdaExpression<TBuilder>

@@ -13,10 +13,8 @@ public partial interface IBaseTypeDeclarationBuilder
     void AsEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback);
 }
 
-public partial interface IBaseTypeDeclarationBuilder<TBuilder> : IAddBaseType<TBuilder>, IMemberDeclarationBuilder<TBuilder>
+public partial interface IBaseTypeDeclarationBuilder<TBuilder> : IMemberDeclarationBuilder<TBuilder>, IAddBaseType<TBuilder>
 {
-    TBuilder AddBaseType(Action<IBaseTypeBuilder> typeCallback);
-    TBuilder AddBaseType(BaseTypeSyntax type);
     TBuilder WithSemicolonToken();
 }
 

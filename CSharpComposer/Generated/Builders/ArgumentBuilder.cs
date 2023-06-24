@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IArgumentBuilder : IWithNameColon<IArgumentBuilder>
 {
-    IArgumentBuilder WithNameColon(string nameIdentifier);
-    IArgumentBuilder WithNameColon(NameColonSyntax nameColon);
     IArgumentBuilder WithRefKindKeyword(RefKindKeyword refKindKeyword);
 }
 

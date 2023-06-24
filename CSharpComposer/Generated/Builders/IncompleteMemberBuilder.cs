@@ -4,10 +4,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IIncompleteMemberBuilder : IWithType<IIncompleteMemberBuilder>, IMemberDeclarationBuilder<IIncompleteMemberBuilder>
+public partial interface IIncompleteMemberBuilder : IMemberDeclarationBuilder<IIncompleteMemberBuilder>, IWithType<IIncompleteMemberBuilder>
 {
-    IIncompleteMemberBuilder WithType(Action<ITypeBuilder> typeCallback);
-    IIncompleteMemberBuilder WithType(TypeSyntax type);
 }
 
 public interface IWithIncompleteMember<TBuilder>
