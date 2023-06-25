@@ -189,12 +189,12 @@ internal class MethodBuilder
                     builder.WithBaseType(x => x.AsGeneric($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
 
                     continue;
-                };
+                }
             }
 
             // Remove overriden field methods from interfaces
             // TODO: don't remove if overriding field is optional?
-            if (!isImplementation && field.IsOverride && _tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
+            if (!isImplementation && !isChoice && field.IsOverride && _tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
             {
                 if (!baseField.IsOptional)
                 {

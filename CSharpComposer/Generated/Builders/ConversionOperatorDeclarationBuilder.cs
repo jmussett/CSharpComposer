@@ -6,6 +6,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IConversionOperatorDeclarationBuilder : IBaseMethodDeclarationBuilder<IConversionOperatorDeclarationBuilder>, IAddAttribute<IConversionOperatorDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IConversionOperatorDeclarationBuilder>, IAddParameter<IConversionOperatorDeclarationBuilder>
 {
+    IConversionOperatorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
+    IConversionOperatorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
+    IConversionOperatorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    IConversionOperatorDeclarationBuilder WithBody(BlockSyntax body);
     IConversionOperatorDeclarationBuilder WithCheckedKeyword();
 }
 

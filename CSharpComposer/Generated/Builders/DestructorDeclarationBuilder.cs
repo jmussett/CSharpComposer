@@ -6,6 +6,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IDestructorDeclarationBuilder : IBaseMethodDeclarationBuilder<IDestructorDeclarationBuilder>, IAddAttribute<IDestructorDeclarationBuilder>, IAddParameter<IDestructorDeclarationBuilder>
 {
+    IDestructorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
+    IDestructorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
+    IDestructorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    IDestructorDeclarationBuilder WithBody(BlockSyntax body);
 }
 
 public interface IWithDestructorDeclaration<TBuilder>
