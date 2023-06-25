@@ -10,7 +10,7 @@ public partial interface ILambdaExpressionBuilder
     void AsParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder> parenthesizedLambdaExpressionCallback);
 }
 
-public partial interface ILambdaExpressionBuilder<TBuilder> : IAnonymousFunctionExpressionBuilder<TBuilder>
+public partial interface ILambdaExpressionBuilder<TBuilder> : IAnonymousFunctionExpressionBuilder<TBuilder>, IAddAttribute<TBuilder>
 {
 }
 

@@ -37,7 +37,7 @@ public static class NodeExtensions
         {
             var derivedFields = tree.GetDerivedFields(type, field);
 
-            if (derivedFields.Any(x => !x.IsOptional))
+            if (derivedFields.Any(x => !x.IsOptional && !NodeValidator.IsAnyList(x.Type)))
             {
                 return false;
             }

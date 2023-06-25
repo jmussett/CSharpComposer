@@ -13,7 +13,7 @@ public partial interface IBaseMethodDeclarationBuilder
     void AsDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback);
 }
 
-public partial interface IBaseMethodDeclarationBuilder<TBuilder> : IMemberDeclarationBuilder<TBuilder>
+public partial interface IBaseMethodDeclarationBuilder<TBuilder> : IMemberDeclarationBuilder<TBuilder>, IAddParameter<TBuilder>
 {
 }
 

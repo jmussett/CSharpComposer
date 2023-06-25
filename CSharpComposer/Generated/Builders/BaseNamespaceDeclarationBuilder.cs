@@ -12,6 +12,12 @@ public partial interface IBaseNamespaceDeclarationBuilder
 
 public partial interface IBaseNamespaceDeclarationBuilder<TBuilder> : IMemberDeclarationBuilder<TBuilder>
 {
+    TBuilder AddExternAliasDirective(string identifier);
+    TBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax @extern);
+    TBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
+    TBuilder AddUsingDirective(UsingDirectiveSyntax @using);
+    TBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback);
+    TBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
 public interface IWithBaseNamespaceDeclaration<TBuilder>

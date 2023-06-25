@@ -10,8 +10,9 @@ public partial interface IBaseParameterBuilder
     void AsFunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder> functionPointerParameterCallback);
 }
 
-public partial interface IBaseParameterBuilder<TBuilder>
+public partial interface IBaseParameterBuilder<TBuilder> : IAddAttribute<TBuilder>
 {
+    TBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithBaseParameter<TBuilder>

@@ -33,7 +33,7 @@ public partial interface IStatementBuilder
     void AsTryStatement(Action<IBlockBuilder> blockBlockCallback, Action<ITryStatementBuilder> tryStatementCallback);
 }
 
-public partial interface IStatementBuilder<TBuilder>
+public partial interface IStatementBuilder<TBuilder> : IAddAttribute<TBuilder>
 {
 }
 

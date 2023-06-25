@@ -29,8 +29,9 @@ public partial interface IMemberDeclarationBuilder
     void AsIncompleteMember(Action<IIncompleteMemberBuilder> incompleteMemberCallback);
 }
 
-public partial interface IMemberDeclarationBuilder<TBuilder>
+public partial interface IMemberDeclarationBuilder<TBuilder> : IAddAttribute<TBuilder>
 {
+    TBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithMemberDeclaration<TBuilder>

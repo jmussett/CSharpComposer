@@ -13,6 +13,7 @@ public partial interface IAnonymousFunctionExpressionBuilder
 
 public partial interface IAnonymousFunctionExpressionBuilder<TBuilder>
 {
+    TBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithAnonymousFunctionExpression<TBuilder>

@@ -11,7 +11,7 @@ public partial interface IBasePropertyDeclarationBuilder
     void AsIndexerDeclaration(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder> indexerDeclarationCallback);
 }
 
-public partial interface IBasePropertyDeclarationBuilder<TBuilder> : IMemberDeclarationBuilder<TBuilder>, IWithExplicitInterfaceSpecifier<TBuilder>
+public partial interface IBasePropertyDeclarationBuilder<TBuilder> : IMemberDeclarationBuilder<TBuilder>, IWithExplicitInterfaceSpecifier<TBuilder>, IAddAccessorDeclaration<TBuilder>
 {
 }
 

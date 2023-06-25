@@ -10,7 +10,7 @@ public partial interface IBaseObjectCreationExpressionBuilder
     void AsObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback);
 }
 
-public partial interface IBaseObjectCreationExpressionBuilder<TBuilder>
+public partial interface IBaseObjectCreationExpressionBuilder<TBuilder> : IAddArgument<TBuilder>
 {
     TBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
     TBuilder WithInitializer(InitializerExpressionSyntax initializer);

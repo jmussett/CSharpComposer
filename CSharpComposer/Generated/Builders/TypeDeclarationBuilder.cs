@@ -14,6 +14,10 @@ public partial interface ITypeDeclarationBuilder
 
 public partial interface ITypeDeclarationBuilder<TBuilder> : IBaseTypeDeclarationBuilder<TBuilder>, IAddTypeParameter<TBuilder>
 {
+    TBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
+    TBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
+    TBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback);
+    TBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
 public interface IWithTypeDeclaration<TBuilder>
