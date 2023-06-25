@@ -6,7 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IFieldDeclarationBuilder : IAddAttribute<IFieldDeclarationBuilder>
 {
-    IFieldDeclarationBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithFieldDeclaration<TBuilder>

@@ -6,13 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface INamespaceDeclarationBuilder : IBaseNamespaceDeclarationBuilder<INamespaceDeclarationBuilder>, IAddAttribute<INamespaceDeclarationBuilder>
 {
-    INamespaceDeclarationBuilder AddModifierToken(SyntaxToken modifier);
-    INamespaceDeclarationBuilder AddExternAliasDirective(string identifier);
-    INamespaceDeclarationBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax @extern);
-    INamespaceDeclarationBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
-    INamespaceDeclarationBuilder AddUsingDirective(UsingDirectiveSyntax @using);
-    INamespaceDeclarationBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback);
-    INamespaceDeclarationBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
     INamespaceDeclarationBuilder WithSemicolonToken();
 }
 

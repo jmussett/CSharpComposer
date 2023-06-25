@@ -1,5 +1,6 @@
 ﻿using CSharpComposer.Generator.Models;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.AccessControl;
 
 namespace CSharpComposer.Generator;
 
@@ -27,7 +28,14 @@ public static class NodeExtensions
 
     public static bool IsValidFieldMethod(this Tree tree, TreeType type, Field field, bool isImplementation, bool isChoice)
     {
-        // TODO: Also ignore if optional and parent field is part of a choice?
+        if (tree.TryGetBaseField(type, field, out var baseType, out var baseField, out var isBaseFieldChoice, out var isBaseFieldSequence))
+        {
+            if (field.IsOptional && isBaseFieldChoice)
+            {
+                return false;
+            }
+        }
+
         if (!isChoice && !field.IsOptional && !NodeValidator.IsAnyList(field.Type))
         {
             return false;
@@ -57,7 +65,7 @@ public static class NodeExtensions
 
             var children = baseType.Children.GetNestedChildren();
 
-            foreach (var baseField in children.Concat(derivedBaseFields))
+            foreach (var baseField in children.Select(x => x.Field).Concat(derivedBaseFields))
             {
                 if (baseField.Name == field.Name)
                 {
@@ -67,42 +75,57 @@ public static class NodeExtensions
         }
     }
 
-    public static IEnumerable<Field> GetNestedChildren(this List<TreeTypeChild> children)
+    public static IEnumerable<(Field Field, bool IsSequence, bool IsChoice)> GetNestedChildren(this List<TreeTypeChild> children)
     {
-        var fields = children.OfType<Field>();
+        var fields = children.OfType<Field>().Select(f => (f, false, false));
         var sequences = children.OfType<Sequence>();
         var choices = children.OfType<Choice>();
 
         foreach (var sequence in sequences)
         {
-            fields = fields.Concat(GetNestedChildren(sequence.Children));
+            fields = fields.Concat(GetNestedChildren(sequence.Children).Select(f => (f.Field, true, f.IsChoice)));
         }
 
         foreach (var choice in choices)
         {
-            fields = fields.Concat(GetNestedChildren(choice.Children));
+            fields = fields.Concat(GetNestedChildren(choice.Children).Select(f => (f.Field, f.IsSequence, true)));
         }
 
         return fields;
     }
 
-    public static bool TryGetBaseField(this Tree tree, TreeType type, Field field, [NotNullWhen(true)] out TreeType? baseType, [NotNullWhen(true)] out Field? baseField)
+    public static bool TryGetBaseField(
+        this Tree tree, 
+        TreeType type, 
+        Field field, 
+        [NotNullWhen(true)] out TreeType? baseType, 
+        [NotNullWhen(true)] out Field? baseField,
+        out bool isChoice,
+        out bool isSequence)
     {
         baseField = null;
+        isChoice = false;
+        isSequence = false;
         baseType = tree.Types.FirstOrDefault(x => x.Name == type.Base);
 
-        if (baseType is not null)
+        if (baseType is null)
         {
-            var children = baseType.Children.GetNestedChildren();
-            baseField = children.FirstOrDefault(x => x.Name == field.Name);
-
-            if (baseField is null || baseField.IsOverride)
-            {
-                return baseType is not null && tree.TryGetBaseField(baseType, field, out baseType, out baseField);
-            }
+            return false;
         }
 
-        return false;
+        var children = baseType.Children.GetNestedChildren();
+        var matchingBaseField = children.FirstOrDefault(x => x.Field.Name == field.Name);
+
+        if (matchingBaseField.Field is not null && !matchingBaseField.Field.IsOverride)
+        {
+            baseField = matchingBaseField.Field;
+            isChoice = matchingBaseField.IsChoice;
+            isSequence = matchingBaseField.IsSequence;
+
+            return true;
+        }
+
+        return tree.TryGetBaseField(baseType, field, out baseType, out baseField, out isChoice, out isSequence);
     }
 
     public static Field? GetReferenceListType(this Tree tree, string type)

@@ -6,7 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IConversionOperatorDeclarationBuilder : IBaseMethodDeclarationBuilder<IConversionOperatorDeclarationBuilder>, IAddAttribute<IConversionOperatorDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IConversionOperatorDeclarationBuilder>, IAddParameter<IConversionOperatorDeclarationBuilder>
 {
-    IConversionOperatorDeclarationBuilder AddModifierToken(SyntaxToken modifier);
     IConversionOperatorDeclarationBuilder WithCheckedKeyword();
 }
 

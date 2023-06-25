@@ -171,7 +171,7 @@ internal class MethodBuilder
             if (!isImplementation 
                 && !NodeValidator.IsSyntaxToken(field.Type)
                 // Only use method builders with unique type, otherwise we get conflicting methods.
-                && type.Children.GetNestedChildren().Count(x => x.Type == field.Type) == 1)
+                && type.Children.GetNestedChildren().Count(x => x.Field.Type == field.Type) == 1)
             {
                 // Only use interfaces where the field names match the types
                 if (!NodeValidator.IsAnyList(field.Type) && field.Name == NameFactory.CreateTypeName(field.Type))
@@ -194,15 +194,13 @@ internal class MethodBuilder
 
             // Remove overriden field methods from interfaces
             // TODO: don't remove if overriding field is optional?
-            if (!isImplementation && field.IsOverride)
+            if (!isImplementation && field.IsOverride && _tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
             {
-                _tree.TryGetBaseField(type, field, out var baseType, out var baseField);
-
-                if (baseField is not null && !baseField.IsOptional && !NodeValidator.IsAnyList(field.Type))
+                if (!baseField.IsOptional)
                 {
                     continue;
                 }
-                else if (baseField is not null && baseField.IsOptional)
+                else if (baseField.IsOptional)
                 {
                     // Are any derived fields mandatory? If so, do not skip.
 

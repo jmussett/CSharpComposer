@@ -6,7 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IAnonymousMethodExpressionBuilder : IAnonymousFunctionExpressionBuilder<IAnonymousMethodExpressionBuilder>, IAddParameter<IAnonymousMethodExpressionBuilder>
 {
-    IAnonymousMethodExpressionBuilder AddModifierToken(SyntaxToken modifier);
 }
 
 public interface IWithAnonymousMethodExpression<TBuilder>
@@ -56,19 +55,6 @@ public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressi
     public IAnonymousMethodExpressionBuilder AddParameter(ParameterSyntax parameter)
     {
         Syntax = Syntax.AddParameterListParameters(parameter);
-        return this;
-    }
-
-    public IAnonymousMethodExpressionBuilder WithExpressionBody(Action<IExpressionBuilder> expressionBodyCallback)
-    {
-        var expressionBodySyntax = ExpressionBuilder.CreateSyntax(expressionBodyCallback);
-        Syntax = Syntax.WithExpressionBody(expressionBodySyntax);
-        return this;
-    }
-
-    public IAnonymousMethodExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody)
-    {
-        Syntax = Syntax.WithExpressionBody(expressionBody);
         return this;
     }
 }
