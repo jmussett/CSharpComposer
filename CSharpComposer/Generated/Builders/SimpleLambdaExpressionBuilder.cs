@@ -6,8 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ISimpleLambdaExpressionBuilder : ILambdaExpressionBuilder<ISimpleLambdaExpressionBuilder>
 {
-    ISimpleLambdaExpressionBuilder WithBlock(Action<IBlockBuilder> blockCallback);
-    ISimpleLambdaExpressionBuilder WithBlock(BlockSyntax block);
     ISimpleLambdaExpressionBuilder WithExpressionBody(Action<IExpressionBuilder> expressionBodyCallback);
     ISimpleLambdaExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody);
 }

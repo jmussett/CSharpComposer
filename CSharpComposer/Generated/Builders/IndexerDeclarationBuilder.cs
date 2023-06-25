@@ -8,8 +8,6 @@ public partial interface IIndexerDeclarationBuilder : IBasePropertyDeclarationBu
 {
     IIndexerDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
-    IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessor);
 }
 
 public interface IWithIndexerDeclaration<TBuilder>

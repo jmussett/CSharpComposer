@@ -174,20 +174,27 @@ internal class MethodBuilder
                 && type.Children.GetNestedChildren().Count(x => x.Field.Type == field.Type) == 1)
             {
                 // Only use interfaces where the field names match the types
-                if (!NodeValidator.IsAnyList(field.Type) && !field.IsOverride && field.Name == NameFactory.CreateTypeName(field.Type))
+                if (!NodeValidator.IsAnyList(field.Type) && field.Name == NameFactory.CreateTypeName(field.Type))
                 {
-                    builder.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
-
+                    if (!field.IsOverride)
+                    {
+                        builder.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                    }
+                    
                     continue;
                 }
 
                 var listTypeName = NameFactory.ExtractReferenceTypeFromListType(_tree, field.Type);
 
                 // TODO: modifiers?
-                if (listTypeName is not null && !NodeValidator.IsSyntaxToken(listTypeName) && !field.IsOverride &&
+                if (listTypeName is not null && !NodeValidator.IsSyntaxToken(listTypeName) &&
                     (field.Name == NameFactory.CreateTypeName(field.Type) || NameFactory.CreateSingularName(field) == NameFactory.CreateTypeName(listTypeName)))
                 {
-                    builder.WithBaseType(x => x.AsGeneric($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                    if (!field.IsOverride)
+                    {
+                        builder.WithBaseType(x => x.AsGeneric($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                    }
+                    
 
                     continue;
                 }
