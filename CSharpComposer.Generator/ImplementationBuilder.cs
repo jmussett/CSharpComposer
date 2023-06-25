@@ -7,12 +7,15 @@ namespace CSharpComposer.Generator;
 
 internal class ImplementationBuilder
 {
+    private readonly Tree _tree;
     private readonly ParametersBuilder _parametersBuilder;
     private readonly ArgumentsBuilder _argumentsBuilder;
     private readonly MethodBuilder _methodBuilder;
+    
 
-    public ImplementationBuilder(ParametersBuilder parametersBuilder, ArgumentsBuilder argumentsBuilder, MethodBuilder methodBuilder)
+    public ImplementationBuilder(Tree tree, ParametersBuilder parametersBuilder, ArgumentsBuilder argumentsBuilder, MethodBuilder methodBuilder)
     {
+        _tree = tree;
         _parametersBuilder = parametersBuilder;
         _argumentsBuilder = argumentsBuilder;
         _methodBuilder = methodBuilder;
@@ -47,7 +50,7 @@ internal class ImplementationBuilder
             if (type is Node)
             {
                 // If we don't have optional children; interface, syntax and constructor are excluded.
-                if (NodeValidator.HasOptionalChildren(type))
+                if (_tree.HasOptionalChildren(type.Name))
                 {
                     builder.WithBaseType(x => x.AsType($"I{builderName}"));
 
@@ -128,7 +131,7 @@ internal class ImplementationBuilder
                     {
                         var arguments = _argumentsBuilder.WithArguments(blockBuilder, node, true);
 
-                        if (NodeValidator.HasOptionalChildren(type))
+                        if (_tree.HasOptionalChildren(type.Name))
                         {
                             blockBuilder.WithStatement($"var syntax = SyntaxFactory.{typeName}({string.Join(", ", arguments)});");
 

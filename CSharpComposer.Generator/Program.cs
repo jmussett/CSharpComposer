@@ -30,7 +30,7 @@ var parametersBuilder = new ParametersBuilder(tree, enumStore);
 var argumentsBuilder = new ArgumentsBuilder(tree, enumStore);
 var methodBuilder = new MethodBuilder(tree, enumStore, parametersBuilder, argumentsBuilder);
 var interfaceBuilder = new InterfaceBuilder(tree, methodBuilder, parametersBuilder);
-var implementationBuilder = new ImplementationBuilder(parametersBuilder, argumentsBuilder, methodBuilder);
+var implementationBuilder = new ImplementationBuilder(tree, parametersBuilder, argumentsBuilder, methodBuilder);
 
 CreateBuilders(interfaceBuilder, implementationBuilder);
 

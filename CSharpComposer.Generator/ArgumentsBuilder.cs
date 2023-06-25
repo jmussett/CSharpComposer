@@ -317,7 +317,7 @@ internal class ArgumentsBuilder
 
         // If we arent creating SyntaxFactory arguments,
         // we need the callback for the builder when forwarding arguments to CreateSyntax methods.
-        if (!createArguments && (NodeValidator.HasOptionalChildren(node) || NodeValidator.IsTokenized(node)))
+        if (!createArguments && (_tree.HasOptionalChildren(node.Name) || NodeValidator.IsTokenized(node)))
         {
             var typeName = NameFactory.CreateTypeName(node.Name);
 

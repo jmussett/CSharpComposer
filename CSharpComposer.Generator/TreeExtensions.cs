@@ -145,4 +145,25 @@ public static class NodeExtensions
 
         return null;
     }
+
+    public static bool HasOptionalChildren(this Tree tree, string typeName)
+    {
+        var type = tree.Types.FirstOrDefault(x => x.Name == typeName)
+            ?? throw new InvalidOperationException($"Unable to find type '{typeName}'");
+
+        var hasOptionalChildren = type.Children.Any(child =>
+            child is Choice ||
+            (
+                child is Field field &&
+                (field.IsOptional || NodeValidator.IsAnyList(field.Type))
+            )
+        );
+
+        if (!hasOptionalChildren && type.Base is not null && NodeValidator.IsSyntaxNode(type.Base))
+        {
+            return HasOptionalChildren(tree, type.Base);
+        }
+
+        return hasOptionalChildren;
+    }
 }

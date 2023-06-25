@@ -54,7 +54,7 @@ internal class InterfaceBuilder
             });
         }
 
-        if (NodeValidator.HasOptionalChildren(type))
+        if (_tree.HasOptionalChildren(type.Name))
         {
             builder
                 .WithInterface(interfaceName, x =>
@@ -75,7 +75,7 @@ internal class InterfaceBuilder
                     {
                         var baseType = _tree.Types.First(x => x.Name == type.Base);
 
-                        if (NodeValidator.HasOptionalChildren(baseType))
+                        if (_tree.HasOptionalChildren(baseType.Name))
                         {
                             var baseBuilderName = NameFactory.CreateBuilderName(type.Base);
                             x.WithBaseType(x => x.AsType($"I{baseBuilderName}<{returnType}>"));

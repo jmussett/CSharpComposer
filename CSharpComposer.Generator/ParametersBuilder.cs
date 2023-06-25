@@ -104,7 +104,7 @@ internal class ParametersBuilder
             }
         }
 
-        if (NodeValidator.HasOptionalChildren(node) || NodeValidator.IsTokenized(node))
+        if (_tree.HasOptionalChildren(node.Name) || NodeValidator.IsTokenized(node))
         {
             var builderName = NameFactory.CreateBuilderName(node.Name);
             var callbackType = $"Action<I{builderName}>";

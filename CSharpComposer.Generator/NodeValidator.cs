@@ -80,17 +80,6 @@ internal static class NodeValidator
     public static bool IsNew(Field f)
         => IsTrue(f.New);
 
-    public static bool HasOptionalChildren(TreeType type)
-    {
-        return type.Children.Any(child =>
-            child is Choice ||
-            (
-                child is Field field &&
-                (field.IsOptional || IsAnyList(field.Type))
-            )
-        );
-    }
-
     public static bool HasMandatoryChildren(TreeType type)
     {
         return type.Children.Any(child =>
