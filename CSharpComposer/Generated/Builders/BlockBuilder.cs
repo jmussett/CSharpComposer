@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IBlockBuilder : IStatementBuilder<IBlockBuilder>, IAddAttribute<IBlockBuilder>, IAddStatement<IBlockBuilder>
+public partial interface IBlockBuilder : IStatementBuilder<IBlockBuilder>, IAddStatement<IBlockBuilder>
 {
 }
 

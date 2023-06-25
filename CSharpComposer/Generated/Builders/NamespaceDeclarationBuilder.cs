@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface INamespaceDeclarationBuilder : IBaseNamespaceDeclarationBuilder<INamespaceDeclarationBuilder>, IAddAttribute<INamespaceDeclarationBuilder>
+public partial interface INamespaceDeclarationBuilder : IBaseNamespaceDeclarationBuilder<INamespaceDeclarationBuilder>
 {
     INamespaceDeclarationBuilder WithSemicolonToken();
 }

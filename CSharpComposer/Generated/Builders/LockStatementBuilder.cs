@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ILockStatementBuilder : IStatementBuilder<ILockStatementBuilder>, IAddAttribute<ILockStatementBuilder>
+public partial interface ILockStatementBuilder : IStatementBuilder<ILockStatementBuilder>
 {
 }
 

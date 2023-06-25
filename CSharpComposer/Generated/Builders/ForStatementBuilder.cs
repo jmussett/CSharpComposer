@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IForStatementBuilder : IStatementBuilder<IForStatementBuilder>, IAddAttribute<IForStatementBuilder>
+public partial interface IForStatementBuilder : IStatementBuilder<IForStatementBuilder>
 {
     IForStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
     IForStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration);

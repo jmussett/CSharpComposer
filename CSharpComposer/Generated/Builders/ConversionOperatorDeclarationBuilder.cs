@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IConversionOperatorDeclarationBuilder : IBaseMethodDeclarationBuilder<IConversionOperatorDeclarationBuilder>, IAddAttribute<IConversionOperatorDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IConversionOperatorDeclarationBuilder>, IAddParameter<IConversionOperatorDeclarationBuilder>
+public partial interface IConversionOperatorDeclarationBuilder : IBaseMethodDeclarationBuilder<IConversionOperatorDeclarationBuilder>, IWithExplicitInterfaceSpecifier<IConversionOperatorDeclarationBuilder>
 {
     IConversionOperatorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IConversionOperatorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);

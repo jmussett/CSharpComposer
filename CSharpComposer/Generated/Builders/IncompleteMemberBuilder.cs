@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IIncompleteMemberBuilder : IMemberDeclarationBuilder<IIncompleteMemberBuilder>, IAddAttribute<IIncompleteMemberBuilder>, IWithType<IIncompleteMemberBuilder>
+public partial interface IIncompleteMemberBuilder : IMemberDeclarationBuilder<IIncompleteMemberBuilder>, IWithType<IIncompleteMemberBuilder>
 {
 }
 

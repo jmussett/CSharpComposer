@@ -4,8 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IObjectCreationExpressionBuilder : IBaseObjectCreationExpressionBuilder<IObjectCreationExpressionBuilder>, IAddArgument<IObjectCreationExpressionBuilder>
+public partial interface IObjectCreationExpressionBuilder : IBaseObjectCreationExpressionBuilder<IObjectCreationExpressionBuilder>
 {
+    IObjectCreationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
+    IObjectCreationExpressionBuilder AddArgument(ArgumentSyntax argument);
 }
 
 public interface IWithObjectCreationExpression<TBuilder>

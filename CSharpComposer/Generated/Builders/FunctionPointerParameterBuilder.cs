@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IFunctionPointerParameterBuilder : IBaseParameterBuilder<IFunctionPointerParameterBuilder>, IAddAttribute<IFunctionPointerParameterBuilder>
+public partial interface IFunctionPointerParameterBuilder : IBaseParameterBuilder<IFunctionPointerParameterBuilder>
 {
 }
 

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IRecordDeclarationBuilder : ITypeDeclarationBuilder<IRecordDeclarationBuilder>, IAddAttribute<IRecordDeclarationBuilder>, IAddTypeParameter<IRecordDeclarationBuilder>, IAddParameter<IRecordDeclarationBuilder>, IAddBaseType<IRecordDeclarationBuilder>
+public partial interface IRecordDeclarationBuilder : ITypeDeclarationBuilder<IRecordDeclarationBuilder>, IAddParameter<IRecordDeclarationBuilder>
 {
     IRecordDeclarationBuilder WithClassOrStructKeyword(ClassOrStructKeyword classOrStructKeyword);
     IRecordDeclarationBuilder WithOpenBraceToken();

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface ISwitchStatementBuilder : IStatementBuilder<ISwitchStatementBuilder>, IAddAttribute<ISwitchStatementBuilder>
+public partial interface ISwitchStatementBuilder : IStatementBuilder<ISwitchStatementBuilder>
 {
     ISwitchStatementBuilder WithOpenParenToken();
     ISwitchStatementBuilder WithCloseParenToken();

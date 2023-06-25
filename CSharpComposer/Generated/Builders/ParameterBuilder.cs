@@ -4,8 +4,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IParameterBuilder : IBaseParameterBuilder<IParameterBuilder>, IAddAttribute<IParameterBuilder>, IWithType<IParameterBuilder>
+public partial interface IParameterBuilder : IBaseParameterBuilder<IParameterBuilder>
 {
+    IParameterBuilder WithType(Action<ITypeBuilder> typeCallback);
+    IParameterBuilder WithType(TypeSyntax type);
     IParameterBuilder WithDefault(Action<IExpressionBuilder> valueCallback);
     IParameterBuilder WithDefault(EqualsValueClauseSyntax @default);
 }

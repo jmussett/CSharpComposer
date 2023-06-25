@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IBreakStatementBuilder : IStatementBuilder<IBreakStatementBuilder>, IAddAttribute<IBreakStatementBuilder>
+public partial interface IBreakStatementBuilder : IStatementBuilder<IBreakStatementBuilder>
 {
 }
 

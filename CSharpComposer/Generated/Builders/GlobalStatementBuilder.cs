@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IGlobalStatementBuilder : IMemberDeclarationBuilder<IGlobalStatementBuilder>, IAddAttribute<IGlobalStatementBuilder>
+public partial interface IGlobalStatementBuilder : IMemberDeclarationBuilder<IGlobalStatementBuilder>
 {
 }
 

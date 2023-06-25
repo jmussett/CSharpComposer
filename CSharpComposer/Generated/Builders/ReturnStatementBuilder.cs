@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial interface IReturnStatementBuilder : IStatementBuilder<IReturnStatementBuilder>, IAddAttribute<IReturnStatementBuilder>, IWithExpression<IReturnStatementBuilder>
+public partial interface IReturnStatementBuilder : IStatementBuilder<IReturnStatementBuilder>, IWithExpression<IReturnStatementBuilder>
 {
 }
 
