@@ -12,6 +12,8 @@ using Microsoft.CodeAnalysis.CSharp;
 var registryUrl = "https://raw.githubusercontent.com/dotnet/roslyn/Visual-Studio-2022-Version-17.5/src/Compilers/CSharp/Portable/Syntax/Syntax.xml";
 using var httpClient = new HttpClient();
 
+Console.WriteLine("Fetching XML...");
+
 var registryXml = await httpClient.GetStringAsync(registryUrl);
 
 var serializer = new XmlSerializer(typeof(Tree));
@@ -31,6 +33,8 @@ var argumentsBuilder = new ArgumentsBuilder(tree, enumStore);
 var methodBuilder = new MethodBuilder(tree, enumStore, parametersBuilder, argumentsBuilder);
 var interfaceBuilder = new InterfaceBuilder(tree, methodBuilder, parametersBuilder);
 var implementationBuilder = new ImplementationBuilder(tree, parametersBuilder, argumentsBuilder, methodBuilder);
+
+Console.WriteLine("Generating C#...");
 
 CreateBuilders(interfaceBuilder, implementationBuilder);
 
@@ -59,7 +63,12 @@ foreach (var documentEntry in documentRegistry)
     project = updatedDocument.Project;
 }
 
+
+Console.WriteLine("Applying changes...");
+
 workspace.TryApplyChanges(project.Solution);
+
+Console.WriteLine("Generation complete.");
 
 void CreateBuilders(InterfaceBuilder interfaceBuilder, ImplementationBuilder implementationBuilder)
 {
