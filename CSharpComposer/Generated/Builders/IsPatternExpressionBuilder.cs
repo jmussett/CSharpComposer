@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithIsPatternExpression<TBuilder>
-{
-    TBuilder WithIsPatternExpression(Action<IExpressionBuilder> expressionCallback, Action<IPatternBuilder> patternCallback);
-    TBuilder WithIsPatternExpression(IsPatternExpressionSyntax isPatternExpressionSyntax);
-}
-
-public interface IAddIsPatternExpression<TBuilder>
-{
-    TBuilder AddIsPatternExpression(Action<IExpressionBuilder> expressionCallback, Action<IPatternBuilder> patternCallback);
-    TBuilder AddIsPatternExpression(IsPatternExpressionSyntax isPatternExpressionSyntax);
-}
-
 public partial class IsPatternExpressionBuilder
 {
     public static IsPatternExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IPatternBuilder> patternCallback)

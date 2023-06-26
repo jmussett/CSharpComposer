@@ -10,18 +10,6 @@ public partial interface IEnumMemberDeclarationBuilder : IMemberDeclarationBuild
     IEnumMemberDeclarationBuilder WithEqualsValue(EqualsValueClauseSyntax equalsValue);
 }
 
-public interface IWithEnumMemberDeclaration<TBuilder>
-{
-    TBuilder WithEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback);
-    TBuilder WithEnumMemberDeclaration(EnumMemberDeclarationSyntax enumMemberDeclarationSyntax);
-}
-
-public interface IAddEnumMemberDeclaration<TBuilder>
-{
-    TBuilder AddEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback);
-    TBuilder AddEnumMemberDeclaration(EnumMemberDeclarationSyntax enumMemberDeclarationSyntax);
-}
-
 public partial class EnumMemberDeclarationBuilder : IEnumMemberDeclarationBuilder
 {
     public EnumMemberDeclarationSyntax Syntax { get; set; }

@@ -12,18 +12,6 @@ public partial interface IMemberCrefBuilder
     void AsConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder> conversionOperatorMemberCrefCallback);
 }
 
-public interface IWithMemberCref<TBuilder>
-{
-    TBuilder WithMemberCref(Action<IMemberCrefBuilder> memberCrefCallback);
-    TBuilder WithMemberCref(MemberCrefSyntax memberCrefSyntax);
-}
-
-public interface IAddMemberCref<TBuilder>
-{
-    TBuilder AddMemberCref(Action<IMemberCrefBuilder> memberCrefCallback);
-    TBuilder AddMemberCref(MemberCrefSyntax memberCrefSyntax);
-}
-
 public partial class MemberCrefBuilder : IMemberCrefBuilder
 {
     public MemberCrefSyntax? Syntax { get; set; }

@@ -10,12 +10,6 @@ public interface IWithNameColon<TBuilder>
     TBuilder WithNameColon(NameColonSyntax nameColonSyntax);
 }
 
-public interface IAddNameColon<TBuilder>
-{
-    TBuilder AddNameColon(string nameIdentifier);
-    TBuilder AddNameColon(NameColonSyntax nameColonSyntax);
-}
-
 public partial class NameColonBuilder
 {
     public static NameColonSyntax CreateSyntax(string nameIdentifier)

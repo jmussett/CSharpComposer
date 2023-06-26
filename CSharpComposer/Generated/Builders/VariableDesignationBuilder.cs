@@ -11,18 +11,6 @@ public partial interface IVariableDesignationBuilder
     void AsParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback);
 }
 
-public interface IWithVariableDesignation<TBuilder>
-{
-    TBuilder WithVariableDesignation(Action<IVariableDesignationBuilder> variableDesignationCallback);
-    TBuilder WithVariableDesignation(VariableDesignationSyntax variableDesignationSyntax);
-}
-
-public interface IAddVariableDesignation<TBuilder>
-{
-    TBuilder AddVariableDesignation(Action<IVariableDesignationBuilder> variableDesignationCallback);
-    TBuilder AddVariableDesignation(VariableDesignationSyntax variableDesignationSyntax);
-}
-
 public partial class VariableDesignationBuilder : IVariableDesignationBuilder
 {
     public VariableDesignationSyntax? Syntax { get; set; }

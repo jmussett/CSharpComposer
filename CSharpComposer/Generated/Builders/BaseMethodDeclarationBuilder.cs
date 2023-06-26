@@ -17,18 +17,6 @@ public partial interface IBaseMethodDeclarationBuilder<TBuilder> : IMemberDeclar
 {
 }
 
-public interface IWithBaseMethodDeclaration<TBuilder>
-{
-    TBuilder WithBaseMethodDeclaration(Action<IBaseMethodDeclarationBuilder> baseMethodDeclarationCallback);
-    TBuilder WithBaseMethodDeclaration(BaseMethodDeclarationSyntax baseMethodDeclarationSyntax);
-}
-
-public interface IAddBaseMethodDeclaration<TBuilder>
-{
-    TBuilder AddBaseMethodDeclaration(Action<IBaseMethodDeclarationBuilder> baseMethodDeclarationCallback);
-    TBuilder AddBaseMethodDeclaration(BaseMethodDeclarationSyntax baseMethodDeclarationSyntax);
-}
-
 public partial class BaseMethodDeclarationBuilder : IBaseMethodDeclarationBuilder
 {
     public BaseMethodDeclarationSyntax? Syntax { get; set; }

@@ -12,18 +12,6 @@ public partial interface INameBuilder
     void AsAliasQualifiedName(string aliasIdentifier, Action<ISimpleNameBuilder> nameCallback);
 }
 
-public interface IWithName<TBuilder>
-{
-    TBuilder WithName(Action<INameBuilder> nameCallback);
-    TBuilder WithName(NameSyntax nameSyntax);
-}
-
-public interface IAddName<TBuilder>
-{
-    TBuilder AddName(Action<INameBuilder> nameCallback);
-    TBuilder AddName(NameSyntax nameSyntax);
-}
-
 public partial class NameBuilder : INameBuilder
 {
     public NameSyntax? Syntax { get; set; }

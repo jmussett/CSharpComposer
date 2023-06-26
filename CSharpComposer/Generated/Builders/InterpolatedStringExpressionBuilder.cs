@@ -10,18 +10,6 @@ public partial interface IInterpolatedStringExpressionBuilder
     IInterpolatedStringExpressionBuilder AddInterpolatedStringContent(InterpolatedStringContentSyntax content);
 }
 
-public interface IWithInterpolatedStringExpression<TBuilder>
-{
-    TBuilder WithInterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder> interpolatedStringExpressionCallback);
-    TBuilder WithInterpolatedStringExpression(InterpolatedStringExpressionSyntax interpolatedStringExpressionSyntax);
-}
-
-public interface IAddInterpolatedStringExpression<TBuilder>
-{
-    TBuilder AddInterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder> interpolatedStringExpressionCallback);
-    TBuilder AddInterpolatedStringExpression(InterpolatedStringExpressionSyntax interpolatedStringExpressionSyntax);
-}
-
 public partial class InterpolatedStringExpressionBuilder : IInterpolatedStringExpressionBuilder
 {
     public InterpolatedStringExpressionSyntax Syntax { get; set; }

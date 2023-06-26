@@ -8,18 +8,6 @@ public partial interface ITupleExpressionBuilder : IAddArgument<ITupleExpression
 {
 }
 
-public interface IWithTupleExpression<TBuilder>
-{
-    TBuilder WithTupleExpression(Action<ITupleExpressionBuilder> tupleExpressionCallback);
-    TBuilder WithTupleExpression(TupleExpressionSyntax tupleExpressionSyntax);
-}
-
-public interface IAddTupleExpression<TBuilder>
-{
-    TBuilder AddTupleExpression(Action<ITupleExpressionBuilder> tupleExpressionCallback);
-    TBuilder AddTupleExpression(TupleExpressionSyntax tupleExpressionSyntax);
-}
-
 public partial class TupleExpressionBuilder : ITupleExpressionBuilder
 {
     public TupleExpressionSyntax Syntax { get; set; }

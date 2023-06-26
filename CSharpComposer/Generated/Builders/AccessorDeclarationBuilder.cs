@@ -13,12 +13,6 @@ public partial interface IAccessorDeclarationBuilder : IAddAttribute<IAccessorDe
     IAccessorDeclarationBuilder AddModifierToken(SyntaxToken modifier);
 }
 
-public interface IWithAccessorDeclaration<TBuilder>
-{
-    TBuilder WithAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
-    TBuilder WithAccessorDeclaration(AccessorDeclarationSyntax accessorDeclarationSyntax);
-}
-
 public interface IAddAccessorDeclaration<TBuilder>
 {
     TBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);

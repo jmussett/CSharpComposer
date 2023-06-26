@@ -8,18 +8,6 @@ public partial interface IInvocationExpressionBuilder : IAddArgument<IInvocation
 {
 }
 
-public interface IWithInvocationExpression<TBuilder>
-{
-    TBuilder WithInvocationExpression(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder> invocationExpressionCallback);
-    TBuilder WithInvocationExpression(InvocationExpressionSyntax invocationExpressionSyntax);
-}
-
-public interface IAddInvocationExpression<TBuilder>
-{
-    TBuilder AddInvocationExpression(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder> invocationExpressionCallback);
-    TBuilder AddInvocationExpression(InvocationExpressionSyntax invocationExpressionSyntax);
-}
-
 public partial class InvocationExpressionBuilder : IInvocationExpressionBuilder
 {
     public InvocationExpressionSyntax Syntax { get; set; }

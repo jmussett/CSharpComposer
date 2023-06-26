@@ -8,18 +8,6 @@ public partial interface IInterfaceDeclarationBuilder : ITypeDeclarationBuilder<
 {
 }
 
-public interface IWithInterfaceDeclaration<TBuilder>
-{
-    TBuilder WithInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback);
-    TBuilder WithInterfaceDeclaration(InterfaceDeclarationSyntax interfaceDeclarationSyntax);
-}
-
-public interface IAddInterfaceDeclaration<TBuilder>
-{
-    TBuilder AddInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback);
-    TBuilder AddInterfaceDeclaration(InterfaceDeclarationSyntax interfaceDeclarationSyntax);
-}
-
 public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
 {
     public InterfaceDeclarationSyntax Syntax { get; set; }

@@ -9,12 +9,6 @@ public partial interface IArgumentBuilder : IWithNameColon<IArgumentBuilder>
     IArgumentBuilder WithRefKindKeyword(RefKindKeyword refKindKeyword);
 }
 
-public interface IWithArgument<TBuilder>
-{
-    TBuilder WithArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
-    TBuilder WithArgument(ArgumentSyntax argumentSyntax);
-}
-
 public interface IAddArgument<TBuilder>
 {
     TBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);

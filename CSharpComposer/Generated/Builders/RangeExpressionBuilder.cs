@@ -12,18 +12,6 @@ public partial interface IRangeExpressionBuilder
     IRangeExpressionBuilder WithRightOperand(ExpressionSyntax rightOperand);
 }
 
-public interface IWithRangeExpression<TBuilder>
-{
-    TBuilder WithRangeExpression(Action<IRangeExpressionBuilder> rangeExpressionCallback);
-    TBuilder WithRangeExpression(RangeExpressionSyntax rangeExpressionSyntax);
-}
-
-public interface IAddRangeExpression<TBuilder>
-{
-    TBuilder AddRangeExpression(Action<IRangeExpressionBuilder> rangeExpressionCallback);
-    TBuilder AddRangeExpression(RangeExpressionSyntax rangeExpressionSyntax);
-}
-
 public partial class RangeExpressionBuilder : IRangeExpressionBuilder
 {
     public RangeExpressionSyntax Syntax { get; set; }

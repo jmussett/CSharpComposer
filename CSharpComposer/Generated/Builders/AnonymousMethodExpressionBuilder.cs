@@ -8,18 +8,6 @@ public partial interface IAnonymousMethodExpressionBuilder : IAnonymousFunctionE
 {
 }
 
-public interface IWithAnonymousMethodExpression<TBuilder>
-{
-    TBuilder WithAnonymousMethodExpression(Action<IBlockBuilder> blockBlockCallback, Action<IAnonymousMethodExpressionBuilder> anonymousMethodExpressionCallback);
-    TBuilder WithAnonymousMethodExpression(AnonymousMethodExpressionSyntax anonymousMethodExpressionSyntax);
-}
-
-public interface IAddAnonymousMethodExpression<TBuilder>
-{
-    TBuilder AddAnonymousMethodExpression(Action<IBlockBuilder> blockBlockCallback, Action<IAnonymousMethodExpressionBuilder> anonymousMethodExpressionCallback);
-    TBuilder AddAnonymousMethodExpression(AnonymousMethodExpressionSyntax anonymousMethodExpressionSyntax);
-}
-
 public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressionBuilder
 {
     public AnonymousMethodExpressionSyntax Syntax { get; set; }

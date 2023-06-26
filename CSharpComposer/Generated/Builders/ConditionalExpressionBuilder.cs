@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithConditionalExpression<TBuilder>
-{
-    TBuilder WithConditionalExpression(Action<IExpressionBuilder> conditionCallback, Action<IExpressionBuilder> whenTrueCallback, Action<IExpressionBuilder> whenFalseCallback);
-    TBuilder WithConditionalExpression(ConditionalExpressionSyntax conditionalExpressionSyntax);
-}
-
-public interface IAddConditionalExpression<TBuilder>
-{
-    TBuilder AddConditionalExpression(Action<IExpressionBuilder> conditionCallback, Action<IExpressionBuilder> whenTrueCallback, Action<IExpressionBuilder> whenFalseCallback);
-    TBuilder AddConditionalExpression(ConditionalExpressionSyntax conditionalExpressionSyntax);
-}
-
 public partial class ConditionalExpressionBuilder
 {
     public static ConditionalExpressionSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback, Action<IExpressionBuilder> whenTrueCallback, Action<IExpressionBuilder> whenFalseCallback)

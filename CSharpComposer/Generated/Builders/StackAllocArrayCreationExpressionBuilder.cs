@@ -10,18 +10,6 @@ public partial interface IStackAllocArrayCreationExpressionBuilder
     IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
-public interface IWithStackAllocArrayCreationExpression<TBuilder>
-{
-    TBuilder WithStackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder> stackAllocArrayCreationExpressionCallback);
-    TBuilder WithStackAllocArrayCreationExpression(StackAllocArrayCreationExpressionSyntax stackAllocArrayCreationExpressionSyntax);
-}
-
-public interface IAddStackAllocArrayCreationExpression<TBuilder>
-{
-    TBuilder AddStackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder> stackAllocArrayCreationExpressionCallback);
-    TBuilder AddStackAllocArrayCreationExpression(StackAllocArrayCreationExpressionSyntax stackAllocArrayCreationExpressionSyntax);
-}
-
 public partial class StackAllocArrayCreationExpressionBuilder : IStackAllocArrayCreationExpressionBuilder
 {
     public StackAllocArrayCreationExpressionSyntax Syntax { get; set; }

@@ -18,18 +18,6 @@ public partial interface IBaseTypeDeclarationBuilder<TBuilder> : IMemberDeclarat
     TBuilder WithSemicolonToken();
 }
 
-public interface IWithBaseTypeDeclaration<TBuilder>
-{
-    TBuilder WithBaseTypeDeclaration(Action<IBaseTypeDeclarationBuilder> baseTypeDeclarationCallback);
-    TBuilder WithBaseTypeDeclaration(BaseTypeDeclarationSyntax baseTypeDeclarationSyntax);
-}
-
-public interface IAddBaseTypeDeclaration<TBuilder>
-{
-    TBuilder AddBaseTypeDeclaration(Action<IBaseTypeDeclarationBuilder> baseTypeDeclarationCallback);
-    TBuilder AddBaseTypeDeclaration(BaseTypeDeclarationSyntax baseTypeDeclarationSyntax);
-}
-
 public partial class BaseTypeDeclarationBuilder : IBaseTypeDeclarationBuilder
 {
     public BaseTypeDeclarationSyntax? Syntax { get; set; }

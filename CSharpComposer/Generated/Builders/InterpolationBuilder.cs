@@ -12,18 +12,6 @@ public partial interface IInterpolationBuilder
     IInterpolationBuilder WithFormatClause(InterpolationFormatClauseSyntax formatClause);
 }
 
-public interface IWithInterpolation<TBuilder>
-{
-    TBuilder WithInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder> interpolationCallback);
-    TBuilder WithInterpolation(InterpolationSyntax interpolationSyntax);
-}
-
-public interface IAddInterpolation<TBuilder>
-{
-    TBuilder AddInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder> interpolationCallback);
-    TBuilder AddInterpolation(InterpolationSyntax interpolationSyntax);
-}
-
 public partial class InterpolationBuilder : IInterpolationBuilder
 {
     public InterpolationSyntax Syntax { get; set; }

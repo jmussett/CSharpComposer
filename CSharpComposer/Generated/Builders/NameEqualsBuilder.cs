@@ -10,12 +10,6 @@ public interface IWithNameEquals<TBuilder>
     TBuilder WithNameEquals(NameEqualsSyntax nameEqualsSyntax);
 }
 
-public interface IAddNameEquals<TBuilder>
-{
-    TBuilder AddNameEquals(string nameIdentifier);
-    TBuilder AddNameEquals(NameEqualsSyntax nameEqualsSyntax);
-}
-
 public partial class NameEqualsBuilder
 {
     public static NameEqualsSyntax CreateSyntax(string nameIdentifier)

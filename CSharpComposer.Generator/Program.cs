@@ -6,7 +6,8 @@ using CSharpComposer.Generator;
 using CSharpComposer.Generator.Models;
 using System.Xml.Serialization;
 using SyntaxBuilder.Types;
-using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.FindSymbols;
+using Microsoft.CodeAnalysis;
 
 // Configured based on version of Microsoft.CodeAnalysis.CSharp
 var registryUrl = "https://raw.githubusercontent.com/dotnet/roslyn/Visual-Studio-2022-Version-17.5/src/Compilers/CSharp/Portable/Syntax/Syntax.xml";
@@ -63,6 +64,7 @@ foreach (var documentEntry in documentRegistry)
     project = updatedDocument.Project;
 }
 
+project = await RemoveUnusedInterfaces(project);
 
 Console.WriteLine("Applying changes...");
 
@@ -99,6 +101,53 @@ void CreateBuilders(InterfaceBuilder interfaceBuilder, ImplementationBuilder imp
 
         documentRegistry.Add($"Generated/Builders/{builderName}.cs", compilationUnit);
     }
+}
+
+async Task<Project> RemoveUnusedInterfaces(Project project)
+{
+    var compilation = await project.GetCompilationAsync();
+    var unusedInterfaces = await GetUnusedInterfacesAsync(compilation, project);
+
+    var interfacesByCompilation = unusedInterfaces.GroupBy(
+        i => i.FirstAncestorOrSelf<CompilationUnitSyntax>()
+    );
+
+    foreach (var compilationGroup in interfacesByCompilation)
+    {
+        var document = project.GetDocument(compilationGroup.Key.SyntaxTree);
+        var root = await document.GetSyntaxRootAsync();
+
+        // Remove all unused interfaces from the document at once
+        var newRoot = root.RemoveNodes(compilationGroup, SyntaxRemoveOptions.KeepNoTrivia);
+
+        document = document.WithSyntaxRoot(newRoot);
+        project = document.Project;
+    }
+
+    return project;
+}
+
+static async Task<IEnumerable<InterfaceDeclarationSyntax>> GetUnusedInterfacesAsync(Compilation compilation, Project project)
+{
+    var unusedInterfaces = new List<InterfaceDeclarationSyntax>();
+
+    var interfaceSymbols = compilation.GetSymbolsWithName(symbol => true, SymbolFilter.Type)
+        .OfType<ITypeSymbol>()
+        .Where(symbol => symbol.TypeKind == TypeKind.Interface);
+
+    foreach (var interfaceSymbol in interfaceSymbols)
+    {
+        var references = await SymbolFinder.FindReferencesAsync(interfaceSymbol, project.Solution);
+        if (!references.Any() || !references.First().Locations.Any())
+        {
+            var interfaceReference = interfaceSymbol.DeclaringSyntaxReferences.First();
+            var interfaceDeclaration = (InterfaceDeclarationSyntax) await interfaceReference.GetSyntaxAsync();
+
+            unusedInterfaces.Add(interfaceDeclaration);
+        }
+    }
+
+    return unusedInterfaces;
 }
 
 void CreateFactory()

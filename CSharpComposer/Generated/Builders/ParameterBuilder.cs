@@ -10,12 +10,6 @@ public partial interface IParameterBuilder : IBaseParameterBuilder<IParameterBui
     IParameterBuilder WithDefault(EqualsValueClauseSyntax @default);
 }
 
-public interface IWithParameter<TBuilder>
-{
-    TBuilder WithParameter(string identifier, Action<IParameterBuilder> parameterCallback);
-    TBuilder WithParameter(ParameterSyntax parameterSyntax);
-}
-
 public interface IAddParameter<TBuilder>
 {
     TBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);

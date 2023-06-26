@@ -9,18 +9,6 @@ public partial interface IRefTypeBuilder
     IRefTypeBuilder WithReadOnlyKeyword();
 }
 
-public interface IWithRefType<TBuilder>
-{
-    TBuilder WithRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder> refTypeCallback);
-    TBuilder WithRefType(RefTypeSyntax refTypeSyntax);
-}
-
-public interface IAddRefType<TBuilder>
-{
-    TBuilder AddRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder> refTypeCallback);
-    TBuilder AddRefType(RefTypeSyntax refTypeSyntax);
-}
-
 public partial class RefTypeBuilder : IRefTypeBuilder
 {
     public RefTypeSyntax Syntax { get; set; }

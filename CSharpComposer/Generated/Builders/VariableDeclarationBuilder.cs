@@ -10,18 +10,6 @@ public partial interface IVariableDeclarationBuilder
     IVariableDeclarationBuilder AddVariableDeclarator(VariableDeclaratorSyntax variable);
 }
 
-public interface IWithVariableDeclaration<TBuilder>
-{
-    TBuilder WithVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
-    TBuilder WithVariableDeclaration(VariableDeclarationSyntax variableDeclarationSyntax);
-}
-
-public interface IAddVariableDeclaration<TBuilder>
-{
-    TBuilder AddVariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
-    TBuilder AddVariableDeclaration(VariableDeclarationSyntax variableDeclarationSyntax);
-}
-
 public partial class VariableDeclarationBuilder : IVariableDeclarationBuilder
 {
     public VariableDeclarationSyntax Syntax { get; set; }

@@ -8,18 +8,6 @@ public partial interface IFieldDeclarationBuilder : IBaseFieldDeclarationBuilder
 {
 }
 
-public interface IWithFieldDeclaration<TBuilder>
-{
-    TBuilder WithFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IFieldDeclarationBuilder> fieldDeclarationCallback);
-    TBuilder WithFieldDeclaration(FieldDeclarationSyntax fieldDeclarationSyntax);
-}
-
-public interface IAddFieldDeclaration<TBuilder>
-{
-    TBuilder AddFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IFieldDeclarationBuilder> fieldDeclarationCallback);
-    TBuilder AddFieldDeclaration(FieldDeclarationSyntax fieldDeclarationSyntax);
-}
-
 public partial class FieldDeclarationBuilder : IFieldDeclarationBuilder
 {
     public FieldDeclarationSyntax Syntax { get; set; }

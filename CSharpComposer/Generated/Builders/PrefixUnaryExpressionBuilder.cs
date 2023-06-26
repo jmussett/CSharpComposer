@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithPrefixUnaryExpression<TBuilder>
-{
-    TBuilder WithPrefixUnaryExpression(PrefixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback);
-    TBuilder WithPrefixUnaryExpression(PrefixUnaryExpressionSyntax prefixUnaryExpressionSyntax);
-}
-
-public interface IAddPrefixUnaryExpression<TBuilder>
-{
-    TBuilder AddPrefixUnaryExpression(PrefixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback);
-    TBuilder AddPrefixUnaryExpression(PrefixUnaryExpressionSyntax prefixUnaryExpressionSyntax);
-}
-
 public partial class PrefixUnaryExpressionBuilder
 {
     public static PrefixUnaryExpressionSyntax CreateSyntax(PrefixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback)

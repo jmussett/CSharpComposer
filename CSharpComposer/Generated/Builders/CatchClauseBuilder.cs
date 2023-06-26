@@ -12,18 +12,6 @@ public partial interface ICatchClauseBuilder
     ICatchClauseBuilder WithFilter(CatchFilterClauseSyntax filter);
 }
 
-public interface IWithCatchClause<TBuilder>
-{
-    TBuilder WithCatchClause(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
-    TBuilder WithCatchClause(CatchClauseSyntax catchClauseSyntax);
-}
-
-public interface IAddCatchClause<TBuilder>
-{
-    TBuilder AddCatchClause(Action<IBlockBuilder> blockBlockCallback, Action<ICatchClauseBuilder> catchClauseCallback);
-    TBuilder AddCatchClause(CatchClauseSyntax catchClauseSyntax);
-}
-
 public partial class CatchClauseBuilder : ICatchClauseBuilder
 {
     public CatchClauseSyntax Syntax { get; set; }

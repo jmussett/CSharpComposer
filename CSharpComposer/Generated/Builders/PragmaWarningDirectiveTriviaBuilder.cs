@@ -10,18 +10,6 @@ public partial interface IPragmaWarningDirectiveTriviaBuilder
     IPragmaWarningDirectiveTriviaBuilder AddErrorCodeExpression(ExpressionSyntax errorCode);
 }
 
-public interface IWithPragmaWarningDirectiveTrivia<TBuilder>
-{
-    TBuilder WithPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder> pragmaWarningDirectiveTriviaCallback);
-    TBuilder WithPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaSyntax pragmaWarningDirectiveTriviaSyntax);
-}
-
-public interface IAddPragmaWarningDirectiveTrivia<TBuilder>
-{
-    TBuilder AddPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder> pragmaWarningDirectiveTriviaCallback);
-    TBuilder AddPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaSyntax pragmaWarningDirectiveTriviaSyntax);
-}
-
 public partial class PragmaWarningDirectiveTriviaBuilder : IPragmaWarningDirectiveTriviaBuilder
 {
     public PragmaWarningDirectiveTriviaSyntax Syntax { get; set; }

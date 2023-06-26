@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithIfDirectiveTrivia<TBuilder>
-{
-    TBuilder WithIfDirectiveTrivia(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue);
-    TBuilder WithIfDirectiveTrivia(IfDirectiveTriviaSyntax ifDirectiveTriviaSyntax);
-}
-
-public interface IAddIfDirectiveTrivia<TBuilder>
-{
-    TBuilder AddIfDirectiveTrivia(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue);
-    TBuilder AddIfDirectiveTrivia(IfDirectiveTriviaSyntax ifDirectiveTriviaSyntax);
-}
-
 public partial class IfDirectiveTriviaBuilder
 {
     public static IfDirectiveTriviaSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue)

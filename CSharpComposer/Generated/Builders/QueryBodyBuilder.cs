@@ -12,18 +12,6 @@ public partial interface IQueryBodyBuilder
     IQueryBodyBuilder WithContinuation(QueryContinuationSyntax continuation);
 }
 
-public interface IWithQueryBody<TBuilder>
-{
-    TBuilder WithQueryBody(Action<ISelectOrGroupClauseBuilder> selectOrGroupCallback, Action<IQueryBodyBuilder> queryBodyCallback);
-    TBuilder WithQueryBody(QueryBodySyntax queryBodySyntax);
-}
-
-public interface IAddQueryBody<TBuilder>
-{
-    TBuilder AddQueryBody(Action<ISelectOrGroupClauseBuilder> selectOrGroupCallback, Action<IQueryBodyBuilder> queryBodyCallback);
-    TBuilder AddQueryBody(QueryBodySyntax queryBodySyntax);
-}
-
 public partial class QueryBodyBuilder : IQueryBodyBuilder
 {
     public QueryBodySyntax Syntax { get; set; }

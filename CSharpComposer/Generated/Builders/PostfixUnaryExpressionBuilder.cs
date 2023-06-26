@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithPostfixUnaryExpression<TBuilder>
-{
-    TBuilder WithPostfixUnaryExpression(PostfixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback);
-    TBuilder WithPostfixUnaryExpression(PostfixUnaryExpressionSyntax postfixUnaryExpressionSyntax);
-}
-
-public interface IAddPostfixUnaryExpression<TBuilder>
-{
-    TBuilder AddPostfixUnaryExpression(PostfixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback);
-    TBuilder AddPostfixUnaryExpression(PostfixUnaryExpressionSyntax postfixUnaryExpressionSyntax);
-}
-
 public partial class PostfixUnaryExpressionBuilder
 {
     public static PostfixUnaryExpressionSyntax CreateSyntax(PostfixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback)

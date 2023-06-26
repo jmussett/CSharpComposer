@@ -10,18 +10,6 @@ public partial interface IFunctionPointerCallingConventionBuilder
     IFunctionPointerCallingConventionBuilder AddFunctionPointerUnmanagedCallingConvention(FunctionPointerUnmanagedCallingConventionSyntax callingConvention);
 }
 
-public interface IWithFunctionPointerCallingConvention<TBuilder>
-{
-    TBuilder WithFunctionPointerCallingConvention(FunctionPointerCallingConventionManagedOrUnmanagedKeyword functionPointerCallingConventionManagedOrUnmanagedKeyword, Action<IFunctionPointerCallingConventionBuilder> functionPointerCallingConventionCallback);
-    TBuilder WithFunctionPointerCallingConvention(FunctionPointerCallingConventionSyntax functionPointerCallingConventionSyntax);
-}
-
-public interface IAddFunctionPointerCallingConvention<TBuilder>
-{
-    TBuilder AddFunctionPointerCallingConvention(FunctionPointerCallingConventionManagedOrUnmanagedKeyword functionPointerCallingConventionManagedOrUnmanagedKeyword, Action<IFunctionPointerCallingConventionBuilder> functionPointerCallingConventionCallback);
-    TBuilder AddFunctionPointerCallingConvention(FunctionPointerCallingConventionSyntax functionPointerCallingConventionSyntax);
-}
-
 public partial class FunctionPointerCallingConventionBuilder : IFunctionPointerCallingConventionBuilder
 {
     public FunctionPointerCallingConventionSyntax Syntax { get; set; }

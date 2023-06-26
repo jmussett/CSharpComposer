@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithImplicitStackAllocArrayCreationExpression<TBuilder>
-{
-    TBuilder WithImplicitStackAllocArrayCreationExpression(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback);
-    TBuilder WithImplicitStackAllocArrayCreationExpression(ImplicitStackAllocArrayCreationExpressionSyntax implicitStackAllocArrayCreationExpressionSyntax);
-}
-
-public interface IAddImplicitStackAllocArrayCreationExpression<TBuilder>
-{
-    TBuilder AddImplicitStackAllocArrayCreationExpression(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback);
-    TBuilder AddImplicitStackAllocArrayCreationExpression(ImplicitStackAllocArrayCreationExpressionSyntax implicitStackAllocArrayCreationExpressionSyntax);
-}
-
 public partial class ImplicitStackAllocArrayCreationExpressionBuilder
 {
     public static ImplicitStackAllocArrayCreationExpressionSyntax CreateSyntax(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback)

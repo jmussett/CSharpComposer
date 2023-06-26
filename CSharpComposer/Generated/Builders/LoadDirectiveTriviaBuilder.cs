@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithLoadDirectiveTrivia<TBuilder>
-{
-    TBuilder WithLoadDirectiveTrivia(string file, bool isActive);
-    TBuilder WithLoadDirectiveTrivia(LoadDirectiveTriviaSyntax loadDirectiveTriviaSyntax);
-}
-
-public interface IAddLoadDirectiveTrivia<TBuilder>
-{
-    TBuilder AddLoadDirectiveTrivia(string file, bool isActive);
-    TBuilder AddLoadDirectiveTrivia(LoadDirectiveTriviaSyntax loadDirectiveTriviaSyntax);
-}
-
 public partial class LoadDirectiveTriviaBuilder
 {
     public static LoadDirectiveTriviaSyntax CreateSyntax(string file, bool isActive)

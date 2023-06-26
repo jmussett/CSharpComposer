@@ -37,12 +37,6 @@ public partial interface IStatementBuilder<TBuilder> : IAddAttribute<TBuilder>
 {
 }
 
-public interface IWithStatement<TBuilder>
-{
-    TBuilder WithStatement(Action<IStatementBuilder> statementCallback);
-    TBuilder WithStatement(StatementSyntax statementSyntax);
-}
-
 public interface IAddStatement<TBuilder>
 {
     TBuilder AddStatement(Action<IStatementBuilder> statementCallback);

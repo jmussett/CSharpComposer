@@ -8,18 +8,6 @@ public partial interface IConstructorInitializerBuilder : IAddArgument<IConstruc
 {
 }
 
-public interface IWithConstructorInitializer<TBuilder>
-{
-    TBuilder WithConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
-    TBuilder WithConstructorInitializer(ConstructorInitializerSyntax constructorInitializerSyntax);
-}
-
-public interface IAddConstructorInitializer<TBuilder>
-{
-    TBuilder AddConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
-    TBuilder AddConstructorInitializer(ConstructorInitializerSyntax constructorInitializerSyntax);
-}
-
 public partial class ConstructorInitializerBuilder : IConstructorInitializerBuilder
 {
     public ConstructorInitializerSyntax Syntax { get; set; }

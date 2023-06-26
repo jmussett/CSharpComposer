@@ -8,18 +8,6 @@ public partial interface IUnsafeStatementBuilder : IStatementBuilder<IUnsafeStat
 {
 }
 
-public interface IWithUnsafeStatement<TBuilder>
-{
-    TBuilder WithUnsafeStatement(Action<IBlockBuilder> blockBlockCallback, Action<IUnsafeStatementBuilder> unsafeStatementCallback);
-    TBuilder WithUnsafeStatement(UnsafeStatementSyntax unsafeStatementSyntax);
-}
-
-public interface IAddUnsafeStatement<TBuilder>
-{
-    TBuilder AddUnsafeStatement(Action<IBlockBuilder> blockBlockCallback, Action<IUnsafeStatementBuilder> unsafeStatementCallback);
-    TBuilder AddUnsafeStatement(UnsafeStatementSyntax unsafeStatementSyntax);
-}
-
 public partial class UnsafeStatementBuilder : IUnsafeStatementBuilder
 {
     public UnsafeStatementSyntax Syntax { get; set; }

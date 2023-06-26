@@ -8,18 +8,6 @@ public partial interface IStructDeclarationBuilder : ITypeDeclarationBuilder<ISt
 {
 }
 
-public interface IWithStructDeclaration<TBuilder>
-{
-    TBuilder WithStructDeclaration(string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback);
-    TBuilder WithStructDeclaration(StructDeclarationSyntax structDeclarationSyntax);
-}
-
-public interface IAddStructDeclaration<TBuilder>
-{
-    TBuilder AddStructDeclaration(string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback);
-    TBuilder AddStructDeclaration(StructDeclarationSyntax structDeclarationSyntax);
-}
-
 public partial class StructDeclarationBuilder : IStructDeclarationBuilder
 {
     public StructDeclarationSyntax Syntax { get; set; }

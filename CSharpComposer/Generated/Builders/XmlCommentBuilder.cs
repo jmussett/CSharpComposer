@@ -9,18 +9,6 @@ public partial interface IXmlCommentBuilder
     IXmlCommentBuilder AddToken(SyntaxToken textToken);
 }
 
-public interface IWithXmlComment<TBuilder>
-{
-    TBuilder WithXmlComment(Action<IXmlCommentBuilder> xmlCommentCallback);
-    TBuilder WithXmlComment(XmlCommentSyntax xmlCommentSyntax);
-}
-
-public interface IAddXmlComment<TBuilder>
-{
-    TBuilder AddXmlComment(Action<IXmlCommentBuilder> xmlCommentCallback);
-    TBuilder AddXmlComment(XmlCommentSyntax xmlCommentSyntax);
-}
-
 public partial class XmlCommentBuilder : IXmlCommentBuilder
 {
     public XmlCommentSyntax Syntax { get; set; }

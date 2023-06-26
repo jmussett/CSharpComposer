@@ -8,18 +8,6 @@ public partial interface IEventFieldDeclarationBuilder : IBaseFieldDeclarationBu
 {
 }
 
-public interface IWithEventFieldDeclaration<TBuilder>
-{
-    TBuilder WithEventFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IEventFieldDeclarationBuilder> eventFieldDeclarationCallback);
-    TBuilder WithEventFieldDeclaration(EventFieldDeclarationSyntax eventFieldDeclarationSyntax);
-}
-
-public interface IAddEventFieldDeclaration<TBuilder>
-{
-    TBuilder AddEventFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IEventFieldDeclarationBuilder> eventFieldDeclarationCallback);
-    TBuilder AddEventFieldDeclaration(EventFieldDeclarationSyntax eventFieldDeclarationSyntax);
-}
-
 public partial class EventFieldDeclarationBuilder : IEventFieldDeclarationBuilder
 {
     public EventFieldDeclarationSyntax Syntax { get; set; }

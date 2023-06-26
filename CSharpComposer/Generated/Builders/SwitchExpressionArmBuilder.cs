@@ -8,18 +8,6 @@ public partial interface ISwitchExpressionArmBuilder : IWithWhenClause<ISwitchEx
 {
 }
 
-public interface IWithSwitchExpressionArm<TBuilder>
-{
-    TBuilder WithSwitchExpressionArm(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder> switchExpressionArmCallback);
-    TBuilder WithSwitchExpressionArm(SwitchExpressionArmSyntax switchExpressionArmSyntax);
-}
-
-public interface IAddSwitchExpressionArm<TBuilder>
-{
-    TBuilder AddSwitchExpressionArm(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder> switchExpressionArmCallback);
-    TBuilder AddSwitchExpressionArm(SwitchExpressionArmSyntax switchExpressionArmSyntax);
-}
-
 public partial class SwitchExpressionArmBuilder : ISwitchExpressionArmBuilder
 {
     public SwitchExpressionArmSyntax Syntax { get; set; }

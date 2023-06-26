@@ -10,18 +10,6 @@ public partial interface ITypeParameterConstraintClauseBuilder
     ITypeParameterConstraintClauseBuilder AddTypeParameterConstraint(TypeParameterConstraintSyntax constraint);
 }
 
-public interface IWithTypeParameterConstraintClause<TBuilder>
-{
-    TBuilder WithTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
-    TBuilder WithTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax typeParameterConstraintClauseSyntax);
-}
-
-public interface IAddTypeParameterConstraintClause<TBuilder>
-{
-    TBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
-    TBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax typeParameterConstraintClauseSyntax);
-}
-
 public partial class TypeParameterConstraintClauseBuilder : ITypeParameterConstraintClauseBuilder
 {
     public TypeParameterConstraintClauseSyntax Syntax { get; set; }

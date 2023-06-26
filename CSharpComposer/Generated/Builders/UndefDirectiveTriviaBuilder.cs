@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithUndefDirectiveTrivia<TBuilder>
-{
-    TBuilder WithUndefDirectiveTrivia(string name, bool isActive);
-    TBuilder WithUndefDirectiveTrivia(UndefDirectiveTriviaSyntax undefDirectiveTriviaSyntax);
-}
-
-public interface IAddUndefDirectiveTrivia<TBuilder>
-{
-    TBuilder AddUndefDirectiveTrivia(string name, bool isActive);
-    TBuilder AddUndefDirectiveTrivia(UndefDirectiveTriviaSyntax undefDirectiveTriviaSyntax);
-}
-
 public partial class UndefDirectiveTriviaBuilder
 {
     public static UndefDirectiveTriviaSyntax CreateSyntax(string name, bool isActive)

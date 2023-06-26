@@ -8,18 +8,6 @@ public partial interface IFileScopedNamespaceDeclarationBuilder : IBaseNamespace
 {
 }
 
-public interface IWithFileScopedNamespaceDeclaration<TBuilder>
-{
-    TBuilder WithFileScopedNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder> fileScopedNamespaceDeclarationCallback);
-    TBuilder WithFileScopedNamespaceDeclaration(FileScopedNamespaceDeclarationSyntax fileScopedNamespaceDeclarationSyntax);
-}
-
-public interface IAddFileScopedNamespaceDeclaration<TBuilder>
-{
-    TBuilder AddFileScopedNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder> fileScopedNamespaceDeclarationCallback);
-    TBuilder AddFileScopedNamespaceDeclaration(FileScopedNamespaceDeclarationSyntax fileScopedNamespaceDeclarationSyntax);
-}
-
 public partial class FileScopedNamespaceDeclarationBuilder : IFileScopedNamespaceDeclarationBuilder
 {
     public FileScopedNamespaceDeclarationSyntax Syntax { get; set; }

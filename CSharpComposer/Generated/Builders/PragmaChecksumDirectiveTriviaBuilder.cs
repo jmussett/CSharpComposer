@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithPragmaChecksumDirectiveTrivia<TBuilder>
-{
-    TBuilder WithPragmaChecksumDirectiveTrivia(string file, string guid, string bytes, bool isActive);
-    TBuilder WithPragmaChecksumDirectiveTrivia(PragmaChecksumDirectiveTriviaSyntax pragmaChecksumDirectiveTriviaSyntax);
-}
-
-public interface IAddPragmaChecksumDirectiveTrivia<TBuilder>
-{
-    TBuilder AddPragmaChecksumDirectiveTrivia(string file, string guid, string bytes, bool isActive);
-    TBuilder AddPragmaChecksumDirectiveTrivia(PragmaChecksumDirectiveTriviaSyntax pragmaChecksumDirectiveTriviaSyntax);
-}
-
 public partial class PragmaChecksumDirectiveTriviaBuilder
 {
     public static PragmaChecksumDirectiveTriviaSyntax CreateSyntax(string file, string guid, string bytes, bool isActive)

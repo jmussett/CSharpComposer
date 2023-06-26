@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithInterpolationFormatClause<TBuilder>
-{
-    TBuilder WithInterpolationFormatClause();
-    TBuilder WithInterpolationFormatClause(InterpolationFormatClauseSyntax interpolationFormatClauseSyntax);
-}
-
-public interface IAddInterpolationFormatClause<TBuilder>
-{
-    TBuilder AddInterpolationFormatClause();
-    TBuilder AddInterpolationFormatClause(InterpolationFormatClauseSyntax interpolationFormatClauseSyntax);
-}
-
 public partial class InterpolationFormatClauseBuilder
 {
     public static InterpolationFormatClauseSyntax CreateSyntax()

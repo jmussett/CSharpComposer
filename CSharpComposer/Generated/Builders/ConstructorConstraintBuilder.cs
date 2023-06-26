@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithConstructorConstraint<TBuilder>
-{
-    TBuilder WithConstructorConstraint();
-    TBuilder WithConstructorConstraint(ConstructorConstraintSyntax constructorConstraintSyntax);
-}
-
-public interface IAddConstructorConstraint<TBuilder>
-{
-    TBuilder AddConstructorConstraint();
-    TBuilder AddConstructorConstraint(ConstructorConstraintSyntax constructorConstraintSyntax);
-}
-
 public partial class ConstructorConstraintBuilder
 {
     public static ConstructorConstraintSyntax CreateSyntax()

@@ -8,18 +8,6 @@ public partial interface IYieldStatementBuilder : IStatementBuilder<IYieldStatem
 {
 }
 
-public interface IWithYieldStatement<TBuilder>
-{
-    TBuilder WithYieldStatement(YieldStatementKind kind, Action<IYieldStatementBuilder> yieldStatementCallback);
-    TBuilder WithYieldStatement(YieldStatementSyntax yieldStatementSyntax);
-}
-
-public interface IAddYieldStatement<TBuilder>
-{
-    TBuilder AddYieldStatement(YieldStatementKind kind, Action<IYieldStatementBuilder> yieldStatementCallback);
-    TBuilder AddYieldStatement(YieldStatementSyntax yieldStatementSyntax);
-}
-
 public partial class YieldStatementBuilder : IYieldStatementBuilder
 {
     public YieldStatementSyntax Syntax { get; set; }

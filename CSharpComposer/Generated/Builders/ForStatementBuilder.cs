@@ -16,18 +16,6 @@ public partial interface IForStatementBuilder : IStatementBuilder<IForStatementB
     IForStatementBuilder AddIncrementorExpression(ExpressionSyntax incrementor);
 }
 
-public interface IWithForStatement<TBuilder>
-{
-    TBuilder WithForStatement(Action<IStatementBuilder> statementCallback, Action<IForStatementBuilder> forStatementCallback);
-    TBuilder WithForStatement(ForStatementSyntax forStatementSyntax);
-}
-
-public interface IAddForStatement<TBuilder>
-{
-    TBuilder AddForStatement(Action<IStatementBuilder> statementCallback, Action<IForStatementBuilder> forStatementCallback);
-    TBuilder AddForStatement(ForStatementSyntax forStatementSyntax);
-}
-
 public partial class ForStatementBuilder : IForStatementBuilder
 {
     public ForStatementSyntax Syntax { get; set; }

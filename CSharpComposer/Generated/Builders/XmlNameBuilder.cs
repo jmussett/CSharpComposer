@@ -10,18 +10,6 @@ public partial interface IXmlNameBuilder
     IXmlNameBuilder WithPrefix(XmlPrefixSyntax prefix);
 }
 
-public interface IWithXmlName<TBuilder>
-{
-    TBuilder WithXmlName(string localName, Action<IXmlNameBuilder> xmlNameCallback);
-    TBuilder WithXmlName(XmlNameSyntax xmlNameSyntax);
-}
-
-public interface IAddXmlName<TBuilder>
-{
-    TBuilder AddXmlName(string localName, Action<IXmlNameBuilder> xmlNameCallback);
-    TBuilder AddXmlName(XmlNameSyntax xmlNameSyntax);
-}
-
 public partial class XmlNameBuilder : IXmlNameBuilder
 {
     public XmlNameSyntax Syntax { get; set; }

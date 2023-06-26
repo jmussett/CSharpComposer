@@ -9,18 +9,6 @@ public partial interface ILineDirectiveTriviaBuilder : ILineOrSpanDirectiveTrivi
     ILineDirectiveTriviaBuilder WithFile();
 }
 
-public interface IWithLineDirectiveTrivia<TBuilder>
-{
-    TBuilder WithLineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder> lineDirectiveTriviaCallback);
-    TBuilder WithLineDirectiveTrivia(LineDirectiveTriviaSyntax lineDirectiveTriviaSyntax);
-}
-
-public interface IAddLineDirectiveTrivia<TBuilder>
-{
-    TBuilder AddLineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder> lineDirectiveTriviaCallback);
-    TBuilder AddLineDirectiveTrivia(LineDirectiveTriviaSyntax lineDirectiveTriviaSyntax);
-}
-
 public partial class LineDirectiveTriviaBuilder : ILineDirectiveTriviaBuilder
 {
     public LineDirectiveTriviaSyntax Syntax { get; set; }

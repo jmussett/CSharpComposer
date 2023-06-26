@@ -10,18 +10,6 @@ public partial interface ISwitchExpressionBuilder
     ISwitchExpressionBuilder AddSwitchExpressionArm(SwitchExpressionArmSyntax arm);
 }
 
-public interface IWithSwitchExpression<TBuilder>
-{
-    TBuilder WithSwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder> switchExpressionCallback);
-    TBuilder WithSwitchExpression(SwitchExpressionSyntax switchExpressionSyntax);
-}
-
-public interface IAddSwitchExpression<TBuilder>
-{
-    TBuilder AddSwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder> switchExpressionCallback);
-    TBuilder AddSwitchExpression(SwitchExpressionSyntax switchExpressionSyntax);
-}
-
 public partial class SwitchExpressionBuilder : ISwitchExpressionBuilder
 {
     public SwitchExpressionSyntax Syntax { get; set; }

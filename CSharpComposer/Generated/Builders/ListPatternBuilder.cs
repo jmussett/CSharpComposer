@@ -12,18 +12,6 @@ public partial interface IListPatternBuilder : IAddPattern<IListPatternBuilder>
     IListPatternBuilder WithDesignation(VariableDesignationSyntax designation);
 }
 
-public interface IWithListPattern<TBuilder>
-{
-    TBuilder WithListPattern(Action<IListPatternBuilder> listPatternCallback);
-    TBuilder WithListPattern(ListPatternSyntax listPatternSyntax);
-}
-
-public interface IAddListPattern<TBuilder>
-{
-    TBuilder AddListPattern(Action<IListPatternBuilder> listPatternCallback);
-    TBuilder AddListPattern(ListPatternSyntax listPatternSyntax);
-}
-
 public partial class ListPatternBuilder : IListPatternBuilder
 {
     public ListPatternSyntax Syntax { get; set; }

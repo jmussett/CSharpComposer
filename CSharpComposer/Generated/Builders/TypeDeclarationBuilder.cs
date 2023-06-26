@@ -20,18 +20,6 @@ public partial interface ITypeDeclarationBuilder<TBuilder> : IBaseTypeDeclaratio
     TBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
-public interface IWithTypeDeclaration<TBuilder>
-{
-    TBuilder WithTypeDeclaration(Action<ITypeDeclarationBuilder> typeDeclarationCallback);
-    TBuilder WithTypeDeclaration(TypeDeclarationSyntax typeDeclarationSyntax);
-}
-
-public interface IAddTypeDeclaration<TBuilder>
-{
-    TBuilder AddTypeDeclaration(Action<ITypeDeclarationBuilder> typeDeclarationCallback);
-    TBuilder AddTypeDeclaration(TypeDeclarationSyntax typeDeclarationSyntax);
-}
-
 public partial class TypeDeclarationBuilder : ITypeDeclarationBuilder
 {
     public TypeDeclarationSyntax? Syntax { get; set; }

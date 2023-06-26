@@ -10,18 +10,6 @@ public partial interface IArrayRankSpecifierBuilder
     IArrayRankSpecifierBuilder AddSizeExpression(ExpressionSyntax size);
 }
 
-public interface IWithArrayRankSpecifier<TBuilder>
-{
-    TBuilder WithArrayRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback);
-    TBuilder WithArrayRankSpecifier(ArrayRankSpecifierSyntax arrayRankSpecifierSyntax);
-}
-
-public interface IAddArrayRankSpecifier<TBuilder>
-{
-    TBuilder AddArrayRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback);
-    TBuilder AddArrayRankSpecifier(ArrayRankSpecifierSyntax arrayRankSpecifierSyntax);
-}
-
 public partial class ArrayRankSpecifierBuilder : IArrayRankSpecifierBuilder
 {
     public ArrayRankSpecifierSyntax Syntax { get; set; }

@@ -13,18 +13,6 @@ public partial interface IConversionOperatorDeclarationBuilder : IBaseMethodDecl
     IConversionOperatorDeclarationBuilder WithCheckedKeyword();
 }
 
-public interface IWithConversionOperatorDeclaration<TBuilder>
-{
-    TBuilder WithConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder> conversionOperatorDeclarationCallback);
-    TBuilder WithConversionOperatorDeclaration(ConversionOperatorDeclarationSyntax conversionOperatorDeclarationSyntax);
-}
-
-public interface IAddConversionOperatorDeclaration<TBuilder>
-{
-    TBuilder AddConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder> conversionOperatorDeclarationCallback);
-    TBuilder AddConversionOperatorDeclaration(ConversionOperatorDeclarationSyntax conversionOperatorDeclarationSyntax);
-}
-
 public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorDeclarationBuilder
 {
     public ConversionOperatorDeclarationSyntax Syntax { get; set; }

@@ -9,12 +9,6 @@ public partial interface ITypeParameterBuilder : IAddAttribute<ITypeParameterBui
     ITypeParameterBuilder WithVarianceKeyword(VarianceKeyword varianceKeyword);
 }
 
-public interface IWithTypeParameter<TBuilder>
-{
-    TBuilder WithTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
-    TBuilder WithTypeParameter(TypeParameterSyntax typeParameterSyntax);
-}
-
 public interface IAddTypeParameter<TBuilder>
 {
     TBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);

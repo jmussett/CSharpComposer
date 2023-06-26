@@ -10,18 +10,6 @@ public partial interface IAnonymousObjectCreationExpressionBuilder
     IAnonymousObjectCreationExpressionBuilder AddInitializerAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax initializer);
 }
 
-public interface IWithAnonymousObjectCreationExpression<TBuilder>
-{
-    TBuilder WithAnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder> anonymousObjectCreationExpressionCallback);
-    TBuilder WithAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax anonymousObjectCreationExpressionSyntax);
-}
-
-public interface IAddAnonymousObjectCreationExpression<TBuilder>
-{
-    TBuilder AddAnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder> anonymousObjectCreationExpressionCallback);
-    TBuilder AddAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax anonymousObjectCreationExpressionSyntax);
-}
-
 public partial class AnonymousObjectCreationExpressionBuilder : IAnonymousObjectCreationExpressionBuilder
 {
     public AnonymousObjectCreationExpressionSyntax Syntax { get; set; }

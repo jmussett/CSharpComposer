@@ -9,18 +9,6 @@ public partial interface IXmlTextAttributeBuilder
     IXmlTextAttributeBuilder AddToken(SyntaxToken textToken);
 }
 
-public interface IWithXmlTextAttribute<TBuilder>
-{
-    TBuilder WithXmlTextAttribute(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, XmlTextAttributeStartQuoteToken xmlTextAttributeStartQuoteToken, XmlTextAttributeEndQuoteToken xmlTextAttributeEndQuoteToken, Action<IXmlTextAttributeBuilder> xmlTextAttributeCallback);
-    TBuilder WithXmlTextAttribute(XmlTextAttributeSyntax xmlTextAttributeSyntax);
-}
-
-public interface IAddXmlTextAttribute<TBuilder>
-{
-    TBuilder AddXmlTextAttribute(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, XmlTextAttributeStartQuoteToken xmlTextAttributeStartQuoteToken, XmlTextAttributeEndQuoteToken xmlTextAttributeEndQuoteToken, Action<IXmlTextAttributeBuilder> xmlTextAttributeCallback);
-    TBuilder AddXmlTextAttribute(XmlTextAttributeSyntax xmlTextAttributeSyntax);
-}
-
 public partial class XmlTextAttributeBuilder : IXmlTextAttributeBuilder
 {
     public XmlTextAttributeSyntax Syntax { get; set; }

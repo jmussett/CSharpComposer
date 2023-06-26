@@ -8,18 +8,6 @@ public partial interface IOrderByClauseBuilder : IAddOrdering<IOrderByClauseBuil
 {
 }
 
-public interface IWithOrderByClause<TBuilder>
-{
-    TBuilder WithOrderByClause(Action<IOrderByClauseBuilder> orderByClauseCallback);
-    TBuilder WithOrderByClause(OrderByClauseSyntax orderByClauseSyntax);
-}
-
-public interface IAddOrderByClause<TBuilder>
-{
-    TBuilder AddOrderByClause(Action<IOrderByClauseBuilder> orderByClauseCallback);
-    TBuilder AddOrderByClause(OrderByClauseSyntax orderByClauseSyntax);
-}
-
 public partial class OrderByClauseBuilder : IOrderByClauseBuilder
 {
     public OrderByClauseSyntax Syntax { get; set; }

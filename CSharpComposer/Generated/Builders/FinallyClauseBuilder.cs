@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithFinallyClause<TBuilder>
-{
-    TBuilder WithFinallyClause(Action<IBlockBuilder> blockBlockCallback);
-    TBuilder WithFinallyClause(FinallyClauseSyntax finallyClauseSyntax);
-}
-
-public interface IAddFinallyClause<TBuilder>
-{
-    TBuilder AddFinallyClause(Action<IBlockBuilder> blockBlockCallback);
-    TBuilder AddFinallyClause(FinallyClauseSyntax finallyClauseSyntax);
-}
-
 public partial class FinallyClauseBuilder
 {
     public static FinallyClauseSyntax CreateSyntax(Action<IBlockBuilder> blockBlockCallback)

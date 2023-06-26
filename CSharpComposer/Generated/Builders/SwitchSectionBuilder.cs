@@ -10,18 +10,6 @@ public partial interface ISwitchSectionBuilder : IAddStatement<ISwitchSectionBui
     ISwitchSectionBuilder AddSwitchLabel(SwitchLabelSyntax label);
 }
 
-public interface IWithSwitchSection<TBuilder>
-{
-    TBuilder WithSwitchSection(Action<ISwitchSectionBuilder> switchSectionCallback);
-    TBuilder WithSwitchSection(SwitchSectionSyntax switchSectionSyntax);
-}
-
-public interface IAddSwitchSection<TBuilder>
-{
-    TBuilder AddSwitchSection(Action<ISwitchSectionBuilder> switchSectionCallback);
-    TBuilder AddSwitchSection(SwitchSectionSyntax switchSectionSyntax);
-}
-
 public partial class SwitchSectionBuilder : ISwitchSectionBuilder
 {
     public SwitchSectionSyntax Syntax { get; set; }

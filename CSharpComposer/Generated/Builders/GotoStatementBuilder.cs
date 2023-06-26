@@ -9,18 +9,6 @@ public partial interface IGotoStatementBuilder : IStatementBuilder<IGotoStatemen
     IGotoStatementBuilder WithCaseOrDefaultKeyword(CaseOrDefaultKeyword caseOrDefaultKeyword);
 }
 
-public interface IWithGotoStatement<TBuilder>
-{
-    TBuilder WithGotoStatement(GotoStatementKind kind, Action<IGotoStatementBuilder> gotoStatementCallback);
-    TBuilder WithGotoStatement(GotoStatementSyntax gotoStatementSyntax);
-}
-
-public interface IAddGotoStatement<TBuilder>
-{
-    TBuilder AddGotoStatement(GotoStatementKind kind, Action<IGotoStatementBuilder> gotoStatementCallback);
-    TBuilder AddGotoStatement(GotoStatementSyntax gotoStatementSyntax);
-}
-
 public partial class GotoStatementBuilder : IGotoStatementBuilder
 {
     public GotoStatementSyntax Syntax { get; set; }

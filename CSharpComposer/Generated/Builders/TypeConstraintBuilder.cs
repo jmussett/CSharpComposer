@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithTypeConstraint<TBuilder>
-{
-    TBuilder WithTypeConstraint(Action<ITypeBuilder> typeCallback);
-    TBuilder WithTypeConstraint(TypeConstraintSyntax typeConstraintSyntax);
-}
-
-public interface IAddTypeConstraint<TBuilder>
-{
-    TBuilder AddTypeConstraint(Action<ITypeBuilder> typeCallback);
-    TBuilder AddTypeConstraint(TypeConstraintSyntax typeConstraintSyntax);
-}
-
 public partial class TypeConstraintBuilder
 {
     public static TypeConstraintSyntax CreateSyntax(Action<ITypeBuilder> typeCallback)

@@ -10,18 +10,6 @@ public partial interface INameMemberCrefBuilder
     INameMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
-public interface IWithNameMemberCref<TBuilder>
-{
-    TBuilder WithNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder> nameMemberCrefCallback);
-    TBuilder WithNameMemberCref(NameMemberCrefSyntax nameMemberCrefSyntax);
-}
-
-public interface IAddNameMemberCref<TBuilder>
-{
-    TBuilder AddNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder> nameMemberCrefCallback);
-    TBuilder AddNameMemberCref(NameMemberCrefSyntax nameMemberCrefSyntax);
-}
-
 public partial class NameMemberCrefBuilder : INameMemberCrefBuilder
 {
     public NameMemberCrefSyntax Syntax { get; set; }

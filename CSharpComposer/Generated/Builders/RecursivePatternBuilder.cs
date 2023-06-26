@@ -12,18 +12,6 @@ public partial interface IRecursivePatternBuilder : IWithType<IRecursivePatternB
     IRecursivePatternBuilder WithDesignation(VariableDesignationSyntax designation);
 }
 
-public interface IWithRecursivePattern<TBuilder>
-{
-    TBuilder WithRecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback);
-    TBuilder WithRecursivePattern(RecursivePatternSyntax recursivePatternSyntax);
-}
-
-public interface IAddRecursivePattern<TBuilder>
-{
-    TBuilder AddRecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback);
-    TBuilder AddRecursivePattern(RecursivePatternSyntax recursivePatternSyntax);
-}
-
 public partial class RecursivePatternBuilder : IRecursivePatternBuilder
 {
     public RecursivePatternSyntax Syntax { get; set; }

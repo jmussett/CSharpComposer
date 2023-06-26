@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithMemberAccessExpression<TBuilder>
-{
-    TBuilder WithMemberAccessExpression(MemberAccessExpressionKind kind, Action<IExpressionBuilder> expressionCallback, Action<ISimpleNameBuilder> nameCallback);
-    TBuilder WithMemberAccessExpression(MemberAccessExpressionSyntax memberAccessExpressionSyntax);
-}
-
-public interface IAddMemberAccessExpression<TBuilder>
-{
-    TBuilder AddMemberAccessExpression(MemberAccessExpressionKind kind, Action<IExpressionBuilder> expressionCallback, Action<ISimpleNameBuilder> nameCallback);
-    TBuilder AddMemberAccessExpression(MemberAccessExpressionSyntax memberAccessExpressionSyntax);
-}
-
 public partial class MemberAccessExpressionBuilder
 {
     public static MemberAccessExpressionSyntax CreateSyntax(MemberAccessExpressionKind kind, Action<IExpressionBuilder> expressionCallback, Action<ISimpleNameBuilder> nameCallback)

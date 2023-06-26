@@ -15,18 +15,6 @@ public partial interface IBaseParameterBuilder<TBuilder> : IAddAttribute<TBuilde
     TBuilder AddModifierToken(SyntaxToken modifier);
 }
 
-public interface IWithBaseParameter<TBuilder>
-{
-    TBuilder WithBaseParameter(Action<IBaseParameterBuilder> baseParameterCallback);
-    TBuilder WithBaseParameter(BaseParameterSyntax baseParameterSyntax);
-}
-
-public interface IAddBaseParameter<TBuilder>
-{
-    TBuilder AddBaseParameter(Action<IBaseParameterBuilder> baseParameterCallback);
-    TBuilder AddBaseParameter(BaseParameterSyntax baseParameterSyntax);
-}
-
 public partial class BaseParameterBuilder : IBaseParameterBuilder
 {
     public BaseParameterSyntax? Syntax { get; set; }

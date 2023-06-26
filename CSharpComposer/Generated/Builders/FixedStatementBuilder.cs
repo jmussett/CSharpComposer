@@ -8,18 +8,6 @@ public partial interface IFixedStatementBuilder : IStatementBuilder<IFixedStatem
 {
 }
 
-public interface IWithFixedStatement<TBuilder>
-{
-    TBuilder WithFixedStatement(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IStatementBuilder> statementCallback, Action<IFixedStatementBuilder> fixedStatementCallback);
-    TBuilder WithFixedStatement(FixedStatementSyntax fixedStatementSyntax);
-}
-
-public interface IAddFixedStatement<TBuilder>
-{
-    TBuilder AddFixedStatement(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IStatementBuilder> statementCallback, Action<IFixedStatementBuilder> fixedStatementCallback);
-    TBuilder AddFixedStatement(FixedStatementSyntax fixedStatementSyntax);
-}
-
 public partial class FixedStatementBuilder : IFixedStatementBuilder
 {
     public FixedStatementSyntax Syntax { get; set; }

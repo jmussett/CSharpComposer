@@ -10,18 +10,6 @@ public partial interface IArrayTypeBuilder
     IArrayTypeBuilder AddArrayRankSpecifier(ArrayRankSpecifierSyntax rankSpecifier);
 }
 
-public interface IWithArrayType<TBuilder>
-{
-    TBuilder WithArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder> arrayTypeCallback);
-    TBuilder WithArrayType(ArrayTypeSyntax arrayTypeSyntax);
-}
-
-public interface IAddArrayType<TBuilder>
-{
-    TBuilder AddArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder> arrayTypeCallback);
-    TBuilder AddArrayType(ArrayTypeSyntax arrayTypeSyntax);
-}
-
 public partial class ArrayTypeBuilder : IArrayTypeBuilder
 {
     public ArrayTypeSyntax Syntax { get; set; }

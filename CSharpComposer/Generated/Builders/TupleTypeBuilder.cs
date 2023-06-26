@@ -10,18 +10,6 @@ public partial interface ITupleTypeBuilder
     ITupleTypeBuilder AddTupleElement(TupleElementSyntax element);
 }
 
-public interface IWithTupleType<TBuilder>
-{
-    TBuilder WithTupleType(Action<ITupleTypeBuilder> tupleTypeCallback);
-    TBuilder WithTupleType(TupleTypeSyntax tupleTypeSyntax);
-}
-
-public interface IAddTupleType<TBuilder>
-{
-    TBuilder AddTupleType(Action<ITupleTypeBuilder> tupleTypeCallback);
-    TBuilder AddTupleType(TupleTypeSyntax tupleTypeSyntax);
-}
-
 public partial class TupleTypeBuilder : ITupleTypeBuilder
 {
     public TupleTypeSyntax Syntax { get; set; }

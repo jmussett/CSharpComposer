@@ -15,18 +15,6 @@ public partial interface IBasePropertyDeclarationBuilder<TBuilder> : IMemberDecl
 {
 }
 
-public interface IWithBasePropertyDeclaration<TBuilder>
-{
-    TBuilder WithBasePropertyDeclaration(Action<IBasePropertyDeclarationBuilder> basePropertyDeclarationCallback);
-    TBuilder WithBasePropertyDeclaration(BasePropertyDeclarationSyntax basePropertyDeclarationSyntax);
-}
-
-public interface IAddBasePropertyDeclaration<TBuilder>
-{
-    TBuilder AddBasePropertyDeclaration(Action<IBasePropertyDeclarationBuilder> basePropertyDeclarationCallback);
-    TBuilder AddBasePropertyDeclaration(BasePropertyDeclarationSyntax basePropertyDeclarationSyntax);
-}
-
 public partial class BasePropertyDeclarationBuilder : IBasePropertyDeclarationBuilder
 {
     public BasePropertyDeclarationSyntax? Syntax { get; set; }

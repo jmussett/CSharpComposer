@@ -10,18 +10,6 @@ public partial interface IXmlElementBuilder
     IXmlElementBuilder AddContentXmlNode(XmlNodeSyntax content);
 }
 
-public interface IWithXmlElement<TBuilder>
-{
-    TBuilder WithXmlElement(string nameStartTagLocalName, Action<IXmlNameBuilder> nameStartTagXmlNameCallback, Action<IXmlElementStartTagBuilder> startTagXmlElementStartTagCallback, string nameEndTagLocalName, Action<IXmlNameBuilder> nameEndTagXmlNameCallback, Action<IXmlElementBuilder> xmlElementCallback);
-    TBuilder WithXmlElement(XmlElementSyntax xmlElementSyntax);
-}
-
-public interface IAddXmlElement<TBuilder>
-{
-    TBuilder AddXmlElement(string nameStartTagLocalName, Action<IXmlNameBuilder> nameStartTagXmlNameCallback, Action<IXmlElementStartTagBuilder> startTagXmlElementStartTagCallback, string nameEndTagLocalName, Action<IXmlNameBuilder> nameEndTagXmlNameCallback, Action<IXmlElementBuilder> xmlElementCallback);
-    TBuilder AddXmlElement(XmlElementSyntax xmlElementSyntax);
-}
-
 public partial class XmlElementBuilder : IXmlElementBuilder
 {
     public XmlElementSyntax Syntax { get; set; }

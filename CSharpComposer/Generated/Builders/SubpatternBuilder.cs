@@ -10,12 +10,6 @@ public partial interface ISubpatternBuilder
     ISubpatternBuilder WithExpressionColon(BaseExpressionColonSyntax expressionColon);
 }
 
-public interface IWithSubpattern<TBuilder>
-{
-    TBuilder WithSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback);
-    TBuilder WithSubpattern(SubpatternSyntax subpatternSyntax);
-}
-
 public interface IAddSubpattern<TBuilder>
 {
     TBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback);

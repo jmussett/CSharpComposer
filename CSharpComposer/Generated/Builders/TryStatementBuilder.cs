@@ -12,18 +12,6 @@ public partial interface ITryStatementBuilder : IStatementBuilder<ITryStatementB
     ITryStatementBuilder WithFinally(FinallyClauseSyntax @finally);
 }
 
-public interface IWithTryStatement<TBuilder>
-{
-    TBuilder WithTryStatement(Action<IBlockBuilder> blockBlockCallback, Action<ITryStatementBuilder> tryStatementCallback);
-    TBuilder WithTryStatement(TryStatementSyntax tryStatementSyntax);
-}
-
-public interface IAddTryStatement<TBuilder>
-{
-    TBuilder AddTryStatement(Action<IBlockBuilder> blockBlockCallback, Action<ITryStatementBuilder> tryStatementCallback);
-    TBuilder AddTryStatement(TryStatementSyntax tryStatementSyntax);
-}
-
 public partial class TryStatementBuilder : ITryStatementBuilder
 {
     public TryStatementSyntax Syntax { get; set; }

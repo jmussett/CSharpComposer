@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithDiscardDesignation<TBuilder>
-{
-    TBuilder WithDiscardDesignation();
-    TBuilder WithDiscardDesignation(DiscardDesignationSyntax discardDesignationSyntax);
-}
-
-public interface IAddDiscardDesignation<TBuilder>
-{
-    TBuilder AddDiscardDesignation();
-    TBuilder AddDiscardDesignation(DiscardDesignationSyntax discardDesignationSyntax);
-}
-
 public partial class DiscardDesignationBuilder
 {
     public static DiscardDesignationSyntax CreateSyntax()

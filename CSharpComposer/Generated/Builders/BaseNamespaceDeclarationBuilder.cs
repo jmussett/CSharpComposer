@@ -20,18 +20,6 @@ public partial interface IBaseNamespaceDeclarationBuilder<TBuilder> : IMemberDec
     TBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
-public interface IWithBaseNamespaceDeclaration<TBuilder>
-{
-    TBuilder WithBaseNamespaceDeclaration(Action<IBaseNamespaceDeclarationBuilder> baseNamespaceDeclarationCallback);
-    TBuilder WithBaseNamespaceDeclaration(BaseNamespaceDeclarationSyntax baseNamespaceDeclarationSyntax);
-}
-
-public interface IAddBaseNamespaceDeclaration<TBuilder>
-{
-    TBuilder AddBaseNamespaceDeclaration(Action<IBaseNamespaceDeclarationBuilder> baseNamespaceDeclarationCallback);
-    TBuilder AddBaseNamespaceDeclaration(BaseNamespaceDeclarationSyntax baseNamespaceDeclarationSyntax);
-}
-
 public partial class BaseNamespaceDeclarationBuilder : IBaseNamespaceDeclarationBuilder
 {
     public BaseNamespaceDeclarationSyntax? Syntax { get; set; }

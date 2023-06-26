@@ -14,18 +14,6 @@ public partial interface ICompilationUnitBuilder : IAddAttribute<ICompilationUni
     ICompilationUnitBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
-public interface IWithCompilationUnit<TBuilder>
-{
-    TBuilder WithCompilationUnit(Action<ICompilationUnitBuilder> compilationUnitCallback);
-    TBuilder WithCompilationUnit(CompilationUnitSyntax compilationUnitSyntax);
-}
-
-public interface IAddCompilationUnit<TBuilder>
-{
-    TBuilder AddCompilationUnit(Action<ICompilationUnitBuilder> compilationUnitCallback);
-    TBuilder AddCompilationUnit(CompilationUnitSyntax compilationUnitSyntax);
-}
-
 public partial class CompilationUnitBuilder : ICompilationUnitBuilder
 {
     public CompilationUnitSyntax Syntax { get; set; }

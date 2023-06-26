@@ -11,18 +11,6 @@ public partial interface IRecordDeclarationBuilder : ITypeDeclarationBuilder<IRe
     IRecordDeclarationBuilder WithCloseBraceToken();
 }
 
-public interface IWithRecordDeclaration<TBuilder>
-{
-    TBuilder WithRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback);
-    TBuilder WithRecordDeclaration(RecordDeclarationSyntax recordDeclarationSyntax);
-}
-
-public interface IAddRecordDeclaration<TBuilder>
-{
-    TBuilder AddRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback);
-    TBuilder AddRecordDeclaration(RecordDeclarationSyntax recordDeclarationSyntax);
-}
-
 public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
 {
     public RecordDeclarationSyntax Syntax { get; set; }

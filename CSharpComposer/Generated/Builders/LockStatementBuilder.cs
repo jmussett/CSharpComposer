@@ -8,18 +8,6 @@ public partial interface ILockStatementBuilder : IStatementBuilder<ILockStatemen
 {
 }
 
-public interface IWithLockStatement<TBuilder>
-{
-    TBuilder WithLockStatement(Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<ILockStatementBuilder> lockStatementCallback);
-    TBuilder WithLockStatement(LockStatementSyntax lockStatementSyntax);
-}
-
-public interface IAddLockStatement<TBuilder>
-{
-    TBuilder AddLockStatement(Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<ILockStatementBuilder> lockStatementCallback);
-    TBuilder AddLockStatement(LockStatementSyntax lockStatementSyntax);
-}
-
 public partial class LockStatementBuilder : ILockStatementBuilder
 {
     public LockStatementSyntax Syntax { get; set; }

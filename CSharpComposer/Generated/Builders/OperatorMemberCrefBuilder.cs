@@ -11,18 +11,6 @@ public partial interface IOperatorMemberCrefBuilder
     IOperatorMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
-public interface IWithOperatorMemberCref<TBuilder>
-{
-    TBuilder WithOperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder> operatorMemberCrefCallback);
-    TBuilder WithOperatorMemberCref(OperatorMemberCrefSyntax operatorMemberCrefSyntax);
-}
-
-public interface IAddOperatorMemberCref<TBuilder>
-{
-    TBuilder AddOperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder> operatorMemberCrefCallback);
-    TBuilder AddOperatorMemberCref(OperatorMemberCrefSyntax operatorMemberCrefSyntax);
-}
-
 public partial class OperatorMemberCrefBuilder : IOperatorMemberCrefBuilder
 {
     public OperatorMemberCrefSyntax Syntax { get; set; }

@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithGroupClause<TBuilder>
-{
-    TBuilder WithGroupClause(Action<IExpressionBuilder> groupExpressionCallback, Action<IExpressionBuilder> byExpressionCallback);
-    TBuilder WithGroupClause(GroupClauseSyntax groupClauseSyntax);
-}
-
-public interface IAddGroupClause<TBuilder>
-{
-    TBuilder AddGroupClause(Action<IExpressionBuilder> groupExpressionCallback, Action<IExpressionBuilder> byExpressionCallback);
-    TBuilder AddGroupClause(GroupClauseSyntax groupClauseSyntax);
-}
-
 public partial class GroupClauseBuilder
 {
     public static GroupClauseSyntax CreateSyntax(Action<IExpressionBuilder> groupExpressionCallback, Action<IExpressionBuilder> byExpressionCallback)

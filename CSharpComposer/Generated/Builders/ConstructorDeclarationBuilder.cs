@@ -14,18 +14,6 @@ public partial interface IConstructorDeclarationBuilder : IBaseMethodDeclaration
     IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerSyntax initializer);
 }
 
-public interface IWithConstructorDeclaration<TBuilder>
-{
-    TBuilder WithConstructorDeclaration(string identifier, Action<IConstructorDeclarationBuilder> constructorDeclarationCallback);
-    TBuilder WithConstructorDeclaration(ConstructorDeclarationSyntax constructorDeclarationSyntax);
-}
-
-public interface IAddConstructorDeclaration<TBuilder>
-{
-    TBuilder AddConstructorDeclaration(string identifier, Action<IConstructorDeclarationBuilder> constructorDeclarationCallback);
-    TBuilder AddConstructorDeclaration(ConstructorDeclarationSyntax constructorDeclarationSyntax);
-}
-
 public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuilder
 {
     public ConstructorDeclarationSyntax Syntax { get; set; }

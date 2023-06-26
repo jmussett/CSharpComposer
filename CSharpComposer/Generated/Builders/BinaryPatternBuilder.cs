@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithBinaryPattern<TBuilder>
-{
-    TBuilder WithBinaryPattern(BinaryPatternKind kind, Action<IPatternBuilder> leftCallback, Action<IPatternBuilder> rightCallback);
-    TBuilder WithBinaryPattern(BinaryPatternSyntax binaryPatternSyntax);
-}
-
-public interface IAddBinaryPattern<TBuilder>
-{
-    TBuilder AddBinaryPattern(BinaryPatternKind kind, Action<IPatternBuilder> leftCallback, Action<IPatternBuilder> rightCallback);
-    TBuilder AddBinaryPattern(BinaryPatternSyntax binaryPatternSyntax);
-}
-
 public partial class BinaryPatternBuilder
 {
     public static BinaryPatternSyntax CreateSyntax(BinaryPatternKind kind, Action<IPatternBuilder> leftCallback, Action<IPatternBuilder> rightCallback)

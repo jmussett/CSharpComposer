@@ -8,18 +8,6 @@ public partial interface ISlicePatternBuilder : IWithPattern<ISlicePatternBuilde
 {
 }
 
-public interface IWithSlicePattern<TBuilder>
-{
-    TBuilder WithSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback);
-    TBuilder WithSlicePattern(SlicePatternSyntax slicePatternSyntax);
-}
-
-public interface IAddSlicePattern<TBuilder>
-{
-    TBuilder AddSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback);
-    TBuilder AddSlicePattern(SlicePatternSyntax slicePatternSyntax);
-}
-
 public partial class SlicePatternBuilder : ISlicePatternBuilder
 {
     public SlicePatternSyntax Syntax { get; set; }

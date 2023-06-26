@@ -14,18 +14,6 @@ public partial interface IMethodDeclarationBuilder : IBaseMethodDeclarationBuild
     IMethodDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
-public interface IWithMethodDeclaration<TBuilder>
-{
-    TBuilder WithMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder> methodDeclarationCallback);
-    TBuilder WithMethodDeclaration(MethodDeclarationSyntax methodDeclarationSyntax);
-}
-
-public interface IAddMethodDeclaration<TBuilder>
-{
-    TBuilder AddMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder> methodDeclarationCallback);
-    TBuilder AddMethodDeclaration(MethodDeclarationSyntax methodDeclarationSyntax);
-}
-
 public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
 {
     public MethodDeclarationSyntax Syntax { get; set; }

@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithQueryContinuation<TBuilder>
-{
-    TBuilder WithQueryContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback);
-    TBuilder WithQueryContinuation(QueryContinuationSyntax queryContinuationSyntax);
-}
-
-public interface IAddQueryContinuation<TBuilder>
-{
-    TBuilder AddQueryContinuation(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback);
-    TBuilder AddQueryContinuation(QueryContinuationSyntax queryContinuationSyntax);
-}
-
 public partial class QueryContinuationBuilder
 {
     public static QueryContinuationSyntax CreateSyntax(string identifier, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback)

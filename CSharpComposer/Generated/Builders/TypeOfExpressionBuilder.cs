@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithTypeOfExpression<TBuilder>
-{
-    TBuilder WithTypeOfExpression(Action<ITypeBuilder> typeCallback);
-    TBuilder WithTypeOfExpression(TypeOfExpressionSyntax typeOfExpressionSyntax);
-}
-
-public interface IAddTypeOfExpression<TBuilder>
-{
-    TBuilder AddTypeOfExpression(Action<ITypeBuilder> typeCallback);
-    TBuilder AddTypeOfExpression(TypeOfExpressionSyntax typeOfExpressionSyntax);
-}
-
 public partial class TypeOfExpressionBuilder
 {
     public static TypeOfExpressionSyntax CreateSyntax(Action<ITypeBuilder> typeCallback)

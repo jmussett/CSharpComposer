@@ -16,18 +16,6 @@ public partial interface IBaseObjectCreationExpressionBuilder<TBuilder> : IAddAr
     TBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
-public interface IWithBaseObjectCreationExpression<TBuilder>
-{
-    TBuilder WithBaseObjectCreationExpression(Action<IBaseObjectCreationExpressionBuilder> baseObjectCreationExpressionCallback);
-    TBuilder WithBaseObjectCreationExpression(BaseObjectCreationExpressionSyntax baseObjectCreationExpressionSyntax);
-}
-
-public interface IAddBaseObjectCreationExpression<TBuilder>
-{
-    TBuilder AddBaseObjectCreationExpression(Action<IBaseObjectCreationExpressionBuilder> baseObjectCreationExpressionCallback);
-    TBuilder AddBaseObjectCreationExpression(BaseObjectCreationExpressionSyntax baseObjectCreationExpressionSyntax);
-}
-
 public partial class BaseObjectCreationExpressionBuilder : IBaseObjectCreationExpressionBuilder
 {
     public BaseObjectCreationExpressionSyntax? Syntax { get; set; }

@@ -10,18 +10,6 @@ public partial interface ISimpleLambdaExpressionBuilder : ILambdaExpressionBuild
     ISimpleLambdaExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody);
 }
 
-public interface IWithSimpleLambdaExpression<TBuilder>
-{
-    TBuilder WithSimpleLambdaExpression(string parameterIdentifier, Action<IParameterBuilder> parameterParameterCallback, Action<ISimpleLambdaExpressionBuilder> simpleLambdaExpressionCallback);
-    TBuilder WithSimpleLambdaExpression(SimpleLambdaExpressionSyntax simpleLambdaExpressionSyntax);
-}
-
-public interface IAddSimpleLambdaExpression<TBuilder>
-{
-    TBuilder AddSimpleLambdaExpression(string parameterIdentifier, Action<IParameterBuilder> parameterParameterCallback, Action<ISimpleLambdaExpressionBuilder> simpleLambdaExpressionCallback);
-    TBuilder AddSimpleLambdaExpression(SimpleLambdaExpressionSyntax simpleLambdaExpressionSyntax);
-}
-
 public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuilder
 {
     public SimpleLambdaExpressionSyntax Syntax { get; set; }

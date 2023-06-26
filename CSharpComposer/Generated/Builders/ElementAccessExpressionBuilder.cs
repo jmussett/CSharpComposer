@@ -8,18 +8,6 @@ public partial interface IElementAccessExpressionBuilder : IAddArgument<IElement
 {
 }
 
-public interface IWithElementAccessExpression<TBuilder>
-{
-    TBuilder WithElementAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder> elementAccessExpressionCallback);
-    TBuilder WithElementAccessExpression(ElementAccessExpressionSyntax elementAccessExpressionSyntax);
-}
-
-public interface IAddElementAccessExpression<TBuilder>
-{
-    TBuilder AddElementAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder> elementAccessExpressionCallback);
-    TBuilder AddElementAccessExpression(ElementAccessExpressionSyntax elementAccessExpressionSyntax);
-}
-
 public partial class ElementAccessExpressionBuilder : IElementAccessExpressionBuilder
 {
     public ElementAccessExpressionSyntax Syntax { get; set; }

@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithBinaryExpression<TBuilder>
-{
-    TBuilder WithBinaryExpression(BinaryExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback);
-    TBuilder WithBinaryExpression(BinaryExpressionSyntax binaryExpressionSyntax);
-}
-
-public interface IAddBinaryExpression<TBuilder>
-{
-    TBuilder AddBinaryExpression(BinaryExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback);
-    TBuilder AddBinaryExpression(BinaryExpressionSyntax binaryExpressionSyntax);
-}
-
 public partial class BinaryExpressionBuilder
 {
     public static BinaryExpressionSyntax CreateSyntax(BinaryExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback)

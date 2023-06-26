@@ -10,18 +10,6 @@ public partial interface IIfStatementBuilder : IStatementBuilder<IIfStatementBui
     IIfStatementBuilder WithElse(ElseClauseSyntax @else);
 }
 
-public interface IWithIfStatement<TBuilder>
-{
-    TBuilder WithIfStatement(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IIfStatementBuilder> ifStatementCallback);
-    TBuilder WithIfStatement(IfStatementSyntax ifStatementSyntax);
-}
-
-public interface IAddIfStatement<TBuilder>
-{
-    TBuilder AddIfStatement(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IIfStatementBuilder> ifStatementCallback);
-    TBuilder AddIfStatement(IfStatementSyntax ifStatementSyntax);
-}
-
 public partial class IfStatementBuilder : IIfStatementBuilder
 {
     public IfStatementSyntax Syntax { get; set; }

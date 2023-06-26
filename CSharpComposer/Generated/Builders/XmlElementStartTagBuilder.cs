@@ -10,18 +10,6 @@ public partial interface IXmlElementStartTagBuilder
     IXmlElementStartTagBuilder AddXmlAttribute(XmlAttributeSyntax attribute);
 }
 
-public interface IWithXmlElementStartTag<TBuilder>
-{
-    TBuilder WithXmlElementStartTag(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlElementStartTagBuilder> xmlElementStartTagCallback);
-    TBuilder WithXmlElementStartTag(XmlElementStartTagSyntax xmlElementStartTagSyntax);
-}
-
-public interface IAddXmlElementStartTag<TBuilder>
-{
-    TBuilder AddXmlElementStartTag(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlElementStartTagBuilder> xmlElementStartTagCallback);
-    TBuilder AddXmlElementStartTag(XmlElementStartTagSyntax xmlElementStartTagSyntax);
-}
-
 public partial class XmlElementStartTagBuilder : IXmlElementStartTagBuilder
 {
     public XmlElementStartTagSyntax Syntax { get; set; }

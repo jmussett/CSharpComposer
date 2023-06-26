@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithReferenceDirectiveTrivia<TBuilder>
-{
-    TBuilder WithReferenceDirectiveTrivia(string file, bool isActive);
-    TBuilder WithReferenceDirectiveTrivia(ReferenceDirectiveTriviaSyntax referenceDirectiveTriviaSyntax);
-}
-
-public interface IAddReferenceDirectiveTrivia<TBuilder>
-{
-    TBuilder AddReferenceDirectiveTrivia(string file, bool isActive);
-    TBuilder AddReferenceDirectiveTrivia(ReferenceDirectiveTriviaSyntax referenceDirectiveTriviaSyntax);
-}
-
 public partial class ReferenceDirectiveTriviaBuilder
 {
     public static ReferenceDirectiveTriviaSyntax CreateSyntax(string file, bool isActive)

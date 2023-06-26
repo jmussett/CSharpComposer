@@ -10,18 +10,6 @@ public partial interface IParenthesizedVariableDesignationBuilder
     IParenthesizedVariableDesignationBuilder AddVariableDesignation(VariableDesignationSyntax variable);
 }
 
-public interface IWithParenthesizedVariableDesignation<TBuilder>
-{
-    TBuilder WithParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback);
-    TBuilder WithParenthesizedVariableDesignation(ParenthesizedVariableDesignationSyntax parenthesizedVariableDesignationSyntax);
-}
-
-public interface IAddParenthesizedVariableDesignation<TBuilder>
-{
-    TBuilder AddParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback);
-    TBuilder AddParenthesizedVariableDesignation(ParenthesizedVariableDesignationSyntax parenthesizedVariableDesignationSyntax);
-}
-
 public partial class ParenthesizedVariableDesignationBuilder : IParenthesizedVariableDesignationBuilder
 {
     public ParenthesizedVariableDesignationSyntax Syntax { get; set; }

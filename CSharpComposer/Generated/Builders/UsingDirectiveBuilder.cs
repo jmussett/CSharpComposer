@@ -12,18 +12,6 @@ public partial interface IUsingDirectiveBuilder
     IUsingDirectiveBuilder WithGlobalKeyword();
 }
 
-public interface IWithUsingDirective<TBuilder>
-{
-    TBuilder WithUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
-    TBuilder WithUsingDirective(UsingDirectiveSyntax usingDirectiveSyntax);
-}
-
-public interface IAddUsingDirective<TBuilder>
-{
-    TBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
-    TBuilder AddUsingDirective(UsingDirectiveSyntax usingDirectiveSyntax);
-}
-
 public partial class UsingDirectiveBuilder : IUsingDirectiveBuilder
 {
     public UsingDirectiveSyntax Syntax { get; set; }

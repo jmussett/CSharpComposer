@@ -8,18 +8,6 @@ public partial interface IReturnStatementBuilder : IStatementBuilder<IReturnStat
 {
 }
 
-public interface IWithReturnStatement<TBuilder>
-{
-    TBuilder WithReturnStatement(Action<IReturnStatementBuilder> returnStatementCallback);
-    TBuilder WithReturnStatement(ReturnStatementSyntax returnStatementSyntax);
-}
-
-public interface IAddReturnStatement<TBuilder>
-{
-    TBuilder AddReturnStatement(Action<IReturnStatementBuilder> returnStatementCallback);
-    TBuilder AddReturnStatement(ReturnStatementSyntax returnStatementSyntax);
-}
-
 public partial class ReturnStatementBuilder : IReturnStatementBuilder
 {
     public ReturnStatementSyntax Syntax { get; set; }

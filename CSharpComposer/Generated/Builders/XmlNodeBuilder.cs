@@ -14,18 +14,6 @@ public partial interface IXmlNodeBuilder
     void AsXmlComment(Action<IXmlCommentBuilder> xmlCommentCallback);
 }
 
-public interface IWithXmlNode<TBuilder>
-{
-    TBuilder WithXmlNode(Action<IXmlNodeBuilder> xmlNodeCallback);
-    TBuilder WithXmlNode(XmlNodeSyntax xmlNodeSyntax);
-}
-
-public interface IAddXmlNode<TBuilder>
-{
-    TBuilder AddXmlNode(Action<IXmlNodeBuilder> xmlNodeCallback);
-    TBuilder AddXmlNode(XmlNodeSyntax xmlNodeSyntax);
-}
-
 public partial class XmlNodeBuilder : IXmlNodeBuilder
 {
     public XmlNodeSyntax? Syntax { get; set; }

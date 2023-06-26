@@ -10,18 +10,6 @@ public partial interface IJoinClauseBuilder : IWithType<IJoinClauseBuilder>
     IJoinClauseBuilder WithInto(JoinIntoClauseSyntax into);
 }
 
-public interface IWithJoinClause<TBuilder>
-{
-    TBuilder WithJoinClause(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder> joinClauseCallback);
-    TBuilder WithJoinClause(JoinClauseSyntax joinClauseSyntax);
-}
-
-public interface IAddJoinClause<TBuilder>
-{
-    TBuilder AddJoinClause(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder> joinClauseCallback);
-    TBuilder AddJoinClause(JoinClauseSyntax joinClauseSyntax);
-}
-
 public partial class JoinClauseBuilder : IJoinClauseBuilder
 {
     public JoinClauseSyntax Syntax { get; set; }

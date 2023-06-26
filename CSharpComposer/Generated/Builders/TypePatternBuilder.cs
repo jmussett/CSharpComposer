@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithTypePattern<TBuilder>
-{
-    TBuilder WithTypePattern(Action<ITypeBuilder> typeCallback);
-    TBuilder WithTypePattern(TypePatternSyntax typePatternSyntax);
-}
-
-public interface IAddTypePattern<TBuilder>
-{
-    TBuilder AddTypePattern(Action<ITypeBuilder> typeCallback);
-    TBuilder AddTypePattern(TypePatternSyntax typePatternSyntax);
-}
-
 public partial class TypePatternBuilder
 {
     public static TypePatternSyntax CreateSyntax(Action<ITypeBuilder> typeCallback)

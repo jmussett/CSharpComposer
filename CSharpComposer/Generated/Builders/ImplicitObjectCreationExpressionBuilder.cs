@@ -8,18 +8,6 @@ public partial interface IImplicitObjectCreationExpressionBuilder : IBaseObjectC
 {
 }
 
-public interface IWithImplicitObjectCreationExpression<TBuilder>
-{
-    TBuilder WithImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder> implicitObjectCreationExpressionCallback);
-    TBuilder WithImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax implicitObjectCreationExpressionSyntax);
-}
-
-public interface IAddImplicitObjectCreationExpression<TBuilder>
-{
-    TBuilder AddImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder> implicitObjectCreationExpressionCallback);
-    TBuilder AddImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax implicitObjectCreationExpressionSyntax);
-}
-
 public partial class ImplicitObjectCreationExpressionBuilder : IImplicitObjectCreationExpressionBuilder
 {
     public ImplicitObjectCreationExpressionSyntax Syntax { get; set; }

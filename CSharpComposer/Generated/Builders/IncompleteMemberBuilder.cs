@@ -8,18 +8,6 @@ public partial interface IIncompleteMemberBuilder : IMemberDeclarationBuilder<II
 {
 }
 
-public interface IWithIncompleteMember<TBuilder>
-{
-    TBuilder WithIncompleteMember(Action<IIncompleteMemberBuilder> incompleteMemberCallback);
-    TBuilder WithIncompleteMember(IncompleteMemberSyntax incompleteMemberSyntax);
-}
-
-public interface IAddIncompleteMember<TBuilder>
-{
-    TBuilder AddIncompleteMember(Action<IIncompleteMemberBuilder> incompleteMemberCallback);
-    TBuilder AddIncompleteMember(IncompleteMemberSyntax incompleteMemberSyntax);
-}
-
 public partial class IncompleteMemberBuilder : IIncompleteMemberBuilder
 {
     public IncompleteMemberSyntax Syntax { get; set; }

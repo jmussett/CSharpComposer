@@ -10,18 +10,6 @@ public partial interface IVariableDeclaratorBuilder : IAddArgument<IVariableDecl
     IVariableDeclaratorBuilder WithInitializer(EqualsValueClauseSyntax initializer);
 }
 
-public interface IWithVariableDeclarator<TBuilder>
-{
-    TBuilder WithVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback);
-    TBuilder WithVariableDeclarator(VariableDeclaratorSyntax variableDeclaratorSyntax);
-}
-
-public interface IAddVariableDeclarator<TBuilder>
-{
-    TBuilder AddVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback);
-    TBuilder AddVariableDeclarator(VariableDeclaratorSyntax variableDeclaratorSyntax);
-}
-
 public partial class VariableDeclaratorBuilder : IVariableDeclaratorBuilder
 {
     public VariableDeclaratorSyntax Syntax { get; set; }

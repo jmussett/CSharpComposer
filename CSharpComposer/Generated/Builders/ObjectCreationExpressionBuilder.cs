@@ -8,18 +8,6 @@ public partial interface IObjectCreationExpressionBuilder : IBaseObjectCreationE
 {
 }
 
-public interface IWithObjectCreationExpression<TBuilder>
-{
-    TBuilder WithObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback);
-    TBuilder WithObjectCreationExpression(ObjectCreationExpressionSyntax objectCreationExpressionSyntax);
-}
-
-public interface IAddObjectCreationExpression<TBuilder>
-{
-    TBuilder AddObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback);
-    TBuilder AddObjectCreationExpression(ObjectCreationExpressionSyntax objectCreationExpressionSyntax);
-}
-
 public partial class ObjectCreationExpressionBuilder : IObjectCreationExpressionBuilder
 {
     public ObjectCreationExpressionSyntax Syntax { get; set; }

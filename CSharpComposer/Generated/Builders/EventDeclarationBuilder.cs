@@ -9,18 +9,6 @@ public partial interface IEventDeclarationBuilder : IBasePropertyDeclarationBuil
     IEventDeclarationBuilder WithSemicolonToken();
 }
 
-public interface IWithEventDeclaration<TBuilder>
-{
-    TBuilder WithEventDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder> eventDeclarationCallback);
-    TBuilder WithEventDeclaration(EventDeclarationSyntax eventDeclarationSyntax);
-}
-
-public interface IAddEventDeclaration<TBuilder>
-{
-    TBuilder AddEventDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder> eventDeclarationCallback);
-    TBuilder AddEventDeclaration(EventDeclarationSyntax eventDeclarationSyntax);
-}
-
 public partial class EventDeclarationBuilder : IEventDeclarationBuilder
 {
     public EventDeclarationSyntax Syntax { get; set; }

@@ -10,18 +10,6 @@ public partial interface IDocumentationCommentTriviaBuilder
     IDocumentationCommentTriviaBuilder AddContentXmlNode(XmlNodeSyntax content);
 }
 
-public interface IWithDocumentationCommentTrivia<TBuilder>
-{
-    TBuilder WithDocumentationCommentTrivia(DocumentationCommentTriviaKind kind, Action<IDocumentationCommentTriviaBuilder> documentationCommentTriviaCallback);
-    TBuilder WithDocumentationCommentTrivia(DocumentationCommentTriviaSyntax documentationCommentTriviaSyntax);
-}
-
-public interface IAddDocumentationCommentTrivia<TBuilder>
-{
-    TBuilder AddDocumentationCommentTrivia(DocumentationCommentTriviaKind kind, Action<IDocumentationCommentTriviaBuilder> documentationCommentTriviaCallback);
-    TBuilder AddDocumentationCommentTrivia(DocumentationCommentTriviaSyntax documentationCommentTriviaSyntax);
-}
-
 public partial class DocumentationCommentTriviaBuilder : IDocumentationCommentTriviaBuilder
 {
     public DocumentationCommentTriviaSyntax Syntax { get; set; }

@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithRefTypeExpression<TBuilder>
-{
-    TBuilder WithRefTypeExpression(Action<IExpressionBuilder> expressionCallback);
-    TBuilder WithRefTypeExpression(RefTypeExpressionSyntax refTypeExpressionSyntax);
-}
-
-public interface IAddRefTypeExpression<TBuilder>
-{
-    TBuilder AddRefTypeExpression(Action<IExpressionBuilder> expressionCallback);
-    TBuilder AddRefTypeExpression(RefTypeExpressionSyntax refTypeExpressionSyntax);
-}
-
 public partial class RefTypeExpressionBuilder
 {
     public static RefTypeExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback)

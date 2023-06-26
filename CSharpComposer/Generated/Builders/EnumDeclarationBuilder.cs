@@ -10,18 +10,6 @@ public partial interface IEnumDeclarationBuilder : IBaseTypeDeclarationBuilder<I
     IEnumDeclarationBuilder AddEnumMemberDeclaration(EnumMemberDeclarationSyntax member);
 }
 
-public interface IWithEnumDeclaration<TBuilder>
-{
-    TBuilder WithEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback);
-    TBuilder WithEnumDeclaration(EnumDeclarationSyntax enumDeclarationSyntax);
-}
-
-public interface IAddEnumDeclaration<TBuilder>
-{
-    TBuilder AddEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback);
-    TBuilder AddEnumDeclaration(EnumDeclarationSyntax enumDeclarationSyntax);
-}
-
 public partial class EnumDeclarationBuilder : IEnumDeclarationBuilder
 {
     public EnumDeclarationSyntax Syntax { get; set; }

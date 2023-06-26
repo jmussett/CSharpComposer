@@ -8,18 +8,6 @@ public partial interface IEmptyStatementBuilder : IStatementBuilder<IEmptyStatem
 {
 }
 
-public interface IWithEmptyStatement<TBuilder>
-{
-    TBuilder WithEmptyStatement(Action<IEmptyStatementBuilder> emptyStatementCallback);
-    TBuilder WithEmptyStatement(EmptyStatementSyntax emptyStatementSyntax);
-}
-
-public interface IAddEmptyStatement<TBuilder>
-{
-    TBuilder AddEmptyStatement(Action<IEmptyStatementBuilder> emptyStatementCallback);
-    TBuilder AddEmptyStatement(EmptyStatementSyntax emptyStatementSyntax);
-}
-
 public partial class EmptyStatementBuilder : IEmptyStatementBuilder
 {
     public EmptyStatementSyntax Syntax { get; set; }

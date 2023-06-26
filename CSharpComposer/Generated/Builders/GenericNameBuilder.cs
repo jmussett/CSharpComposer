@@ -8,18 +8,6 @@ public partial interface IGenericNameBuilder : IAddType<IGenericNameBuilder>
 {
 }
 
-public interface IWithGenericName<TBuilder>
-{
-    TBuilder WithGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback);
-    TBuilder WithGenericName(GenericNameSyntax genericNameSyntax);
-}
-
-public interface IAddGenericName<TBuilder>
-{
-    TBuilder AddGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback);
-    TBuilder AddGenericName(GenericNameSyntax genericNameSyntax);
-}
-
 public partial class GenericNameBuilder : IGenericNameBuilder
 {
     public GenericNameSyntax Syntax { get; set; }

@@ -10,18 +10,6 @@ public partial interface IDelegateDeclarationBuilder : IMemberDeclarationBuilder
     IDelegateDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
-public interface IWithDelegateDeclaration<TBuilder>
-{
-    TBuilder WithDelegateDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback);
-    TBuilder WithDelegateDeclaration(DelegateDeclarationSyntax delegateDeclarationSyntax);
-}
-
-public interface IAddDelegateDeclaration<TBuilder>
-{
-    TBuilder AddDelegateDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback);
-    TBuilder AddDelegateDeclaration(DelegateDeclarationSyntax delegateDeclarationSyntax);
-}
-
 public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
 {
     public DelegateDeclarationSyntax Syntax { get; set; }

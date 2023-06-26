@@ -12,18 +12,6 @@ public partial interface IParenthesizedLambdaExpressionBuilder : ILambdaExpressi
     IParenthesizedLambdaExpressionBuilder WithReturnType(TypeSyntax returnType);
 }
 
-public interface IWithParenthesizedLambdaExpression<TBuilder>
-{
-    TBuilder WithParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder> parenthesizedLambdaExpressionCallback);
-    TBuilder WithParenthesizedLambdaExpression(ParenthesizedLambdaExpressionSyntax parenthesizedLambdaExpressionSyntax);
-}
-
-public interface IAddParenthesizedLambdaExpression<TBuilder>
-{
-    TBuilder AddParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder> parenthesizedLambdaExpressionCallback);
-    TBuilder AddParenthesizedLambdaExpression(ParenthesizedLambdaExpressionSyntax parenthesizedLambdaExpressionSyntax);
-}
-
 public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambdaExpressionBuilder
 {
     public ParenthesizedLambdaExpressionSyntax Syntax { get; set; }

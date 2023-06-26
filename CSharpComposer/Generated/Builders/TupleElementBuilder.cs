@@ -9,18 +9,6 @@ public partial interface ITupleElementBuilder
     ITupleElementBuilder WithIdentifier(string identifier);
 }
 
-public interface IWithTupleElement<TBuilder>
-{
-    TBuilder WithTupleElement(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder> tupleElementCallback);
-    TBuilder WithTupleElement(TupleElementSyntax tupleElementSyntax);
-}
-
-public interface IAddTupleElement<TBuilder>
-{
-    TBuilder AddTupleElement(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder> tupleElementCallback);
-    TBuilder AddTupleElement(TupleElementSyntax tupleElementSyntax);
-}
-
 public partial class TupleElementBuilder : ITupleElementBuilder
 {
     public TupleElementSyntax Syntax { get; set; }

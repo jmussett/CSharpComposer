@@ -8,18 +8,6 @@ public partial interface IClassDeclarationBuilder : ITypeDeclarationBuilder<ICla
 {
 }
 
-public interface IWithClassDeclaration<TBuilder>
-{
-    TBuilder WithClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback);
-    TBuilder WithClassDeclaration(ClassDeclarationSyntax classDeclarationSyntax);
-}
-
-public interface IAddClassDeclaration<TBuilder>
-{
-    TBuilder AddClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback);
-    TBuilder AddClassDeclaration(ClassDeclarationSyntax classDeclarationSyntax);
-}
-
 public partial class ClassDeclarationBuilder : IClassDeclarationBuilder
 {
     public ClassDeclarationSyntax Syntax { get; set; }

@@ -34,18 +34,6 @@ public partial interface IMemberDeclarationBuilder<TBuilder> : IAddAttribute<TBu
     TBuilder AddModifierToken(SyntaxToken modifier);
 }
 
-public interface IWithMemberDeclaration<TBuilder>
-{
-    TBuilder WithMemberDeclaration(Action<IMemberDeclarationBuilder> memberDeclarationCallback);
-    TBuilder WithMemberDeclaration(MemberDeclarationSyntax memberDeclarationSyntax);
-}
-
-public interface IAddMemberDeclaration<TBuilder>
-{
-    TBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberDeclarationCallback);
-    TBuilder AddMemberDeclaration(MemberDeclarationSyntax memberDeclarationSyntax);
-}
-
 public partial class MemberDeclarationBuilder : IMemberDeclarationBuilder
 {
     public MemberDeclarationSyntax? Syntax { get; set; }

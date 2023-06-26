@@ -11,18 +11,6 @@ public partial interface IUsingStatementBuilder : IStatementBuilder<IUsingStatem
     IUsingStatementBuilder WithAwaitKeyword();
 }
 
-public interface IWithUsingStatement<TBuilder>
-{
-    TBuilder WithUsingStatement(Action<IStatementBuilder> statementCallback, Action<IUsingStatementBuilder> usingStatementCallback);
-    TBuilder WithUsingStatement(UsingStatementSyntax usingStatementSyntax);
-}
-
-public interface IAddUsingStatement<TBuilder>
-{
-    TBuilder AddUsingStatement(Action<IStatementBuilder> statementCallback, Action<IUsingStatementBuilder> usingStatementCallback);
-    TBuilder AddUsingStatement(UsingStatementSyntax usingStatementSyntax);
-}
-
 public partial class UsingStatementBuilder : IUsingStatementBuilder
 {
     public UsingStatementSyntax Syntax { get; set; }

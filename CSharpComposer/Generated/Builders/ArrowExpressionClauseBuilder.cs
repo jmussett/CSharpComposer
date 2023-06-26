@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithArrowExpressionClause<TBuilder>
-{
-    TBuilder WithArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
-    TBuilder WithArrowExpressionClause(ArrowExpressionClauseSyntax arrowExpressionClauseSyntax);
-}
-
-public interface IAddArrowExpressionClause<TBuilder>
-{
-    TBuilder AddArrowExpressionClause(Action<IExpressionBuilder> expressionCallback);
-    TBuilder AddArrowExpressionClause(ArrowExpressionClauseSyntax arrowExpressionClauseSyntax);
-}
-
 public partial class ArrowExpressionClauseBuilder
 {
     public static ArrowExpressionClauseSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback)

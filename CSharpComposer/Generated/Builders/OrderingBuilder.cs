@@ -9,12 +9,6 @@ public partial interface IOrderingBuilder
     IOrderingBuilder WithAscendingOrDescendingKeyword(AscendingOrDescendingKeyword ascendingOrDescendingKeyword);
 }
 
-public interface IWithOrdering<TBuilder>
-{
-    TBuilder WithOrdering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder> orderingCallback);
-    TBuilder WithOrdering(OrderingSyntax orderingSyntax);
-}
-
 public interface IAddOrdering<TBuilder>
 {
     TBuilder AddOrdering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder> orderingCallback);

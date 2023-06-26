@@ -9,18 +9,6 @@ public partial interface IImplicitArrayCreationExpressionBuilder
     IImplicitArrayCreationExpressionBuilder AddCommaToken(SyntaxToken comma);
 }
 
-public interface IWithImplicitArrayCreationExpression<TBuilder>
-{
-    TBuilder WithImplicitArrayCreationExpression(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback, Action<IImplicitArrayCreationExpressionBuilder> implicitArrayCreationExpressionCallback);
-    TBuilder WithImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax implicitArrayCreationExpressionSyntax);
-}
-
-public interface IAddImplicitArrayCreationExpression<TBuilder>
-{
-    TBuilder AddImplicitArrayCreationExpression(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback, Action<IImplicitArrayCreationExpressionBuilder> implicitArrayCreationExpressionCallback);
-    TBuilder AddImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax implicitArrayCreationExpressionSyntax);
-}
-
 public partial class ImplicitArrayCreationExpressionBuilder : IImplicitArrayCreationExpressionBuilder
 {
     public ImplicitArrayCreationExpressionSyntax Syntax { get; set; }

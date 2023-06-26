@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithAssignmentExpression<TBuilder>
-{
-    TBuilder WithAssignmentExpression(AssignmentExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback);
-    TBuilder WithAssignmentExpression(AssignmentExpressionSyntax assignmentExpressionSyntax);
-}
-
-public interface IAddAssignmentExpression<TBuilder>
-{
-    TBuilder AddAssignmentExpression(AssignmentExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback);
-    TBuilder AddAssignmentExpression(AssignmentExpressionSyntax assignmentExpressionSyntax);
-}
-
 public partial class AssignmentExpressionBuilder
 {
     public static AssignmentExpressionSyntax CreateSyntax(AssignmentExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback)

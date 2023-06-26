@@ -8,18 +8,6 @@ public partial interface IPrimaryConstructorBaseTypeBuilder : IAddArgument<IPrim
 {
 }
 
-public interface IWithPrimaryConstructorBaseType<TBuilder>
-{
-    TBuilder WithPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback);
-    TBuilder WithPrimaryConstructorBaseType(PrimaryConstructorBaseTypeSyntax primaryConstructorBaseTypeSyntax);
-}
-
-public interface IAddPrimaryConstructorBaseType<TBuilder>
-{
-    TBuilder AddPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback);
-    TBuilder AddPrimaryConstructorBaseType(PrimaryConstructorBaseTypeSyntax primaryConstructorBaseTypeSyntax);
-}
-
 public partial class PrimaryConstructorBaseTypeBuilder : IPrimaryConstructorBaseTypeBuilder
 {
     public PrimaryConstructorBaseTypeSyntax Syntax { get; set; }

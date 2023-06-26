@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithSimpleBaseType<TBuilder>
-{
-    TBuilder WithSimpleBaseType(Action<ITypeBuilder> typeCallback);
-    TBuilder WithSimpleBaseType(SimpleBaseTypeSyntax simpleBaseTypeSyntax);
-}
-
-public interface IAddSimpleBaseType<TBuilder>
-{
-    TBuilder AddSimpleBaseType(Action<ITypeBuilder> typeCallback);
-    TBuilder AddSimpleBaseType(SimpleBaseTypeSyntax simpleBaseTypeSyntax);
-}
-
 public partial class SimpleBaseTypeBuilder
 {
     public static SimpleBaseTypeSyntax CreateSyntax(Action<ITypeBuilder> typeCallback)

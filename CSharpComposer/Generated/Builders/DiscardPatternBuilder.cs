@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithDiscardPattern<TBuilder>
-{
-    TBuilder WithDiscardPattern();
-    TBuilder WithDiscardPattern(DiscardPatternSyntax discardPatternSyntax);
-}
-
-public interface IAddDiscardPattern<TBuilder>
-{
-    TBuilder AddDiscardPattern();
-    TBuilder AddDiscardPattern(DiscardPatternSyntax discardPatternSyntax);
-}
-
 public partial class DiscardPatternBuilder
 {
     public static DiscardPatternSyntax CreateSyntax()

@@ -10,18 +10,6 @@ public partial interface IIndexerDeclarationBuilder : IBasePropertyDeclarationBu
     IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
 }
 
-public interface IWithIndexerDeclaration<TBuilder>
-{
-    TBuilder WithIndexerDeclaration(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder> indexerDeclarationCallback);
-    TBuilder WithIndexerDeclaration(IndexerDeclarationSyntax indexerDeclarationSyntax);
-}
-
-public interface IAddIndexerDeclaration<TBuilder>
-{
-    TBuilder AddIndexerDeclaration(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder> indexerDeclarationCallback);
-    TBuilder AddIndexerDeclaration(IndexerDeclarationSyntax indexerDeclarationSyntax);
-}
-
 public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
 {
     public IndexerDeclarationSyntax Syntax { get; set; }

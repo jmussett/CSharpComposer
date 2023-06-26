@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithRelationalPattern<TBuilder>
-{
-    TBuilder WithRelationalPattern(RelationalPatternOperatorToken relationalPatternOperatorToken, Action<IExpressionBuilder> expressionCallback);
-    TBuilder WithRelationalPattern(RelationalPatternSyntax relationalPatternSyntax);
-}
-
-public interface IAddRelationalPattern<TBuilder>
-{
-    TBuilder AddRelationalPattern(RelationalPatternOperatorToken relationalPatternOperatorToken, Action<IExpressionBuilder> expressionCallback);
-    TBuilder AddRelationalPattern(RelationalPatternSyntax relationalPatternSyntax);
-}
-
 public partial class RelationalPatternBuilder
 {
     public static RelationalPatternSyntax CreateSyntax(RelationalPatternOperatorToken relationalPatternOperatorToken, Action<IExpressionBuilder> expressionCallback)

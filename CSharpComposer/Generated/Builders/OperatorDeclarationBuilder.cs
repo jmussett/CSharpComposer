@@ -13,18 +13,6 @@ public partial interface IOperatorDeclarationBuilder : IBaseMethodDeclarationBui
     IOperatorDeclarationBuilder WithCheckedKeyword();
 }
 
-public interface IWithOperatorDeclaration<TBuilder>
-{
-    TBuilder WithOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder> operatorDeclarationCallback);
-    TBuilder WithOperatorDeclaration(OperatorDeclarationSyntax operatorDeclarationSyntax);
-}
-
-public interface IAddOperatorDeclaration<TBuilder>
-{
-    TBuilder AddOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder> operatorDeclarationCallback);
-    TBuilder AddOperatorDeclaration(OperatorDeclarationSyntax operatorDeclarationSyntax);
-}
-
 public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
 {
     public OperatorDeclarationSyntax Syntax { get; set; }

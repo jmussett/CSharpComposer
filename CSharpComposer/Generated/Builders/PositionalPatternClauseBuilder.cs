@@ -14,12 +14,6 @@ public interface IWithPositionalPatternClause<TBuilder>
     TBuilder WithPositionalPatternClause(PositionalPatternClauseSyntax positionalPatternClauseSyntax);
 }
 
-public interface IAddPositionalPatternClause<TBuilder>
-{
-    TBuilder AddPositionalPatternClause(Action<IPositionalPatternClauseBuilder> positionalPatternClauseCallback);
-    TBuilder AddPositionalPatternClause(PositionalPatternClauseSyntax positionalPatternClauseSyntax);
-}
-
 public partial class PositionalPatternClauseBuilder : IPositionalPatternClauseBuilder
 {
     public PositionalPatternClauseSyntax Syntax { get; set; }

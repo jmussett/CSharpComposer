@@ -12,18 +12,6 @@ public partial interface IDestructorDeclarationBuilder : IBaseMethodDeclarationB
     IDestructorDeclarationBuilder WithBody(BlockSyntax body);
 }
 
-public interface IWithDestructorDeclaration<TBuilder>
-{
-    TBuilder WithDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback);
-    TBuilder WithDestructorDeclaration(DestructorDeclarationSyntax destructorDeclarationSyntax);
-}
-
-public interface IAddDestructorDeclaration<TBuilder>
-{
-    TBuilder AddDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback);
-    TBuilder AddDestructorDeclaration(DestructorDeclarationSyntax destructorDeclarationSyntax);
-}
-
 public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilder
 {
     public DestructorDeclarationSyntax Syntax { get; set; }

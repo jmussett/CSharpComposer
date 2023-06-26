@@ -12,18 +12,6 @@ public partial interface ISwitchStatementBuilder : IStatementBuilder<ISwitchStat
     ISwitchStatementBuilder AddSwitchSection(SwitchSectionSyntax section);
 }
 
-public interface IWithSwitchStatement<TBuilder>
-{
-    TBuilder WithSwitchStatement(Action<IExpressionBuilder> expressionCallback, Action<ISwitchStatementBuilder> switchStatementCallback);
-    TBuilder WithSwitchStatement(SwitchStatementSyntax switchStatementSyntax);
-}
-
-public interface IAddSwitchStatement<TBuilder>
-{
-    TBuilder AddSwitchStatement(Action<IExpressionBuilder> expressionCallback, Action<ISwitchStatementBuilder> switchStatementCallback);
-    TBuilder AddSwitchStatement(SwitchStatementSyntax switchStatementSyntax);
-}
-
 public partial class SwitchStatementBuilder : ISwitchStatementBuilder
 {
     public SwitchStatementSyntax Syntax { get; set; }

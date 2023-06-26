@@ -10,18 +10,6 @@ public partial interface IArrayCreationExpressionBuilder
     IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
-public interface IWithArrayCreationExpression<TBuilder>
-{
-    TBuilder WithArrayCreationExpression(Action<ITypeBuilder> typeElementTypeCallback, Action<IArrayTypeBuilder> typeArrayTypeCallback, Action<IArrayCreationExpressionBuilder> arrayCreationExpressionCallback);
-    TBuilder WithArrayCreationExpression(ArrayCreationExpressionSyntax arrayCreationExpressionSyntax);
-}
-
-public interface IAddArrayCreationExpression<TBuilder>
-{
-    TBuilder AddArrayCreationExpression(Action<ITypeBuilder> typeElementTypeCallback, Action<IArrayTypeBuilder> typeArrayTypeCallback, Action<IArrayCreationExpressionBuilder> arrayCreationExpressionCallback);
-    TBuilder AddArrayCreationExpression(ArrayCreationExpressionSyntax arrayCreationExpressionSyntax);
-}
-
 public partial class ArrayCreationExpressionBuilder : IArrayCreationExpressionBuilder
 {
     public ArrayCreationExpressionSyntax Syntax { get; set; }

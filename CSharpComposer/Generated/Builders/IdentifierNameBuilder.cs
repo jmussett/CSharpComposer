@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithIdentifierName<TBuilder>
-{
-    TBuilder WithIdentifierName(string identifier);
-    TBuilder WithIdentifierName(IdentifierNameSyntax identifierNameSyntax);
-}
-
-public interface IAddIdentifierName<TBuilder>
-{
-    TBuilder AddIdentifierName(string identifier);
-    TBuilder AddIdentifierName(IdentifierNameSyntax identifierNameSyntax);
-}
-
 public partial class IdentifierNameBuilder
 {
     public static IdentifierNameSyntax CreateSyntax(string identifier)

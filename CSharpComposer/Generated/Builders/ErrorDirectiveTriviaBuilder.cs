@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithErrorDirectiveTrivia<TBuilder>
-{
-    TBuilder WithErrorDirectiveTrivia(bool isActive);
-    TBuilder WithErrorDirectiveTrivia(ErrorDirectiveTriviaSyntax errorDirectiveTriviaSyntax);
-}
-
-public interface IAddErrorDirectiveTrivia<TBuilder>
-{
-    TBuilder AddErrorDirectiveTrivia(bool isActive);
-    TBuilder AddErrorDirectiveTrivia(ErrorDirectiveTriviaSyntax errorDirectiveTriviaSyntax);
-}
-
 public partial class ErrorDirectiveTriviaBuilder
 {
     public static ErrorDirectiveTriviaSyntax CreateSyntax(bool isActive)

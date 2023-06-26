@@ -8,18 +8,6 @@ public partial interface IElementBindingExpressionBuilder : IAddArgument<IElemen
 {
 }
 
-public interface IWithElementBindingExpression<TBuilder>
-{
-    TBuilder WithElementBindingExpression(Action<IElementBindingExpressionBuilder> elementBindingExpressionCallback);
-    TBuilder WithElementBindingExpression(ElementBindingExpressionSyntax elementBindingExpressionSyntax);
-}
-
-public interface IAddElementBindingExpression<TBuilder>
-{
-    TBuilder AddElementBindingExpression(Action<IElementBindingExpressionBuilder> elementBindingExpressionCallback);
-    TBuilder AddElementBindingExpression(ElementBindingExpressionSyntax elementBindingExpressionSyntax);
-}
-
 public partial class ElementBindingExpressionBuilder : IElementBindingExpressionBuilder
 {
     public ElementBindingExpressionSyntax Syntax { get; set; }

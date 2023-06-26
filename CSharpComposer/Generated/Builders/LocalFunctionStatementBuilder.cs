@@ -15,18 +15,6 @@ public partial interface ILocalFunctionStatementBuilder : IStatementBuilder<ILoc
     ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
-public interface IWithLocalFunctionStatement<TBuilder>
-{
-    TBuilder WithLocalFunctionStatement(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder> localFunctionStatementCallback);
-    TBuilder WithLocalFunctionStatement(LocalFunctionStatementSyntax localFunctionStatementSyntax);
-}
-
-public interface IAddLocalFunctionStatement<TBuilder>
-{
-    TBuilder AddLocalFunctionStatement(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder> localFunctionStatementCallback);
-    TBuilder AddLocalFunctionStatement(LocalFunctionStatementSyntax localFunctionStatementSyntax);
-}
-
 public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuilder
 {
     public LocalFunctionStatementSyntax Syntax { get; set; }

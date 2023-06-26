@@ -10,18 +10,6 @@ public partial interface IBaseExpressionColonBuilder
     void AsNameColon(string nameIdentifier);
 }
 
-public interface IWithBaseExpressionColon<TBuilder>
-{
-    TBuilder WithBaseExpressionColon(Action<IBaseExpressionColonBuilder> baseExpressionColonCallback);
-    TBuilder WithBaseExpressionColon(BaseExpressionColonSyntax baseExpressionColonSyntax);
-}
-
-public interface IAddBaseExpressionColon<TBuilder>
-{
-    TBuilder AddBaseExpressionColon(Action<IBaseExpressionColonBuilder> baseExpressionColonCallback);
-    TBuilder AddBaseExpressionColon(BaseExpressionColonSyntax baseExpressionColonSyntax);
-}
-
 public partial class BaseExpressionColonBuilder : IBaseExpressionColonBuilder
 {
     public BaseExpressionColonSyntax? Syntax { get; set; }

@@ -27,18 +27,6 @@ public partial interface IDirectiveTriviaBuilder
     void AsNullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder> nullableDirectiveTriviaCallback);
 }
 
-public interface IWithDirectiveTrivia<TBuilder>
-{
-    TBuilder WithDirectiveTrivia(Action<IDirectiveTriviaBuilder> directiveTriviaCallback);
-    TBuilder WithDirectiveTrivia(DirectiveTriviaSyntax directiveTriviaSyntax);
-}
-
-public interface IAddDirectiveTrivia<TBuilder>
-{
-    TBuilder AddDirectiveTrivia(Action<IDirectiveTriviaBuilder> directiveTriviaCallback);
-    TBuilder AddDirectiveTrivia(DirectiveTriviaSyntax directiveTriviaSyntax);
-}
-
 public partial class DirectiveTriviaBuilder : IDirectiveTriviaBuilder
 {
     public DirectiveTriviaSyntax? Syntax { get; set; }

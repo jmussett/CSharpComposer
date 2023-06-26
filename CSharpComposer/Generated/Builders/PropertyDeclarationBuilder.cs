@@ -12,18 +12,6 @@ public partial interface IPropertyDeclarationBuilder : IBasePropertyDeclarationB
     IPropertyDeclarationBuilder WithInitializer(EqualsValueClauseSyntax initializer);
 }
 
-public interface IWithPropertyDeclaration<TBuilder>
-{
-    TBuilder WithPropertyDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder> propertyDeclarationCallback);
-    TBuilder WithPropertyDeclaration(PropertyDeclarationSyntax propertyDeclarationSyntax);
-}
-
-public interface IAddPropertyDeclaration<TBuilder>
-{
-    TBuilder AddPropertyDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder> propertyDeclarationCallback);
-    TBuilder AddPropertyDeclaration(PropertyDeclarationSyntax propertyDeclarationSyntax);
-}
-
 public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
 {
     public PropertyDeclarationSyntax Syntax { get; set; }

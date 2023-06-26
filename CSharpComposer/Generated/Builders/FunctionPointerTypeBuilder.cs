@@ -12,18 +12,6 @@ public partial interface IFunctionPointerTypeBuilder
     IFunctionPointerTypeBuilder AddFunctionPointerParameter(FunctionPointerParameterSyntax parameter);
 }
 
-public interface IWithFunctionPointerType<TBuilder>
-{
-    TBuilder WithFunctionPointerType(Action<IFunctionPointerTypeBuilder> functionPointerTypeCallback);
-    TBuilder WithFunctionPointerType(FunctionPointerTypeSyntax functionPointerTypeSyntax);
-}
-
-public interface IAddFunctionPointerType<TBuilder>
-{
-    TBuilder AddFunctionPointerType(Action<IFunctionPointerTypeBuilder> functionPointerTypeCallback);
-    TBuilder AddFunctionPointerType(FunctionPointerTypeSyntax functionPointerTypeSyntax);
-}
-
 public partial class FunctionPointerTypeBuilder : IFunctionPointerTypeBuilder
 {
     public FunctionPointerTypeSyntax Syntax { get; set; }

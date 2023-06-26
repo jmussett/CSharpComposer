@@ -12,18 +12,6 @@ public partial interface ITypeParameterConstraintBuilder
     void AsDefaultConstraint();
 }
 
-public interface IWithTypeParameterConstraint<TBuilder>
-{
-    TBuilder WithTypeParameterConstraint(Action<ITypeParameterConstraintBuilder> typeParameterConstraintCallback);
-    TBuilder WithTypeParameterConstraint(TypeParameterConstraintSyntax typeParameterConstraintSyntax);
-}
-
-public interface IAddTypeParameterConstraint<TBuilder>
-{
-    TBuilder AddTypeParameterConstraint(Action<ITypeParameterConstraintBuilder> typeParameterConstraintCallback);
-    TBuilder AddTypeParameterConstraint(TypeParameterConstraintSyntax typeParameterConstraintSyntax);
-}
-
 public partial class TypeParameterConstraintBuilder : ITypeParameterConstraintBuilder
 {
     public TypeParameterConstraintSyntax? Syntax { get; set; }

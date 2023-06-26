@@ -4,18 +4,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public interface IWithCastExpression<TBuilder>
-{
-    TBuilder WithCastExpression(Action<ITypeBuilder> typeCallback, Action<IExpressionBuilder> expressionCallback);
-    TBuilder WithCastExpression(CastExpressionSyntax castExpressionSyntax);
-}
-
-public interface IAddCastExpression<TBuilder>
-{
-    TBuilder AddCastExpression(Action<ITypeBuilder> typeCallback, Action<IExpressionBuilder> expressionCallback);
-    TBuilder AddCastExpression(CastExpressionSyntax castExpressionSyntax);
-}
-
 public partial class CastExpressionBuilder
 {
     public static CastExpressionSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IExpressionBuilder> expressionCallback)
