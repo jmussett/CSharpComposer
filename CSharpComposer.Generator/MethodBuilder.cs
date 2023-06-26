@@ -176,7 +176,18 @@ internal class MethodBuilder
                 // Only use interfaces where the field names match the types
                 if (!NodeValidator.IsAnyList(field.Type) && field.Name == NameFactory.CreateTypeName(field.Type))
                 {
-                    if (!field.IsOverride)
+                    // Even if we are an override, base fields can be excluded if any derived types are non-optional.
+                    // So include the method interface if we find any non optional derived base fields. 
+                    if (field.IsOverride && _tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
+                    {
+                        var derivedFields = _tree.GetDerivedFields(baseType, baseField);
+
+                        if (derivedFields.Any(x => !x.IsOptional))
+                        {
+                            builder.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                        }
+                    }
+                    else if (!field.IsOverride)
                     {
                         builder.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
                     }
@@ -202,23 +213,27 @@ internal class MethodBuilder
 
             // Remove overriden field methods from interfaces
             // TODO: don't remove if overriding field is optional?
-            if (!isImplementation && !isChoice && field.IsOverride && _tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
+            if (!isImplementation && !isChoice && field.IsOverride)
             {
-                if (!baseField.IsOptional)
+                if (_tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
                 {
-                    continue;
-                }
-                else if (baseField.IsOptional)
-                {
-                    // Are any derived fields mandatory? If so, do not skip.
-
-                    var derivedFields = _tree.GetDerivedFields(baseType, field);
-
-                    if (!derivedFields.Any() || !derivedFields.Any(x => !x.IsOptional))
+                    if (!baseField.IsOptional)
                     {
                         continue;
                     }
+                    else if (baseField.IsOptional)
+                    {
+                        // Are any derived fields mandatory? If so, do not skip.
+
+                        var derivedFields = _tree.GetDerivedFields(baseType, field);
+
+                        if (!derivedFields.Any() || !derivedFields.Any(x => !x.IsOptional))
+                        {
+                            continue;
+                        }
+                    }
                 }
+                
             }
 
             if (NodeValidator.IsAnyList(field.Type))
