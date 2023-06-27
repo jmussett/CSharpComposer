@@ -227,7 +227,7 @@ void CreateEnums(EnumStore enumStore)
            .WithFileScopedNamespace("CSharpComposer", ns =>
                ns.WithEnum(kvp.Key, x =>
                {
-                   x.WithAccessModifier(SyntaxBuilder.Types.TypeAccessModifier.Public);
+                   x.WithAccessModifier(TypeAccessModifier.Public);
 
                    foreach (var kind in kvp.Value.Kinds.Where(x => x.Name != "IdentifierToken").Select(x => x.Name).Distinct())
                    {
@@ -248,7 +248,7 @@ void CreateEnums(EnumStore enumStore)
            .WithFileScopedNamespace("CSharpComposer", ns =>
                ns.WithEnum(kvp.Key, x =>
                {
-                   x.WithAccessModifier(SyntaxBuilder.Types.TypeAccessModifier.Public);
+                   x.WithAccessModifier(TypeAccessModifier.Public);
 
                    foreach (var kind in kvp.Value.Kinds.Select(x => x.Name).Distinct())
                    {
