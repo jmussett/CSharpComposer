@@ -1,8 +1,7 @@
 ﻿using Humanizer;
-using SyntaxBuilder.Builders;
 using CSharpComposer.Generator.Models;
-using SyntaxBuilder.Types;
-using SyntaxBuilder;
+using CSharpComposer.Extensions;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace CSharpComposer.Generator;
 
@@ -98,33 +97,33 @@ internal class MethodBuilder
             return;
         }
 
-        builder.WithMethod(
+        builder.AddMethodDeclaration(
+            x => x.AsPredefinedType(PredefinedTypeKeyword.VoidKeyword),
             $"As{shortenedName}",
-            x => x.AsVoid(),
             x => {
                 _parametersBuilder.WithLiteralParameter(x, shortenedName.Camelize(), tokenKind);
 
                 if (isImplementation)
                 {
-                    x.WithAccessModifier(MemberAccessModifier.Public);
+                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
                     x.WithBody(x =>
                     {
                         if (tokenKind.Name.EndsWith("Token"))
                         {
-                            x.WithStatement($"var {tokenKind.Name.Camelize()} = SyntaxFactory.Literal({shortenedName.Camelize()});");
-                            x.WithStatement($"Syntax = SyntaxFactory.{typeName}(SyntaxKind.{kind.Name}, {tokenKind.Name.Camelize()});");
+                            x.AddStatement($"var {tokenKind.Name.Camelize()} = SyntaxFactory.Literal({shortenedName.Camelize()});");
+                            x.AddStatement($"Syntax = SyntaxFactory.{typeName}(SyntaxKind.{kind.Name}, {tokenKind.Name.Camelize()});");
                         }
                         else
                         {
-                            x.WithStatement($"Syntax = SyntaxFactory.{typeName}(SyntaxKind.{kind.Name});");
+                            x.AddStatement($"Syntax = SyntaxFactory.{typeName}(SyntaxKind.{kind.Name});");
                         }
-
-                        return x;
                     });
                 }
-
-                return x;
+                else
+                {
+                    x.WithSemicolon();
+                }
             }
         );
     }
@@ -132,27 +131,28 @@ internal class MethodBuilder
     private void WithCastMethod<TBuilder>(TBuilder builder, bool isImplementation, Node derivedNode)
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
-        builder.WithMethod(
+        builder.AddMethodDeclaration(
+            x => x.AsPredefinedType(PredefinedTypeKeyword.VoidKeyword),
             $"As{derivedNode.Name[..^"Syntax".Length]}",
-            x => x.AsVoid(),
             x => {
                 _parametersBuilder.WithParameters(x, derivedNode);
 
                 if (isImplementation)
                 {
-                    x.WithAccessModifier(MemberAccessModifier.Public);
+                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
                     x.WithBody(x =>
                     {
                         var builderName = NameFactory.CreateBuilderName(derivedNode.Name);
                         var arguments = _argumentsBuilder.WithArguments(x, derivedNode, false);
 
-                        x.WithStatement($"Syntax = {builderName}.CreateSyntax({string.Join(", ", arguments)});");
-                        return x;
+                        x.AddStatement($"Syntax = {builderName}.CreateSyntax({string.Join(", ", arguments)});");
                     });
                 }
-                
-                return x;
+                else
+                {
+                    x.WithSemicolon();
+                }
             }
         );
     }
@@ -184,12 +184,12 @@ internal class MethodBuilder
 
                         if (derivedFields.Any(x => !x.IsOptional))
                         {
-                            builder.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                            builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(x => x.ParseTypeName(returnType)))));
                         }
                     }
                     else if (!field.IsOverride)
                     {
-                        builder.WithBaseType(x => x.AsGeneric($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                        builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(x => x.ParseTypeName(returnType)))));
                     }
                     
                     continue;
@@ -203,7 +203,7 @@ internal class MethodBuilder
                 {
                     if (!field.IsOverride)
                     {
-                        builder.WithBaseType(x => x.AsGeneric($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.WithTypeArgument(x => x.AsType(returnType))));
+                        builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.AddType(x => x.ParseTypeName(returnType)))));
                     }
                     
 
@@ -291,9 +291,9 @@ internal class MethodBuilder
         // Exclude builder methods for syntaz tokens.
         if (!NodeValidator.IsSyntaxToken(listType))
         {
-            builder.WithMethod(
+            builder.AddMethodDeclaration(
+                x => x.ParseTypeName(returnType),
                 methodName,
-                x => x.AsType(returnType),
                 x => {
                     var listTypeField = field;
 
@@ -341,12 +341,12 @@ internal class MethodBuilder
                     }
                     else
                     {
-                        x.WithParameter($"{singularName}Callback", $"Action<I{builderName}>");
+                        x.AddParameter($"{singularName}Callback", x => x.WithType(x => x.ParseTypeName($"Action<I{builderName}>")));
                     }
 
                     if (isImplementation)
                     {
-                        x.WithAccessModifier(MemberAccessModifier.Public);
+                        x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
                         x.WithBody(x =>
                         {
@@ -356,11 +356,11 @@ internal class MethodBuilder
                             {
                                 var arguments = _argumentsBuilder.WithArguments(x, listTypeNode, false);
 
-                                x.WithStatement($"var {syntaxVariableName} = {builderName}.CreateSyntax({string.Join(", ", arguments)});");
+                                x.AddStatement($"var {syntaxVariableName} = {builderName}.CreateSyntax({string.Join(", ", arguments)});");
                             }
                             else
                             {
-                                x.WithStatement($"var {syntaxVariableName} = {builderName}.CreateSyntax({singularName}Callback);");
+                                x.AddStatement($"var {syntaxVariableName} = {builderName}.CreateSyntax({singularName}Callback);");
                             }
 
                             if (parentListSyntaxName is not null)
@@ -371,25 +371,25 @@ internal class MethodBuilder
                                 var grandParentListType = NameFactory.ExtractParentTypeFromListType(listTypeField.Type);
                                 var grandParentListTypeName = NameFactory.CreateTypeName(grandParentListType);
 
-                                x.WithStatement($"var {grandParentListType.Camelize()} = SyntaxFactory.{grandParentListTypeName}(new [] {{{NameFactory.CreateSafeIdentifier(singularName.Camelize())}}});");
-                                x.WithStatement($"var {syntaxVariableName} = SyntaxFactory.{parentListTypeName}({grandParentListType.Camelize()});");
+                                x.AddStatement($"var {grandParentListType.Camelize()} = SyntaxFactory.{grandParentListTypeName}(new [] {{{NameFactory.CreateSafeIdentifier(singularName.Camelize())}}});");
+                                x.AddStatement($"var {syntaxVariableName} = SyntaxFactory.{parentListTypeName}({grandParentListType.Camelize()});");
                             }
 
-                            x.WithStatement($"Syntax = Syntax.{addListTypeMethodName}({syntaxVariableName});");
+                            x.AddStatement($"Syntax = Syntax.{addListTypeMethodName}({syntaxVariableName});");
 
-                            x.WithReturnStatement(x => x.ParseExpression("this"));
-
-                            return x;
+                            x.AddStatement("return this;");
                         });
                     }
-
-                    return x;
+                    else
+                    {
+                        x.WithSemicolon();
+                    }
                 });
         }
         
-        builder.WithMethod(
+        builder.AddMethodDeclaration(
+            x => x.ParseTypeName(returnType),
             methodName,
-            x => x.AsType(returnType),
             x => {
                 var listTypeField = field;
 
@@ -426,11 +426,11 @@ internal class MethodBuilder
 
                 var singularName = NameFactory.CreateSingularName(listTypeField);
 
-                x.WithParameter(NameFactory.CreateSafeIdentifier(singularName.Camelize()), listTypeName);
+                x.AddParameter(NameFactory.CreateSafeIdentifier(singularName.Camelize()), x => x.WithType(x => x.ParseTypeName(listTypeName)));
 
                 if (isImplementation)
                 {
-                    x.WithAccessModifier(MemberAccessModifier.Public);
+                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
                     x.WithBody(x =>
                     {
@@ -444,22 +444,20 @@ internal class MethodBuilder
                             var grandParentListType = NameFactory.ExtractParentTypeFromListType(listTypeField.Type);
                             var grandParentListTypeName = NameFactory.CreateTypeName(grandParentListType);
 
-                            x.WithStatement($"var {grandParentListType.Camelize()} = SyntaxFactory.{grandParentListTypeName}(new [] {{{NameFactory.CreateSafeIdentifier(singularName.Camelize())}}});");
-                            x.WithStatement($"var {syntaxVariableName} = SyntaxFactory.{parentListTypeName}({grandParentListType.Camelize()});");
+                            x.AddStatement($"var {grandParentListType.Camelize()} = SyntaxFactory.{grandParentListTypeName}(new [] {{{NameFactory.CreateSafeIdentifier(singularName.Camelize())}}});");
+                            x.AddStatement($"var {syntaxVariableName} = SyntaxFactory.{parentListTypeName}({grandParentListType.Camelize()});");
                         }
 
-                        x.WithStatement($"Syntax = Syntax.{addListTypeMethodName}({NameFactory.CreateSafeIdentifier(syntaxVariableName)});");
+                        x.AddStatement($"Syntax = Syntax.{addListTypeMethodName}({NameFactory.CreateSafeIdentifier(syntaxVariableName)});");
 
-                        x.WithReturnStatement(x => x.ParseExpression("this"));
-
-                        return x;
+                        x.AddStatement("return this;");
                     });
                 }
-
-                return x;
+                else
+                {
+                    x.WithSemicolon();
+                }
             });
-
-        
     }
 
     
@@ -471,27 +469,27 @@ internal class MethodBuilder
         {
             foreach (var kind in field.Kinds)
             {
-                builder.WithMethod(
+                builder.AddMethodDeclaration(
+                    x => x.ParseTypeName(returnType),
                     $"With{kind.Name}",
-                    x => x.AsType(returnType),
                     x =>
                     {
-                        x.WithParameter(NameFactory.CreateSafeIdentifier(kind.Name.Camelize()), x => x.AsType($"{kind.Name}Syntax"));
+                        x.AddParameter(NameFactory.CreateSafeIdentifier(kind.Name.Camelize()), x => x.WithType(x => x.ParseTypeName($"{kind.Name}Syntax")));
 
                         if (isImplementation)
                         {
-                            x.WithAccessModifier(MemberAccessModifier.Public);
+                            x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
                             x.WithBody(x =>
                             {
-                                x.WithStatement($"Syntax = Syntax.With{field.Name}({NameFactory.CreateSafeIdentifier(kind.Name.Camelize())});");
-                                x.WithReturnStatement(x => x.ParseExpression("this"));
-                                return x;
+                                x.AddStatement($"Syntax = Syntax.With{field.Name}({NameFactory.CreateSafeIdentifier(kind.Name.Camelize())});");
+                                x.AddStatement("return this;");
                             });
                         }
-                        
-
-                        return x;
+                        else
+                        {
+                            x.WithSemicolon();
+                        }
                     }
                 );
 
@@ -505,27 +503,23 @@ internal class MethodBuilder
 
                 //        if (isImplementation)
                 //        {
-                //            x.WithAccessModifier(MemberAccessModifier.Public);
+                //            x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
                 //            x.WithBody(x =>
                 //            {
-                //                x.WithStatement($"var {kindArgument} = {kind.Name}Builder.CreateSyntax({kindArgument}Callback);");
-                //                x.WithStatement($"Syntax = Syntax.With{field.Name}({kindArgument});");
+                //                x.AddStatement($"var {kindArgument} = {kind.Name}Builder.CreateSyntax({kindArgument}Callback);");
+                //                x.AddStatement($"Syntax = Syntax.With{field.Name}({kindArgument});");
                 //                x.WithReturnStatement(x => x.ParseExpression("this"));
-                //                return x;
                 //            });
                 //        }
-
-
-                //        return x;
                 //    }
                 //);
             }
         }
 
-        builder.WithMethod(
+        builder.AddMethodDeclaration(
+            x => x.ParseTypeName(returnType),
             $"With{field.Name}",
-            x => x.AsType(returnType),
             x =>
             {
                 var fieldName = field.Name.Camelize();
@@ -540,62 +534,62 @@ internal class MethodBuilder
                 }
                 else
                 {
-                    
                     var callbackType = $"Action<I{builderName}>";
 
-                    x.WithParameter($"{fieldName}Callback", callbackType);
+                    x.AddParameter($"{fieldName}Callback", x => x.WithType(x => x.ParseTypeName(callbackType)));
                 }
 
                 if (isImplementation)
                 {
-                    x.WithAccessModifier(MemberAccessModifier.Public);
+                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
                     x.WithBody(x =>
                     {
                         if (referenceType is Node referenceTypeNode)
                         {
                             var arguments = _argumentsBuilder.WithArguments(x, referenceTypeNode, false);
-                            x.WithStatement($"var {fieldName}Syntax = {builderName}.CreateSyntax({string.Join(", ", arguments)});");
+                            x.AddStatement($"var {fieldName}Syntax = {builderName}.CreateSyntax({string.Join(", ", arguments)});");
                         }
                         else
                         {
                             var builderName = NameFactory.CreateBuilderName(field.Type);
                             var callbackType = $"Action<I{builderName}>";
 
-                            x.WithStatement($"var {fieldName}Syntax = {builderName}.CreateSyntax({fieldName}Callback);");
+                            x.AddStatement($"var {fieldName}Syntax = {builderName}.CreateSyntax({fieldName}Callback);");
                         }
 
-                        x = x.WithStatement($"Syntax = Syntax.With{field.Name}({fieldName}Syntax);");
-                        x = x.WithReturnStatement(x => x.ParseExpression("this"));
-
-                        return x;
+                        x = x.AddStatement($"Syntax = Syntax.With{field.Name}({fieldName}Syntax);");
+                        x = x.AddStatement("return this;");
                     });
                 }
-
-                return x;
+                else
+                {
+                    x.WithSemicolon();
+                }
             }
         );
 
-        builder.WithMethod(
+        builder.AddMethodDeclaration(
+            x => x.ParseTypeName(returnType),
             $"With{field.Name}",
-            x => x.AsType(returnType),
             x =>
             {
-                x.WithParameter(NameFactory.CreateSafeIdentifier(field.Name.Camelize()), x => x.AsType(field.Type));
+                x.AddParameter(NameFactory.CreateSafeIdentifier(field.Name.Camelize()), x => x.WithType(x => x.ParseTypeName(field.Type)));
 
                 if (isImplementation)
                 {
-                    x.WithAccessModifier(MemberAccessModifier.Public);
+                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
                     x.WithBody(x =>
                     {
-                        x = x.WithStatement($"Syntax = Syntax.With{field.Name}({NameFactory.CreateSafeIdentifier(field.Name.Camelize())});");
-                        x = x.WithReturnStatement(x => x.ParseExpression("this"));
-                        return x;
+                        x = x.AddStatement($"Syntax = Syntax.With{field.Name}({NameFactory.CreateSafeIdentifier(field.Name.Camelize())});");
+                        x = x.AddStatement("return this;");
                     });
                 }
-
-                return x;
+                else
+                {
+                    x.WithSemicolon();
+                }
             }
         );
     }
@@ -603,9 +597,9 @@ internal class MethodBuilder
     private void WithTokenMethod<TBuilder>(TBuilder builder, bool isImplementation, string returnType, Field field)
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
-        builder.WithMethod(
+        builder.AddMethodDeclaration(
+            x => x.ParseTypeName(returnType),
             $"With{field.Name}",
-            x => x.AsType(returnType),
             x =>
             {
                 if (field.Kinds.Count == 1)
@@ -614,7 +608,7 @@ internal class MethodBuilder
 
                     if (kind.Name == "IdentifierToken")
                     {
-                        x.WithParameter<string>("identifier");
+                        x.AddParameter("identifier", x => x.WithType(x => x.ParseTypeName("string")));
                     }
                 }
                 else
@@ -623,12 +617,12 @@ internal class MethodBuilder
 
                     _enumStore.TryAddEnum(field.Name, field);
 
-                    x.WithParameter(field.Name.Camelize(), field.Name);
+                    x.AddParameter(field.Name.Camelize(), x => x.WithType(x => x.ParseTypeName(field.Name)));
                 }
 
                 if (isImplementation)
                 {
-                    x.WithAccessModifier(MemberAccessModifier.Public);
+                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
                     x.WithBody(x =>
                     {
@@ -638,18 +632,18 @@ internal class MethodBuilder
 
                             if (kind.Name == "IdentifierToken")
                             {
-                                x.WithStatement("Syntax = Syntax.WithIdentifier(SyntaxFactory.Identifier(identifier));");
+                                x.AddStatement("Syntax = Syntax.WithIdentifier(SyntaxFactory.Identifier(identifier));");
                             }
                             else
                             {
-                                x.WithStatement($"Syntax = Syntax.With{field.Name}(SyntaxFactory.Token(SyntaxKind.{kind.Name}));");
+                                x.AddStatement($"Syntax = Syntax.With{field.Name}(SyntaxFactory.Token(SyntaxKind.{kind.Name}));");
                             }
                         }
                         else
                         {
                             // TODO: Build with builder
                             // TODO: Not supported message??
-                            x.WithStatement($$"""
+                            x.AddStatement($$"""
                                 Syntax = Syntax.With{{field.Name}}(SyntaxFactory.Token(
                                     {{field.Name.Camelize()}} switch
                                     {
@@ -662,15 +656,14 @@ internal class MethodBuilder
                             );
                         }
 
-                        x.WithReturnStatement(x => x.ParseExpression("this"));
-                        return x;
+                        x.AddStatement("return this;");
                     });
                 }
-
-                return x;
+                else
+                {
+                    x.WithSemicolon();
+                }
             }
         );
     }
-
-
 }

@@ -1,10 +1,10 @@
 ﻿using Humanizer;
-using SyntaxBuilder.Builders;
 using CSharpComposer.Generator.Models;
-using SyntaxBuilder.Types;
 using System.Reflection.Emit;
 using System.Xml.Linq;
 using System.Net.Http.Headers;
+using CSharpComposer.Extensions;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace CSharpComposer.Generator;
 
@@ -34,10 +34,10 @@ internal class InterfaceBuilder
 
         if (type is AbstractNode || NodeValidator.IsTokenized(type))
         {
-            builder.WithInterface(interfaceName, builder =>
+            builder.AddInterfaceDeclaration(interfaceName, builder =>
             {
-                builder.WithAccessModifier(TypeAccessModifier.Public);
-                builder.WithPartialModifier();
+                builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
 
                 // I don't think we need this as we don't want to polute base type casting methods with builder methods
 
@@ -49,18 +49,16 @@ internal class InterfaceBuilder
                 //});
 
                 _methodBuilder.WithCastMethods(builder, false, type);
-
-                return builder;
             });
         }
 
         if (_tree.HasOptionalChildren(type.Name))
         {
             builder
-                .WithInterface(interfaceName, x =>
+                .AddInterfaceDeclaration(interfaceName, x =>
                 {
-                    x.WithAccessModifier(TypeAccessModifier.Public);
-                    x.WithPartialModifier();
+                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
 
                     var returnType = interfaceName;
 
@@ -68,7 +66,7 @@ internal class InterfaceBuilder
                     {
                         returnType = "TBuilder";
 
-                        x.WithTypeParameter(returnType);
+                        x.AddTypeParameter(returnType, x => { });
                     }
 
                     if (NodeValidator.IsValidNode(type.Base))
@@ -78,13 +76,11 @@ internal class InterfaceBuilder
                         if (_tree.HasOptionalChildren(baseType.Name))
                         {
                             var baseBuilderName = NameFactory.CreateBuilderName(type.Base);
-                            x.WithBaseType(x => x.AsType($"I{baseBuilderName}<{returnType}>"));
+                            x.AddBaseType(x => x.AsSimpleBaseType(x => x.ParseTypeName($"I{baseBuilderName}<{returnType}>")));
                         }
                     }
 
                     _methodBuilder.WithChildMethods(x, false, _tree, returnType, type, type.Children);
-
-                    return x;
                 });
         }
 
@@ -95,54 +91,68 @@ internal class InterfaceBuilder
         {
             // TODO: Remove when unused
             builder
-                .WithInterface($"IWith{typeName}", x =>
+                .AddInterfaceDeclaration($"IWith{typeName}", x =>
                 {
-                    x.WithAccessModifier(TypeAccessModifier.Public);
-                    x.WithTypeParameter("TBuilder");
+                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                    x.AddTypeParameter("TBuilder", x => { });
 
                     if (type is AbstractNode)
                     {
-                        x.WithMethod($"With{typeName}", x => x.AsType("TBuilder"), x => x.WithParameter($"{typeName.Camelize()}Callback", $"Action<{interfaceName}>"));
+                        x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"With{typeName}", x => x
+                            .AddParameter($"{typeName.Camelize()}Callback", x => x
+                                .WithType( x=> x.ParseTypeName($"Action<{interfaceName}>")))
+                            .WithSemicolon()
+                        );
                     }
                     else if (type is Node node)
                     {
-                        x.WithMethod($"With{typeName}", x => x.AsType("TBuilder"), x =>
+                        x.AddMethodDeclaration( x => x.ParseTypeName("TBuilder"), $"With{typeName}", x =>
                         {
                             _parameterBuilder.WithParameters(x, node);
 
-                            return x;
+                            x.WithSemicolon();
                         });
                     }
 
-                    x.WithMethod($"With{typeName}", x => x.AsType("TBuilder"), x => x.WithParameter(type.Name.Camelize(), type.Name));
-
-                    return x;
+                    x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"With{typeName}", x => x
+                        .AddParameter(type.Name.Camelize(), x => x
+                            .WithType(x => x.ParseTypeName(type.Name))
+                        )
+                        .WithSemicolon()
+                    );
                 });
 
             // TODO: Remove when unused
             builder
-               .WithInterface($"IAdd{typeName}", x =>
+               .AddInterfaceDeclaration($"IAdd{typeName}", x =>
                {
-                   x.WithAccessModifier(TypeAccessModifier.Public);
-                   x.WithTypeParameter("TBuilder");
+                   x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                   x.AddTypeParameter("TBuilder", x => { });
 
                    if (type is AbstractNode)
                    {
-                       x.WithMethod($"Add{typeName}", x => x.AsType("TBuilder"), x => x.WithParameter($"{typeName.Camelize()}Callback", $"Action<{interfaceName}>"));
+                       x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"Add{typeName}", x => x
+                           .AddParameter($"{typeName.Camelize()}Callback", x => x
+                               .WithType(x => x.ParseTypeName($"Action<{interfaceName}>")))
+                           .WithSemicolon()
+                       );
                    }
                    else if (type is Node node)
                    {
-                       x.WithMethod($"Add{typeName}", x => x.AsType("TBuilder"), x =>
+                       x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"Add{typeName}", x =>
                        {
                            _parameterBuilder.WithParameters(x, node);
 
-                           return x;
+                           x.WithSemicolon();
                        });
                    }
 
-                   x.WithMethod($"Add{typeName}", x => x.AsType("TBuilder"), x => x.WithParameter(type.Name.Camelize(), type.Name));
-
-                   return x;
+                   x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"Add{typeName}", x => x
+                       .AddParameter(type.Name.Camelize(), x => x
+                           .WithType(x => x.ParseTypeName(type.Name))
+                       )
+                       .WithSemicolon()
+                   );
                });
         }
 

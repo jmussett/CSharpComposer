@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SyntaxBuilder\SyntaxBuilder.csproj" />
+    <ProjectReference Include="..\CSharpComposer\CSharpComposer.csproj" />
   </ItemGroup>
-
+  
 </Project>

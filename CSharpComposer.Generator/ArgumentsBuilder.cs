@@ -1,6 +1,4 @@
 ﻿using Humanizer;
-using SyntaxBuilder;
-using SyntaxBuilder.Builders;
 using CSharpComposer.Generator.Models;
 
 namespace CSharpComposer.Generator;
@@ -35,14 +33,16 @@ internal class ArgumentsBuilder
 
                 // TODO: Build with builder
                 // TODO: Not supported message??
-                blockBuilder.WithStatement($$"""
-                        var {{variableName}} = {{kindArgument}} switch
-                            {
-                                {{string.Join("\r\n", node.Kinds.Where(x => x.Name != "IdentifierToken").Select(x => x.Name).Distinct().Select(x =>
-                                    $"{enumName}.{x} => SyntaxKind.{x},"))}}
-                                _ => throw new NotSupportedException()
-                            };
-                        """);
+                blockBuilder.AddStatement(
+                    $$"""
+                    var {{variableName}} = {{kindArgument}} switch
+                    {
+                        {{string.Join("\r\n", node.Kinds.Where(x => x.Name != "IdentifierToken").Select(x => x.Name).Distinct().Select(x =>
+                            $"{enumName}.{x} => SyntaxKind.{x},"))}}
+                        _ => throw new NotSupportedException()
+                    };
+                    """
+                );
 
                 arguments.Add(variableName);
             }
@@ -116,14 +116,14 @@ internal class ArgumentsBuilder
 
                         // TODO: Build with builder
                         // TODO: Not supported message??
-                        blockBuilder.WithStatement(
+                        blockBuilder.AddStatement(
                             $$"""
                             var {{variableName}} = {{kindArgument}} switch
-                                {
-                                    {{string.Join("\r\n", node.Kinds.Where(x => x.Name != "IdentifierToken").Select(x => x.Name).Distinct().Select((x, i) =>
-                                                $"{enumName}.{x} => SyntaxFactory.Token(SyntaxKind.{childField.Kinds[i].Name}),"))}}
-                                    _ => throw new NotSupportedException()
-                                };
+                            {
+                                {{string.Join("\r\n", node.Kinds.Where(x => x.Name != "IdentifierToken").Select(x => x.Name).Distinct().Select((x, i) =>
+                                            $"{enumName}.{x} => SyntaxFactory.Token(SyntaxKind.{childField.Kinds[i].Name}),"))}}
+                                _ => throw new NotSupportedException()
+                            };
                             """
                         );
 
@@ -153,7 +153,7 @@ internal class ArgumentsBuilder
 
                         var listTypeName = NameFactory.CreateTypeName(childField.Type);
 
-                        blockBuilder.WithStatement($"var {variableName} = SyntaxFactory.{listTypeName}();");
+                        blockBuilder.AddStatement($"var {variableName} = SyntaxFactory.{listTypeName}();");
 
                         arguments.Add(variableName);
                     }
@@ -180,7 +180,7 @@ internal class ArgumentsBuilder
                 {
                     var identifierArgument = $"{identifierName}Token";
 
-                    blockBuilder.WithStatement($"var {identifierArgument} = SyntaxFactory.Identifier({NameFactory.CreateSafeIdentifier(identifierName)});");
+                    blockBuilder.AddStatement($"var {identifierArgument} = SyntaxFactory.Identifier({NameFactory.CreateSafeIdentifier(identifierName)});");
 
                     arguments.Add(identifierArgument);
                 }
@@ -207,7 +207,7 @@ internal class ArgumentsBuilder
 
                     // TODO: Build with builder
                     // TODO: Not supported message??
-                    blockBuilder.WithStatement($$"""
+                    blockBuilder.AddStatement($$"""
                         var {{variableName}} = {{NameFactory.CreateSafeIdentifier(enumArgument)}} switch
                             {
                                 {{string.Join("\r\n", field.Kinds.Where(x => x.Name != "IdentifierToken").Select(x => x.Name).Distinct().Select(x =>
@@ -231,7 +231,7 @@ internal class ArgumentsBuilder
 
                 if (createArguments)
                 {
-                    blockBuilder.WithStatement($"var {literalName}Token = SyntaxFactory.Literal({NameFactory.CreateSafeIdentifier(literalName)});");
+                    blockBuilder.AddStatement($"var {literalName}Token = SyntaxFactory.Literal({NameFactory.CreateSafeIdentifier(literalName)});");
 
                     arguments.Add($"{literalName}Token");
                 }
@@ -249,7 +249,7 @@ internal class ArgumentsBuilder
 
                 var tokenName = field.Kinds.FirstOrDefault()?.Name ?? field.Name;
 
-                blockBuilder.WithStatement($"var {tokenArgument}Token = SyntaxFactory.Token(SyntaxKind.{tokenName});");
+                blockBuilder.AddStatement($"var {tokenArgument}Token = SyntaxFactory.Token(SyntaxKind.{tokenName});");
 
                 arguments.Add($"{tokenArgument}Token");
             }
@@ -279,7 +279,7 @@ internal class ArgumentsBuilder
                     {
                         variableName = $"{variableName}Syntax";
 
-                        blockBuilder.WithStatement($"var {variableName} = {builderName}.CreateSyntax({string.Join(", ", referencedArguments)});");
+                        blockBuilder.AddStatement($"var {variableName} = {builderName}.CreateSyntax({string.Join(", ", referencedArguments)});");
 
                         arguments.Add(variableName);
                     }
@@ -295,7 +295,7 @@ internal class ArgumentsBuilder
                 {
                     variableName = $"{variableName}Syntax";
 
-                    blockBuilder.WithStatement($"var {variableName} = {builderName}.CreateSyntax({field.Name.Camelize()}Callback);");
+                    blockBuilder.AddStatement($"var {variableName} = {builderName}.CreateSyntax({field.Name.Camelize()}Callback);");
 
                     arguments.Add(variableName);
                 }

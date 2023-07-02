@@ -1,7 +1,7 @@
 ﻿using Humanizer;
-using SyntaxBuilder.Builders;
 using CSharpComposer.Generator.Models;
-using SyntaxBuilder.Types;
+using CSharpComposer.Extensions;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace CSharpComposer.Generator;
 
@@ -12,7 +12,6 @@ internal class ImplementationBuilder
     private readonly ArgumentsBuilder _argumentsBuilder;
     private readonly MethodBuilder _methodBuilder;
     
-
     public ImplementationBuilder(Tree tree, ParametersBuilder parametersBuilder, ArgumentsBuilder argumentsBuilder, MethodBuilder methodBuilder)
     {
         _tree = tree;
@@ -30,20 +29,20 @@ internal class ImplementationBuilder
 
         var builderName = NameFactory.CreateBuilderName(type.Name);
 
-        builder.WithClass(builderName, builder =>
+        builder.AddClassDeclaration(builderName, builder =>
         {
-            builder.WithAccessModifier(TypeAccessModifier.Public);
-            builder.WithPartialModifier();
+            builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+            builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
             if (type is AbstractNode || NodeValidator.IsTokenized(type))
             {
                 // TODO: Do we exclude base types when abstract nodes have no derived types?
                 // Abstract nodes with no derived types? unlikely
-                builder.WithBaseType(x => x.AsType($"I{builderName}"));
+                builder.AddBaseType(x => x.AsSimpleBaseType(x => x.ParseTypeName($"I{builderName}")));
 
-                builder.WithProperty("Syntax", x => x.AsType($"{type.Name}?"), x => x
-                    .WithAccessModifier(MemberAccessModifier.Public)
-                    .WithGetter()
-                    .WithSetter()
+                builder.AddPropertyDeclaration(x => x.ParseTypeName($"{type.Name}?"), "Syntax", x => x
+                    .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                    .AddAccessorDeclaration(AccessorDeclarationKind.GetAccessorDeclaration, x => x.WithSemicolon())
+                    .AddAccessorDeclaration(AccessorDeclarationKind.SetAccessorDeclaration, x => x.WithSemicolon())
                 );
             }
 
@@ -52,20 +51,28 @@ internal class ImplementationBuilder
                 // If we don't have optional children; interface, syntax and constructor are excluded.
                 if (_tree.HasOptionalChildren(type.Name))
                 {
-                    builder.WithBaseType(x => x.AsType($"I{builderName}"));
+                    builder.AddBaseType(x => x.AsSimpleBaseType(x => x.ParseTypeName($"I{builderName}")));
 
-                    builder.WithProperty("Syntax", x => x.AsType(type.Name), x => x
-                        .WithAccessModifier(MemberAccessModifier.Public)
-                        .WithGetter()
-                        .WithSetter()
+                    builder.AddPropertyDeclaration(x => x.ParseTypeName(type.Name), "Syntax", 
+                        x => x
+                        .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                        .AddAccessorDeclaration(AccessorDeclarationKind.GetAccessorDeclaration, x => x.WithSemicolon())
+                        .AddAccessorDeclaration(AccessorDeclarationKind.SetAccessorDeclaration, x => x.WithSemicolon())
                     );
 
-                    builder.WithConstructor(x => x
-                        .WithAccessModifier(MemberAccessModifier.Public)
-                        .WithParameter("syntax", x => x.AsType(type.Name))
+                    builder.AddConstructorDeclaration(builderName, x => x
+                        .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                        .AddParameter("syntax", x => x.WithType(x => x.ParseTypeName(type.Name)))
                         .WithBody(x => x
-                            .WithExpression(x => x
-                                .AsAssignment(x => x.AsName("Syntax"), AssignmentType.Equal, x => x.AsName("syntax"))
+                            .AddStatement(x =>
+                                x.AsExpressionStatement(x => 
+                                    x.AsAssignmentExpression(
+                                        AssignmentExpressionKind.SimpleAssignmentExpression,
+                                        x => x.ParseExpression("Syntax"),
+                                        x => x.ParseExpression("syntax")
+                                    ),
+                                    x => { }
+                                )
                             )
                         )
                     );
@@ -79,8 +86,6 @@ internal class ImplementationBuilder
             WithCreateSyntaxMethod(builder, type);
 
             _methodBuilder.WithMethods(builder, true, type);
-
-            return builder;
         });
 
         return builder;
@@ -92,36 +97,40 @@ internal class ImplementationBuilder
 
         if (type is AbstractNode || NodeValidator.IsTokenized(type))
         {
-            builder.WithMethod(
+            builder.AddMethodDeclaration(
+                x => x.ParseTypeName(type.Name),
                 "CreateSyntax",
-                x => x.AsType(type.Name),
                 x => x
-                    .WithAccessModifier(MemberAccessModifier.Public)
-                    .WithStaticModifier()
-                    .WithParameter("callback", $"Action<I{builderName}>")
+                    .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                    .AddModifierToken(SyntaxFactory.Token(SyntaxKind.StaticKeyword))
+                    .AddParameter("callback", x => x.WithType(x => x.ParseTypeName($"Action<I{builderName}>")))
                     .WithBody(x =>
                     {
-                        x.WithStatement($"var builder = new {builderName}();")
-                         .WithStatement($"callback(builder);")
-                         .WithIfStatement(
-                            x => x.ParseExpression("builder.Syntax is null"),
-                            x => x.WithStatement($"throw new InvalidOperationException(\"{type.Name} has not been specified\");")
+                        x.AddStatement($"var builder = new {builderName}();")
+                         .AddStatement($"callback(builder);")
+                         .AddStatement(
+                            x => x.AsIfStatement(
+                                x => x.ParseExpression("builder.Syntax is null"),
+                                x => x.AsBlock(x =>
+                                    x.AddStatement($"throw new InvalidOperationException(\"{type.Name} has not been specified\");")
+                                ),
+                                x => { }
+                            )
                          )
-                         .WithStatement("return builder.Syntax;");
-                        return x;
+                         .AddStatement("return builder.Syntax;");
                     })
-            );
+            ); ;
         }
 
         if (type is Node node && !NodeValidator.IsTokenized(type))
         {
-            builder.WithMethod(
+            builder.AddMethodDeclaration(
+                x => x.ParseTypeName(type.Name),
                 "CreateSyntax",
-                x => x.AsType(type.Name),
                 methodBuilder =>
                 {
-                    methodBuilder.WithAccessModifier(MemberAccessModifier.Public)
-                        .WithStaticModifier();
+                    methodBuilder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                        .AddModifierToken(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
 
                     _parametersBuilder.WithParameters(methodBuilder, node);
 
@@ -133,22 +142,18 @@ internal class ImplementationBuilder
 
                         if (_tree.HasOptionalChildren(type.Name))
                         {
-                            blockBuilder.WithStatement($"var syntax = SyntaxFactory.{typeName}({string.Join(", ", arguments)});");
+                            blockBuilder.AddStatement($"var syntax = SyntaxFactory.{typeName}({string.Join(", ", arguments)});");
 
                             var builderName = NameFactory.CreateBuilderName(type.Name);
-                            blockBuilder.WithStatement($"var builder = new {builderName}(syntax);");
-                            blockBuilder.WithStatement($"{typeName.Camelize()}Callback(builder);");
-                            blockBuilder.WithStatement("return builder.Syntax;");
+                            blockBuilder.AddStatement($"var builder = new {builderName}(syntax);");
+                            blockBuilder.AddStatement($"{typeName.Camelize()}Callback(builder);");
+                            blockBuilder.AddStatement("return builder.Syntax;");
                         }
                         else
                         {
-                            blockBuilder.WithStatement($"return SyntaxFactory.{typeName}({string.Join(", ", arguments)});");
+                            blockBuilder.AddStatement($"return SyntaxFactory.{typeName}({string.Join(", ", arguments)});");
                         }
-
-                        return blockBuilder;
                     });
-
-                    return methodBuilder;
                 }
             );
         }
@@ -160,7 +165,7 @@ internal class ImplementationBuilder
     //    builder.WithMethod(
     //        NameFactory.CreateReferenceAddMethodName(field, referencedNodeField),
     //        x => x.AsType($"I{builderName}"),
-    //        x => x.WithAccessModifier(MemberAccessModifier.Public)
+    //        x => x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
     //            .WithBody(x =>
     //            {
     //                x = x.WithReturnStatement(x => x.ParseExpression("this"));
