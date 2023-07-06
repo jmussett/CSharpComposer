@@ -12,8 +12,8 @@ public partial interface IAttributeBuilder
 
 public interface IAddAttribute<TBuilder>
 {
-    TBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
     TBuilder AddAttribute(AttributeSyntax attributeSyntax);
+    TBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback);
 }
 
 public partial class AttributeBuilder : IAttributeBuilder

@@ -39,8 +39,8 @@ public partial interface IStatementBuilder<TBuilder> : IAddAttribute<TBuilder>
 
 public interface IAddStatement<TBuilder>
 {
-    TBuilder AddStatement(Action<IStatementBuilder> statementCallback);
     TBuilder AddStatement(StatementSyntax statementSyntax);
+    TBuilder AddStatement(Action<IStatementBuilder> statementCallback);
 }
 
 public partial class StatementBuilder : IStatementBuilder

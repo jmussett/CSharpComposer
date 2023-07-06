@@ -10,8 +10,8 @@ public partial interface IPositionalPatternClauseBuilder : IAddSubpattern<IPosit
 
 public interface IWithPositionalPatternClause<TBuilder>
 {
-    TBuilder WithPositionalPatternClause(Action<IPositionalPatternClauseBuilder> positionalPatternClauseCallback);
     TBuilder WithPositionalPatternClause(PositionalPatternClauseSyntax positionalPatternClauseSyntax);
+    TBuilder WithPositionalPatternClause(Action<IPositionalPatternClauseBuilder> positionalPatternClauseCallback);
 }
 
 public partial class PositionalPatternClauseBuilder : IPositionalPatternClauseBuilder

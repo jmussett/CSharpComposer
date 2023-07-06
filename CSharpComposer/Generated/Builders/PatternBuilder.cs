@@ -22,14 +22,14 @@ public partial interface IPatternBuilder
 
 public interface IWithPattern<TBuilder>
 {
-    TBuilder WithPattern(Action<IPatternBuilder> patternCallback);
     TBuilder WithPattern(PatternSyntax patternSyntax);
+    TBuilder WithPattern(Action<IPatternBuilder> patternCallback);
 }
 
 public interface IAddPattern<TBuilder>
 {
-    TBuilder AddPattern(Action<IPatternBuilder> patternCallback);
     TBuilder AddPattern(PatternSyntax patternSyntax);
+    TBuilder AddPattern(Action<IPatternBuilder> patternCallback);
 }
 
 public partial class PatternBuilder : IPatternBuilder

@@ -23,14 +23,14 @@ public partial interface ITypeBuilder
 
 public interface IWithType<TBuilder>
 {
-    TBuilder WithType(Action<ITypeBuilder> typeCallback);
     TBuilder WithType(TypeSyntax typeSyntax);
+    TBuilder WithType(Action<ITypeBuilder> typeCallback);
 }
 
 public interface IAddType<TBuilder>
 {
-    TBuilder AddType(Action<ITypeBuilder> typeCallback);
     TBuilder AddType(TypeSyntax typeSyntax);
+    TBuilder AddType(Action<ITypeBuilder> typeCallback);
 }
 
 public partial class TypeBuilder : ITypeBuilder

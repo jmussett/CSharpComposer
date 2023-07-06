@@ -11,8 +11,8 @@ public partial interface IArgumentBuilder : IWithNameColon<IArgumentBuilder>
 
 public interface IAddArgument<TBuilder>
 {
-    TBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
     TBuilder AddArgument(ArgumentSyntax argumentSyntax);
+    TBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
 }
 
 public partial class ArgumentBuilder : IArgumentBuilder

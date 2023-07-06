@@ -11,8 +11,8 @@ public partial interface ITypeParameterBuilder : IAddAttribute<ITypeParameterBui
 
 public interface IAddTypeParameter<TBuilder>
 {
-    TBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
     TBuilder AddTypeParameter(TypeParameterSyntax typeParameterSyntax);
+    TBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
 }
 
 public partial class TypeParameterBuilder : ITypeParameterBuilder

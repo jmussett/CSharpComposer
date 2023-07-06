@@ -6,8 +6,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public interface IWithWhenClause<TBuilder>
 {
-    TBuilder WithWhenClause(Action<IExpressionBuilder> conditionCallback);
     TBuilder WithWhenClause(WhenClauseSyntax whenClauseSyntax);
+    TBuilder WithWhenClause(Action<IExpressionBuilder> conditionCallback);
 }
 
 public partial class WhenClauseBuilder

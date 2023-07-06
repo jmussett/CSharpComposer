@@ -12,8 +12,8 @@ public partial interface IParameterBuilder : IBaseParameterBuilder<IParameterBui
 
 public interface IAddParameter<TBuilder>
 {
-    TBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
     TBuilder AddParameter(ParameterSyntax parameterSyntax);
+    TBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback);
 }
 
 public partial class ParameterBuilder : IParameterBuilder

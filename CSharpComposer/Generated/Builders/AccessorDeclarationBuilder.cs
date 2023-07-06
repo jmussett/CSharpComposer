@@ -15,8 +15,8 @@ public partial interface IAccessorDeclarationBuilder : IAddAttribute<IAccessorDe
 
 public interface IAddAccessorDeclaration<TBuilder>
 {
-    TBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
     TBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessorDeclarationSyntax);
+    TBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
 }
 
 public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder

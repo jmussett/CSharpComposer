@@ -6,8 +6,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public interface IWithNameColon<TBuilder>
 {
-    TBuilder WithNameColon(string nameIdentifier);
     TBuilder WithNameColon(NameColonSyntax nameColonSyntax);
+    TBuilder WithNameColon(string nameIdentifier);
 }
 
 public partial class NameColonBuilder

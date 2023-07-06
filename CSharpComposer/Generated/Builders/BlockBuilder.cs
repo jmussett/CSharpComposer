@@ -10,8 +10,8 @@ public partial interface IBlockBuilder : IStatementBuilder<IBlockBuilder>, IAddS
 
 public interface IWithBlock<TBuilder>
 {
-    TBuilder WithBlock(Action<IBlockBuilder> blockCallback);
     TBuilder WithBlock(BlockSyntax blockSyntax);
+    TBuilder WithBlock(Action<IBlockBuilder> blockCallback);
 }
 
 public partial class BlockBuilder : IBlockBuilder

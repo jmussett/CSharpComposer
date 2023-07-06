@@ -12,8 +12,8 @@ public partial interface IBaseTypeBuilder
 
 public interface IAddBaseType<TBuilder>
 {
-    TBuilder AddBaseType(Action<IBaseTypeBuilder> baseTypeCallback);
     TBuilder AddBaseType(BaseTypeSyntax baseTypeSyntax);
+    TBuilder AddBaseType(Action<IBaseTypeBuilder> baseTypeCallback);
 }
 
 public partial class BaseTypeBuilder : IBaseTypeBuilder

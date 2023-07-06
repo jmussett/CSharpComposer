@@ -96,6 +96,13 @@ internal class InterfaceBuilder
                     x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
                     x.AddTypeParameter("TBuilder", x => { });
 
+                    x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"With{typeName}", x => x
+                        .AddParameter(type.Name.Camelize(), x => x
+                            .WithType(x => x.ParseTypeName(type.Name))
+                        )
+                        .WithSemicolon()
+                    );
+
                     if (type is AbstractNode)
                     {
                         x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"With{typeName}", x => x
@@ -113,13 +120,6 @@ internal class InterfaceBuilder
                             x.WithSemicolon();
                         });
                     }
-
-                    x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"With{typeName}", x => x
-                        .AddParameter(type.Name.Camelize(), x => x
-                            .WithType(x => x.ParseTypeName(type.Name))
-                        )
-                        .WithSemicolon()
-                    );
                 });
 
             // TODO: Remove when unused
@@ -128,6 +128,13 @@ internal class InterfaceBuilder
                {
                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
                    x.AddTypeParameter("TBuilder", x => { });
+
+                   x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"Add{typeName}", x => x
+                       .AddParameter(type.Name.Camelize(), x => x
+                           .WithType(x => x.ParseTypeName(type.Name))
+                       )
+                       .WithSemicolon()
+                   );
 
                    if (type is AbstractNode)
                    {
@@ -146,13 +153,6 @@ internal class InterfaceBuilder
                            x.WithSemicolon();
                        });
                    }
-
-                   x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"Add{typeName}", x => x
-                       .AddParameter(type.Name.Camelize(), x => x
-                           .WithType(x => x.ParseTypeName(type.Name))
-                       )
-                       .WithSemicolon()
-                   );
                });
         }
 

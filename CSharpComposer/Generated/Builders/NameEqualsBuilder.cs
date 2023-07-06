@@ -6,8 +6,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public interface IWithNameEquals<TBuilder>
 {
-    TBuilder WithNameEquals(string nameIdentifier);
     TBuilder WithNameEquals(NameEqualsSyntax nameEqualsSyntax);
+    TBuilder WithNameEquals(string nameIdentifier);
 }
 
 public partial class NameEqualsBuilder

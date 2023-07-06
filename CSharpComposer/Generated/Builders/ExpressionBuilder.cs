@@ -70,14 +70,14 @@ public partial interface IExpressionBuilder
 
 public interface IWithExpression<TBuilder>
 {
-    TBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
     TBuilder WithExpression(ExpressionSyntax expressionSyntax);
+    TBuilder WithExpression(Action<IExpressionBuilder> expressionCallback);
 }
 
 public interface IAddExpression<TBuilder>
 {
-    TBuilder AddExpression(Action<IExpressionBuilder> expressionCallback);
     TBuilder AddExpression(ExpressionSyntax expressionSyntax);
+    TBuilder AddExpression(Action<IExpressionBuilder> expressionCallback);
 }
 
 public partial class ExpressionBuilder : IExpressionBuilder
