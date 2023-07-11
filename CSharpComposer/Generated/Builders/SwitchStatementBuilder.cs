@@ -8,7 +8,7 @@ public partial interface ISwitchStatementBuilder : IStatementBuilder<ISwitchStat
 {
     ISwitchStatementBuilder WithOpenParenToken();
     ISwitchStatementBuilder WithCloseParenToken();
-    ISwitchStatementBuilder AddSwitchSection(Action<ISwitchSectionBuilder> switchSectionCallback);
+    ISwitchStatementBuilder AddSwitchSection(Action<ISwitchSectionBuilder>? switchSectionCallback = null);
     ISwitchStatementBuilder AddSwitchSection(SwitchSectionSyntax section);
 }
 
@@ -21,7 +21,7 @@ public partial class SwitchStatementBuilder : ISwitchStatementBuilder
         Syntax = syntax;
     }
 
-    public static SwitchStatementSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<ISwitchStatementBuilder> switchStatementCallback)
+    public static SwitchStatementSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<ISwitchStatementBuilder>? switchStatementCallback = null)
     {
         var switchKeywordToken = SyntaxFactory.Token(SyntaxKind.SwitchKeyword);
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
@@ -29,11 +29,11 @@ public partial class SwitchStatementBuilder : ISwitchStatementBuilder
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.SwitchStatement(default(SyntaxList<AttributeListSyntax>), switchKeywordToken, default(SyntaxToken), expressionSyntax, default(SyntaxToken), openBraceTokenToken, default(SyntaxList<SwitchSectionSyntax>), closeBraceTokenToken);
         var builder = new SwitchStatementBuilder(syntax);
-        switchStatementCallback(builder);
+        switchStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ISwitchStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ISwitchStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -62,7 +62,7 @@ public partial class SwitchStatementBuilder : ISwitchStatementBuilder
         return this;
     }
 
-    public ISwitchStatementBuilder AddSwitchSection(Action<ISwitchSectionBuilder> switchSectionCallback)
+    public ISwitchStatementBuilder AddSwitchSection(Action<ISwitchSectionBuilder>? switchSectionCallback = null)
     {
         var section = SwitchSectionBuilder.CreateSyntax(switchSectionCallback);
         Syntax = Syntax.AddSections(section);

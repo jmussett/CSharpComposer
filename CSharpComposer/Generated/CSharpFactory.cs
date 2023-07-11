@@ -23,7 +23,7 @@ public static class CSharpFactory
         return QualifiedNameBuilder.CreateSyntax(leftCallback, rightCallback);
     }
 
-    public static GenericNameSyntax GenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback)
+    public static GenericNameSyntax GenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null)
     {
         return GenericNameBuilder.CreateSyntax(identifier, genericNameCallback);
     }
@@ -43,12 +43,12 @@ public static class CSharpFactory
         return PredefinedTypeBuilder.CreateSyntax(predefinedTypeKeyword);
     }
 
-    public static ArrayTypeSyntax ArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder> arrayTypeCallback)
+    public static ArrayTypeSyntax ArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder>? arrayTypeCallback = null)
     {
         return ArrayTypeBuilder.CreateSyntax(elementTypeCallback, arrayTypeCallback);
     }
 
-    public static ArrayRankSpecifierSyntax ArrayRankSpecifier(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback)
+    public static ArrayRankSpecifierSyntax ArrayRankSpecifier(Action<IArrayRankSpecifierBuilder>? arrayRankSpecifierCallback = null)
     {
         return ArrayRankSpecifierBuilder.CreateSyntax(arrayRankSpecifierCallback);
     }
@@ -58,12 +58,12 @@ public static class CSharpFactory
         return PointerTypeBuilder.CreateSyntax(elementTypeCallback);
     }
 
-    public static FunctionPointerTypeSyntax FunctionPointerType(Action<IFunctionPointerTypeBuilder> functionPointerTypeCallback)
+    public static FunctionPointerTypeSyntax FunctionPointerType(Action<IFunctionPointerTypeBuilder>? functionPointerTypeCallback = null)
     {
         return FunctionPointerTypeBuilder.CreateSyntax(functionPointerTypeCallback);
     }
 
-    public static FunctionPointerCallingConventionSyntax FunctionPointerCallingConvention(FunctionPointerCallingConventionManagedOrUnmanagedKeyword functionPointerCallingConventionManagedOrUnmanagedKeyword, Action<IFunctionPointerCallingConventionBuilder> functionPointerCallingConventionCallback)
+    public static FunctionPointerCallingConventionSyntax FunctionPointerCallingConvention(FunctionPointerCallingConventionManagedOrUnmanagedKeyword functionPointerCallingConventionManagedOrUnmanagedKeyword, Action<IFunctionPointerCallingConventionBuilder>? functionPointerCallingConventionCallback = null)
     {
         return FunctionPointerCallingConventionBuilder.CreateSyntax(functionPointerCallingConventionManagedOrUnmanagedKeyword, functionPointerCallingConventionCallback);
     }
@@ -78,12 +78,12 @@ public static class CSharpFactory
         return NullableTypeBuilder.CreateSyntax(elementTypeCallback);
     }
 
-    public static TupleTypeSyntax TupleType(Action<ITupleTypeBuilder> tupleTypeCallback)
+    public static TupleTypeSyntax TupleType(Action<ITupleTypeBuilder>? tupleTypeCallback = null)
     {
         return TupleTypeBuilder.CreateSyntax(tupleTypeCallback);
     }
 
-    public static TupleElementSyntax TupleElement(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder> tupleElementCallback)
+    public static TupleElementSyntax TupleElement(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder>? tupleElementCallback = null)
     {
         return TupleElementBuilder.CreateSyntax(typeCallback, tupleElementCallback);
     }
@@ -93,7 +93,7 @@ public static class CSharpFactory
         return OmittedTypeArgumentBuilder.CreateSyntax();
     }
 
-    public static RefTypeSyntax RefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder> refTypeCallback)
+    public static RefTypeSyntax RefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder>? refTypeCallback = null)
     {
         return RefTypeBuilder.CreateSyntax(typeCallback, refTypeCallback);
     }
@@ -118,7 +118,7 @@ public static class CSharpFactory
         return ParenthesizedExpressionBuilder.CreateSyntax(expressionCallback);
     }
 
-    public static TupleExpressionSyntax TupleExpression(Action<ITupleExpressionBuilder> tupleExpressionCallback)
+    public static TupleExpressionSyntax TupleExpression(Action<ITupleExpressionBuilder>? tupleExpressionCallback = null)
     {
         return TupleExpressionBuilder.CreateSyntax(tupleExpressionCallback);
     }
@@ -153,17 +153,17 @@ public static class CSharpFactory
         return MemberBindingExpressionBuilder.CreateSyntax(nameCallback);
     }
 
-    public static ElementBindingExpressionSyntax ElementBindingExpression(Action<IElementBindingExpressionBuilder> elementBindingExpressionCallback)
+    public static ElementBindingExpressionSyntax ElementBindingExpression(Action<IElementBindingExpressionBuilder>? elementBindingExpressionCallback = null)
     {
         return ElementBindingExpressionBuilder.CreateSyntax(elementBindingExpressionCallback);
     }
 
-    public static RangeExpressionSyntax RangeExpression(Action<IRangeExpressionBuilder> rangeExpressionCallback)
+    public static RangeExpressionSyntax RangeExpression(Action<IRangeExpressionBuilder>? rangeExpressionCallback = null)
     {
         return RangeExpressionBuilder.CreateSyntax(rangeExpressionCallback);
     }
 
-    public static ImplicitElementAccessSyntax ImplicitElementAccess(Action<IImplicitElementAccessBuilder> implicitElementAccessCallback)
+    public static ImplicitElementAccessSyntax ImplicitElementAccess(Action<IImplicitElementAccessBuilder>? implicitElementAccessCallback = null)
     {
         return ImplicitElementAccessBuilder.CreateSyntax(implicitElementAccessCallback);
     }
@@ -238,17 +238,17 @@ public static class CSharpFactory
         return SizeOfExpressionBuilder.CreateSyntax(typeCallback);
     }
 
-    public static InvocationExpressionSyntax InvocationExpression(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder> invocationExpressionCallback)
+    public static InvocationExpressionSyntax InvocationExpression(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder>? invocationExpressionCallback = null)
     {
         return InvocationExpressionBuilder.CreateSyntax(expressionCallback, invocationExpressionCallback);
     }
 
-    public static ElementAccessExpressionSyntax ElementAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder> elementAccessExpressionCallback)
+    public static ElementAccessExpressionSyntax ElementAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder>? elementAccessExpressionCallback = null)
     {
         return ElementAccessExpressionBuilder.CreateSyntax(expressionCallback, elementAccessExpressionCallback);
     }
 
-    public static ArgumentSyntax Argument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public static ArgumentSyntax Argument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         return ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
     }
@@ -303,12 +303,12 @@ public static class CSharpFactory
         return RefExpressionBuilder.CreateSyntax(expressionCallback);
     }
 
-    public static ParenthesizedLambdaExpressionSyntax ParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder> parenthesizedLambdaExpressionCallback)
+    public static ParenthesizedLambdaExpressionSyntax ParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder>? parenthesizedLambdaExpressionCallback = null)
     {
         return ParenthesizedLambdaExpressionBuilder.CreateSyntax(parenthesizedLambdaExpressionCallback);
     }
 
-    public static InitializerExpressionSyntax InitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public static InitializerExpressionSyntax InitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder>? initializerExpressionCallback = null)
     {
         return InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
     }
@@ -318,12 +318,12 @@ public static class CSharpFactory
         return BaseObjectCreationExpressionBuilder.CreateSyntax(callback);
     }
 
-    public static ImplicitObjectCreationExpressionSyntax ImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder> implicitObjectCreationExpressionCallback)
+    public static ImplicitObjectCreationExpressionSyntax ImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder>? implicitObjectCreationExpressionCallback = null)
     {
         return ImplicitObjectCreationExpressionBuilder.CreateSyntax(implicitObjectCreationExpressionCallback);
     }
 
-    public static ObjectCreationExpressionSyntax ObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback)
+    public static ObjectCreationExpressionSyntax ObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder>? objectCreationExpressionCallback = null)
     {
         return ObjectCreationExpressionBuilder.CreateSyntax(typeCallback, objectCreationExpressionCallback);
     }
@@ -333,12 +333,12 @@ public static class CSharpFactory
         return WithExpressionBuilder.CreateSyntax(expressionCallback, initializerKind, initializerInitializerExpressionCallback);
     }
 
-    public static AnonymousObjectMemberDeclaratorSyntax AnonymousObjectMemberDeclarator(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder> anonymousObjectMemberDeclaratorCallback)
+    public static AnonymousObjectMemberDeclaratorSyntax AnonymousObjectMemberDeclarator(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder>? anonymousObjectMemberDeclaratorCallback = null)
     {
         return AnonymousObjectMemberDeclaratorBuilder.CreateSyntax(expressionCallback, anonymousObjectMemberDeclaratorCallback);
     }
 
-    public static AnonymousObjectCreationExpressionSyntax AnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder> anonymousObjectCreationExpressionCallback)
+    public static AnonymousObjectCreationExpressionSyntax AnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder>? anonymousObjectCreationExpressionCallback = null)
     {
         return AnonymousObjectCreationExpressionBuilder.CreateSyntax(anonymousObjectCreationExpressionCallback);
     }
@@ -353,7 +353,7 @@ public static class CSharpFactory
         return ImplicitArrayCreationExpressionBuilder.CreateSyntax(initializerKind, initializerInitializerExpressionCallback, implicitArrayCreationExpressionCallback);
     }
 
-    public static StackAllocArrayCreationExpressionSyntax StackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder> stackAllocArrayCreationExpressionCallback)
+    public static StackAllocArrayCreationExpressionSyntax StackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder>? stackAllocArrayCreationExpressionCallback = null)
     {
         return StackAllocArrayCreationExpressionBuilder.CreateSyntax(typeCallback, stackAllocArrayCreationExpressionCallback);
     }
@@ -378,12 +378,12 @@ public static class CSharpFactory
         return QueryExpressionBuilder.CreateSyntax(fromClauseIdentifier, fromClauseExpressionCallback, fromClauseFromClauseCallback, bodySelectOrGroupCallback, bodyQueryBodyCallback);
     }
 
-    public static QueryBodySyntax QueryBody(Action<ISelectOrGroupClauseBuilder> selectOrGroupCallback, Action<IQueryBodyBuilder> queryBodyCallback)
+    public static QueryBodySyntax QueryBody(Action<ISelectOrGroupClauseBuilder> selectOrGroupCallback, Action<IQueryBodyBuilder>? queryBodyCallback = null)
     {
         return QueryBodyBuilder.CreateSyntax(selectOrGroupCallback, queryBodyCallback);
     }
 
-    public static FromClauseSyntax FromClause(string identifier, Action<IExpressionBuilder> expressionCallback, Action<IFromClauseBuilder> fromClauseCallback)
+    public static FromClauseSyntax FromClause(string identifier, Action<IExpressionBuilder> expressionCallback, Action<IFromClauseBuilder>? fromClauseCallback = null)
     {
         return FromClauseBuilder.CreateSyntax(identifier, expressionCallback, fromClauseCallback);
     }
@@ -393,7 +393,7 @@ public static class CSharpFactory
         return LetClauseBuilder.CreateSyntax(identifier, expressionCallback);
     }
 
-    public static JoinClauseSyntax JoinClause(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder> joinClauseCallback)
+    public static JoinClauseSyntax JoinClause(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder>? joinClauseCallback = null)
     {
         return JoinClauseBuilder.CreateSyntax(identifier, inExpressionCallback, leftExpressionCallback, rightExpressionCallback, joinClauseCallback);
     }
@@ -408,12 +408,12 @@ public static class CSharpFactory
         return WhereClauseBuilder.CreateSyntax(conditionCallback);
     }
 
-    public static OrderByClauseSyntax OrderByClause(Action<IOrderByClauseBuilder> orderByClauseCallback)
+    public static OrderByClauseSyntax OrderByClause(Action<IOrderByClauseBuilder>? orderByClauseCallback = null)
     {
         return OrderByClauseBuilder.CreateSyntax(orderByClauseCallback);
     }
 
-    public static OrderingSyntax Ordering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder> orderingCallback)
+    public static OrderingSyntax Ordering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder>? orderingCallback = null)
     {
         return OrderingBuilder.CreateSyntax(kind, expressionCallback, orderingCallback);
     }
@@ -438,7 +438,7 @@ public static class CSharpFactory
         return OmittedArraySizeExpressionBuilder.CreateSyntax();
     }
 
-    public static InterpolatedStringExpressionSyntax InterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder> interpolatedStringExpressionCallback)
+    public static InterpolatedStringExpressionSyntax InterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder>? interpolatedStringExpressionCallback = null)
     {
         return InterpolatedStringExpressionBuilder.CreateSyntax(interpolatedStringExpressionStringStartToken, interpolatedStringExpressionStringEndToken, interpolatedStringExpressionCallback);
     }
@@ -478,22 +478,22 @@ public static class CSharpFactory
         return VarPatternBuilder.CreateSyntax(designationCallback);
     }
 
-    public static RecursivePatternSyntax RecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback)
+    public static RecursivePatternSyntax RecursivePattern(Action<IRecursivePatternBuilder>? recursivePatternCallback = null)
     {
         return RecursivePatternBuilder.CreateSyntax(recursivePatternCallback);
     }
 
-    public static PositionalPatternClauseSyntax PositionalPatternClause(Action<IPositionalPatternClauseBuilder> positionalPatternClauseCallback)
+    public static PositionalPatternClauseSyntax PositionalPatternClause(Action<IPositionalPatternClauseBuilder>? positionalPatternClauseCallback = null)
     {
         return PositionalPatternClauseBuilder.CreateSyntax(positionalPatternClauseCallback);
     }
 
-    public static PropertyPatternClauseSyntax PropertyPatternClause(Action<IPropertyPatternClauseBuilder> propertyPatternClauseCallback)
+    public static PropertyPatternClauseSyntax PropertyPatternClause(Action<IPropertyPatternClauseBuilder>? propertyPatternClauseCallback = null)
     {
         return PropertyPatternClauseBuilder.CreateSyntax(propertyPatternClauseCallback);
     }
 
-    public static SubpatternSyntax Subpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback)
+    public static SubpatternSyntax Subpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder>? subpatternCallback = null)
     {
         return SubpatternBuilder.CreateSyntax(patternCallback, subpatternCallback);
     }
@@ -528,12 +528,12 @@ public static class CSharpFactory
         return UnaryPatternBuilder.CreateSyntax(patternCallback);
     }
 
-    public static ListPatternSyntax ListPattern(Action<IListPatternBuilder> listPatternCallback)
+    public static ListPatternSyntax ListPattern(Action<IListPatternBuilder>? listPatternCallback = null)
     {
         return ListPatternBuilder.CreateSyntax(listPatternCallback);
     }
 
-    public static SlicePatternSyntax SlicePattern(Action<ISlicePatternBuilder> slicePatternCallback)
+    public static SlicePatternSyntax SlicePattern(Action<ISlicePatternBuilder>? slicePatternCallback = null)
     {
         return SlicePatternBuilder.CreateSyntax(slicePatternCallback);
     }
@@ -548,7 +548,7 @@ public static class CSharpFactory
         return InterpolatedStringTextBuilder.CreateSyntax();
     }
 
-    public static InterpolationSyntax Interpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder> interpolationCallback)
+    public static InterpolationSyntax Interpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder>? interpolationCallback = null)
     {
         return InterpolationBuilder.CreateSyntax(expressionCallback, interpolationCallback);
     }
@@ -563,7 +563,7 @@ public static class CSharpFactory
         return InterpolationFormatClauseBuilder.CreateSyntax();
     }
 
-    public static GlobalStatementSyntax GlobalStatement(Action<IStatementBuilder> statementCallback, Action<IGlobalStatementBuilder> globalStatementCallback)
+    public static GlobalStatementSyntax GlobalStatement(Action<IStatementBuilder> statementCallback, Action<IGlobalStatementBuilder>? globalStatementCallback = null)
     {
         return GlobalStatementBuilder.CreateSyntax(statementCallback, globalStatementCallback);
     }
@@ -573,12 +573,12 @@ public static class CSharpFactory
         return StatementBuilder.CreateSyntax(callback);
     }
 
-    public static BlockSyntax Block(Action<IBlockBuilder> blockCallback)
+    public static BlockSyntax Block(Action<IBlockBuilder>? blockCallback = null)
     {
         return BlockBuilder.CreateSyntax(blockCallback);
     }
 
-    public static LocalFunctionStatementSyntax LocalFunctionStatement(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder> localFunctionStatementCallback)
+    public static LocalFunctionStatementSyntax LocalFunctionStatement(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder>? localFunctionStatementCallback = null)
     {
         return LocalFunctionStatementBuilder.CreateSyntax(returnTypeCallback, identifier, localFunctionStatementCallback);
     }
@@ -588,12 +588,12 @@ public static class CSharpFactory
         return LocalDeclarationStatementBuilder.CreateSyntax(declarationTypeCallback, declarationVariableDeclarationCallback, localDeclarationStatementCallback);
     }
 
-    public static VariableDeclarationSyntax VariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
+    public static VariableDeclarationSyntax VariableDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder>? variableDeclarationCallback = null)
     {
         return VariableDeclarationBuilder.CreateSyntax(typeCallback, variableDeclarationCallback);
     }
 
-    public static VariableDeclaratorSyntax VariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback)
+    public static VariableDeclaratorSyntax VariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder>? variableDeclaratorCallback = null)
     {
         return VariableDeclaratorBuilder.CreateSyntax(identifier, variableDeclaratorCallback);
     }
@@ -618,67 +618,67 @@ public static class CSharpFactory
         return DiscardDesignationBuilder.CreateSyntax();
     }
 
-    public static ParenthesizedVariableDesignationSyntax ParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback)
+    public static ParenthesizedVariableDesignationSyntax ParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder>? parenthesizedVariableDesignationCallback = null)
     {
         return ParenthesizedVariableDesignationBuilder.CreateSyntax(parenthesizedVariableDesignationCallback);
     }
 
-    public static ExpressionStatementSyntax ExpressionStatement(Action<IExpressionBuilder> expressionCallback, Action<IExpressionStatementBuilder> expressionStatementCallback)
+    public static ExpressionStatementSyntax ExpressionStatement(Action<IExpressionBuilder> expressionCallback, Action<IExpressionStatementBuilder>? expressionStatementCallback = null)
     {
         return ExpressionStatementBuilder.CreateSyntax(expressionCallback, expressionStatementCallback);
     }
 
-    public static EmptyStatementSyntax EmptyStatement(Action<IEmptyStatementBuilder> emptyStatementCallback)
+    public static EmptyStatementSyntax EmptyStatement(Action<IEmptyStatementBuilder>? emptyStatementCallback = null)
     {
         return EmptyStatementBuilder.CreateSyntax(emptyStatementCallback);
     }
 
-    public static LabeledStatementSyntax LabeledStatement(string identifier, Action<IStatementBuilder> statementCallback, Action<ILabeledStatementBuilder> labeledStatementCallback)
+    public static LabeledStatementSyntax LabeledStatement(string identifier, Action<IStatementBuilder> statementCallback, Action<ILabeledStatementBuilder>? labeledStatementCallback = null)
     {
         return LabeledStatementBuilder.CreateSyntax(identifier, statementCallback, labeledStatementCallback);
     }
 
-    public static GotoStatementSyntax GotoStatement(GotoStatementKind kind, Action<IGotoStatementBuilder> gotoStatementCallback)
+    public static GotoStatementSyntax GotoStatement(GotoStatementKind kind, Action<IGotoStatementBuilder>? gotoStatementCallback = null)
     {
         return GotoStatementBuilder.CreateSyntax(kind, gotoStatementCallback);
     }
 
-    public static BreakStatementSyntax BreakStatement(Action<IBreakStatementBuilder> breakStatementCallback)
+    public static BreakStatementSyntax BreakStatement(Action<IBreakStatementBuilder>? breakStatementCallback = null)
     {
         return BreakStatementBuilder.CreateSyntax(breakStatementCallback);
     }
 
-    public static ContinueStatementSyntax ContinueStatement(Action<IContinueStatementBuilder> continueStatementCallback)
+    public static ContinueStatementSyntax ContinueStatement(Action<IContinueStatementBuilder>? continueStatementCallback = null)
     {
         return ContinueStatementBuilder.CreateSyntax(continueStatementCallback);
     }
 
-    public static ReturnStatementSyntax ReturnStatement(Action<IReturnStatementBuilder> returnStatementCallback)
+    public static ReturnStatementSyntax ReturnStatement(Action<IReturnStatementBuilder>? returnStatementCallback = null)
     {
         return ReturnStatementBuilder.CreateSyntax(returnStatementCallback);
     }
 
-    public static ThrowStatementSyntax ThrowStatement(Action<IThrowStatementBuilder> throwStatementCallback)
+    public static ThrowStatementSyntax ThrowStatement(Action<IThrowStatementBuilder>? throwStatementCallback = null)
     {
         return ThrowStatementBuilder.CreateSyntax(throwStatementCallback);
     }
 
-    public static YieldStatementSyntax YieldStatement(YieldStatementKind kind, Action<IYieldStatementBuilder> yieldStatementCallback)
+    public static YieldStatementSyntax YieldStatement(YieldStatementKind kind, Action<IYieldStatementBuilder>? yieldStatementCallback = null)
     {
         return YieldStatementBuilder.CreateSyntax(kind, yieldStatementCallback);
     }
 
-    public static WhileStatementSyntax WhileStatement(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IWhileStatementBuilder> whileStatementCallback)
+    public static WhileStatementSyntax WhileStatement(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IWhileStatementBuilder>? whileStatementCallback = null)
     {
         return WhileStatementBuilder.CreateSyntax(conditionCallback, statementCallback, whileStatementCallback);
     }
 
-    public static DoStatementSyntax DoStatement(Action<IStatementBuilder> statementCallback, Action<IExpressionBuilder> conditionCallback, Action<IDoStatementBuilder> doStatementCallback)
+    public static DoStatementSyntax DoStatement(Action<IStatementBuilder> statementCallback, Action<IExpressionBuilder> conditionCallback, Action<IDoStatementBuilder>? doStatementCallback = null)
     {
         return DoStatementBuilder.CreateSyntax(statementCallback, conditionCallback, doStatementCallback);
     }
 
-    public static ForStatementSyntax ForStatement(Action<IStatementBuilder> statementCallback, Action<IForStatementBuilder> forStatementCallback)
+    public static ForStatementSyntax ForStatement(Action<IStatementBuilder> statementCallback, Action<IForStatementBuilder>? forStatementCallback = null)
     {
         return ForStatementBuilder.CreateSyntax(statementCallback, forStatementCallback);
     }
@@ -688,17 +688,17 @@ public static class CSharpFactory
         return CommonForEachStatementBuilder.CreateSyntax(callback);
     }
 
-    public static ForEachStatementSyntax ForEachStatement(Action<ITypeBuilder> typeCallback, string identifier, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachStatementBuilder> forEachStatementCallback)
+    public static ForEachStatementSyntax ForEachStatement(Action<ITypeBuilder> typeCallback, string identifier, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachStatementBuilder>? forEachStatementCallback = null)
     {
         return ForEachStatementBuilder.CreateSyntax(typeCallback, identifier, expressionCallback, statementCallback, forEachStatementCallback);
     }
 
-    public static ForEachVariableStatementSyntax ForEachVariableStatement(Action<IExpressionBuilder> variableCallback, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachVariableStatementBuilder> forEachVariableStatementCallback)
+    public static ForEachVariableStatementSyntax ForEachVariableStatement(Action<IExpressionBuilder> variableCallback, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachVariableStatementBuilder>? forEachVariableStatementCallback = null)
     {
         return ForEachVariableStatementBuilder.CreateSyntax(variableCallback, expressionCallback, statementCallback, forEachVariableStatementCallback);
     }
 
-    public static UsingStatementSyntax UsingStatement(Action<IStatementBuilder> statementCallback, Action<IUsingStatementBuilder> usingStatementCallback)
+    public static UsingStatementSyntax UsingStatement(Action<IStatementBuilder> statementCallback, Action<IUsingStatementBuilder>? usingStatementCallback = null)
     {
         return UsingStatementBuilder.CreateSyntax(statementCallback, usingStatementCallback);
     }
@@ -718,12 +718,12 @@ public static class CSharpFactory
         return UnsafeStatementBuilder.CreateSyntax(blockBlockCallback, unsafeStatementCallback);
     }
 
-    public static LockStatementSyntax LockStatement(Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<ILockStatementBuilder> lockStatementCallback)
+    public static LockStatementSyntax LockStatement(Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<ILockStatementBuilder>? lockStatementCallback = null)
     {
         return LockStatementBuilder.CreateSyntax(expressionCallback, statementCallback, lockStatementCallback);
     }
 
-    public static IfStatementSyntax IfStatement(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IIfStatementBuilder> ifStatementCallback)
+    public static IfStatementSyntax IfStatement(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IIfStatementBuilder>? ifStatementCallback = null)
     {
         return IfStatementBuilder.CreateSyntax(conditionCallback, statementCallback, ifStatementCallback);
     }
@@ -733,12 +733,12 @@ public static class CSharpFactory
         return ElseClauseBuilder.CreateSyntax(statementCallback);
     }
 
-    public static SwitchStatementSyntax SwitchStatement(Action<IExpressionBuilder> expressionCallback, Action<ISwitchStatementBuilder> switchStatementCallback)
+    public static SwitchStatementSyntax SwitchStatement(Action<IExpressionBuilder> expressionCallback, Action<ISwitchStatementBuilder>? switchStatementCallback = null)
     {
         return SwitchStatementBuilder.CreateSyntax(expressionCallback, switchStatementCallback);
     }
 
-    public static SwitchSectionSyntax SwitchSection(Action<ISwitchSectionBuilder> switchSectionCallback)
+    public static SwitchSectionSyntax SwitchSection(Action<ISwitchSectionBuilder>? switchSectionCallback = null)
     {
         return SwitchSectionBuilder.CreateSyntax(switchSectionCallback);
     }
@@ -748,7 +748,7 @@ public static class CSharpFactory
         return SwitchLabelBuilder.CreateSyntax(callback);
     }
 
-    public static CasePatternSwitchLabelSyntax CasePatternSwitchLabel(Action<IPatternBuilder> patternCallback, Action<ICasePatternSwitchLabelBuilder> casePatternSwitchLabelCallback)
+    public static CasePatternSwitchLabelSyntax CasePatternSwitchLabel(Action<IPatternBuilder> patternCallback, Action<ICasePatternSwitchLabelBuilder>? casePatternSwitchLabelCallback = null)
     {
         return CasePatternSwitchLabelBuilder.CreateSyntax(patternCallback, casePatternSwitchLabelCallback);
     }
@@ -763,12 +763,12 @@ public static class CSharpFactory
         return DefaultSwitchLabelBuilder.CreateSyntax();
     }
 
-    public static SwitchExpressionSyntax SwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder> switchExpressionCallback)
+    public static SwitchExpressionSyntax SwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder>? switchExpressionCallback = null)
     {
         return SwitchExpressionBuilder.CreateSyntax(governingExpressionCallback, switchExpressionCallback);
     }
 
-    public static SwitchExpressionArmSyntax SwitchExpressionArm(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder> switchExpressionArmCallback)
+    public static SwitchExpressionArmSyntax SwitchExpressionArm(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder>? switchExpressionArmCallback = null)
     {
         return SwitchExpressionArmBuilder.CreateSyntax(patternCallback, expressionCallback, switchExpressionArmCallback);
     }
@@ -783,7 +783,7 @@ public static class CSharpFactory
         return CatchClauseBuilder.CreateSyntax(blockBlockCallback, catchClauseCallback);
     }
 
-    public static CatchDeclarationSyntax CatchDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback)
+    public static CatchDeclarationSyntax CatchDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder>? catchDeclarationCallback = null)
     {
         return CatchDeclarationBuilder.CreateSyntax(typeCallback, catchDeclarationCallback);
     }
@@ -798,7 +798,7 @@ public static class CSharpFactory
         return FinallyClauseBuilder.CreateSyntax(blockBlockCallback);
     }
 
-    public static CompilationUnitSyntax CompilationUnit(Action<ICompilationUnitBuilder> compilationUnitCallback)
+    public static CompilationUnitSyntax CompilationUnit(Action<ICompilationUnitBuilder>? compilationUnitCallback = null)
     {
         return CompilationUnitBuilder.CreateSyntax(compilationUnitCallback);
     }
@@ -808,7 +808,7 @@ public static class CSharpFactory
         return ExternAliasDirectiveBuilder.CreateSyntax(identifier);
     }
 
-    public static UsingDirectiveSyntax UsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
+    public static UsingDirectiveSyntax UsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder>? usingDirectiveCallback = null)
     {
         return UsingDirectiveBuilder.CreateSyntax(nameCallback, usingDirectiveCallback);
     }
@@ -823,12 +823,12 @@ public static class CSharpFactory
         return BaseNamespaceDeclarationBuilder.CreateSyntax(callback);
     }
 
-    public static NamespaceDeclarationSyntax NamespaceDeclaration(Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder> namespaceDeclarationCallback)
+    public static NamespaceDeclarationSyntax NamespaceDeclaration(Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder>? namespaceDeclarationCallback = null)
     {
         return NamespaceDeclarationBuilder.CreateSyntax(nameCallback, namespaceDeclarationCallback);
     }
 
-    public static FileScopedNamespaceDeclarationSyntax FileScopedNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder> fileScopedNamespaceDeclarationCallback)
+    public static FileScopedNamespaceDeclarationSyntax FileScopedNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder>? fileScopedNamespaceDeclarationCallback = null)
     {
         return FileScopedNamespaceDeclarationBuilder.CreateSyntax(nameCallback, fileScopedNamespaceDeclarationCallback);
     }
@@ -838,12 +838,12 @@ public static class CSharpFactory
         return AttributeTargetSpecifierBuilder.CreateSyntax(identifier);
     }
 
-    public static AttributeSyntax Attribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public static AttributeSyntax Attribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         return AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
     }
 
-    public static AttributeArgumentSyntax AttributeArgument(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder> attributeArgumentCallback)
+    public static AttributeArgumentSyntax AttributeArgument(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder>? attributeArgumentCallback = null)
     {
         return AttributeArgumentBuilder.CreateSyntax(expressionCallback, attributeArgumentCallback);
     }
@@ -853,7 +853,7 @@ public static class CSharpFactory
         return NameEqualsBuilder.CreateSyntax(nameIdentifier);
     }
 
-    public static TypeParameterSyntax TypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
+    public static TypeParameterSyntax TypeParameter(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null)
     {
         return TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);
     }
@@ -868,37 +868,37 @@ public static class CSharpFactory
         return TypeDeclarationBuilder.CreateSyntax(callback);
     }
 
-    public static ClassDeclarationSyntax ClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback)
+    public static ClassDeclarationSyntax ClassDeclaration(string identifier, Action<IClassDeclarationBuilder>? classDeclarationCallback = null)
     {
         return ClassDeclarationBuilder.CreateSyntax(identifier, classDeclarationCallback);
     }
 
-    public static StructDeclarationSyntax StructDeclaration(string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback)
+    public static StructDeclarationSyntax StructDeclaration(string identifier, Action<IStructDeclarationBuilder>? structDeclarationCallback = null)
     {
         return StructDeclarationBuilder.CreateSyntax(identifier, structDeclarationCallback);
     }
 
-    public static InterfaceDeclarationSyntax InterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback)
+    public static InterfaceDeclarationSyntax InterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder>? interfaceDeclarationCallback = null)
     {
         return InterfaceDeclarationBuilder.CreateSyntax(identifier, interfaceDeclarationCallback);
     }
 
-    public static RecordDeclarationSyntax RecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback)
+    public static RecordDeclarationSyntax RecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder>? recordDeclarationCallback = null)
     {
         return RecordDeclarationBuilder.CreateSyntax(kind, identifier, recordDeclarationCallback);
     }
 
-    public static EnumDeclarationSyntax EnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback)
+    public static EnumDeclarationSyntax EnumDeclaration(string identifier, Action<IEnumDeclarationBuilder>? enumDeclarationCallback = null)
     {
         return EnumDeclarationBuilder.CreateSyntax(identifier, enumDeclarationCallback);
     }
 
-    public static DelegateDeclarationSyntax DelegateDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback)
+    public static DelegateDeclarationSyntax DelegateDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder>? delegateDeclarationCallback = null)
     {
         return DelegateDeclarationBuilder.CreateSyntax(returnTypeCallback, identifier, delegateDeclarationCallback);
     }
 
-    public static EnumMemberDeclarationSyntax EnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback)
+    public static EnumMemberDeclarationSyntax EnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder>? enumMemberDeclarationCallback = null)
     {
         return EnumMemberDeclarationBuilder.CreateSyntax(identifier, enumMemberDeclarationCallback);
     }
@@ -913,7 +913,7 @@ public static class CSharpFactory
         return SimpleBaseTypeBuilder.CreateSyntax(typeCallback);
     }
 
-    public static PrimaryConstructorBaseTypeSyntax PrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback)
+    public static PrimaryConstructorBaseTypeSyntax PrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder>? primaryConstructorBaseTypeCallback = null)
     {
         return PrimaryConstructorBaseTypeBuilder.CreateSyntax(typeCallback, primaryConstructorBaseTypeCallback);
     }
@@ -933,7 +933,7 @@ public static class CSharpFactory
         return ConstructorConstraintBuilder.CreateSyntax();
     }
 
-    public static ClassOrStructConstraintSyntax ClassOrStructConstraint(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder> classOrStructConstraintCallback)
+    public static ClassOrStructConstraintSyntax ClassOrStructConstraint(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder>? classOrStructConstraintCallback = null)
     {
         return ClassOrStructConstraintBuilder.CreateSyntax(kind, classOrStructConstraintCallback);
     }
@@ -973,32 +973,32 @@ public static class CSharpFactory
         return BaseMethodDeclarationBuilder.CreateSyntax(callback);
     }
 
-    public static MethodDeclarationSyntax MethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder> methodDeclarationCallback)
+    public static MethodDeclarationSyntax MethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder>? methodDeclarationCallback = null)
     {
         return MethodDeclarationBuilder.CreateSyntax(returnTypeCallback, identifier, methodDeclarationCallback);
     }
 
-    public static OperatorDeclarationSyntax OperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder> operatorDeclarationCallback)
+    public static OperatorDeclarationSyntax OperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder>? operatorDeclarationCallback = null)
     {
         return OperatorDeclarationBuilder.CreateSyntax(returnTypeCallback, operatorDeclarationOperatorToken, operatorDeclarationCallback);
     }
 
-    public static ConversionOperatorDeclarationSyntax ConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder> conversionOperatorDeclarationCallback)
+    public static ConversionOperatorDeclarationSyntax ConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder>? conversionOperatorDeclarationCallback = null)
     {
         return ConversionOperatorDeclarationBuilder.CreateSyntax(conversionOperatorDeclarationImplicitOrExplicitKeyword, typeCallback, conversionOperatorDeclarationCallback);
     }
 
-    public static ConstructorDeclarationSyntax ConstructorDeclaration(string identifier, Action<IConstructorDeclarationBuilder> constructorDeclarationCallback)
+    public static ConstructorDeclarationSyntax ConstructorDeclaration(string identifier, Action<IConstructorDeclarationBuilder>? constructorDeclarationCallback = null)
     {
         return ConstructorDeclarationBuilder.CreateSyntax(identifier, constructorDeclarationCallback);
     }
 
-    public static ConstructorInitializerSyntax ConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback)
+    public static ConstructorInitializerSyntax ConstructorInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder>? constructorInitializerCallback = null)
     {
         return ConstructorInitializerBuilder.CreateSyntax(kind, constructorInitializerCallback);
     }
 
-    public static DestructorDeclarationSyntax DestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback)
+    public static DestructorDeclarationSyntax DestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder>? destructorDeclarationCallback = null)
     {
         return DestructorDeclarationBuilder.CreateSyntax(identifier, destructorDeclarationCallback);
     }
@@ -1008,7 +1008,7 @@ public static class CSharpFactory
         return BasePropertyDeclarationBuilder.CreateSyntax(callback);
     }
 
-    public static PropertyDeclarationSyntax PropertyDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder> propertyDeclarationCallback)
+    public static PropertyDeclarationSyntax PropertyDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder>? propertyDeclarationCallback = null)
     {
         return PropertyDeclarationBuilder.CreateSyntax(typeCallback, identifier, propertyDeclarationCallback);
     }
@@ -1018,17 +1018,17 @@ public static class CSharpFactory
         return ArrowExpressionClauseBuilder.CreateSyntax(expressionCallback);
     }
 
-    public static EventDeclarationSyntax EventDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder> eventDeclarationCallback)
+    public static EventDeclarationSyntax EventDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder>? eventDeclarationCallback = null)
     {
         return EventDeclarationBuilder.CreateSyntax(typeCallback, identifier, eventDeclarationCallback);
     }
 
-    public static IndexerDeclarationSyntax IndexerDeclaration(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder> indexerDeclarationCallback)
+    public static IndexerDeclarationSyntax IndexerDeclaration(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder>? indexerDeclarationCallback = null)
     {
         return IndexerDeclarationBuilder.CreateSyntax(typeCallback, indexerDeclarationCallback);
     }
 
-    public static AccessorDeclarationSyntax AccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
+    public static AccessorDeclarationSyntax AccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder>? accessorDeclarationCallback = null)
     {
         return AccessorDeclarationBuilder.CreateSyntax(kind, accessorDeclarationCallback);
     }
@@ -1038,27 +1038,27 @@ public static class CSharpFactory
         return BaseParameterBuilder.CreateSyntax(callback);
     }
 
-    public static ParameterSyntax Parameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public static ParameterSyntax Parameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         return ParameterBuilder.CreateSyntax(identifier, parameterCallback);
     }
 
-    public static FunctionPointerParameterSyntax FunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder> functionPointerParameterCallback)
+    public static FunctionPointerParameterSyntax FunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder>? functionPointerParameterCallback = null)
     {
         return FunctionPointerParameterBuilder.CreateSyntax(typeCallback, functionPointerParameterCallback);
     }
 
-    public static IncompleteMemberSyntax IncompleteMember(Action<IIncompleteMemberBuilder> incompleteMemberCallback)
+    public static IncompleteMemberSyntax IncompleteMember(Action<IIncompleteMemberBuilder>? incompleteMemberCallback = null)
     {
         return IncompleteMemberBuilder.CreateSyntax(incompleteMemberCallback);
     }
 
-    public static SkippedTokensTriviaSyntax SkippedTokensTrivia(Action<ISkippedTokensTriviaBuilder> skippedTokensTriviaCallback)
+    public static SkippedTokensTriviaSyntax SkippedTokensTrivia(Action<ISkippedTokensTriviaBuilder>? skippedTokensTriviaCallback = null)
     {
         return SkippedTokensTriviaBuilder.CreateSyntax(skippedTokensTriviaCallback);
     }
 
-    public static DocumentationCommentTriviaSyntax DocumentationCommentTrivia(DocumentationCommentTriviaKind kind, Action<IDocumentationCommentTriviaBuilder> documentationCommentTriviaCallback)
+    public static DocumentationCommentTriviaSyntax DocumentationCommentTrivia(DocumentationCommentTriviaKind kind, Action<IDocumentationCommentTriviaBuilder>? documentationCommentTriviaCallback = null)
     {
         return DocumentationCommentTriviaBuilder.CreateSyntax(kind, documentationCommentTriviaCallback);
     }
@@ -1083,27 +1083,27 @@ public static class CSharpFactory
         return MemberCrefBuilder.CreateSyntax(callback);
     }
 
-    public static NameMemberCrefSyntax NameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder> nameMemberCrefCallback)
+    public static NameMemberCrefSyntax NameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder>? nameMemberCrefCallback = null)
     {
         return NameMemberCrefBuilder.CreateSyntax(nameCallback, nameMemberCrefCallback);
     }
 
-    public static IndexerMemberCrefSyntax IndexerMemberCref(Action<IIndexerMemberCrefBuilder> indexerMemberCrefCallback)
+    public static IndexerMemberCrefSyntax IndexerMemberCref(Action<IIndexerMemberCrefBuilder>? indexerMemberCrefCallback = null)
     {
         return IndexerMemberCrefBuilder.CreateSyntax(indexerMemberCrefCallback);
     }
 
-    public static OperatorMemberCrefSyntax OperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder> operatorMemberCrefCallback)
+    public static OperatorMemberCrefSyntax OperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder>? operatorMemberCrefCallback = null)
     {
         return OperatorMemberCrefBuilder.CreateSyntax(operatorMemberCrefOperatorToken, operatorMemberCrefCallback);
     }
 
-    public static ConversionOperatorMemberCrefSyntax ConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder> conversionOperatorMemberCrefCallback)
+    public static ConversionOperatorMemberCrefSyntax ConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder>? conversionOperatorMemberCrefCallback = null)
     {
         return ConversionOperatorMemberCrefBuilder.CreateSyntax(conversionOperatorMemberCrefImplicitOrExplicitKeyword, typeCallback, conversionOperatorMemberCrefCallback);
     }
 
-    public static CrefParameterSyntax CrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
+    public static CrefParameterSyntax CrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder>? crefParameterCallback = null)
     {
         return CrefParameterBuilder.CreateSyntax(typeCallback, crefParameterCallback);
     }
@@ -1133,7 +1133,7 @@ public static class CSharpFactory
         return XmlEmptyElementBuilder.CreateSyntax(nameLocalName, nameXmlNameCallback, xmlEmptyElementCallback);
     }
 
-    public static XmlNameSyntax XmlName(string localName, Action<IXmlNameBuilder> xmlNameCallback)
+    public static XmlNameSyntax XmlName(string localName, Action<IXmlNameBuilder>? xmlNameCallback = null)
     {
         return XmlNameBuilder.CreateSyntax(localName, xmlNameCallback);
     }
@@ -1163,12 +1163,12 @@ public static class CSharpFactory
         return XmlNameAttributeBuilder.CreateSyntax(nameLocalName, nameXmlNameCallback, xmlNameAttributeStartQuoteToken, identifierIdentifier, xmlNameAttributeEndQuoteToken);
     }
 
-    public static XmlTextSyntax XmlText(Action<IXmlTextBuilder> xmlTextCallback)
+    public static XmlTextSyntax XmlText(Action<IXmlTextBuilder>? xmlTextCallback = null)
     {
         return XmlTextBuilder.CreateSyntax(xmlTextCallback);
     }
 
-    public static XmlCDataSectionSyntax XmlCDataSection(Action<IXmlCDataSectionBuilder> xmlCDataSectionCallback)
+    public static XmlCDataSectionSyntax XmlCDataSection(Action<IXmlCDataSectionBuilder>? xmlCDataSectionCallback = null)
     {
         return XmlCDataSectionBuilder.CreateSyntax(xmlCDataSectionCallback);
     }
@@ -1178,7 +1178,7 @@ public static class CSharpFactory
         return XmlProcessingInstructionBuilder.CreateSyntax(nameLocalName, nameXmlNameCallback, xmlProcessingInstructionCallback);
     }
 
-    public static XmlCommentSyntax XmlComment(Action<IXmlCommentBuilder> xmlCommentCallback)
+    public static XmlCommentSyntax XmlComment(Action<IXmlCommentBuilder>? xmlCommentCallback = null)
     {
         return XmlCommentBuilder.CreateSyntax(xmlCommentCallback);
     }
@@ -1258,7 +1258,7 @@ public static class CSharpFactory
         return LineOrSpanDirectiveTriviaBuilder.CreateSyntax(callback);
     }
 
-    public static LineDirectiveTriviaSyntax LineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder> lineDirectiveTriviaCallback)
+    public static LineDirectiveTriviaSyntax LineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder>? lineDirectiveTriviaCallback = null)
     {
         return LineDirectiveTriviaBuilder.CreateSyntax(lineDirectiveTriviaLine, isActive, lineDirectiveTriviaCallback);
     }
@@ -1273,7 +1273,7 @@ public static class CSharpFactory
         return LineSpanDirectiveTriviaBuilder.CreateSyntax(startLine, startCharacter, endLine, endCharacter, file, isActive, lineSpanDirectiveTriviaCallback);
     }
 
-    public static PragmaWarningDirectiveTriviaSyntax PragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder> pragmaWarningDirectiveTriviaCallback)
+    public static PragmaWarningDirectiveTriviaSyntax PragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder>? pragmaWarningDirectiveTriviaCallback = null)
     {
         return PragmaWarningDirectiveTriviaBuilder.CreateSyntax(pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, isActive, pragmaWarningDirectiveTriviaCallback);
     }
@@ -1298,7 +1298,7 @@ public static class CSharpFactory
         return ShebangDirectiveTriviaBuilder.CreateSyntax(isActive);
     }
 
-    public static NullableDirectiveTriviaSyntax NullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder> nullableDirectiveTriviaCallback)
+    public static NullableDirectiveTriviaSyntax NullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder>? nullableDirectiveTriviaCallback = null)
     {
         return NullableDirectiveTriviaBuilder.CreateSyntax(nullableDirectiveTriviaSettingToken, isActive, nullableDirectiveTriviaCallback);
     }

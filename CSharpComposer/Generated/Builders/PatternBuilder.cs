@@ -9,15 +9,15 @@ public partial interface IPatternBuilder
     void AsDiscardPattern();
     void AsDeclarationPattern(Action<ITypeBuilder> typeCallback, Action<IVariableDesignationBuilder> designationCallback);
     void AsVarPattern(Action<IVariableDesignationBuilder> designationCallback);
-    void AsRecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback);
+    void AsRecursivePattern(Action<IRecursivePatternBuilder>? recursivePatternCallback = null);
     void AsConstantPattern(Action<IExpressionBuilder> expressionCallback);
     void AsParenthesizedPattern(Action<IPatternBuilder> patternCallback);
     void AsRelationalPattern(RelationalPatternOperatorToken relationalPatternOperatorToken, Action<IExpressionBuilder> expressionCallback);
     void AsTypePattern(Action<ITypeBuilder> typeCallback);
     void AsBinaryPattern(BinaryPatternKind kind, Action<IPatternBuilder> leftCallback, Action<IPatternBuilder> rightCallback);
     void AsUnaryPattern(Action<IPatternBuilder> patternCallback);
-    void AsListPattern(Action<IListPatternBuilder> listPatternCallback);
-    void AsSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback);
+    void AsListPattern(Action<IListPatternBuilder>? listPatternCallback = null);
+    void AsSlicePattern(Action<ISlicePatternBuilder>? slicePatternCallback = null);
 }
 
 public interface IWithPattern<TBuilder>
@@ -63,7 +63,7 @@ public partial class PatternBuilder : IPatternBuilder
         Syntax = VarPatternBuilder.CreateSyntax(designationCallback);
     }
 
-    public void AsRecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback)
+    public void AsRecursivePattern(Action<IRecursivePatternBuilder>? recursivePatternCallback = null)
     {
         Syntax = RecursivePatternBuilder.CreateSyntax(recursivePatternCallback);
     }
@@ -98,12 +98,12 @@ public partial class PatternBuilder : IPatternBuilder
         Syntax = UnaryPatternBuilder.CreateSyntax(patternCallback);
     }
 
-    public void AsListPattern(Action<IListPatternBuilder> listPatternCallback)
+    public void AsListPattern(Action<IListPatternBuilder>? listPatternCallback = null)
     {
         Syntax = ListPatternBuilder.CreateSyntax(listPatternCallback);
     }
 
-    public void AsSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback)
+    public void AsSlicePattern(Action<ISlicePatternBuilder>? slicePatternCallback = null)
     {
         Syntax = SlicePatternBuilder.CreateSyntax(slicePatternCallback);
     }

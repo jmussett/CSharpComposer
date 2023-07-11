@@ -8,7 +8,7 @@ public partial interface IConversionOperatorDeclarationBuilder : IBaseMethodDecl
 {
     IConversionOperatorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IConversionOperatorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IConversionOperatorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    IConversionOperatorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null);
     IConversionOperatorDeclarationBuilder WithBody(BlockSyntax body);
     IConversionOperatorDeclarationBuilder WithCheckedKeyword();
 }
@@ -22,7 +22,7 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         Syntax = syntax;
     }
 
-    public static ConversionOperatorDeclarationSyntax CreateSyntax(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder> conversionOperatorDeclarationCallback)
+    public static ConversionOperatorDeclarationSyntax CreateSyntax(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder>? conversionOperatorDeclarationCallback = null)
     {
         var implicitOrExplicitKeywordToken = conversionOperatorDeclarationImplicitOrExplicitKeyword switch
         {
@@ -35,7 +35,7 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         var parameterListSyntax = SyntaxFactory.ParameterList();
         var syntax = SyntaxFactory.ConversionOperatorDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), implicitOrExplicitKeywordToken, default(ExplicitInterfaceSpecifierSyntax), operatorKeywordToken, default(SyntaxToken), typeSyntax, parameterListSyntax, null, null, default(SyntaxToken));
         var builder = new ConversionOperatorDeclarationBuilder(syntax);
-        conversionOperatorDeclarationCallback(builder);
+        conversionOperatorDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -52,7 +52,7 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IConversionOperatorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
@@ -65,7 +65,7 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IConversionOperatorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -107,7 +107,7 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IConversionOperatorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

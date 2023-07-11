@@ -19,7 +19,7 @@ public partial class FunctionPointerCallingConventionBuilder : IFunctionPointerC
         Syntax = syntax;
     }
 
-    public static FunctionPointerCallingConventionSyntax CreateSyntax(FunctionPointerCallingConventionManagedOrUnmanagedKeyword functionPointerCallingConventionManagedOrUnmanagedKeyword, Action<IFunctionPointerCallingConventionBuilder> functionPointerCallingConventionCallback)
+    public static FunctionPointerCallingConventionSyntax CreateSyntax(FunctionPointerCallingConventionManagedOrUnmanagedKeyword functionPointerCallingConventionManagedOrUnmanagedKeyword, Action<IFunctionPointerCallingConventionBuilder>? functionPointerCallingConventionCallback = null)
     {
         var managedOrUnmanagedKeywordToken = functionPointerCallingConventionManagedOrUnmanagedKeyword switch
         {
@@ -29,7 +29,7 @@ public partial class FunctionPointerCallingConventionBuilder : IFunctionPointerC
         };
         var syntax = SyntaxFactory.FunctionPointerCallingConvention(managedOrUnmanagedKeywordToken, default(FunctionPointerUnmanagedCallingConventionListSyntax));
         var builder = new FunctionPointerCallingConventionBuilder(syntax);
-        functionPointerCallingConventionCallback(builder);
+        functionPointerCallingConventionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

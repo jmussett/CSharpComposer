@@ -8,10 +8,10 @@ public partial interface IXmlNodeBuilder
 {
     void AsXmlElement(string nameStartTagLocalName, Action<IXmlNameBuilder> nameStartTagXmlNameCallback, Action<IXmlElementStartTagBuilder> startTagXmlElementStartTagCallback, string nameEndTagLocalName, Action<IXmlNameBuilder> nameEndTagXmlNameCallback, Action<IXmlElementBuilder> xmlElementCallback);
     void AsXmlEmptyElement(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlEmptyElementBuilder> xmlEmptyElementCallback);
-    void AsXmlText(Action<IXmlTextBuilder> xmlTextCallback);
-    void AsXmlCDataSection(Action<IXmlCDataSectionBuilder> xmlCDataSectionCallback);
+    void AsXmlText(Action<IXmlTextBuilder>? xmlTextCallback = null);
+    void AsXmlCDataSection(Action<IXmlCDataSectionBuilder>? xmlCDataSectionCallback = null);
     void AsXmlProcessingInstruction(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlProcessingInstructionBuilder> xmlProcessingInstructionCallback);
-    void AsXmlComment(Action<IXmlCommentBuilder> xmlCommentCallback);
+    void AsXmlComment(Action<IXmlCommentBuilder>? xmlCommentCallback = null);
 }
 
 public partial class XmlNodeBuilder : IXmlNodeBuilder
@@ -40,12 +40,12 @@ public partial class XmlNodeBuilder : IXmlNodeBuilder
         Syntax = XmlEmptyElementBuilder.CreateSyntax(nameLocalName, nameXmlNameCallback, xmlEmptyElementCallback);
     }
 
-    public void AsXmlText(Action<IXmlTextBuilder> xmlTextCallback)
+    public void AsXmlText(Action<IXmlTextBuilder>? xmlTextCallback = null)
     {
         Syntax = XmlTextBuilder.CreateSyntax(xmlTextCallback);
     }
 
-    public void AsXmlCDataSection(Action<IXmlCDataSectionBuilder> xmlCDataSectionCallback)
+    public void AsXmlCDataSection(Action<IXmlCDataSectionBuilder>? xmlCDataSectionCallback = null)
     {
         Syntax = XmlCDataSectionBuilder.CreateSyntax(xmlCDataSectionCallback);
     }
@@ -55,7 +55,7 @@ public partial class XmlNodeBuilder : IXmlNodeBuilder
         Syntax = XmlProcessingInstructionBuilder.CreateSyntax(nameLocalName, nameXmlNameCallback, xmlProcessingInstructionCallback);
     }
 
-    public void AsXmlComment(Action<IXmlCommentBuilder> xmlCommentCallback)
+    public void AsXmlComment(Action<IXmlCommentBuilder>? xmlCommentCallback = null)
     {
         Syntax = XmlCommentBuilder.CreateSyntax(xmlCommentCallback);
     }

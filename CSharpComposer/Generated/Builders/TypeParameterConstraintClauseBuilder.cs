@@ -26,7 +26,7 @@ public partial class TypeParameterConstraintClauseBuilder : ITypeParameterConstr
         var colonTokenToken = SyntaxFactory.Token(SyntaxKind.ColonToken);
         var syntax = SyntaxFactory.TypeParameterConstraintClause(whereKeywordToken, nameSyntax, colonTokenToken, default(SeparatedSyntaxList<TypeParameterConstraintSyntax>));
         var builder = new TypeParameterConstraintClauseBuilder(syntax);
-        typeParameterConstraintClauseCallback(builder);
+        typeParameterConstraintClauseCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

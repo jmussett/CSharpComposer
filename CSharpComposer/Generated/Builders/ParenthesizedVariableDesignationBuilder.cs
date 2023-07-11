@@ -19,13 +19,13 @@ public partial class ParenthesizedVariableDesignationBuilder : IParenthesizedVar
         Syntax = syntax;
     }
 
-    public static ParenthesizedVariableDesignationSyntax CreateSyntax(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback)
+    public static ParenthesizedVariableDesignationSyntax CreateSyntax(Action<IParenthesizedVariableDesignationBuilder>? parenthesizedVariableDesignationCallback = null)
     {
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
         var closeParenTokenToken = SyntaxFactory.Token(SyntaxKind.CloseParenToken);
         var syntax = SyntaxFactory.ParenthesizedVariableDesignation(openParenTokenToken, default(SeparatedSyntaxList<VariableDesignationSyntax>), closeParenTokenToken);
         var builder = new ParenthesizedVariableDesignationBuilder(syntax);
-        parenthesizedVariableDesignationCallback(builder);
+        parenthesizedVariableDesignationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

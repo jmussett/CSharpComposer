@@ -17,7 +17,7 @@ public partial class WhileStatementBuilder : IWhileStatementBuilder
         Syntax = syntax;
     }
 
-    public static WhileStatementSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IWhileStatementBuilder> whileStatementCallback)
+    public static WhileStatementSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IWhileStatementBuilder>? whileStatementCallback = null)
     {
         var whileKeywordToken = SyntaxFactory.Token(SyntaxKind.WhileKeyword);
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
@@ -26,11 +26,11 @@ public partial class WhileStatementBuilder : IWhileStatementBuilder
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
         var syntax = SyntaxFactory.WhileStatement(default(SyntaxList<AttributeListSyntax>), whileKeywordToken, openParenTokenToken, conditionSyntax, closeParenTokenToken, statementSyntax);
         var builder = new WhileStatementBuilder(syntax);
-        whileStatementCallback(builder);
+        whileStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IWhileStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IWhileStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

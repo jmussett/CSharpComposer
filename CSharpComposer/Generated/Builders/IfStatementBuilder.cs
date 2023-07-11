@@ -19,7 +19,7 @@ public partial class IfStatementBuilder : IIfStatementBuilder
         Syntax = syntax;
     }
 
-    public static IfStatementSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IIfStatementBuilder> ifStatementCallback)
+    public static IfStatementSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback, Action<IStatementBuilder> statementCallback, Action<IIfStatementBuilder>? ifStatementCallback = null)
     {
         var ifKeywordToken = SyntaxFactory.Token(SyntaxKind.IfKeyword);
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
@@ -28,11 +28,11 @@ public partial class IfStatementBuilder : IIfStatementBuilder
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
         var syntax = SyntaxFactory.IfStatement(default(SyntaxList<AttributeListSyntax>), ifKeywordToken, openParenTokenToken, conditionSyntax, closeParenTokenToken, statementSyntax, default(ElseClauseSyntax));
         var builder = new IfStatementBuilder(syntax);
-        ifStatementCallback(builder);
+        ifStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IIfStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IIfStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

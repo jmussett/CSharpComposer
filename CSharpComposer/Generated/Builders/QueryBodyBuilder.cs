@@ -21,12 +21,12 @@ public partial class QueryBodyBuilder : IQueryBodyBuilder
         Syntax = syntax;
     }
 
-    public static QueryBodySyntax CreateSyntax(Action<ISelectOrGroupClauseBuilder> selectOrGroupCallback, Action<IQueryBodyBuilder> queryBodyCallback)
+    public static QueryBodySyntax CreateSyntax(Action<ISelectOrGroupClauseBuilder> selectOrGroupCallback, Action<IQueryBodyBuilder>? queryBodyCallback = null)
     {
         var selectOrGroupSyntax = SelectOrGroupClauseBuilder.CreateSyntax(selectOrGroupCallback);
         var syntax = SyntaxFactory.QueryBody(default(SyntaxList<QueryClauseSyntax>), selectOrGroupSyntax, default(QueryContinuationSyntax));
         var builder = new QueryBodyBuilder(syntax);
-        queryBodyCallback(builder);
+        queryBodyCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

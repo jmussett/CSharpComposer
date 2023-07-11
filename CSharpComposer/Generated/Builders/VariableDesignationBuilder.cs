@@ -8,7 +8,7 @@ public partial interface IVariableDesignationBuilder
 {
     void AsSingleVariableDesignation(string identifier);
     void AsDiscardDesignation();
-    void AsParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback);
+    void AsParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder>? parenthesizedVariableDesignationCallback = null);
 }
 
 public partial class VariableDesignationBuilder : IVariableDesignationBuilder
@@ -37,7 +37,7 @@ public partial class VariableDesignationBuilder : IVariableDesignationBuilder
         Syntax = DiscardDesignationBuilder.CreateSyntax();
     }
 
-    public void AsParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder> parenthesizedVariableDesignationCallback)
+    public void AsParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder>? parenthesizedVariableDesignationCallback = null)
     {
         Syntax = ParenthesizedVariableDesignationBuilder.CreateSyntax(parenthesizedVariableDesignationCallback);
     }

@@ -8,7 +8,7 @@ public partial interface IMethodDeclarationBuilder : IBaseMethodDeclarationBuild
 {
     IMethodDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IMethodDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IMethodDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    IMethodDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null);
     IMethodDeclarationBuilder WithBody(BlockSyntax body);
     IMethodDeclarationBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
     IMethodDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
@@ -23,14 +23,14 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static MethodDeclarationSyntax CreateSyntax(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder> methodDeclarationCallback)
+    public static MethodDeclarationSyntax CreateSyntax(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder>? methodDeclarationCallback = null)
     {
         var returnTypeSyntax = TypeBuilder.CreateSyntax(returnTypeCallback);
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var parameterListSyntax = SyntaxFactory.ParameterList();
         var syntax = SyntaxFactory.MethodDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), returnTypeSyntax, default(ExplicitInterfaceSpecifierSyntax), identifierToken, default(TypeParameterListSyntax), parameterListSyntax, default(SyntaxList<TypeParameterConstraintClauseSyntax>), null, null, default(SyntaxToken));
         var builder = new MethodDeclarationBuilder(syntax);
-        methodDeclarationCallback(builder);
+        methodDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -47,7 +47,7 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return this;
     }
 
-    public IMethodDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IMethodDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
@@ -60,7 +60,7 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return this;
     }
 
-    public IMethodDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IMethodDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -96,7 +96,7 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return this;
     }
 
-    public IMethodDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
+    public IMethodDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);
         Syntax = Syntax.AddTypeParameterListParameters(parameter);
@@ -109,7 +109,7 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return this;
     }
 
-    public IMethodDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IMethodDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

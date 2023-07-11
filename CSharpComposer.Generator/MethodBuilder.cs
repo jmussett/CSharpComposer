@@ -553,7 +553,6 @@ internal class MethodBuilder
                         else
                         {
                             var builderName = NameFactory.CreateBuilderName(field.Type);
-                            var callbackType = $"Action<I{builderName}>";
 
                             x.AddStatement($"var {fieldName}Syntax = {builderName}.CreateSyntax({fieldName}Callback);");
                         }

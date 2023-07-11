@@ -18,7 +18,7 @@ public partial class NamespaceDeclarationBuilder : INamespaceDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static NamespaceDeclarationSyntax CreateSyntax(Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder> namespaceDeclarationCallback)
+    public static NamespaceDeclarationSyntax CreateSyntax(Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder>? namespaceDeclarationCallback = null)
     {
         var namespaceKeywordToken = SyntaxFactory.Token(SyntaxKind.NamespaceKeyword);
         var nameSyntax = NameBuilder.CreateSyntax(nameCallback);
@@ -26,11 +26,11 @@ public partial class NamespaceDeclarationBuilder : INamespaceDeclarationBuilder
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.NamespaceDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), namespaceKeywordToken, nameSyntax, openBraceTokenToken, default(SyntaxList<ExternAliasDirectiveSyntax>), default(SyntaxList<UsingDirectiveSyntax>), default(SyntaxList<MemberDeclarationSyntax>), closeBraceTokenToken, default(SyntaxToken));
         var builder = new NamespaceDeclarationBuilder(syntax);
-        namespaceDeclarationCallback(builder);
+        namespaceDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public INamespaceDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public INamespaceDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -66,7 +66,7 @@ public partial class NamespaceDeclarationBuilder : INamespaceDeclarationBuilder
         return this;
     }
 
-    public INamespaceDeclarationBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
+    public INamespaceDeclarationBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder>? usingDirectiveCallback = null)
     {
         var @using = UsingDirectiveBuilder.CreateSyntax(nameCallback, usingDirectiveCallback);
         Syntax = Syntax.AddUsings(@using);

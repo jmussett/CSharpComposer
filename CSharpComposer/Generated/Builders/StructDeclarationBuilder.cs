@@ -17,7 +17,7 @@ public partial class StructDeclarationBuilder : IStructDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static StructDeclarationSyntax CreateSyntax(string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback)
+    public static StructDeclarationSyntax CreateSyntax(string identifier, Action<IStructDeclarationBuilder>? structDeclarationCallback = null)
     {
         var keywordToken = SyntaxFactory.Token(SyntaxKind.StructKeyword);
         var identifierToken = SyntaxFactory.Identifier(identifier);
@@ -25,11 +25,11 @@ public partial class StructDeclarationBuilder : IStructDeclarationBuilder
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.StructDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), keywordToken, identifierToken, default(TypeParameterListSyntax), default(BaseListSyntax), default(SyntaxList<TypeParameterConstraintClauseSyntax>), openBraceTokenToken, default(SyntaxList<MemberDeclarationSyntax>), closeBraceTokenToken, default(SyntaxToken));
         var builder = new StructDeclarationBuilder(syntax);
-        structDeclarationCallback(builder);
+        structDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IStructDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IStructDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -52,7 +52,7 @@ public partial class StructDeclarationBuilder : IStructDeclarationBuilder
         return this;
     }
 
-    public IStructDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
+    public IStructDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);
         Syntax = Syntax.AddTypeParameterListParameters(parameter);

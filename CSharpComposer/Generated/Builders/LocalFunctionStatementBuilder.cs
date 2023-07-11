@@ -8,7 +8,7 @@ public partial interface ILocalFunctionStatementBuilder : IStatementBuilder<ILoc
 {
     ILocalFunctionStatementBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     ILocalFunctionStatementBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder>? blockCallback = null);
     ILocalFunctionStatementBuilder WithBody(BlockSyntax body);
     ILocalFunctionStatementBuilder AddModifierToken(SyntaxToken modifier);
     ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
@@ -24,14 +24,14 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         Syntax = syntax;
     }
 
-    public static LocalFunctionStatementSyntax CreateSyntax(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder> localFunctionStatementCallback)
+    public static LocalFunctionStatementSyntax CreateSyntax(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder>? localFunctionStatementCallback = null)
     {
         var returnTypeSyntax = TypeBuilder.CreateSyntax(returnTypeCallback);
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var parameterListSyntax = SyntaxFactory.ParameterList();
         var syntax = SyntaxFactory.LocalFunctionStatement(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), returnTypeSyntax, identifierToken, default(TypeParameterListSyntax), parameterListSyntax, default(SyntaxList<TypeParameterConstraintClauseSyntax>), null, null, default(SyntaxToken));
         var builder = new LocalFunctionStatementBuilder(syntax);
-        localFunctionStatementCallback(builder);
+        localFunctionStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -48,7 +48,7 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         return this;
     }
 
-    public ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder>? blockCallback = null)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
@@ -61,7 +61,7 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         return this;
     }
 
-    public ILocalFunctionStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ILocalFunctionStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -84,7 +84,7 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         return this;
     }
 
-    public ILocalFunctionStatementBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
+    public ILocalFunctionStatementBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);
         Syntax = Syntax.AddTypeParameterListParameters(parameter);
@@ -97,7 +97,7 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         return this;
     }
 
-    public ILocalFunctionStatementBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public ILocalFunctionStatementBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

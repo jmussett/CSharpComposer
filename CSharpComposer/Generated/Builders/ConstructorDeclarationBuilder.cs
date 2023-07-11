@@ -8,9 +8,9 @@ public partial interface IConstructorDeclarationBuilder : IBaseMethodDeclaration
 {
     IConstructorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IConstructorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IConstructorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    IConstructorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null);
     IConstructorDeclarationBuilder WithBody(BlockSyntax body);
-    IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback);
+    IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder>? constructorInitializerCallback = null);
     IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerSyntax initializer);
 }
 
@@ -23,13 +23,13 @@ public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuil
         Syntax = syntax;
     }
 
-    public static ConstructorDeclarationSyntax CreateSyntax(string identifier, Action<IConstructorDeclarationBuilder> constructorDeclarationCallback)
+    public static ConstructorDeclarationSyntax CreateSyntax(string identifier, Action<IConstructorDeclarationBuilder>? constructorDeclarationCallback = null)
     {
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var parameterListSyntax = SyntaxFactory.ParameterList();
         var syntax = SyntaxFactory.ConstructorDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), identifierToken, parameterListSyntax, default(ConstructorInitializerSyntax), null, null, default(SyntaxToken));
         var builder = new ConstructorDeclarationBuilder(syntax);
-        constructorDeclarationCallback(builder);
+        constructorDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -46,7 +46,7 @@ public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuil
         return this;
     }
 
-    public IConstructorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IConstructorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
@@ -59,7 +59,7 @@ public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuil
         return this;
     }
 
-    public IConstructorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IConstructorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -82,7 +82,7 @@ public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuil
         return this;
     }
 
-    public IConstructorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IConstructorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);
@@ -95,7 +95,7 @@ public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuil
         return this;
     }
 
-    public IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback)
+    public IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder>? constructorInitializerCallback = null)
     {
         var initializerSyntax = ConstructorInitializerBuilder.CreateSyntax(kind, constructorInitializerCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);

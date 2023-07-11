@@ -12,7 +12,7 @@ public partial interface IOrderingBuilder
 public interface IAddOrdering<TBuilder>
 {
     TBuilder AddOrdering(OrderingSyntax orderingSyntax);
-    TBuilder AddOrdering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder> orderingCallback);
+    TBuilder AddOrdering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder>? orderingCallback = null);
 }
 
 public partial class OrderingBuilder : IOrderingBuilder
@@ -24,7 +24,7 @@ public partial class OrderingBuilder : IOrderingBuilder
         Syntax = syntax;
     }
 
-    public static OrderingSyntax CreateSyntax(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder> orderingCallback)
+    public static OrderingSyntax CreateSyntax(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder>? orderingCallback = null)
     {
         var syntaxKind = kind switch
         {
@@ -35,7 +35,7 @@ public partial class OrderingBuilder : IOrderingBuilder
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
         var syntax = SyntaxFactory.Ordering(syntaxKind, expressionSyntax, default(SyntaxToken));
         var builder = new OrderingBuilder(syntax);
-        orderingCallback(builder);
+        orderingCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

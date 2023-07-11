@@ -19,7 +19,7 @@ public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static DelegateDeclarationSyntax CreateSyntax(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback)
+    public static DelegateDeclarationSyntax CreateSyntax(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder>? delegateDeclarationCallback = null)
     {
         var delegateKeywordToken = SyntaxFactory.Token(SyntaxKind.DelegateKeyword);
         var returnTypeSyntax = TypeBuilder.CreateSyntax(returnTypeCallback);
@@ -28,11 +28,11 @@ public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.DelegateDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), delegateKeywordToken, returnTypeSyntax, identifierToken, default(TypeParameterListSyntax), parameterListSyntax, default(SyntaxList<TypeParameterConstraintClauseSyntax>), semicolonTokenToken);
         var builder = new DelegateDeclarationBuilder(syntax);
-        delegateDeclarationCallback(builder);
+        delegateDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IDelegateDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IDelegateDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -55,7 +55,7 @@ public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
         return this;
     }
 
-    public IDelegateDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
+    public IDelegateDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);
         Syntax = Syntax.AddTypeParameterListParameters(parameter);
@@ -68,7 +68,7 @@ public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
         return this;
     }
 
-    public IDelegateDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IDelegateDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

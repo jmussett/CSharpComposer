@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ICatchClauseBuilder
 {
-    ICatchClauseBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback);
+    ICatchClauseBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder>? catchDeclarationCallback = null);
     ICatchClauseBuilder WithDeclaration(CatchDeclarationSyntax declaration);
     ICatchClauseBuilder WithFilter(Action<IExpressionBuilder> filterExpressionCallback);
     ICatchClauseBuilder WithFilter(CatchFilterClauseSyntax filter);
@@ -27,11 +27,11 @@ public partial class CatchClauseBuilder : ICatchClauseBuilder
         var blockSyntax = BlockBuilder.CreateSyntax(blockBlockCallback);
         var syntax = SyntaxFactory.CatchClause(catchKeywordToken, default(CatchDeclarationSyntax), default(CatchFilterClauseSyntax), blockSyntax);
         var builder = new CatchClauseBuilder(syntax);
-        catchClauseCallback(builder);
+        catchClauseCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ICatchClauseBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback)
+    public ICatchClauseBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder>? catchDeclarationCallback = null)
     {
         var declarationSyntax = CatchDeclarationBuilder.CreateSyntax(typeCallback, catchDeclarationCallback);
         Syntax = Syntax.WithDeclaration(declarationSyntax);

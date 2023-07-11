@@ -17,7 +17,7 @@ public partial class YieldStatementBuilder : IYieldStatementBuilder
         Syntax = syntax;
     }
 
-    public static YieldStatementSyntax CreateSyntax(YieldStatementKind kind, Action<IYieldStatementBuilder> yieldStatementCallback)
+    public static YieldStatementSyntax CreateSyntax(YieldStatementKind kind, Action<IYieldStatementBuilder>? yieldStatementCallback = null)
     {
         var syntaxKind = kind switch
         {
@@ -35,11 +35,11 @@ public partial class YieldStatementBuilder : IYieldStatementBuilder
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.YieldStatement(syntaxKind, default(SyntaxList<AttributeListSyntax>), yieldKeywordToken, returnOrBreakKeywordToken, default(ExpressionSyntax), semicolonTokenToken);
         var builder = new YieldStatementBuilder(syntax);
-        yieldStatementCallback(builder);
+        yieldStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IYieldStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IYieldStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

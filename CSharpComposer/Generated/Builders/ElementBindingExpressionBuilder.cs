@@ -17,16 +17,16 @@ public partial class ElementBindingExpressionBuilder : IElementBindingExpression
         Syntax = syntax;
     }
 
-    public static ElementBindingExpressionSyntax CreateSyntax(Action<IElementBindingExpressionBuilder> elementBindingExpressionCallback)
+    public static ElementBindingExpressionSyntax CreateSyntax(Action<IElementBindingExpressionBuilder>? elementBindingExpressionCallback = null)
     {
         var argumentListSyntax = SyntaxFactory.BracketedArgumentList();
         var syntax = SyntaxFactory.ElementBindingExpression(argumentListSyntax);
         var builder = new ElementBindingExpressionBuilder(syntax);
-        elementBindingExpressionCallback(builder);
+        elementBindingExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IElementBindingExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public IElementBindingExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var argument = ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
         Syntax = Syntax.AddArgumentListArguments(argument);

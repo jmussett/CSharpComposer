@@ -18,7 +18,7 @@ public partial class LineDirectiveTriviaBuilder : ILineDirectiveTriviaBuilder
         Syntax = syntax;
     }
 
-    public static LineDirectiveTriviaSyntax CreateSyntax(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder> lineDirectiveTriviaCallback)
+    public static LineDirectiveTriviaSyntax CreateSyntax(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder>? lineDirectiveTriviaCallback = null)
     {
         var hashTokenToken = SyntaxFactory.Token(SyntaxKind.HashToken);
         var lineKeywordToken = SyntaxFactory.Token(SyntaxKind.LineKeyword);
@@ -32,7 +32,7 @@ public partial class LineDirectiveTriviaBuilder : ILineDirectiveTriviaBuilder
         var endOfDirectiveTokenToken = SyntaxFactory.Token(SyntaxKind.EndOfDirectiveToken);
         var syntax = SyntaxFactory.LineDirectiveTrivia(hashTokenToken, lineKeywordToken, lineToken, default(SyntaxToken), endOfDirectiveTokenToken, isActive);
         var builder = new LineDirectiveTriviaBuilder(syntax);
-        lineDirectiveTriviaCallback(builder);
+        lineDirectiveTriviaCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

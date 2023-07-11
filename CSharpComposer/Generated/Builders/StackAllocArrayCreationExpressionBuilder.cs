@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IStackAllocArrayCreationExpressionBuilder
 {
-    IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
+    IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder>? initializerExpressionCallback = null);
     IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
@@ -19,17 +19,17 @@ public partial class StackAllocArrayCreationExpressionBuilder : IStackAllocArray
         Syntax = syntax;
     }
 
-    public static StackAllocArrayCreationExpressionSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder> stackAllocArrayCreationExpressionCallback)
+    public static StackAllocArrayCreationExpressionSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder>? stackAllocArrayCreationExpressionCallback = null)
     {
         var stackAllocKeywordToken = SyntaxFactory.Token(SyntaxKind.StackAllocKeyword);
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var syntax = SyntaxFactory.StackAllocArrayCreationExpression(stackAllocKeywordToken, typeSyntax, default(InitializerExpressionSyntax));
         var builder = new StackAllocArrayCreationExpressionBuilder(syntax);
-        stackAllocArrayCreationExpressionCallback(builder);
+        stackAllocArrayCreationExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder>? initializerExpressionCallback = null)
     {
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);

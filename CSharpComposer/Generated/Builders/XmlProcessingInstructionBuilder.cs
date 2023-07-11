@@ -25,7 +25,7 @@ public partial class XmlProcessingInstructionBuilder : IXmlProcessingInstruction
         var endProcessingInstructionTokenToken = SyntaxFactory.Token(SyntaxKind.XmlProcessingInstructionEndToken);
         var syntax = SyntaxFactory.XmlProcessingInstruction(startProcessingInstructionTokenToken, nameSyntax, default(SyntaxTokenList), endProcessingInstructionTokenToken);
         var builder = new XmlProcessingInstructionBuilder(syntax);
-        xmlProcessingInstructionCallback(builder);
+        xmlProcessingInstructionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

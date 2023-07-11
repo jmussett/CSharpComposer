@@ -12,7 +12,7 @@ public partial interface IArgumentBuilder : IWithNameColon<IArgumentBuilder>
 public interface IAddArgument<TBuilder>
 {
     TBuilder AddArgument(ArgumentSyntax argumentSyntax);
-    TBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback);
+    TBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null);
 }
 
 public partial class ArgumentBuilder : IArgumentBuilder
@@ -24,12 +24,12 @@ public partial class ArgumentBuilder : IArgumentBuilder
         Syntax = syntax;
     }
 
-    public static ArgumentSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public static ArgumentSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
         var syntax = SyntaxFactory.Argument(default(NameColonSyntax), default(SyntaxToken), expressionSyntax);
         var builder = new ArgumentBuilder(syntax);
-        argumentCallback(builder);
+        argumentCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

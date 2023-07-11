@@ -21,13 +21,13 @@ public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static PropertyDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder> propertyDeclarationCallback)
+    public static PropertyDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder>? propertyDeclarationCallback = null)
     {
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var syntax = SyntaxFactory.PropertyDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), typeSyntax, default(ExplicitInterfaceSpecifierSyntax), identifierToken, default(AccessorListSyntax), null, null, default(SyntaxToken));
         var builder = new PropertyDeclarationBuilder(syntax);
-        propertyDeclarationCallback(builder);
+        propertyDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -57,7 +57,7 @@ public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
         return this;
     }
 
-    public IPropertyDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
+    public IPropertyDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder>? accessorDeclarationCallback = null)
     {
         var accessor = AccessorDeclarationBuilder.CreateSyntax(kind, accessorDeclarationCallback);
         Syntax = Syntax.AddAccessorListAccessors(accessor);
@@ -70,7 +70,7 @@ public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
         return this;
     }
 
-    public IPropertyDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IPropertyDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

@@ -6,10 +6,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IMemberCrefBuilder
 {
-    void AsNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder> nameMemberCrefCallback);
-    void AsIndexerMemberCref(Action<IIndexerMemberCrefBuilder> indexerMemberCrefCallback);
-    void AsOperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder> operatorMemberCrefCallback);
-    void AsConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder> conversionOperatorMemberCrefCallback);
+    void AsNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder>? nameMemberCrefCallback = null);
+    void AsIndexerMemberCref(Action<IIndexerMemberCrefBuilder>? indexerMemberCrefCallback = null);
+    void AsOperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder>? operatorMemberCrefCallback = null);
+    void AsConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder>? conversionOperatorMemberCrefCallback = null);
 }
 
 public partial class MemberCrefBuilder : IMemberCrefBuilder
@@ -28,22 +28,22 @@ public partial class MemberCrefBuilder : IMemberCrefBuilder
         return builder.Syntax;
     }
 
-    public void AsNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder> nameMemberCrefCallback)
+    public void AsNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder>? nameMemberCrefCallback = null)
     {
         Syntax = NameMemberCrefBuilder.CreateSyntax(nameCallback, nameMemberCrefCallback);
     }
 
-    public void AsIndexerMemberCref(Action<IIndexerMemberCrefBuilder> indexerMemberCrefCallback)
+    public void AsIndexerMemberCref(Action<IIndexerMemberCrefBuilder>? indexerMemberCrefCallback = null)
     {
         Syntax = IndexerMemberCrefBuilder.CreateSyntax(indexerMemberCrefCallback);
     }
 
-    public void AsOperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder> operatorMemberCrefCallback)
+    public void AsOperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder>? operatorMemberCrefCallback = null)
     {
         Syntax = OperatorMemberCrefBuilder.CreateSyntax(operatorMemberCrefOperatorToken, operatorMemberCrefCallback);
     }
 
-    public void AsConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder> conversionOperatorMemberCrefCallback)
+    public void AsConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder>? conversionOperatorMemberCrefCallback = null)
     {
         Syntax = ConversionOperatorMemberCrefBuilder.CreateSyntax(conversionOperatorMemberCrefImplicitOrExplicitKeyword, typeCallback, conversionOperatorMemberCrefCallback);
     }

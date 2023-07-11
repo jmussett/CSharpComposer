@@ -17,17 +17,17 @@ public partial class TupleExpressionBuilder : ITupleExpressionBuilder
         Syntax = syntax;
     }
 
-    public static TupleExpressionSyntax CreateSyntax(Action<ITupleExpressionBuilder> tupleExpressionCallback)
+    public static TupleExpressionSyntax CreateSyntax(Action<ITupleExpressionBuilder>? tupleExpressionCallback = null)
     {
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
         var closeParenTokenToken = SyntaxFactory.Token(SyntaxKind.CloseParenToken);
         var syntax = SyntaxFactory.TupleExpression(openParenTokenToken, default(SeparatedSyntaxList<ArgumentSyntax>), closeParenTokenToken);
         var builder = new TupleExpressionBuilder(syntax);
-        tupleExpressionCallback(builder);
+        tupleExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ITupleExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public ITupleExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var argument = ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
         Syntax = Syntax.AddArguments(argument);

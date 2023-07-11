@@ -23,7 +23,7 @@ public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressi
         var blockSyntax = BlockBuilder.CreateSyntax(blockBlockCallback);
         var syntax = SyntaxFactory.AnonymousMethodExpression(default(SyntaxTokenList), delegateKeywordToken, default(ParameterListSyntax), blockSyntax, default(ExpressionSyntax));
         var builder = new AnonymousMethodExpressionBuilder(syntax);
-        anonymousMethodExpressionCallback(builder);
+        anonymousMethodExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -33,7 +33,7 @@ public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressi
         return this;
     }
 
-    public IAnonymousMethodExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IAnonymousMethodExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

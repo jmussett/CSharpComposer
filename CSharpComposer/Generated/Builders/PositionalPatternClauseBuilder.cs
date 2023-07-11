@@ -11,7 +11,7 @@ public partial interface IPositionalPatternClauseBuilder : IAddSubpattern<IPosit
 public interface IWithPositionalPatternClause<TBuilder>
 {
     TBuilder WithPositionalPatternClause(PositionalPatternClauseSyntax positionalPatternClauseSyntax);
-    TBuilder WithPositionalPatternClause(Action<IPositionalPatternClauseBuilder> positionalPatternClauseCallback);
+    TBuilder WithPositionalPatternClause(Action<IPositionalPatternClauseBuilder>? positionalPatternClauseCallback = null);
 }
 
 public partial class PositionalPatternClauseBuilder : IPositionalPatternClauseBuilder
@@ -23,17 +23,17 @@ public partial class PositionalPatternClauseBuilder : IPositionalPatternClauseBu
         Syntax = syntax;
     }
 
-    public static PositionalPatternClauseSyntax CreateSyntax(Action<IPositionalPatternClauseBuilder> positionalPatternClauseCallback)
+    public static PositionalPatternClauseSyntax CreateSyntax(Action<IPositionalPatternClauseBuilder>? positionalPatternClauseCallback = null)
     {
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
         var closeParenTokenToken = SyntaxFactory.Token(SyntaxKind.CloseParenToken);
         var syntax = SyntaxFactory.PositionalPatternClause(openParenTokenToken, default(SeparatedSyntaxList<SubpatternSyntax>), closeParenTokenToken);
         var builder = new PositionalPatternClauseBuilder(syntax);
-        positionalPatternClauseCallback(builder);
+        positionalPatternClauseCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IPositionalPatternClauseBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback)
+    public IPositionalPatternClauseBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder>? subpatternCallback = null)
     {
         var subpattern = SubpatternBuilder.CreateSyntax(patternCallback, subpatternCallback);
         Syntax = Syntax.AddSubpatterns(subpattern);

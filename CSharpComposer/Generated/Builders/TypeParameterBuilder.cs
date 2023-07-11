@@ -12,7 +12,7 @@ public partial interface ITypeParameterBuilder : IAddAttribute<ITypeParameterBui
 public interface IAddTypeParameter<TBuilder>
 {
     TBuilder AddTypeParameter(TypeParameterSyntax typeParameterSyntax);
-    TBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback);
+    TBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null);
 }
 
 public partial class TypeParameterBuilder : ITypeParameterBuilder
@@ -24,16 +24,16 @@ public partial class TypeParameterBuilder : ITypeParameterBuilder
         Syntax = syntax;
     }
 
-    public static TypeParameterSyntax CreateSyntax(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
+    public static TypeParameterSyntax CreateSyntax(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null)
     {
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var syntax = SyntaxFactory.TypeParameter(default(SyntaxList<AttributeListSyntax>), default(SyntaxToken), identifierToken);
         var builder = new TypeParameterBuilder(syntax);
-        typeParameterCallback(builder);
+        typeParameterCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ITypeParameterBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ITypeParameterBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

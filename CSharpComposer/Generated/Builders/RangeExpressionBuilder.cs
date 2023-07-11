@@ -21,12 +21,12 @@ public partial class RangeExpressionBuilder : IRangeExpressionBuilder
         Syntax = syntax;
     }
 
-    public static RangeExpressionSyntax CreateSyntax(Action<IRangeExpressionBuilder> rangeExpressionCallback)
+    public static RangeExpressionSyntax CreateSyntax(Action<IRangeExpressionBuilder>? rangeExpressionCallback = null)
     {
         var operatorTokenToken = SyntaxFactory.Token(SyntaxKind.DotDotToken);
         var syntax = SyntaxFactory.RangeExpression(default(ExpressionSyntax), operatorTokenToken, default(ExpressionSyntax));
         var builder = new RangeExpressionBuilder(syntax);
-        rangeExpressionCallback(builder);
+        rangeExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

@@ -26,11 +26,11 @@ public partial class LocalDeclarationStatementBuilder : ILocalDeclarationStateme
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.LocalDeclarationStatement(default(SyntaxList<AttributeListSyntax>), default(SyntaxToken), default(SyntaxToken), default(SyntaxTokenList), declarationSyntax, semicolonTokenToken);
         var builder = new LocalDeclarationStatementBuilder(syntax);
-        localDeclarationStatementCallback(builder);
+        localDeclarationStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ILocalDeclarationStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ILocalDeclarationStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

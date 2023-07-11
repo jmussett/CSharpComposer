@@ -7,17 +7,17 @@ namespace CSharpComposer;
 public partial interface ITypeBuilder
 {
     void AsIdentifierName(string identifier);
-    void AsGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback);
+    void AsGenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null);
     void AsQualifiedName(Action<INameBuilder> leftCallback, Action<ISimpleNameBuilder> rightCallback);
     void AsAliasQualifiedName(string aliasIdentifier, Action<ISimpleNameBuilder> nameCallback);
     void AsPredefinedType(PredefinedTypeKeyword predefinedTypeKeyword);
-    void AsArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder> arrayTypeCallback);
+    void AsArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder>? arrayTypeCallback = null);
     void AsPointerType(Action<ITypeBuilder> elementTypeCallback);
-    void AsFunctionPointerType(Action<IFunctionPointerTypeBuilder> functionPointerTypeCallback);
+    void AsFunctionPointerType(Action<IFunctionPointerTypeBuilder>? functionPointerTypeCallback = null);
     void AsNullableType(Action<ITypeBuilder> elementTypeCallback);
-    void AsTupleType(Action<ITupleTypeBuilder> tupleTypeCallback);
+    void AsTupleType(Action<ITupleTypeBuilder>? tupleTypeCallback = null);
     void AsOmittedTypeArgument();
-    void AsRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder> refTypeCallback);
+    void AsRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder>? refTypeCallback = null);
     void AsScopedType(Action<ITypeBuilder> typeCallback);
 }
 
@@ -54,7 +54,7 @@ public partial class TypeBuilder : ITypeBuilder
         Syntax = IdentifierNameBuilder.CreateSyntax(identifier);
     }
 
-    public void AsGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback)
+    public void AsGenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null)
     {
         Syntax = GenericNameBuilder.CreateSyntax(identifier, genericNameCallback);
     }
@@ -74,7 +74,7 @@ public partial class TypeBuilder : ITypeBuilder
         Syntax = PredefinedTypeBuilder.CreateSyntax(predefinedTypeKeyword);
     }
 
-    public void AsArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder> arrayTypeCallback)
+    public void AsArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder>? arrayTypeCallback = null)
     {
         Syntax = ArrayTypeBuilder.CreateSyntax(elementTypeCallback, arrayTypeCallback);
     }
@@ -84,7 +84,7 @@ public partial class TypeBuilder : ITypeBuilder
         Syntax = PointerTypeBuilder.CreateSyntax(elementTypeCallback);
     }
 
-    public void AsFunctionPointerType(Action<IFunctionPointerTypeBuilder> functionPointerTypeCallback)
+    public void AsFunctionPointerType(Action<IFunctionPointerTypeBuilder>? functionPointerTypeCallback = null)
     {
         Syntax = FunctionPointerTypeBuilder.CreateSyntax(functionPointerTypeCallback);
     }
@@ -94,7 +94,7 @@ public partial class TypeBuilder : ITypeBuilder
         Syntax = NullableTypeBuilder.CreateSyntax(elementTypeCallback);
     }
 
-    public void AsTupleType(Action<ITupleTypeBuilder> tupleTypeCallback)
+    public void AsTupleType(Action<ITupleTypeBuilder>? tupleTypeCallback = null)
     {
         Syntax = TupleTypeBuilder.CreateSyntax(tupleTypeCallback);
     }
@@ -104,7 +104,7 @@ public partial class TypeBuilder : ITypeBuilder
         Syntax = OmittedTypeArgumentBuilder.CreateSyntax();
     }
 
-    public void AsRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder> refTypeCallback)
+    public void AsRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder>? refTypeCallback = null)
     {
         Syntax = RefTypeBuilder.CreateSyntax(typeCallback, refTypeCallback);
     }

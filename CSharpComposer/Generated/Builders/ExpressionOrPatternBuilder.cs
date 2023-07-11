@@ -7,35 +7,35 @@ namespace CSharpComposer;
 public partial interface IExpressionOrPatternBuilder
 {
     void AsIdentifierName(string identifier);
-    void AsGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback);
+    void AsGenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null);
     void AsQualifiedName(Action<INameBuilder> leftCallback, Action<ISimpleNameBuilder> rightCallback);
     void AsAliasQualifiedName(string aliasIdentifier, Action<ISimpleNameBuilder> nameCallback);
     void AsPredefinedType(PredefinedTypeKeyword predefinedTypeKeyword);
-    void AsArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder> arrayTypeCallback);
+    void AsArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder>? arrayTypeCallback = null);
     void AsPointerType(Action<ITypeBuilder> elementTypeCallback);
-    void AsFunctionPointerType(Action<IFunctionPointerTypeBuilder> functionPointerTypeCallback);
+    void AsFunctionPointerType(Action<IFunctionPointerTypeBuilder>? functionPointerTypeCallback = null);
     void AsNullableType(Action<ITypeBuilder> elementTypeCallback);
-    void AsTupleType(Action<ITupleTypeBuilder> tupleTypeCallback);
+    void AsTupleType(Action<ITupleTypeBuilder>? tupleTypeCallback = null);
     void AsOmittedTypeArgument();
-    void AsRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder> refTypeCallback);
+    void AsRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder>? refTypeCallback = null);
     void AsScopedType(Action<ITypeBuilder> typeCallback);
     void AsParenthesizedExpression(Action<IExpressionBuilder> expressionCallback);
-    void AsTupleExpression(Action<ITupleExpressionBuilder> tupleExpressionCallback);
+    void AsTupleExpression(Action<ITupleExpressionBuilder>? tupleExpressionCallback = null);
     void AsPrefixUnaryExpression(PrefixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback);
     void AsAwaitExpression(Action<IExpressionBuilder> expressionCallback);
     void AsPostfixUnaryExpression(PostfixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback);
     void AsMemberAccessExpression(MemberAccessExpressionKind kind, Action<IExpressionBuilder> expressionCallback, Action<ISimpleNameBuilder> nameCallback);
     void AsConditionalAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IExpressionBuilder> whenNotNullCallback);
     void AsMemberBindingExpression(Action<ISimpleNameBuilder> nameCallback);
-    void AsElementBindingExpression(Action<IElementBindingExpressionBuilder> elementBindingExpressionCallback);
-    void AsRangeExpression(Action<IRangeExpressionBuilder> rangeExpressionCallback);
-    void AsImplicitElementAccess(Action<IImplicitElementAccessBuilder> implicitElementAccessCallback);
+    void AsElementBindingExpression(Action<IElementBindingExpressionBuilder>? elementBindingExpressionCallback = null);
+    void AsRangeExpression(Action<IRangeExpressionBuilder>? rangeExpressionCallback = null);
+    void AsImplicitElementAccess(Action<IImplicitElementAccessBuilder>? implicitElementAccessCallback = null);
     void AsBinaryExpression(BinaryExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback);
     void AsAssignmentExpression(AssignmentExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback);
     void AsConditionalExpression(Action<IExpressionBuilder> conditionCallback, Action<IExpressionBuilder> whenTrueCallback, Action<IExpressionBuilder> whenFalseCallback);
     void AsThisExpression();
     void AsBaseExpression();
-    void AsLiteralExpression(Action<ILiteralExpressionBuilder> literalExpressionCallback);
+    void AsLiteralExpression(Action<ILiteralExpressionBuilder>? literalExpressionCallback = null);
     void AsMakeRefExpression(Action<IExpressionBuilder> expressionCallback);
     void AsRefTypeExpression(Action<IExpressionBuilder> expressionCallback);
     void AsRefValueExpression(Action<IExpressionBuilder> expressionCallback, Action<ITypeBuilder> typeCallback);
@@ -43,41 +43,41 @@ public partial interface IExpressionOrPatternBuilder
     void AsDefaultExpression(Action<ITypeBuilder> typeCallback);
     void AsTypeOfExpression(Action<ITypeBuilder> typeCallback);
     void AsSizeOfExpression(Action<ITypeBuilder> typeCallback);
-    void AsInvocationExpression(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder> invocationExpressionCallback);
-    void AsElementAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder> elementAccessExpressionCallback);
+    void AsInvocationExpression(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder>? invocationExpressionCallback = null);
+    void AsElementAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder>? elementAccessExpressionCallback = null);
     void AsDeclarationExpression(Action<ITypeBuilder> typeCallback, Action<IVariableDesignationBuilder> designationCallback);
     void AsCastExpression(Action<ITypeBuilder> typeCallback, Action<IExpressionBuilder> expressionCallback);
     void AsAnonymousMethodExpression(Action<IBlockBuilder> blockBlockCallback, Action<IAnonymousMethodExpressionBuilder> anonymousMethodExpressionCallback);
     void AsSimpleLambdaExpression(string parameterIdentifier, Action<IParameterBuilder> parameterParameterCallback, Action<ISimpleLambdaExpressionBuilder> simpleLambdaExpressionCallback);
-    void AsParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder> parenthesizedLambdaExpressionCallback);
+    void AsParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder>? parenthesizedLambdaExpressionCallback = null);
     void AsRefExpression(Action<IExpressionBuilder> expressionCallback);
-    void AsInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
-    void AsImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder> implicitObjectCreationExpressionCallback);
-    void AsObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback);
+    void AsInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder>? initializerExpressionCallback = null);
+    void AsImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder>? implicitObjectCreationExpressionCallback = null);
+    void AsObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder>? objectCreationExpressionCallback = null);
     void AsWithExpression(Action<IExpressionBuilder> expressionCallback, InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback);
-    void AsAnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder> anonymousObjectCreationExpressionCallback);
+    void AsAnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder>? anonymousObjectCreationExpressionCallback = null);
     void AsArrayCreationExpression(Action<ITypeBuilder> typeElementTypeCallback, Action<IArrayTypeBuilder> typeArrayTypeCallback, Action<IArrayCreationExpressionBuilder> arrayCreationExpressionCallback);
     void AsImplicitArrayCreationExpression(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback, Action<IImplicitArrayCreationExpressionBuilder> implicitArrayCreationExpressionCallback);
-    void AsStackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder> stackAllocArrayCreationExpressionCallback);
+    void AsStackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder>? stackAllocArrayCreationExpressionCallback = null);
     void AsImplicitStackAllocArrayCreationExpression(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback);
     void AsQueryExpression(string fromClauseIdentifier, Action<IExpressionBuilder> fromClauseExpressionCallback, Action<IFromClauseBuilder> fromClauseFromClauseCallback, Action<ISelectOrGroupClauseBuilder> bodySelectOrGroupCallback, Action<IQueryBodyBuilder> bodyQueryBodyCallback);
     void AsOmittedArraySizeExpression();
-    void AsInterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder> interpolatedStringExpressionCallback);
+    void AsInterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder>? interpolatedStringExpressionCallback = null);
     void AsIsPatternExpression(Action<IExpressionBuilder> expressionCallback, Action<IPatternBuilder> patternCallback);
     void AsThrowExpression(Action<IExpressionBuilder> expressionCallback);
-    void AsSwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder> switchExpressionCallback);
+    void AsSwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder>? switchExpressionCallback = null);
     void AsDiscardPattern();
     void AsDeclarationPattern(Action<ITypeBuilder> typeCallback, Action<IVariableDesignationBuilder> designationCallback);
     void AsVarPattern(Action<IVariableDesignationBuilder> designationCallback);
-    void AsRecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback);
+    void AsRecursivePattern(Action<IRecursivePatternBuilder>? recursivePatternCallback = null);
     void AsConstantPattern(Action<IExpressionBuilder> expressionCallback);
     void AsParenthesizedPattern(Action<IPatternBuilder> patternCallback);
     void AsRelationalPattern(RelationalPatternOperatorToken relationalPatternOperatorToken, Action<IExpressionBuilder> expressionCallback);
     void AsTypePattern(Action<ITypeBuilder> typeCallback);
     void AsBinaryPattern(BinaryPatternKind kind, Action<IPatternBuilder> leftCallback, Action<IPatternBuilder> rightCallback);
     void AsUnaryPattern(Action<IPatternBuilder> patternCallback);
-    void AsListPattern(Action<IListPatternBuilder> listPatternCallback);
-    void AsSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback);
+    void AsListPattern(Action<IListPatternBuilder>? listPatternCallback = null);
+    void AsSlicePattern(Action<ISlicePatternBuilder>? slicePatternCallback = null);
 }
 
 public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
@@ -101,7 +101,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = IdentifierNameBuilder.CreateSyntax(identifier);
     }
 
-    public void AsGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback)
+    public void AsGenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null)
     {
         Syntax = GenericNameBuilder.CreateSyntax(identifier, genericNameCallback);
     }
@@ -121,7 +121,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = PredefinedTypeBuilder.CreateSyntax(predefinedTypeKeyword);
     }
 
-    public void AsArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder> arrayTypeCallback)
+    public void AsArrayType(Action<ITypeBuilder> elementTypeCallback, Action<IArrayTypeBuilder>? arrayTypeCallback = null)
     {
         Syntax = ArrayTypeBuilder.CreateSyntax(elementTypeCallback, arrayTypeCallback);
     }
@@ -131,7 +131,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = PointerTypeBuilder.CreateSyntax(elementTypeCallback);
     }
 
-    public void AsFunctionPointerType(Action<IFunctionPointerTypeBuilder> functionPointerTypeCallback)
+    public void AsFunctionPointerType(Action<IFunctionPointerTypeBuilder>? functionPointerTypeCallback = null)
     {
         Syntax = FunctionPointerTypeBuilder.CreateSyntax(functionPointerTypeCallback);
     }
@@ -141,7 +141,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = NullableTypeBuilder.CreateSyntax(elementTypeCallback);
     }
 
-    public void AsTupleType(Action<ITupleTypeBuilder> tupleTypeCallback)
+    public void AsTupleType(Action<ITupleTypeBuilder>? tupleTypeCallback = null)
     {
         Syntax = TupleTypeBuilder.CreateSyntax(tupleTypeCallback);
     }
@@ -151,7 +151,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = OmittedTypeArgumentBuilder.CreateSyntax();
     }
 
-    public void AsRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder> refTypeCallback)
+    public void AsRefType(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder>? refTypeCallback = null)
     {
         Syntax = RefTypeBuilder.CreateSyntax(typeCallback, refTypeCallback);
     }
@@ -166,7 +166,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = ParenthesizedExpressionBuilder.CreateSyntax(expressionCallback);
     }
 
-    public void AsTupleExpression(Action<ITupleExpressionBuilder> tupleExpressionCallback)
+    public void AsTupleExpression(Action<ITupleExpressionBuilder>? tupleExpressionCallback = null)
     {
         Syntax = TupleExpressionBuilder.CreateSyntax(tupleExpressionCallback);
     }
@@ -201,17 +201,17 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = MemberBindingExpressionBuilder.CreateSyntax(nameCallback);
     }
 
-    public void AsElementBindingExpression(Action<IElementBindingExpressionBuilder> elementBindingExpressionCallback)
+    public void AsElementBindingExpression(Action<IElementBindingExpressionBuilder>? elementBindingExpressionCallback = null)
     {
         Syntax = ElementBindingExpressionBuilder.CreateSyntax(elementBindingExpressionCallback);
     }
 
-    public void AsRangeExpression(Action<IRangeExpressionBuilder> rangeExpressionCallback)
+    public void AsRangeExpression(Action<IRangeExpressionBuilder>? rangeExpressionCallback = null)
     {
         Syntax = RangeExpressionBuilder.CreateSyntax(rangeExpressionCallback);
     }
 
-    public void AsImplicitElementAccess(Action<IImplicitElementAccessBuilder> implicitElementAccessCallback)
+    public void AsImplicitElementAccess(Action<IImplicitElementAccessBuilder>? implicitElementAccessCallback = null)
     {
         Syntax = ImplicitElementAccessBuilder.CreateSyntax(implicitElementAccessCallback);
     }
@@ -241,7 +241,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = BaseExpressionBuilder.CreateSyntax();
     }
 
-    public void AsLiteralExpression(Action<ILiteralExpressionBuilder> literalExpressionCallback)
+    public void AsLiteralExpression(Action<ILiteralExpressionBuilder>? literalExpressionCallback = null)
     {
         Syntax = LiteralExpressionBuilder.CreateSyntax(literalExpressionCallback);
     }
@@ -281,12 +281,12 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = SizeOfExpressionBuilder.CreateSyntax(typeCallback);
     }
 
-    public void AsInvocationExpression(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder> invocationExpressionCallback)
+    public void AsInvocationExpression(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder>? invocationExpressionCallback = null)
     {
         Syntax = InvocationExpressionBuilder.CreateSyntax(expressionCallback, invocationExpressionCallback);
     }
 
-    public void AsElementAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder> elementAccessExpressionCallback)
+    public void AsElementAccessExpression(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder>? elementAccessExpressionCallback = null)
     {
         Syntax = ElementAccessExpressionBuilder.CreateSyntax(expressionCallback, elementAccessExpressionCallback);
     }
@@ -311,7 +311,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = SimpleLambdaExpressionBuilder.CreateSyntax(parameterIdentifier, parameterParameterCallback, simpleLambdaExpressionCallback);
     }
 
-    public void AsParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder> parenthesizedLambdaExpressionCallback)
+    public void AsParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder>? parenthesizedLambdaExpressionCallback = null)
     {
         Syntax = ParenthesizedLambdaExpressionBuilder.CreateSyntax(parenthesizedLambdaExpressionCallback);
     }
@@ -321,17 +321,17 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = RefExpressionBuilder.CreateSyntax(expressionCallback);
     }
 
-    public void AsInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public void AsInitializerExpression(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder>? initializerExpressionCallback = null)
     {
         Syntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
     }
 
-    public void AsImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder> implicitObjectCreationExpressionCallback)
+    public void AsImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder>? implicitObjectCreationExpressionCallback = null)
     {
         Syntax = ImplicitObjectCreationExpressionBuilder.CreateSyntax(implicitObjectCreationExpressionCallback);
     }
 
-    public void AsObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder> objectCreationExpressionCallback)
+    public void AsObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder>? objectCreationExpressionCallback = null)
     {
         Syntax = ObjectCreationExpressionBuilder.CreateSyntax(typeCallback, objectCreationExpressionCallback);
     }
@@ -341,7 +341,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = WithExpressionBuilder.CreateSyntax(expressionCallback, initializerKind, initializerInitializerExpressionCallback);
     }
 
-    public void AsAnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder> anonymousObjectCreationExpressionCallback)
+    public void AsAnonymousObjectCreationExpression(Action<IAnonymousObjectCreationExpressionBuilder>? anonymousObjectCreationExpressionCallback = null)
     {
         Syntax = AnonymousObjectCreationExpressionBuilder.CreateSyntax(anonymousObjectCreationExpressionCallback);
     }
@@ -356,7 +356,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = ImplicitArrayCreationExpressionBuilder.CreateSyntax(initializerKind, initializerInitializerExpressionCallback, implicitArrayCreationExpressionCallback);
     }
 
-    public void AsStackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder> stackAllocArrayCreationExpressionCallback)
+    public void AsStackAllocArrayCreationExpression(Action<ITypeBuilder> typeCallback, Action<IStackAllocArrayCreationExpressionBuilder>? stackAllocArrayCreationExpressionCallback = null)
     {
         Syntax = StackAllocArrayCreationExpressionBuilder.CreateSyntax(typeCallback, stackAllocArrayCreationExpressionCallback);
     }
@@ -376,7 +376,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = OmittedArraySizeExpressionBuilder.CreateSyntax();
     }
 
-    public void AsInterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder> interpolatedStringExpressionCallback)
+    public void AsInterpolatedStringExpression(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder>? interpolatedStringExpressionCallback = null)
     {
         Syntax = InterpolatedStringExpressionBuilder.CreateSyntax(interpolatedStringExpressionStringStartToken, interpolatedStringExpressionStringEndToken, interpolatedStringExpressionCallback);
     }
@@ -391,7 +391,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = ThrowExpressionBuilder.CreateSyntax(expressionCallback);
     }
 
-    public void AsSwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder> switchExpressionCallback)
+    public void AsSwitchExpression(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder>? switchExpressionCallback = null)
     {
         Syntax = SwitchExpressionBuilder.CreateSyntax(governingExpressionCallback, switchExpressionCallback);
     }
@@ -411,7 +411,7 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = VarPatternBuilder.CreateSyntax(designationCallback);
     }
 
-    public void AsRecursivePattern(Action<IRecursivePatternBuilder> recursivePatternCallback)
+    public void AsRecursivePattern(Action<IRecursivePatternBuilder>? recursivePatternCallback = null)
     {
         Syntax = RecursivePatternBuilder.CreateSyntax(recursivePatternCallback);
     }
@@ -446,12 +446,12 @@ public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         Syntax = UnaryPatternBuilder.CreateSyntax(patternCallback);
     }
 
-    public void AsListPattern(Action<IListPatternBuilder> listPatternCallback)
+    public void AsListPattern(Action<IListPatternBuilder>? listPatternCallback = null)
     {
         Syntax = ListPatternBuilder.CreateSyntax(listPatternCallback);
     }
 
-    public void AsSlicePattern(Action<ISlicePatternBuilder> slicePatternCallback)
+    public void AsSlicePattern(Action<ISlicePatternBuilder>? slicePatternCallback = null)
     {
         Syntax = SlicePatternBuilder.CreateSyntax(slicePatternCallback);
     }

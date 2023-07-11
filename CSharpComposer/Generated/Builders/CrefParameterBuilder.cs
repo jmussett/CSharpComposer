@@ -18,12 +18,12 @@ public partial class CrefParameterBuilder : ICrefParameterBuilder
         Syntax = syntax;
     }
 
-    public static CrefParameterSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
+    public static CrefParameterSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder>? crefParameterCallback = null)
     {
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var syntax = SyntaxFactory.CrefParameter(default(SyntaxToken), typeSyntax);
         var builder = new CrefParameterBuilder(syntax);
-        crefParameterCallback(builder);
+        crefParameterCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

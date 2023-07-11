@@ -17,7 +17,7 @@ public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static InterfaceDeclarationSyntax CreateSyntax(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback)
+    public static InterfaceDeclarationSyntax CreateSyntax(string identifier, Action<IInterfaceDeclarationBuilder>? interfaceDeclarationCallback = null)
     {
         var keywordToken = SyntaxFactory.Token(SyntaxKind.InterfaceKeyword);
         var identifierToken = SyntaxFactory.Identifier(identifier);
@@ -25,11 +25,11 @@ public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.InterfaceDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), keywordToken, identifierToken, default(TypeParameterListSyntax), default(BaseListSyntax), default(SyntaxList<TypeParameterConstraintClauseSyntax>), openBraceTokenToken, default(SyntaxList<MemberDeclarationSyntax>), closeBraceTokenToken, default(SyntaxToken));
         var builder = new InterfaceDeclarationBuilder(syntax);
-        interfaceDeclarationCallback(builder);
+        interfaceDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IInterfaceDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IInterfaceDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -52,7 +52,7 @@ public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
         return this;
     }
 
-    public IInterfaceDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
+    public IInterfaceDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);
         Syntax = Syntax.AddTypeParameterListParameters(parameter);

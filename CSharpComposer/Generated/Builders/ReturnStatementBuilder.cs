@@ -17,17 +17,17 @@ public partial class ReturnStatementBuilder : IReturnStatementBuilder
         Syntax = syntax;
     }
 
-    public static ReturnStatementSyntax CreateSyntax(Action<IReturnStatementBuilder> returnStatementCallback)
+    public static ReturnStatementSyntax CreateSyntax(Action<IReturnStatementBuilder>? returnStatementCallback = null)
     {
         var returnKeywordToken = SyntaxFactory.Token(SyntaxKind.ReturnKeyword);
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.ReturnStatement(default(SyntaxList<AttributeListSyntax>), returnKeywordToken, default(ExpressionSyntax), semicolonTokenToken);
         var builder = new ReturnStatementBuilder(syntax);
-        returnStatementCallback(builder);
+        returnStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IReturnStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IReturnStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

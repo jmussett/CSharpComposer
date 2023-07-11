@@ -17,7 +17,7 @@ public partial class FromClauseBuilder : IFromClauseBuilder
         Syntax = syntax;
     }
 
-    public static FromClauseSyntax CreateSyntax(string identifier, Action<IExpressionBuilder> expressionCallback, Action<IFromClauseBuilder> fromClauseCallback)
+    public static FromClauseSyntax CreateSyntax(string identifier, Action<IExpressionBuilder> expressionCallback, Action<IFromClauseBuilder>? fromClauseCallback = null)
     {
         var fromKeywordToken = SyntaxFactory.Token(SyntaxKind.FromKeyword);
         var identifierToken = SyntaxFactory.Identifier(identifier);
@@ -25,7 +25,7 @@ public partial class FromClauseBuilder : IFromClauseBuilder
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
         var syntax = SyntaxFactory.FromClause(fromKeywordToken, default(TypeSyntax), identifierToken, inKeywordToken, expressionSyntax);
         var builder = new FromClauseBuilder(syntax);
-        fromClauseCallback(builder);
+        fromClauseCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

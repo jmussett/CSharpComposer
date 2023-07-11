@@ -19,13 +19,13 @@ public partial class ArrayRankSpecifierBuilder : IArrayRankSpecifierBuilder
         Syntax = syntax;
     }
 
-    public static ArrayRankSpecifierSyntax CreateSyntax(Action<IArrayRankSpecifierBuilder> arrayRankSpecifierCallback)
+    public static ArrayRankSpecifierSyntax CreateSyntax(Action<IArrayRankSpecifierBuilder>? arrayRankSpecifierCallback = null)
     {
         var openBracketTokenToken = SyntaxFactory.Token(SyntaxKind.OpenBracketToken);
         var closeBracketTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBracketToken);
         var syntax = SyntaxFactory.ArrayRankSpecifier(openBracketTokenToken, default(SeparatedSyntaxList<ExpressionSyntax>), closeBracketTokenToken);
         var builder = new ArrayRankSpecifierBuilder(syntax);
-        arrayRankSpecifierCallback(builder);
+        arrayRankSpecifierCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

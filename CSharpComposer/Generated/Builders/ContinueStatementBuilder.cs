@@ -17,17 +17,17 @@ public partial class ContinueStatementBuilder : IContinueStatementBuilder
         Syntax = syntax;
     }
 
-    public static ContinueStatementSyntax CreateSyntax(Action<IContinueStatementBuilder> continueStatementCallback)
+    public static ContinueStatementSyntax CreateSyntax(Action<IContinueStatementBuilder>? continueStatementCallback = null)
     {
         var continueKeywordToken = SyntaxFactory.Token(SyntaxKind.ContinueKeyword);
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.ContinueStatement(default(SyntaxList<AttributeListSyntax>), continueKeywordToken, semicolonTokenToken);
         var builder = new ContinueStatementBuilder(syntax);
-        continueStatementCallback(builder);
+        continueStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IContinueStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IContinueStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

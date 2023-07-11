@@ -17,17 +17,17 @@ public partial class InvocationExpressionBuilder : IInvocationExpressionBuilder
         Syntax = syntax;
     }
 
-    public static InvocationExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder> invocationExpressionCallback)
+    public static InvocationExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IInvocationExpressionBuilder>? invocationExpressionCallback = null)
     {
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
         var argumentListSyntax = SyntaxFactory.ArgumentList();
         var syntax = SyntaxFactory.InvocationExpression(expressionSyntax, argumentListSyntax);
         var builder = new InvocationExpressionBuilder(syntax);
-        invocationExpressionCallback(builder);
+        invocationExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IInvocationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public IInvocationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var argument = ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
         Syntax = Syntax.AddArgumentListArguments(argument);

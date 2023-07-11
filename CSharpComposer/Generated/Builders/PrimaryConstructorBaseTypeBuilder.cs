@@ -17,17 +17,17 @@ public partial class PrimaryConstructorBaseTypeBuilder : IPrimaryConstructorBase
         Syntax = syntax;
     }
 
-    public static PrimaryConstructorBaseTypeSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback)
+    public static PrimaryConstructorBaseTypeSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder>? primaryConstructorBaseTypeCallback = null)
     {
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var argumentListSyntax = SyntaxFactory.ArgumentList();
         var syntax = SyntaxFactory.PrimaryConstructorBaseType(typeSyntax, argumentListSyntax);
         var builder = new PrimaryConstructorBaseTypeBuilder(syntax);
-        primaryConstructorBaseTypeCallback(builder);
+        primaryConstructorBaseTypeCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IPrimaryConstructorBaseTypeBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public IPrimaryConstructorBaseTypeBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var argument = ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
         Syntax = Syntax.AddArgumentListArguments(argument);

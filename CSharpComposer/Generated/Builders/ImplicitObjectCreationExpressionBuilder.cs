@@ -17,17 +17,17 @@ public partial class ImplicitObjectCreationExpressionBuilder : IImplicitObjectCr
         Syntax = syntax;
     }
 
-    public static ImplicitObjectCreationExpressionSyntax CreateSyntax(Action<IImplicitObjectCreationExpressionBuilder> implicitObjectCreationExpressionCallback)
+    public static ImplicitObjectCreationExpressionSyntax CreateSyntax(Action<IImplicitObjectCreationExpressionBuilder>? implicitObjectCreationExpressionCallback = null)
     {
         var newKeywordToken = SyntaxFactory.Token(SyntaxKind.NewKeyword);
         var argumentListSyntax = SyntaxFactory.ArgumentList();
         var syntax = SyntaxFactory.ImplicitObjectCreationExpression(newKeywordToken, argumentListSyntax, default(InitializerExpressionSyntax));
         var builder = new ImplicitObjectCreationExpressionBuilder(syntax);
-        implicitObjectCreationExpressionCallback(builder);
+        implicitObjectCreationExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IImplicitObjectCreationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public IImplicitObjectCreationExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var argument = ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
         Syntax = Syntax.AddArgumentListArguments(argument);
@@ -40,7 +40,7 @@ public partial class ImplicitObjectCreationExpressionBuilder : IImplicitObjectCr
         return this;
     }
 
-    public IImplicitObjectCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public IImplicitObjectCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder>? initializerExpressionCallback = null)
     {
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);

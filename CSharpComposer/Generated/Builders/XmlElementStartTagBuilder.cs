@@ -26,7 +26,7 @@ public partial class XmlElementStartTagBuilder : IXmlElementStartTagBuilder
         var greaterThanTokenToken = SyntaxFactory.Token(SyntaxKind.GreaterThanToken);
         var syntax = SyntaxFactory.XmlElementStartTag(lessThanTokenToken, nameSyntax, default(SyntaxList<XmlAttributeSyntax>), greaterThanTokenToken);
         var builder = new XmlElementStartTagBuilder(syntax);
-        xmlElementStartTagCallback(builder);
+        xmlElementStartTagCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

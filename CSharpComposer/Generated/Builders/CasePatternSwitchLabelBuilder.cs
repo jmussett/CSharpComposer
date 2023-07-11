@@ -17,14 +17,14 @@ public partial class CasePatternSwitchLabelBuilder : ICasePatternSwitchLabelBuil
         Syntax = syntax;
     }
 
-    public static CasePatternSwitchLabelSyntax CreateSyntax(Action<IPatternBuilder> patternCallback, Action<ICasePatternSwitchLabelBuilder> casePatternSwitchLabelCallback)
+    public static CasePatternSwitchLabelSyntax CreateSyntax(Action<IPatternBuilder> patternCallback, Action<ICasePatternSwitchLabelBuilder>? casePatternSwitchLabelCallback = null)
     {
         var keywordToken = SyntaxFactory.Token(SyntaxKind.CaseKeyword);
         var patternSyntax = PatternBuilder.CreateSyntax(patternCallback);
         var colonTokenToken = SyntaxFactory.Token(SyntaxKind.ColonToken);
         var syntax = SyntaxFactory.CasePatternSwitchLabel(keywordToken, patternSyntax, default(WhenClauseSyntax), colonTokenToken);
         var builder = new CasePatternSwitchLabelBuilder(syntax);
-        casePatternSwitchLabelCallback(builder);
+        casePatternSwitchLabelCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

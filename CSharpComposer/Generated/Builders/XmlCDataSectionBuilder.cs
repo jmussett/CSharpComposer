@@ -18,13 +18,13 @@ public partial class XmlCDataSectionBuilder : IXmlCDataSectionBuilder
         Syntax = syntax;
     }
 
-    public static XmlCDataSectionSyntax CreateSyntax(Action<IXmlCDataSectionBuilder> xmlCDataSectionCallback)
+    public static XmlCDataSectionSyntax CreateSyntax(Action<IXmlCDataSectionBuilder>? xmlCDataSectionCallback = null)
     {
         var startCDataTokenToken = SyntaxFactory.Token(SyntaxKind.XmlCDataStartToken);
         var endCDataTokenToken = SyntaxFactory.Token(SyntaxKind.XmlCDataEndToken);
         var syntax = SyntaxFactory.XmlCDataSection(startCDataTokenToken, default(SyntaxTokenList), endCDataTokenToken);
         var builder = new XmlCDataSectionBuilder(syntax);
-        xmlCDataSectionCallback(builder);
+        xmlCDataSectionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

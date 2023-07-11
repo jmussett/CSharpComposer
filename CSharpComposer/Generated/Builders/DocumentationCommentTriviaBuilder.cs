@@ -19,7 +19,7 @@ public partial class DocumentationCommentTriviaBuilder : IDocumentationCommentTr
         Syntax = syntax;
     }
 
-    public static DocumentationCommentTriviaSyntax CreateSyntax(DocumentationCommentTriviaKind kind, Action<IDocumentationCommentTriviaBuilder> documentationCommentTriviaCallback)
+    public static DocumentationCommentTriviaSyntax CreateSyntax(DocumentationCommentTriviaKind kind, Action<IDocumentationCommentTriviaBuilder>? documentationCommentTriviaCallback = null)
     {
         var syntaxKind = kind switch
         {
@@ -30,7 +30,7 @@ public partial class DocumentationCommentTriviaBuilder : IDocumentationCommentTr
         var endOfCommentToken = SyntaxFactory.Token(SyntaxKind.EndOfDocumentationCommentToken);
         var syntax = SyntaxFactory.DocumentationCommentTrivia(syntaxKind, default(SyntaxList<XmlNodeSyntax>), endOfCommentToken);
         var builder = new DocumentationCommentTriviaBuilder(syntax);
-        documentationCommentTriviaCallback(builder);
+        documentationCommentTriviaCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

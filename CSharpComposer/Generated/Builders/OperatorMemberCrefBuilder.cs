@@ -7,7 +7,7 @@ namespace CSharpComposer;
 public partial interface IOperatorMemberCrefBuilder
 {
     IOperatorMemberCrefBuilder WithCheckedKeyword();
-    IOperatorMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback);
+    IOperatorMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder>? crefParameterCallback = null);
     IOperatorMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
@@ -20,7 +20,7 @@ public partial class OperatorMemberCrefBuilder : IOperatorMemberCrefBuilder
         Syntax = syntax;
     }
 
-    public static OperatorMemberCrefSyntax CreateSyntax(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder> operatorMemberCrefCallback)
+    public static OperatorMemberCrefSyntax CreateSyntax(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder>? operatorMemberCrefCallback = null)
     {
         var operatorKeywordToken = SyntaxFactory.Token(SyntaxKind.OperatorKeyword);
         var operatorTokenToken = operatorMemberCrefOperatorToken switch
@@ -52,7 +52,7 @@ public partial class OperatorMemberCrefBuilder : IOperatorMemberCrefBuilder
         };
         var syntax = SyntaxFactory.OperatorMemberCref(operatorKeywordToken, default(SyntaxToken), operatorTokenToken, default(CrefParameterListSyntax));
         var builder = new OperatorMemberCrefBuilder(syntax);
-        operatorMemberCrefCallback(builder);
+        operatorMemberCrefCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -62,7 +62,7 @@ public partial class OperatorMemberCrefBuilder : IOperatorMemberCrefBuilder
         return this;
     }
 
-    public IOperatorMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder> crefParameterCallback)
+    public IOperatorMemberCrefBuilder AddCrefParameter(Action<ITypeBuilder> typeCallback, Action<ICrefParameterBuilder>? crefParameterCallback = null)
     {
         var parameter = CrefParameterBuilder.CreateSyntax(typeCallback, crefParameterCallback);
         Syntax = Syntax.AddParametersParameters(parameter);

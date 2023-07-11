@@ -26,7 +26,7 @@ public partial class ImplicitArrayCreationExpressionBuilder : IImplicitArrayCrea
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(initializerKind, initializerInitializerExpressionCallback);
         var syntax = SyntaxFactory.ImplicitArrayCreationExpression(newKeywordToken, openBracketTokenToken, default(SyntaxTokenList), closeBracketTokenToken, initializerSyntax);
         var builder = new ImplicitArrayCreationExpressionBuilder(syntax);
-        implicitArrayCreationExpressionCallback(builder);
+        implicitArrayCreationExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

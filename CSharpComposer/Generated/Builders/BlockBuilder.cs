@@ -11,7 +11,7 @@ public partial interface IBlockBuilder : IStatementBuilder<IBlockBuilder>, IAddS
 public interface IWithBlock<TBuilder>
 {
     TBuilder WithBlock(BlockSyntax blockSyntax);
-    TBuilder WithBlock(Action<IBlockBuilder> blockCallback);
+    TBuilder WithBlock(Action<IBlockBuilder>? blockCallback = null);
 }
 
 public partial class BlockBuilder : IBlockBuilder
@@ -23,17 +23,17 @@ public partial class BlockBuilder : IBlockBuilder
         Syntax = syntax;
     }
 
-    public static BlockSyntax CreateSyntax(Action<IBlockBuilder> blockCallback)
+    public static BlockSyntax CreateSyntax(Action<IBlockBuilder>? blockCallback = null)
     {
         var openBraceTokenToken = SyntaxFactory.Token(SyntaxKind.OpenBraceToken);
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.Block(default(SyntaxList<AttributeListSyntax>), openBraceTokenToken, default(SyntaxList<StatementSyntax>), closeBraceTokenToken);
         var builder = new BlockBuilder(syntax);
-        blockCallback(builder);
+        blockCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IBlockBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IBlockBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

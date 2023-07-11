@@ -17,16 +17,16 @@ public partial class OrderByClauseBuilder : IOrderByClauseBuilder
         Syntax = syntax;
     }
 
-    public static OrderByClauseSyntax CreateSyntax(Action<IOrderByClauseBuilder> orderByClauseCallback)
+    public static OrderByClauseSyntax CreateSyntax(Action<IOrderByClauseBuilder>? orderByClauseCallback = null)
     {
         var orderByKeywordToken = SyntaxFactory.Token(SyntaxKind.OrderByKeyword);
         var syntax = SyntaxFactory.OrderByClause(orderByKeywordToken, default(SeparatedSyntaxList<OrderingSyntax>));
         var builder = new OrderByClauseBuilder(syntax);
-        orderByClauseCallback(builder);
+        orderByClauseCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IOrderByClauseBuilder AddOrdering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder> orderingCallback)
+    public IOrderByClauseBuilder AddOrdering(OrderingKind kind, Action<IExpressionBuilder> expressionCallback, Action<IOrderingBuilder>? orderingCallback = null)
     {
         var ordering = OrderingBuilder.CreateSyntax(kind, expressionCallback, orderingCallback);
         Syntax = Syntax.AddOrderings(ordering);

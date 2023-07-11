@@ -19,7 +19,7 @@ public partial class InterpolatedStringExpressionBuilder : IInterpolatedStringEx
         Syntax = syntax;
     }
 
-    public static InterpolatedStringExpressionSyntax CreateSyntax(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder> interpolatedStringExpressionCallback)
+    public static InterpolatedStringExpressionSyntax CreateSyntax(InterpolatedStringExpressionStringStartToken interpolatedStringExpressionStringStartToken, InterpolatedStringExpressionStringEndToken interpolatedStringExpressionStringEndToken, Action<IInterpolatedStringExpressionBuilder>? interpolatedStringExpressionCallback = null)
     {
         var stringStartTokenToken = interpolatedStringExpressionStringStartToken switch
         {
@@ -37,7 +37,7 @@ public partial class InterpolatedStringExpressionBuilder : IInterpolatedStringEx
         };
         var syntax = SyntaxFactory.InterpolatedStringExpression(stringStartTokenToken, default(SyntaxList<InterpolatedStringContentSyntax>), stringEndTokenToken);
         var builder = new InterpolatedStringExpressionBuilder(syntax);
-        interpolatedStringExpressionCallback(builder);
+        interpolatedStringExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

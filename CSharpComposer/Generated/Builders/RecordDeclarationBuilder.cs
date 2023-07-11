@@ -20,7 +20,7 @@ public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static RecordDeclarationSyntax CreateSyntax(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback)
+    public static RecordDeclarationSyntax CreateSyntax(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder>? recordDeclarationCallback = null)
     {
         var syntaxKind = kind switch
         {
@@ -32,11 +32,11 @@ public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var syntax = SyntaxFactory.RecordDeclaration(syntaxKind, default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), keywordToken, default(SyntaxToken), identifierToken, default(TypeParameterListSyntax), default(ParameterListSyntax), default(BaseListSyntax), default(SyntaxList<TypeParameterConstraintClauseSyntax>), default(SyntaxToken), default(SyntaxList<MemberDeclarationSyntax>), default(SyntaxToken), default(SyntaxToken));
         var builder = new RecordDeclarationBuilder(syntax);
-        recordDeclarationCallback(builder);
+        recordDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IRecordDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IRecordDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -70,7 +70,7 @@ public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
         return this;
     }
 
-    public IRecordDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
+    public IRecordDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);
         Syntax = Syntax.AddTypeParameterListParameters(parameter);
@@ -83,7 +83,7 @@ public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
         return this;
     }
 
-    public IRecordDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IRecordDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

@@ -17,17 +17,17 @@ public partial class BreakStatementBuilder : IBreakStatementBuilder
         Syntax = syntax;
     }
 
-    public static BreakStatementSyntax CreateSyntax(Action<IBreakStatementBuilder> breakStatementCallback)
+    public static BreakStatementSyntax CreateSyntax(Action<IBreakStatementBuilder>? breakStatementCallback = null)
     {
         var breakKeywordToken = SyntaxFactory.Token(SyntaxKind.BreakKeyword);
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.BreakStatement(default(SyntaxList<AttributeListSyntax>), breakKeywordToken, semicolonTokenToken);
         var builder = new BreakStatementBuilder(syntax);
-        breakStatementCallback(builder);
+        breakStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IBreakStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IBreakStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

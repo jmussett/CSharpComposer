@@ -70,8 +70,7 @@ internal class ImplementationBuilder
                                         AssignmentExpressionKind.SimpleAssignmentExpression,
                                         x => x.ParseExpression("Syntax"),
                                         x => x.ParseExpression("syntax")
-                                    ),
-                                    x => { }
+                                    )
                                 )
                             )
                         )
@@ -113,8 +112,7 @@ internal class ImplementationBuilder
                                 x => x.ParseExpression("builder.Syntax is null"),
                                 x => x.AsBlock(x =>
                                     x.AddStatement($"throw new InvalidOperationException(\"{type.Name} has not been specified\");")
-                                ),
-                                x => { }
+                                )
                             )
                          )
                          .AddStatement("return builder.Syntax;");
@@ -146,7 +144,7 @@ internal class ImplementationBuilder
 
                             var builderName = NameFactory.CreateBuilderName(type.Name);
                             blockBuilder.AddStatement($"var builder = new {builderName}(syntax);");
-                            blockBuilder.AddStatement($"{typeName.Camelize()}Callback(builder);");
+                            blockBuilder.AddStatement($"{typeName.Camelize()}Callback?.Invoke(builder);");
                             blockBuilder.AddStatement("return builder.Syntax;");
                         }
                         else

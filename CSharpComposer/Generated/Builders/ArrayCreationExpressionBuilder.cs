@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IArrayCreationExpressionBuilder
 {
-    IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback);
+    IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder>? initializerExpressionCallback = null);
     IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
@@ -25,11 +25,11 @@ public partial class ArrayCreationExpressionBuilder : IArrayCreationExpressionBu
         var typeSyntax = ArrayTypeBuilder.CreateSyntax(typeElementTypeCallback, typeArrayTypeCallback);
         var syntax = SyntaxFactory.ArrayCreationExpression(newKeywordToken, typeSyntax, default(InitializerExpressionSyntax));
         var builder = new ArrayCreationExpressionBuilder(syntax);
-        arrayCreationExpressionCallback(builder);
+        arrayCreationExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder>? initializerExpressionCallback = null)
     {
         var initializerSyntax = InitializerExpressionBuilder.CreateSyntax(kind, initializerExpressionCallback);
         Syntax = Syntax.WithInitializer(initializerSyntax);

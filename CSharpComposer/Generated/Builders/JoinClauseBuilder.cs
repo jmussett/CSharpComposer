@@ -19,7 +19,7 @@ public partial class JoinClauseBuilder : IJoinClauseBuilder
         Syntax = syntax;
     }
 
-    public static JoinClauseSyntax CreateSyntax(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder> joinClauseCallback)
+    public static JoinClauseSyntax CreateSyntax(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder>? joinClauseCallback = null)
     {
         var joinKeywordToken = SyntaxFactory.Token(SyntaxKind.JoinKeyword);
         var identifierToken = SyntaxFactory.Identifier(identifier);
@@ -31,7 +31,7 @@ public partial class JoinClauseBuilder : IJoinClauseBuilder
         var rightExpressionSyntax = ExpressionBuilder.CreateSyntax(rightExpressionCallback);
         var syntax = SyntaxFactory.JoinClause(joinKeywordToken, default(TypeSyntax), identifierToken, inKeywordToken, inExpressionSyntax, onKeywordToken, leftExpressionSyntax, equalsKeywordToken, rightExpressionSyntax, default(JoinIntoClauseSyntax));
         var builder = new JoinClauseBuilder(syntax);
-        joinClauseCallback(builder);
+        joinClauseCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

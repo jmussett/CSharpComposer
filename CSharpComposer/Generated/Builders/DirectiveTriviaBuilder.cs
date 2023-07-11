@@ -17,14 +17,14 @@ public partial interface IDirectiveTriviaBuilder
     void AsBadDirectiveTrivia(string identifier, bool isActive);
     void AsDefineDirectiveTrivia(string name, bool isActive);
     void AsUndefDirectiveTrivia(string name, bool isActive);
-    void AsLineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder> lineDirectiveTriviaCallback);
+    void AsLineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder>? lineDirectiveTriviaCallback = null);
     void AsLineSpanDirectiveTrivia(int startLine, int startCharacter, int endLine, int endCharacter, string file, bool isActive, Action<ILineSpanDirectiveTriviaBuilder> lineSpanDirectiveTriviaCallback);
-    void AsPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder> pragmaWarningDirectiveTriviaCallback);
+    void AsPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder>? pragmaWarningDirectiveTriviaCallback = null);
     void AsPragmaChecksumDirectiveTrivia(string file, string guid, string bytes, bool isActive);
     void AsReferenceDirectiveTrivia(string file, bool isActive);
     void AsLoadDirectiveTrivia(string file, bool isActive);
     void AsShebangDirectiveTrivia(bool isActive);
-    void AsNullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder> nullableDirectiveTriviaCallback);
+    void AsNullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder>? nullableDirectiveTriviaCallback = null);
 }
 
 public partial class DirectiveTriviaBuilder : IDirectiveTriviaBuilder
@@ -98,7 +98,7 @@ public partial class DirectiveTriviaBuilder : IDirectiveTriviaBuilder
         Syntax = UndefDirectiveTriviaBuilder.CreateSyntax(name, isActive);
     }
 
-    public void AsLineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder> lineDirectiveTriviaCallback)
+    public void AsLineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder>? lineDirectiveTriviaCallback = null)
     {
         Syntax = LineDirectiveTriviaBuilder.CreateSyntax(lineDirectiveTriviaLine, isActive, lineDirectiveTriviaCallback);
     }
@@ -108,7 +108,7 @@ public partial class DirectiveTriviaBuilder : IDirectiveTriviaBuilder
         Syntax = LineSpanDirectiveTriviaBuilder.CreateSyntax(startLine, startCharacter, endLine, endCharacter, file, isActive, lineSpanDirectiveTriviaCallback);
     }
 
-    public void AsPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder> pragmaWarningDirectiveTriviaCallback)
+    public void AsPragmaWarningDirectiveTrivia(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder>? pragmaWarningDirectiveTriviaCallback = null)
     {
         Syntax = PragmaWarningDirectiveTriviaBuilder.CreateSyntax(pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, isActive, pragmaWarningDirectiveTriviaCallback);
     }
@@ -133,7 +133,7 @@ public partial class DirectiveTriviaBuilder : IDirectiveTriviaBuilder
         Syntax = ShebangDirectiveTriviaBuilder.CreateSyntax(isActive);
     }
 
-    public void AsNullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder> nullableDirectiveTriviaCallback)
+    public void AsNullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder>? nullableDirectiveTriviaCallback = null)
     {
         Syntax = NullableDirectiveTriviaBuilder.CreateSyntax(nullableDirectiveTriviaSettingToken, isActive, nullableDirectiveTriviaCallback);
     }

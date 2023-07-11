@@ -13,7 +13,7 @@ public partial interface ISubpatternBuilder
 public interface IAddSubpattern<TBuilder>
 {
     TBuilder AddSubpattern(SubpatternSyntax subpatternSyntax);
-    TBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback);
+    TBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder>? subpatternCallback = null);
 }
 
 public partial class SubpatternBuilder : ISubpatternBuilder
@@ -25,12 +25,12 @@ public partial class SubpatternBuilder : ISubpatternBuilder
         Syntax = syntax;
     }
 
-    public static SubpatternSyntax CreateSyntax(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback)
+    public static SubpatternSyntax CreateSyntax(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder>? subpatternCallback = null)
     {
         var patternSyntax = PatternBuilder.CreateSyntax(patternCallback);
         var syntax = SyntaxFactory.Subpattern(default(BaseExpressionColonSyntax), patternSyntax);
         var builder = new SubpatternBuilder(syntax);
-        subpatternCallback(builder);
+        subpatternCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

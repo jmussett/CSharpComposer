@@ -17,7 +17,7 @@ public partial class DoStatementBuilder : IDoStatementBuilder
         Syntax = syntax;
     }
 
-    public static DoStatementSyntax CreateSyntax(Action<IStatementBuilder> statementCallback, Action<IExpressionBuilder> conditionCallback, Action<IDoStatementBuilder> doStatementCallback)
+    public static DoStatementSyntax CreateSyntax(Action<IStatementBuilder> statementCallback, Action<IExpressionBuilder> conditionCallback, Action<IDoStatementBuilder>? doStatementCallback = null)
     {
         var doKeywordToken = SyntaxFactory.Token(SyntaxKind.DoKeyword);
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
@@ -28,11 +28,11 @@ public partial class DoStatementBuilder : IDoStatementBuilder
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.DoStatement(default(SyntaxList<AttributeListSyntax>), doKeywordToken, statementSyntax, whileKeywordToken, openParenTokenToken, conditionSyntax, closeParenTokenToken, semicolonTokenToken);
         var builder = new DoStatementBuilder(syntax);
-        doStatementCallback(builder);
+        doStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IDoStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IDoStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

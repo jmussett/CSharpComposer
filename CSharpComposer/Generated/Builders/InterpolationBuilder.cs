@@ -21,14 +21,14 @@ public partial class InterpolationBuilder : IInterpolationBuilder
         Syntax = syntax;
     }
 
-    public static InterpolationSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder> interpolationCallback)
+    public static InterpolationSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder>? interpolationCallback = null)
     {
         var openBraceTokenToken = SyntaxFactory.Token(SyntaxKind.OpenBraceToken);
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.Interpolation(openBraceTokenToken, expressionSyntax, default(InterpolationAlignmentClauseSyntax), default(InterpolationFormatClauseSyntax), closeBraceTokenToken);
         var builder = new InterpolationBuilder(syntax);
-        interpolationCallback(builder);
+        interpolationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

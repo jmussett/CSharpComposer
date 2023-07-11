@@ -8,7 +8,7 @@ public partial interface IDestructorDeclarationBuilder : IBaseMethodDeclarationB
 {
     IDestructorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IDestructorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IDestructorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    IDestructorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null);
     IDestructorDeclarationBuilder WithBody(BlockSyntax body);
 }
 
@@ -21,14 +21,14 @@ public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilde
         Syntax = syntax;
     }
 
-    public static DestructorDeclarationSyntax CreateSyntax(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback)
+    public static DestructorDeclarationSyntax CreateSyntax(string identifier, Action<IDestructorDeclarationBuilder>? destructorDeclarationCallback = null)
     {
         var tildeTokenToken = SyntaxFactory.Token(SyntaxKind.TildeToken);
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var parameterListSyntax = SyntaxFactory.ParameterList();
         var syntax = SyntaxFactory.DestructorDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), tildeTokenToken, identifierToken, parameterListSyntax, null, null, default(SyntaxToken));
         var builder = new DestructorDeclarationBuilder(syntax);
-        destructorDeclarationCallback(builder);
+        destructorDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -45,7 +45,7 @@ public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilde
         return this;
     }
 
-    public IDestructorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IDestructorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
@@ -58,7 +58,7 @@ public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilde
         return this;
     }
 
-    public IDestructorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IDestructorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -81,7 +81,7 @@ public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilde
         return this;
     }
 
-    public IDestructorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IDestructorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

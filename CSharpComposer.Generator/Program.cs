@@ -86,10 +86,10 @@ void CreateBuilders(InterfaceBuilder interfaceBuilder, ImplementationBuilder imp
         }
 
         var compilationUnit = CSharpFactory.CompilationUnit(x => x
-            .AddUsingDirective(x => x.ParseName("System"), x => { })
-            .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis"), x => { }) // TODO: ???
-            .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis.CSharp"), x => { })
-            .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis.CSharp.Syntax"), x => { })
+            .AddUsingDirective(x => x.ParseName("System"))
+            .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis")) // TODO: ???
+            .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis.CSharp"))
+            .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis.CSharp.Syntax"))
             .AddFileScopedNamespaceDeclaration(x => x.ParseName("CSharpComposer"), ns =>
             {
                 // TODO: Seperate into different files (don't want to expose internal types when navigating)
@@ -154,7 +154,7 @@ static async Task<IEnumerable<InterfaceDeclarationSyntax>> GetUnusedInterfacesAs
 void CreateFactory()
 {
     var compilationUnit = CSharpFactory.CompilationUnit(x => x
-        .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis.CSharp.Syntax"), x => { })
+        .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis.CSharp.Syntax"))
         .AddFileScopedNamespaceDeclaration(x => x.ParseName("CSharpComposer"), ns =>
         {
             ns.AddClassDeclaration("CSharpFactory", x =>
@@ -221,7 +221,7 @@ void CreateEnums(EnumStore enumStore)
 
                    foreach (var kind in kvp.Value.Kinds.Where(x => x.Name != "IdentifierToken").Select(x => x.Name).Distinct())
                    {
-                       x.AddEnumMemberDeclaration(kind, x => { });
+                       x.AddEnumMemberDeclaration(kind);
                    }
                })
            )
@@ -240,7 +240,7 @@ void CreateEnums(EnumStore enumStore)
 
                    foreach (var kind in kvp.Value.Kinds.Select(x => x.Name).Distinct())
                    {
-                       x.AddEnumMemberDeclaration(kind, x => { });
+                       x.AddEnumMemberDeclaration(kind);
                    }
                })
            )

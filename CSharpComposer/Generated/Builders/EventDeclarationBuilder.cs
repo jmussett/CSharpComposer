@@ -18,18 +18,18 @@ public partial class EventDeclarationBuilder : IEventDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static EventDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder> eventDeclarationCallback)
+    public static EventDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder>? eventDeclarationCallback = null)
     {
         var eventKeywordToken = SyntaxFactory.Token(SyntaxKind.EventKeyword);
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var syntax = SyntaxFactory.EventDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), eventKeywordToken, typeSyntax, default(ExplicitInterfaceSpecifierSyntax), identifierToken, default(AccessorListSyntax), default(SyntaxToken));
         var builder = new EventDeclarationBuilder(syntax);
-        eventDeclarationCallback(builder);
+        eventDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IEventDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
+    public IEventDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder>? accessorDeclarationCallback = null)
     {
         var accessor = AccessorDeclarationBuilder.CreateSyntax(kind, accessorDeclarationCallback);
         Syntax = Syntax.AddAccessorListAccessors(accessor);
@@ -48,7 +48,7 @@ public partial class EventDeclarationBuilder : IEventDeclarationBuilder
         return this;
     }
 
-    public IEventDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IEventDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

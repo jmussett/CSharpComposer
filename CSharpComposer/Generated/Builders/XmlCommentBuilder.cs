@@ -18,13 +18,13 @@ public partial class XmlCommentBuilder : IXmlCommentBuilder
         Syntax = syntax;
     }
 
-    public static XmlCommentSyntax CreateSyntax(Action<IXmlCommentBuilder> xmlCommentCallback)
+    public static XmlCommentSyntax CreateSyntax(Action<IXmlCommentBuilder>? xmlCommentCallback = null)
     {
         var lessThanExclamationMinusMinusTokenToken = SyntaxFactory.Token(SyntaxKind.XmlCommentStartToken);
         var minusMinusGreaterThanTokenToken = SyntaxFactory.Token(SyntaxKind.XmlCommentEndToken);
         var syntax = SyntaxFactory.XmlComment(lessThanExclamationMinusMinusTokenToken, default(SyntaxTokenList), minusMinusGreaterThanTokenToken);
         var builder = new XmlCommentBuilder(syntax);
-        xmlCommentCallback(builder);
+        xmlCommentCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

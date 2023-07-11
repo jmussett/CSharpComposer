@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IEnumDeclarationBuilder : IBaseTypeDeclarationBuilder<IEnumDeclarationBuilder>
 {
-    IEnumDeclarationBuilder AddEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback);
+    IEnumDeclarationBuilder AddEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder>? enumMemberDeclarationCallback = null);
     IEnumDeclarationBuilder AddEnumMemberDeclaration(EnumMemberDeclarationSyntax member);
 }
 
@@ -19,7 +19,7 @@ public partial class EnumDeclarationBuilder : IEnumDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static EnumDeclarationSyntax CreateSyntax(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback)
+    public static EnumDeclarationSyntax CreateSyntax(string identifier, Action<IEnumDeclarationBuilder>? enumDeclarationCallback = null)
     {
         var enumKeywordToken = SyntaxFactory.Token(SyntaxKind.EnumKeyword);
         var identifierToken = SyntaxFactory.Identifier(identifier);
@@ -27,11 +27,11 @@ public partial class EnumDeclarationBuilder : IEnumDeclarationBuilder
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.EnumDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), enumKeywordToken, identifierToken, default(BaseListSyntax), openBraceTokenToken, default(SeparatedSyntaxList<EnumMemberDeclarationSyntax>), closeBraceTokenToken, default(SyntaxToken));
         var builder = new EnumDeclarationBuilder(syntax);
-        enumDeclarationCallback(builder);
+        enumDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IEnumDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IEnumDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -67,7 +67,7 @@ public partial class EnumDeclarationBuilder : IEnumDeclarationBuilder
         return this;
     }
 
-    public IEnumDeclarationBuilder AddEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback)
+    public IEnumDeclarationBuilder AddEnumMemberDeclaration(string identifier, Action<IEnumMemberDeclarationBuilder>? enumMemberDeclarationCallback = null)
     {
         var member = EnumMemberDeclarationBuilder.CreateSyntax(identifier, enumMemberDeclarationCallback);
         Syntax = Syntax.AddMembers(member);

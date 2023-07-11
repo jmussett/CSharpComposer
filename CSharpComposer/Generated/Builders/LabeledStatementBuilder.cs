@@ -17,18 +17,18 @@ public partial class LabeledStatementBuilder : ILabeledStatementBuilder
         Syntax = syntax;
     }
 
-    public static LabeledStatementSyntax CreateSyntax(string identifier, Action<IStatementBuilder> statementCallback, Action<ILabeledStatementBuilder> labeledStatementCallback)
+    public static LabeledStatementSyntax CreateSyntax(string identifier, Action<IStatementBuilder> statementCallback, Action<ILabeledStatementBuilder>? labeledStatementCallback = null)
     {
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var colonTokenToken = SyntaxFactory.Token(SyntaxKind.ColonToken);
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
         var syntax = SyntaxFactory.LabeledStatement(default(SyntaxList<AttributeListSyntax>), identifierToken, colonTokenToken, statementSyntax);
         var builder = new LabeledStatementBuilder(syntax);
-        labeledStatementCallback(builder);
+        labeledStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ILabeledStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ILabeledStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

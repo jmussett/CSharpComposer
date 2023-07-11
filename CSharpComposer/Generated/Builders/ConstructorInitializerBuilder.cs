@@ -17,7 +17,7 @@ public partial class ConstructorInitializerBuilder : IConstructorInitializerBuil
         Syntax = syntax;
     }
 
-    public static ConstructorInitializerSyntax CreateSyntax(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder> constructorInitializerCallback)
+    public static ConstructorInitializerSyntax CreateSyntax(ConstructorInitializerKind kind, Action<IConstructorInitializerBuilder>? constructorInitializerCallback = null)
     {
         var syntaxKind = kind switch
         {
@@ -35,11 +35,11 @@ public partial class ConstructorInitializerBuilder : IConstructorInitializerBuil
         var argumentListSyntax = SyntaxFactory.ArgumentList();
         var syntax = SyntaxFactory.ConstructorInitializer(syntaxKind, colonTokenToken, thisOrBaseKeywordToken, argumentListSyntax);
         var builder = new ConstructorInitializerBuilder(syntax);
-        constructorInitializerCallback(builder);
+        constructorInitializerCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IConstructorInitializerBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public IConstructorInitializerBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var argument = ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
         Syntax = Syntax.AddArgumentListArguments(argument);

@@ -6,8 +6,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseParameterBuilder
 {
-    void AsParameter(string identifier, Action<IParameterBuilder> parameterCallback);
-    void AsFunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder> functionPointerParameterCallback);
+    void AsParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null);
+    void AsFunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder>? functionPointerParameterCallback = null);
 }
 
 public partial interface IBaseParameterBuilder<TBuilder> : IAddAttribute<TBuilder>
@@ -31,12 +31,12 @@ public partial class BaseParameterBuilder : IBaseParameterBuilder
         return builder.Syntax;
     }
 
-    public void AsParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public void AsParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         Syntax = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
     }
 
-    public void AsFunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder> functionPointerParameterCallback)
+    public void AsFunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder>? functionPointerParameterCallback = null)
     {
         Syntax = FunctionPointerParameterBuilder.CreateSyntax(typeCallback, functionPointerParameterCallback);
     }

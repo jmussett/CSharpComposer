@@ -6,11 +6,11 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseMethodDeclarationBuilder
 {
-    void AsMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder> methodDeclarationCallback);
-    void AsOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder> operatorDeclarationCallback);
-    void AsConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder> conversionOperatorDeclarationCallback);
-    void AsConstructorDeclaration(string identifier, Action<IConstructorDeclarationBuilder> constructorDeclarationCallback);
-    void AsDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback);
+    void AsMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder>? methodDeclarationCallback = null);
+    void AsOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder>? operatorDeclarationCallback = null);
+    void AsConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder>? conversionOperatorDeclarationCallback = null);
+    void AsConstructorDeclaration(string identifier, Action<IConstructorDeclarationBuilder>? constructorDeclarationCallback = null);
+    void AsDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder>? destructorDeclarationCallback = null);
 }
 
 public partial interface IBaseMethodDeclarationBuilder<TBuilder> : IMemberDeclarationBuilder<TBuilder>, IAddParameter<TBuilder>
@@ -33,27 +33,27 @@ public partial class BaseMethodDeclarationBuilder : IBaseMethodDeclarationBuilde
         return builder.Syntax;
     }
 
-    public void AsMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder> methodDeclarationCallback)
+    public void AsMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder>? methodDeclarationCallback = null)
     {
         Syntax = MethodDeclarationBuilder.CreateSyntax(returnTypeCallback, identifier, methodDeclarationCallback);
     }
 
-    public void AsOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder> operatorDeclarationCallback)
+    public void AsOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder>? operatorDeclarationCallback = null)
     {
         Syntax = OperatorDeclarationBuilder.CreateSyntax(returnTypeCallback, operatorDeclarationOperatorToken, operatorDeclarationCallback);
     }
 
-    public void AsConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder> conversionOperatorDeclarationCallback)
+    public void AsConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder>? conversionOperatorDeclarationCallback = null)
     {
         Syntax = ConversionOperatorDeclarationBuilder.CreateSyntax(conversionOperatorDeclarationImplicitOrExplicitKeyword, typeCallback, conversionOperatorDeclarationCallback);
     }
 
-    public void AsConstructorDeclaration(string identifier, Action<IConstructorDeclarationBuilder> constructorDeclarationCallback)
+    public void AsConstructorDeclaration(string identifier, Action<IConstructorDeclarationBuilder>? constructorDeclarationCallback = null)
     {
         Syntax = ConstructorDeclarationBuilder.CreateSyntax(identifier, constructorDeclarationCallback);
     }
 
-    public void AsDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder> destructorDeclarationCallback)
+    public void AsDestructorDeclaration(string identifier, Action<IDestructorDeclarationBuilder>? destructorDeclarationCallback = null)
     {
         Syntax = DestructorDeclarationBuilder.CreateSyntax(identifier, destructorDeclarationCallback);
     }

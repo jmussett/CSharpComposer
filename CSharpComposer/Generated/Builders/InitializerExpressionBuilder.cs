@@ -17,7 +17,7 @@ public partial class InitializerExpressionBuilder : IInitializerExpressionBuilde
         Syntax = syntax;
     }
 
-    public static InitializerExpressionSyntax CreateSyntax(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder> initializerExpressionCallback)
+    public static InitializerExpressionSyntax CreateSyntax(InitializerExpressionKind kind, Action<IInitializerExpressionBuilder>? initializerExpressionCallback = null)
     {
         var syntaxKind = kind switch
         {
@@ -32,7 +32,7 @@ public partial class InitializerExpressionBuilder : IInitializerExpressionBuilde
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.InitializerExpression(syntaxKind, openBraceTokenToken, default(SeparatedSyntaxList<ExpressionSyntax>), closeBraceTokenToken);
         var builder = new InitializerExpressionBuilder(syntax);
-        initializerExpressionCallback(builder);
+        initializerExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

@@ -66,7 +66,7 @@ internal class InterfaceBuilder
                     {
                         returnType = "TBuilder";
 
-                        x.AddTypeParameter(returnType, x => { });
+                        x.AddTypeParameter(returnType);
                     }
 
                     if (NodeValidator.IsValidNode(type.Base))
@@ -94,7 +94,7 @@ internal class InterfaceBuilder
                 .AddInterfaceDeclaration($"IWith{typeName}", x =>
                 {
                     x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-                    x.AddTypeParameter("TBuilder", x => { });
+                    x.AddTypeParameter("TBuilder");
 
                     x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"With{typeName}", x => x
                         .AddParameter(type.Name.Camelize(), x => x
@@ -127,7 +127,7 @@ internal class InterfaceBuilder
                .AddInterfaceDeclaration($"IAdd{typeName}", x =>
                {
                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-                   x.AddTypeParameter("TBuilder", x => { });
+                   x.AddTypeParameter("TBuilder");
 
                    x.AddMethodDeclaration(x => x.ParseTypeName("TBuilder"), $"Add{typeName}", x => x
                        .AddParameter(type.Name.Camelize(), x => x

@@ -17,16 +17,16 @@ public partial class ImplicitElementAccessBuilder : IImplicitElementAccessBuilde
         Syntax = syntax;
     }
 
-    public static ImplicitElementAccessSyntax CreateSyntax(Action<IImplicitElementAccessBuilder> implicitElementAccessCallback)
+    public static ImplicitElementAccessSyntax CreateSyntax(Action<IImplicitElementAccessBuilder>? implicitElementAccessCallback = null)
     {
         var argumentListSyntax = SyntaxFactory.BracketedArgumentList();
         var syntax = SyntaxFactory.ImplicitElementAccess(argumentListSyntax);
         var builder = new ImplicitElementAccessBuilder(syntax);
-        implicitElementAccessCallback(builder);
+        implicitElementAccessCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IImplicitElementAccessBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public IImplicitElementAccessBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var argument = ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
         Syntax = Syntax.AddArgumentListArguments(argument);

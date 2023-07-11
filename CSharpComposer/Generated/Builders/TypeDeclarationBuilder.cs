@@ -6,10 +6,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ITypeDeclarationBuilder
 {
-    void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback);
-    void AsStructDeclaration(string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback);
-    void AsInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback);
-    void AsRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback);
+    void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder>? classDeclarationCallback = null);
+    void AsStructDeclaration(string identifier, Action<IStructDeclarationBuilder>? structDeclarationCallback = null);
+    void AsInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder>? interfaceDeclarationCallback = null);
+    void AsRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder>? recordDeclarationCallback = null);
 }
 
 public partial interface ITypeDeclarationBuilder<TBuilder> : IBaseTypeDeclarationBuilder<TBuilder>, IAddTypeParameter<TBuilder>
@@ -36,22 +36,22 @@ public partial class TypeDeclarationBuilder : ITypeDeclarationBuilder
         return builder.Syntax;
     }
 
-    public void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback)
+    public void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder>? classDeclarationCallback = null)
     {
         Syntax = ClassDeclarationBuilder.CreateSyntax(identifier, classDeclarationCallback);
     }
 
-    public void AsStructDeclaration(string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback)
+    public void AsStructDeclaration(string identifier, Action<IStructDeclarationBuilder>? structDeclarationCallback = null)
     {
         Syntax = StructDeclarationBuilder.CreateSyntax(identifier, structDeclarationCallback);
     }
 
-    public void AsInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback)
+    public void AsInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder>? interfaceDeclarationCallback = null)
     {
         Syntax = InterfaceDeclarationBuilder.CreateSyntax(identifier, interfaceDeclarationCallback);
     }
 
-    public void AsRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback)
+    public void AsRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder>? recordDeclarationCallback = null)
     {
         Syntax = RecordDeclarationBuilder.CreateSyntax(kind, identifier, recordDeclarationCallback);
     }

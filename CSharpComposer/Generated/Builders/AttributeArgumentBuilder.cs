@@ -17,12 +17,12 @@ public partial class AttributeArgumentBuilder : IAttributeArgumentBuilder
         Syntax = syntax;
     }
 
-    public static AttributeArgumentSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder> attributeArgumentCallback)
+    public static AttributeArgumentSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IAttributeArgumentBuilder>? attributeArgumentCallback = null)
     {
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
         var syntax = SyntaxFactory.AttributeArgument(null, null, expressionSyntax);
         var builder = new AttributeArgumentBuilder(syntax);
-        attributeArgumentCallback(builder);
+        attributeArgumentCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

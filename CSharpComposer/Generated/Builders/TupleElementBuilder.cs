@@ -18,12 +18,12 @@ public partial class TupleElementBuilder : ITupleElementBuilder
         Syntax = syntax;
     }
 
-    public static TupleElementSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder> tupleElementCallback)
+    public static TupleElementSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<ITupleElementBuilder>? tupleElementCallback = null)
     {
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var syntax = SyntaxFactory.TupleElement(typeSyntax, default(SyntaxToken));
         var builder = new TupleElementBuilder(syntax);
-        tupleElementCallback(builder);
+        tupleElementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

@@ -7,7 +7,7 @@ namespace CSharpComposer;
 public partial interface IInterpolatedStringContentBuilder
 {
     void AsInterpolatedStringText();
-    void AsInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder> interpolationCallback);
+    void AsInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder>? interpolationCallback = null);
 }
 
 public partial class InterpolatedStringContentBuilder : IInterpolatedStringContentBuilder
@@ -31,7 +31,7 @@ public partial class InterpolatedStringContentBuilder : IInterpolatedStringConte
         Syntax = InterpolatedStringTextBuilder.CreateSyntax();
     }
 
-    public void AsInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder> interpolationCallback)
+    public void AsInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder>? interpolationCallback = null)
     {
         Syntax = InterpolationBuilder.CreateSyntax(expressionCallback, interpolationCallback);
     }

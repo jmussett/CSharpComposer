@@ -17,14 +17,14 @@ public partial class SwitchExpressionArmBuilder : ISwitchExpressionArmBuilder
         Syntax = syntax;
     }
 
-    public static SwitchExpressionArmSyntax CreateSyntax(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder> switchExpressionArmCallback)
+    public static SwitchExpressionArmSyntax CreateSyntax(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder>? switchExpressionArmCallback = null)
     {
         var patternSyntax = PatternBuilder.CreateSyntax(patternCallback);
         var equalsGreaterThanTokenToken = SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken);
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
         var syntax = SyntaxFactory.SwitchExpressionArm(patternSyntax, default(WhenClauseSyntax), equalsGreaterThanTokenToken, expressionSyntax);
         var builder = new SwitchExpressionArmBuilder(syntax);
-        switchExpressionArmCallback(builder);
+        switchExpressionArmCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

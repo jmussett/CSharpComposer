@@ -17,16 +17,16 @@ public partial class EmptyStatementBuilder : IEmptyStatementBuilder
         Syntax = syntax;
     }
 
-    public static EmptyStatementSyntax CreateSyntax(Action<IEmptyStatementBuilder> emptyStatementCallback)
+    public static EmptyStatementSyntax CreateSyntax(Action<IEmptyStatementBuilder>? emptyStatementCallback = null)
     {
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.EmptyStatement(default(SyntaxList<AttributeListSyntax>), semicolonTokenToken);
         var builder = new EmptyStatementBuilder(syntax);
-        emptyStatementCallback(builder);
+        emptyStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IEmptyStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IEmptyStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

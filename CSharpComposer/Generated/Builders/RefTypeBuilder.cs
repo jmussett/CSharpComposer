@@ -18,13 +18,13 @@ public partial class RefTypeBuilder : IRefTypeBuilder
         Syntax = syntax;
     }
 
-    public static RefTypeSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder> refTypeCallback)
+    public static RefTypeSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IRefTypeBuilder>? refTypeCallback = null)
     {
         var refKeywordToken = SyntaxFactory.Token(SyntaxKind.RefKeyword);
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var syntax = SyntaxFactory.RefType(refKeywordToken, default(SyntaxToken), typeSyntax);
         var builder = new RefTypeBuilder(syntax);
-        refTypeCallback(builder);
+        refTypeCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

@@ -7,7 +7,7 @@ namespace CSharpComposer;
 public partial interface ISimpleNameBuilder
 {
     void AsIdentifierName(string identifier);
-    void AsGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback);
+    void AsGenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null);
 }
 
 public partial class SimpleNameBuilder : ISimpleNameBuilder
@@ -31,7 +31,7 @@ public partial class SimpleNameBuilder : ISimpleNameBuilder
         Syntax = IdentifierNameBuilder.CreateSyntax(identifier);
     }
 
-    public void AsGenericName(string identifier, Action<IGenericNameBuilder> genericNameCallback)
+    public void AsGenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null)
     {
         Syntax = GenericNameBuilder.CreateSyntax(identifier, genericNameCallback);
     }

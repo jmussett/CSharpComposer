@@ -19,16 +19,16 @@ public partial class EnumMemberDeclarationBuilder : IEnumMemberDeclarationBuilde
         Syntax = syntax;
     }
 
-    public static EnumMemberDeclarationSyntax CreateSyntax(string identifier, Action<IEnumMemberDeclarationBuilder> enumMemberDeclarationCallback)
+    public static EnumMemberDeclarationSyntax CreateSyntax(string identifier, Action<IEnumMemberDeclarationBuilder>? enumMemberDeclarationCallback = null)
     {
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var syntax = SyntaxFactory.EnumMemberDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), identifierToken, default(EqualsValueClauseSyntax));
         var builder = new EnumMemberDeclarationBuilder(syntax);
-        enumMemberDeclarationCallback(builder);
+        enumMemberDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IEnumMemberDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IEnumMemberDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

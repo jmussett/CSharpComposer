@@ -17,17 +17,17 @@ public partial class ThrowStatementBuilder : IThrowStatementBuilder
         Syntax = syntax;
     }
 
-    public static ThrowStatementSyntax CreateSyntax(Action<IThrowStatementBuilder> throwStatementCallback)
+    public static ThrowStatementSyntax CreateSyntax(Action<IThrowStatementBuilder>? throwStatementCallback = null)
     {
         var throwKeywordToken = SyntaxFactory.Token(SyntaxKind.ThrowKeyword);
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.ThrowStatement(default(SyntaxList<AttributeListSyntax>), throwKeywordToken, default(ExpressionSyntax), semicolonTokenToken);
         var builder = new ThrowStatementBuilder(syntax);
-        throwStatementCallback(builder);
+        throwStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IThrowStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IThrowStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

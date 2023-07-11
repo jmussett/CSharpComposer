@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IForStatementBuilder : IStatementBuilder<IForStatementBuilder>
 {
-    IForStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
+    IForStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder>? variableDeclarationCallback = null);
     IForStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration);
     IForStatementBuilder AddInitializerExpression(Action<IExpressionBuilder> initializerCallback);
     IForStatementBuilder AddInitializerExpression(ExpressionSyntax initializer);
@@ -25,7 +25,7 @@ public partial class ForStatementBuilder : IForStatementBuilder
         Syntax = syntax;
     }
 
-    public static ForStatementSyntax CreateSyntax(Action<IStatementBuilder> statementCallback, Action<IForStatementBuilder> forStatementCallback)
+    public static ForStatementSyntax CreateSyntax(Action<IStatementBuilder> statementCallback, Action<IForStatementBuilder>? forStatementCallback = null)
     {
         var forKeywordToken = SyntaxFactory.Token(SyntaxKind.ForKeyword);
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
@@ -35,11 +35,11 @@ public partial class ForStatementBuilder : IForStatementBuilder
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
         var syntax = SyntaxFactory.ForStatement(default(SyntaxList<AttributeListSyntax>), forKeywordToken, openParenTokenToken, null, default(SeparatedSyntaxList<ExpressionSyntax>), firstSemicolonTokenToken, default(ExpressionSyntax), secondSemicolonTokenToken, default(SeparatedSyntaxList<ExpressionSyntax>), closeParenTokenToken, statementSyntax);
         var builder = new ForStatementBuilder(syntax);
-        forStatementCallback(builder);
+        forStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IForStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
+    public IForStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder>? variableDeclarationCallback = null)
     {
         var declarationSyntax = VariableDeclarationBuilder.CreateSyntax(typeCallback, variableDeclarationCallback);
         Syntax = Syntax.WithDeclaration(declarationSyntax);
@@ -65,7 +65,7 @@ public partial class ForStatementBuilder : IForStatementBuilder
         return this;
     }
 
-    public IForStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IForStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

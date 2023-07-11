@@ -18,11 +18,11 @@ public partial class SkippedTokensTriviaBuilder : ISkippedTokensTriviaBuilder
         Syntax = syntax;
     }
 
-    public static SkippedTokensTriviaSyntax CreateSyntax(Action<ISkippedTokensTriviaBuilder> skippedTokensTriviaCallback)
+    public static SkippedTokensTriviaSyntax CreateSyntax(Action<ISkippedTokensTriviaBuilder>? skippedTokensTriviaCallback = null)
     {
         var syntax = SyntaxFactory.SkippedTokensTrivia(default(SyntaxTokenList));
         var builder = new SkippedTokensTriviaBuilder(syntax);
-        skippedTokensTriviaCallback(builder);
+        skippedTokensTriviaCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

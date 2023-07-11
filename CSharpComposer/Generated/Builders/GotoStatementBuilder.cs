@@ -18,7 +18,7 @@ public partial class GotoStatementBuilder : IGotoStatementBuilder
         Syntax = syntax;
     }
 
-    public static GotoStatementSyntax CreateSyntax(GotoStatementKind kind, Action<IGotoStatementBuilder> gotoStatementCallback)
+    public static GotoStatementSyntax CreateSyntax(GotoStatementKind kind, Action<IGotoStatementBuilder>? gotoStatementCallback = null)
     {
         var syntaxKind = kind switch
         {
@@ -31,11 +31,11 @@ public partial class GotoStatementBuilder : IGotoStatementBuilder
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.GotoStatement(syntaxKind, default(SyntaxList<AttributeListSyntax>), gotoKeywordToken, default(SyntaxToken), default(ExpressionSyntax), semicolonTokenToken);
         var builder = new GotoStatementBuilder(syntax);
-        gotoStatementCallback(builder);
+        gotoStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IGotoStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IGotoStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

@@ -21,11 +21,11 @@ public partial class RecursivePatternBuilder : IRecursivePatternBuilder
         Syntax = syntax;
     }
 
-    public static RecursivePatternSyntax CreateSyntax(Action<IRecursivePatternBuilder> recursivePatternCallback)
+    public static RecursivePatternSyntax CreateSyntax(Action<IRecursivePatternBuilder>? recursivePatternCallback = null)
     {
         var syntax = SyntaxFactory.RecursivePattern(default(TypeSyntax), default(PositionalPatternClauseSyntax), default(PropertyPatternClauseSyntax), default(VariableDesignationSyntax));
         var builder = new RecursivePatternBuilder(syntax);
-        recursivePatternCallback(builder);
+        recursivePatternCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -42,7 +42,7 @@ public partial class RecursivePatternBuilder : IRecursivePatternBuilder
         return this;
     }
 
-    public IRecursivePatternBuilder WithPositionalPatternClause(Action<IPositionalPatternClauseBuilder> positionalPatternClauseCallback)
+    public IRecursivePatternBuilder WithPositionalPatternClause(Action<IPositionalPatternClauseBuilder>? positionalPatternClauseCallback = null)
     {
         var positionalPatternClauseSyntax = PositionalPatternClauseBuilder.CreateSyntax(positionalPatternClauseCallback);
         Syntax = Syntax.WithPositionalPatternClause(positionalPatternClauseSyntax);
@@ -55,7 +55,7 @@ public partial class RecursivePatternBuilder : IRecursivePatternBuilder
         return this;
     }
 
-    public IRecursivePatternBuilder WithPropertyPatternClause(Action<IPropertyPatternClauseBuilder> propertyPatternClauseCallback)
+    public IRecursivePatternBuilder WithPropertyPatternClause(Action<IPropertyPatternClauseBuilder>? propertyPatternClauseCallback = null)
     {
         var propertyPatternClauseSyntax = PropertyPatternClauseBuilder.CreateSyntax(propertyPatternClauseCallback);
         Syntax = Syntax.WithPropertyPatternClause(propertyPatternClauseSyntax);

@@ -27,11 +27,11 @@ public partial class TryStatementBuilder : ITryStatementBuilder
         var blockSyntax = BlockBuilder.CreateSyntax(blockBlockCallback);
         var syntax = SyntaxFactory.TryStatement(default(SyntaxList<AttributeListSyntax>), tryKeywordToken, blockSyntax, default(SyntaxList<CatchClauseSyntax>), default(FinallyClauseSyntax));
         var builder = new TryStatementBuilder(syntax);
-        tryStatementCallback(builder);
+        tryStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ITryStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ITryStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

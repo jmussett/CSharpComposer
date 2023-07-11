@@ -17,12 +17,12 @@ public partial class SlicePatternBuilder : ISlicePatternBuilder
         Syntax = syntax;
     }
 
-    public static SlicePatternSyntax CreateSyntax(Action<ISlicePatternBuilder> slicePatternCallback)
+    public static SlicePatternSyntax CreateSyntax(Action<ISlicePatternBuilder>? slicePatternCallback = null)
     {
         var dotDotTokenToken = SyntaxFactory.Token(SyntaxKind.DotDotToken);
         var syntax = SyntaxFactory.SlicePattern(dotDotTokenToken, default(PatternSyntax));
         var builder = new SlicePatternBuilder(syntax);
-        slicePatternCallback(builder);
+        slicePatternCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

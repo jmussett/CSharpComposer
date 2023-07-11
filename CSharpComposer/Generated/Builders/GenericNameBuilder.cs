@@ -17,13 +17,13 @@ public partial class GenericNameBuilder : IGenericNameBuilder
         Syntax = syntax;
     }
 
-    public static GenericNameSyntax CreateSyntax(string identifier, Action<IGenericNameBuilder> genericNameCallback)
+    public static GenericNameSyntax CreateSyntax(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null)
     {
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var typeArgumentListSyntax = SyntaxFactory.TypeArgumentList();
         var syntax = SyntaxFactory.GenericName(identifierToken, typeArgumentListSyntax);
         var builder = new GenericNameBuilder(syntax);
-        genericNameCallback(builder);
+        genericNameCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

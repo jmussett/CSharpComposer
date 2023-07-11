@@ -34,11 +34,11 @@ public partial class CheckedStatementBuilder : ICheckedStatementBuilder
         var blockSyntax = BlockBuilder.CreateSyntax(blockBlockCallback);
         var syntax = SyntaxFactory.CheckedStatement(syntaxKind, default(SyntaxList<AttributeListSyntax>), keywordToken, blockSyntax);
         var builder = new CheckedStatementBuilder(syntax);
-        checkedStatementCallback(builder);
+        checkedStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ICheckedStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ICheckedStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

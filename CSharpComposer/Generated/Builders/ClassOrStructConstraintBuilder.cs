@@ -18,7 +18,7 @@ public partial class ClassOrStructConstraintBuilder : IClassOrStructConstraintBu
         Syntax = syntax;
     }
 
-    public static ClassOrStructConstraintSyntax CreateSyntax(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder> classOrStructConstraintCallback)
+    public static ClassOrStructConstraintSyntax CreateSyntax(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder>? classOrStructConstraintCallback = null)
     {
         var syntaxKind = kind switch
         {
@@ -34,7 +34,7 @@ public partial class ClassOrStructConstraintBuilder : IClassOrStructConstraintBu
         };
         var syntax = SyntaxFactory.ClassOrStructConstraint(syntaxKind, classOrStructKeywordToken, default(SyntaxToken));
         var builder = new ClassOrStructConstraintBuilder(syntax);
-        classOrStructConstraintCallback(builder);
+        classOrStructConstraintCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

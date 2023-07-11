@@ -14,7 +14,7 @@ internal class ParametersBuilder
         _enumStore = enumStore;
     }
 
-    public void WithParameters(IMethodDeclarationBuilder builder, Node node, string? prefix = null)
+    public void WithParameters(IMethodDeclarationBuilder builder, Node node, bool optionalTypeBuilder = true, string? prefix = null)
     {
         var typeName = NameFactory.CreateTypeName(node.Name);
 
@@ -77,7 +77,10 @@ internal class ParametersBuilder
                 if (referenceType is Node referenceTypeNode && NodeValidator.HasMandatoryChildren(referenceTypeNode))
                 {
                     var newPrefix = prefix is null ? field.Name.Camelize() : $"{field.Name.Camelize()}{prefix.Pascalize()}";
-                    WithParameters(builder, referenceTypeNode, newPrefix);
+
+                    optionalTypeBuilder = false;
+
+                    WithParameters(builder, referenceTypeNode, optionalTypeBuilder, newPrefix);
                 }
                 else
                 {
@@ -105,13 +108,20 @@ internal class ParametersBuilder
         if (_tree.HasOptionalChildren(node.Name) || NodeValidator.IsTokenized(node))
         {
             var builderName = NameFactory.CreateBuilderName(node.Name);
-            var callbackType = $"Action<I{builderName}>";
+            var callbackType = $"Action<I{builderName}>" + (optionalTypeBuilder ? "?" : "");
 
             var callbackName = prefix is null ?
                 $"{typeName.Camelize()}Callback" 
                 : $"{prefix}{typeName}Callback";
 
-            builder.AddParameter(callbackName, x => x.WithType(x => x.ParseTypeName(callbackType)));
+            builder.AddParameter(callbackName, x => {
+                x.WithType(x => x.ParseTypeName(callbackType));
+                
+                if(optionalTypeBuilder)
+                {
+                    x.WithDefault(x => x.ParseExpression("null"));
+                }
+            });
         }
     }
 

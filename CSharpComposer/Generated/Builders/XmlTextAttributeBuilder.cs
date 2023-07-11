@@ -36,7 +36,7 @@ public partial class XmlTextAttributeBuilder : IXmlTextAttributeBuilder
         };
         var syntax = SyntaxFactory.XmlTextAttribute(nameSyntax, equalsTokenToken, startQuoteTokenToken, default(SyntaxTokenList), endQuoteTokenToken);
         var builder = new XmlTextAttributeBuilder(syntax);
-        xmlTextAttributeCallback(builder);
+        xmlTextAttributeCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

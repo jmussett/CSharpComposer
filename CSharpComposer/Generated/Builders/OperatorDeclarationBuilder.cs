@@ -8,7 +8,7 @@ public partial interface IOperatorDeclarationBuilder : IBaseMethodDeclarationBui
 {
     IOperatorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IOperatorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IOperatorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    IOperatorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null);
     IOperatorDeclarationBuilder WithBody(BlockSyntax body);
     IOperatorDeclarationBuilder WithCheckedKeyword();
 }
@@ -22,7 +22,7 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static OperatorDeclarationSyntax CreateSyntax(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder> operatorDeclarationCallback)
+    public static OperatorDeclarationSyntax CreateSyntax(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder>? operatorDeclarationCallback = null)
     {
         var returnTypeSyntax = TypeBuilder.CreateSyntax(returnTypeCallback);
         var operatorKeywordToken = SyntaxFactory.Token(SyntaxKind.OperatorKeyword);
@@ -57,7 +57,7 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         var parameterListSyntax = SyntaxFactory.ParameterList();
         var syntax = SyntaxFactory.OperatorDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), returnTypeSyntax, default(ExplicitInterfaceSpecifierSyntax), operatorKeywordToken, default(SyntaxToken), operatorTokenToken, parameterListSyntax, null, null, default(SyntaxToken));
         var builder = new OperatorDeclarationBuilder(syntax);
-        operatorDeclarationCallback(builder);
+        operatorDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -74,7 +74,7 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         return this;
     }
 
-    public IOperatorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IOperatorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
@@ -87,7 +87,7 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         return this;
     }
 
-    public IOperatorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IOperatorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -129,7 +129,7 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         return this;
     }
 
-    public IOperatorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IOperatorDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

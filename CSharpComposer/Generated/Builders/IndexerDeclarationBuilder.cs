@@ -19,14 +19,14 @@ public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static IndexerDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder> indexerDeclarationCallback)
+    public static IndexerDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder>? indexerDeclarationCallback = null)
     {
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var thisKeywordToken = SyntaxFactory.Token(SyntaxKind.ThisKeyword);
         var parameterListSyntax = SyntaxFactory.BracketedParameterList();
         var syntax = SyntaxFactory.IndexerDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), typeSyntax, default(ExplicitInterfaceSpecifierSyntax), thisKeywordToken, parameterListSyntax, default(AccessorListSyntax), null, default(SyntaxToken));
         var builder = new IndexerDeclarationBuilder(syntax);
-        indexerDeclarationCallback(builder);
+        indexerDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -43,7 +43,7 @@ public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
         return this;
     }
 
-    public IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
+    public IIndexerDeclarationBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder>? accessorDeclarationCallback = null)
     {
         var accessor = AccessorDeclarationBuilder.CreateSyntax(kind, accessorDeclarationCallback);
         Syntax = Syntax.AddAccessorListAccessors(accessor);
@@ -56,7 +56,7 @@ public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
         return this;
     }
 
-    public IIndexerDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IIndexerDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -92,7 +92,7 @@ public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
         return this;
     }
 
-    public IIndexerDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IIndexerDeclarationBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

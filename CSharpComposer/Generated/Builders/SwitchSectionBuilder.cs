@@ -19,11 +19,11 @@ public partial class SwitchSectionBuilder : ISwitchSectionBuilder
         Syntax = syntax;
     }
 
-    public static SwitchSectionSyntax CreateSyntax(Action<ISwitchSectionBuilder> switchSectionCallback)
+    public static SwitchSectionSyntax CreateSyntax(Action<ISwitchSectionBuilder>? switchSectionCallback = null)
     {
         var syntax = SyntaxFactory.SwitchSection(default(SyntaxList<SwitchLabelSyntax>), default(SyntaxList<StatementSyntax>));
         var builder = new SwitchSectionBuilder(syntax);
-        switchSectionCallback(builder);
+        switchSectionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

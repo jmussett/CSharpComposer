@@ -6,11 +6,11 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseTypeDeclarationBuilder
 {
-    void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback);
-    void AsStructDeclaration(string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback);
-    void AsInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback);
-    void AsRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback);
-    void AsEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback);
+    void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder>? classDeclarationCallback = null);
+    void AsStructDeclaration(string identifier, Action<IStructDeclarationBuilder>? structDeclarationCallback = null);
+    void AsInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder>? interfaceDeclarationCallback = null);
+    void AsRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder>? recordDeclarationCallback = null);
+    void AsEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder>? enumDeclarationCallback = null);
 }
 
 public partial interface IBaseTypeDeclarationBuilder<TBuilder> : IMemberDeclarationBuilder<TBuilder>, IAddBaseType<TBuilder>
@@ -34,27 +34,27 @@ public partial class BaseTypeDeclarationBuilder : IBaseTypeDeclarationBuilder
         return builder.Syntax;
     }
 
-    public void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback)
+    public void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder>? classDeclarationCallback = null)
     {
         Syntax = ClassDeclarationBuilder.CreateSyntax(identifier, classDeclarationCallback);
     }
 
-    public void AsStructDeclaration(string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback)
+    public void AsStructDeclaration(string identifier, Action<IStructDeclarationBuilder>? structDeclarationCallback = null)
     {
         Syntax = StructDeclarationBuilder.CreateSyntax(identifier, structDeclarationCallback);
     }
 
-    public void AsInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder> interfaceDeclarationCallback)
+    public void AsInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder>? interfaceDeclarationCallback = null)
     {
         Syntax = InterfaceDeclarationBuilder.CreateSyntax(identifier, interfaceDeclarationCallback);
     }
 
-    public void AsRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder> recordDeclarationCallback)
+    public void AsRecordDeclaration(RecordDeclarationKind kind, string identifier, Action<IRecordDeclarationBuilder>? recordDeclarationCallback = null)
     {
         Syntax = RecordDeclarationBuilder.CreateSyntax(kind, identifier, recordDeclarationCallback);
     }
 
-    public void AsEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder> enumDeclarationCallback)
+    public void AsEnumDeclaration(string identifier, Action<IEnumDeclarationBuilder>? enumDeclarationCallback = null)
     {
         Syntax = EnumDeclarationBuilder.CreateSyntax(identifier, enumDeclarationCallback);
     }

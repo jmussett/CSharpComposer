@@ -17,7 +17,7 @@ public partial class ClassDeclarationBuilder : IClassDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static ClassDeclarationSyntax CreateSyntax(string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback)
+    public static ClassDeclarationSyntax CreateSyntax(string identifier, Action<IClassDeclarationBuilder>? classDeclarationCallback = null)
     {
         var keywordToken = SyntaxFactory.Token(SyntaxKind.ClassKeyword);
         var identifierToken = SyntaxFactory.Identifier(identifier);
@@ -25,11 +25,11 @@ public partial class ClassDeclarationBuilder : IClassDeclarationBuilder
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.ClassDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), keywordToken, identifierToken, default(TypeParameterListSyntax), default(BaseListSyntax), default(SyntaxList<TypeParameterConstraintClauseSyntax>), openBraceTokenToken, default(SyntaxList<MemberDeclarationSyntax>), closeBraceTokenToken, default(SyntaxToken));
         var builder = new ClassDeclarationBuilder(syntax);
-        classDeclarationCallback(builder);
+        classDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IClassDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IClassDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -52,7 +52,7 @@ public partial class ClassDeclarationBuilder : IClassDeclarationBuilder
         return this;
     }
 
-    public IClassDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder> typeParameterCallback)
+    public IClassDeclarationBuilder AddTypeParameter(string identifier, Action<ITypeParameterBuilder>? typeParameterCallback = null)
     {
         var parameter = TypeParameterBuilder.CreateSyntax(identifier, typeParameterCallback);
         Syntax = Syntax.AddTypeParameterListParameters(parameter);

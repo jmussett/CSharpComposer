@@ -25,7 +25,7 @@ public partial class XmlElementBuilder : IXmlElementBuilder
         var endTagSyntax = XmlElementEndTagBuilder.CreateSyntax(nameEndTagLocalName, nameEndTagXmlNameCallback);
         var syntax = SyntaxFactory.XmlElement(startTagSyntax, default(SyntaxList<XmlNodeSyntax>), endTagSyntax);
         var builder = new XmlElementBuilder(syntax);
-        xmlElementCallback(builder);
+        xmlElementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ISwitchExpressionBuilder
 {
-    ISwitchExpressionBuilder AddSwitchExpressionArm(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder> switchExpressionArmCallback);
+    ISwitchExpressionBuilder AddSwitchExpressionArm(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder>? switchExpressionArmCallback = null);
     ISwitchExpressionBuilder AddSwitchExpressionArm(SwitchExpressionArmSyntax arm);
 }
 
@@ -19,7 +19,7 @@ public partial class SwitchExpressionBuilder : ISwitchExpressionBuilder
         Syntax = syntax;
     }
 
-    public static SwitchExpressionSyntax CreateSyntax(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder> switchExpressionCallback)
+    public static SwitchExpressionSyntax CreateSyntax(Action<IExpressionBuilder> governingExpressionCallback, Action<ISwitchExpressionBuilder>? switchExpressionCallback = null)
     {
         var governingExpressionSyntax = ExpressionBuilder.CreateSyntax(governingExpressionCallback);
         var switchKeywordToken = SyntaxFactory.Token(SyntaxKind.SwitchKeyword);
@@ -27,11 +27,11 @@ public partial class SwitchExpressionBuilder : ISwitchExpressionBuilder
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.SwitchExpression(governingExpressionSyntax, switchKeywordToken, openBraceTokenToken, default(SeparatedSyntaxList<SwitchExpressionArmSyntax>), closeBraceTokenToken);
         var builder = new SwitchExpressionBuilder(syntax);
-        switchExpressionCallback(builder);
+        switchExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ISwitchExpressionBuilder AddSwitchExpressionArm(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder> switchExpressionArmCallback)
+    public ISwitchExpressionBuilder AddSwitchExpressionArm(Action<IPatternBuilder> patternCallback, Action<IExpressionBuilder> expressionCallback, Action<ISwitchExpressionArmBuilder>? switchExpressionArmCallback = null)
     {
         var arm = SwitchExpressionArmBuilder.CreateSyntax(patternCallback, expressionCallback, switchExpressionArmCallback);
         Syntax = Syntax.AddArms(arm);

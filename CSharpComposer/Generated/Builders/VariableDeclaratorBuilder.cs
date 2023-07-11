@@ -19,16 +19,16 @@ public partial class VariableDeclaratorBuilder : IVariableDeclaratorBuilder
         Syntax = syntax;
     }
 
-    public static VariableDeclaratorSyntax CreateSyntax(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback)
+    public static VariableDeclaratorSyntax CreateSyntax(string identifier, Action<IVariableDeclaratorBuilder>? variableDeclaratorCallback = null)
     {
         var identifierToken = SyntaxFactory.Identifier(identifier);
         var syntax = SyntaxFactory.VariableDeclarator(identifierToken, default(BracketedArgumentListSyntax), default(EqualsValueClauseSyntax));
         var builder = new VariableDeclaratorBuilder(syntax);
-        variableDeclaratorCallback(builder);
+        variableDeclaratorCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IVariableDeclaratorBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public IVariableDeclaratorBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var argument = ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
         Syntax = Syntax.AddArgumentListArguments(argument);

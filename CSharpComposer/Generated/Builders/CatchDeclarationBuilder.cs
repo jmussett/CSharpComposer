@@ -18,14 +18,14 @@ public partial class CatchDeclarationBuilder : ICatchDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static CatchDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder> catchDeclarationCallback)
+    public static CatchDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<ICatchDeclarationBuilder>? catchDeclarationCallback = null)
     {
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var closeParenTokenToken = SyntaxFactory.Token(SyntaxKind.CloseParenToken);
         var syntax = SyntaxFactory.CatchDeclaration(openParenTokenToken, typeSyntax, default(SyntaxToken), closeParenTokenToken);
         var builder = new CatchDeclarationBuilder(syntax);
-        catchDeclarationCallback(builder);
+        catchDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

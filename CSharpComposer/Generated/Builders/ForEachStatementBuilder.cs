@@ -17,7 +17,7 @@ public partial class ForEachStatementBuilder : IForEachStatementBuilder
         Syntax = syntax;
     }
 
-    public static ForEachStatementSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, string identifier, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachStatementBuilder> forEachStatementCallback)
+    public static ForEachStatementSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, string identifier, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachStatementBuilder>? forEachStatementCallback = null)
     {
         var forEachKeywordToken = SyntaxFactory.Token(SyntaxKind.ForEachKeyword);
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
@@ -29,11 +29,11 @@ public partial class ForEachStatementBuilder : IForEachStatementBuilder
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
         var syntax = SyntaxFactory.ForEachStatement(default(SyntaxList<AttributeListSyntax>), default(SyntaxToken), forEachKeywordToken, openParenTokenToken, typeSyntax, identifierToken, inKeywordToken, expressionSyntax, closeParenTokenToken, statementSyntax);
         var builder = new ForEachStatementBuilder(syntax);
-        forEachStatementCallback(builder);
+        forEachStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IForEachStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IForEachStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

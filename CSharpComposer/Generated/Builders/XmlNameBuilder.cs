@@ -19,12 +19,12 @@ public partial class XmlNameBuilder : IXmlNameBuilder
         Syntax = syntax;
     }
 
-    public static XmlNameSyntax CreateSyntax(string localName, Action<IXmlNameBuilder> xmlNameCallback)
+    public static XmlNameSyntax CreateSyntax(string localName, Action<IXmlNameBuilder>? xmlNameCallback = null)
     {
         var localNameToken = SyntaxFactory.Identifier(localName);
         var syntax = SyntaxFactory.XmlName(default(XmlPrefixSyntax), localNameToken);
         var builder = new XmlNameBuilder(syntax);
-        xmlNameCallback(builder);
+        xmlNameCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

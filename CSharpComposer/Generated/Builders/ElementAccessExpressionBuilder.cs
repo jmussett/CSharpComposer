@@ -17,17 +17,17 @@ public partial class ElementAccessExpressionBuilder : IElementAccessExpressionBu
         Syntax = syntax;
     }
 
-    public static ElementAccessExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder> elementAccessExpressionCallback)
+    public static ElementAccessExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IElementAccessExpressionBuilder>? elementAccessExpressionCallback = null)
     {
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
         var argumentListSyntax = SyntaxFactory.BracketedArgumentList();
         var syntax = SyntaxFactory.ElementAccessExpression(expressionSyntax, argumentListSyntax);
         var builder = new ElementAccessExpressionBuilder(syntax);
-        elementAccessExpressionCallback(builder);
+        elementAccessExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IElementAccessExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder> argumentCallback)
+    public IElementAccessExpressionBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null)
     {
         var argument = ArgumentBuilder.CreateSyntax(expressionCallback, argumentCallback);
         Syntax = Syntax.AddArgumentListArguments(argument);

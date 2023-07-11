@@ -26,11 +26,11 @@ public partial class FixedStatementBuilder : IFixedStatementBuilder
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
         var syntax = SyntaxFactory.FixedStatement(default(SyntaxList<AttributeListSyntax>), fixedKeywordToken, openParenTokenToken, declarationSyntax, closeParenTokenToken, statementSyntax);
         var builder = new FixedStatementBuilder(syntax);
-        fixedStatementCallback(builder);
+        fixedStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IFixedStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IFixedStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

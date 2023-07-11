@@ -23,11 +23,11 @@ public partial class UnsafeStatementBuilder : IUnsafeStatementBuilder
         var blockSyntax = BlockBuilder.CreateSyntax(blockBlockCallback);
         var syntax = SyntaxFactory.UnsafeStatement(default(SyntaxList<AttributeListSyntax>), unsafeKeywordToken, blockSyntax);
         var builder = new UnsafeStatementBuilder(syntax);
-        unsafeStatementCallback(builder);
+        unsafeStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IUnsafeStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IUnsafeStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

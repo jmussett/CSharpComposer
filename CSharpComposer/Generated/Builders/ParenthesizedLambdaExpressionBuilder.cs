@@ -21,17 +21,17 @@ public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambda
         Syntax = syntax;
     }
 
-    public static ParenthesizedLambdaExpressionSyntax CreateSyntax(Action<IParenthesizedLambdaExpressionBuilder> parenthesizedLambdaExpressionCallback)
+    public static ParenthesizedLambdaExpressionSyntax CreateSyntax(Action<IParenthesizedLambdaExpressionBuilder>? parenthesizedLambdaExpressionCallback = null)
     {
         var parameterListSyntax = SyntaxFactory.ParameterList();
         var arrowTokenToken = SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken);
         var syntax = SyntaxFactory.ParenthesizedLambdaExpression(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), default(TypeSyntax), parameterListSyntax, arrowTokenToken, null, null);
         var builder = new ParenthesizedLambdaExpressionBuilder(syntax);
-        parenthesizedLambdaExpressionCallback(builder);
+        parenthesizedLambdaExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IParenthesizedLambdaExpressionBuilder WithBlock(Action<IBlockBuilder> blockCallback)
+    public IParenthesizedLambdaExpressionBuilder WithBlock(Action<IBlockBuilder>? blockCallback = null)
     {
         var blockSyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBlock(blockSyntax);
@@ -57,7 +57,7 @@ public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambda
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IParenthesizedLambdaExpressionBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -93,7 +93,7 @@ public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambda
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder> parameterCallback)
+    public IParenthesizedLambdaExpressionBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)
     {
         var parameter = ParameterBuilder.CreateSyntax(identifier, parameterCallback);
         Syntax = Syntax.AddParameterListParameters(parameter);

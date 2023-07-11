@@ -26,7 +26,7 @@ public partial class XmlEmptyElementBuilder : IXmlEmptyElementBuilder
         var slashGreaterThanTokenToken = SyntaxFactory.Token(SyntaxKind.SlashGreaterThanToken);
         var syntax = SyntaxFactory.XmlEmptyElement(lessThanTokenToken, nameSyntax, default(SyntaxList<XmlAttributeSyntax>), slashGreaterThanTokenToken);
         var builder = new XmlEmptyElementBuilder(syntax);
-        xmlEmptyElementCallback(builder);
+        xmlEmptyElementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

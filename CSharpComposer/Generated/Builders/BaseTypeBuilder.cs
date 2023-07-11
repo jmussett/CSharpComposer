@@ -7,7 +7,7 @@ namespace CSharpComposer;
 public partial interface IBaseTypeBuilder
 {
     void AsSimpleBaseType(Action<ITypeBuilder> typeCallback);
-    void AsPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback);
+    void AsPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder>? primaryConstructorBaseTypeCallback = null);
 }
 
 public interface IAddBaseType<TBuilder>
@@ -37,7 +37,7 @@ public partial class BaseTypeBuilder : IBaseTypeBuilder
         Syntax = SimpleBaseTypeBuilder.CreateSyntax(typeCallback);
     }
 
-    public void AsPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder> primaryConstructorBaseTypeCallback)
+    public void AsPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder>? primaryConstructorBaseTypeCallback = null)
     {
         Syntax = PrimaryConstructorBaseTypeBuilder.CreateSyntax(typeCallback, primaryConstructorBaseTypeCallback);
     }

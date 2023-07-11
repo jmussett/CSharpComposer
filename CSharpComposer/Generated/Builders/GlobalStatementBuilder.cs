@@ -17,16 +17,16 @@ public partial class GlobalStatementBuilder : IGlobalStatementBuilder
         Syntax = syntax;
     }
 
-    public static GlobalStatementSyntax CreateSyntax(Action<IStatementBuilder> statementCallback, Action<IGlobalStatementBuilder> globalStatementCallback)
+    public static GlobalStatementSyntax CreateSyntax(Action<IStatementBuilder> statementCallback, Action<IGlobalStatementBuilder>? globalStatementCallback = null)
     {
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
         var syntax = SyntaxFactory.GlobalStatement(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), statementSyntax);
         var builder = new GlobalStatementBuilder(syntax);
-        globalStatementCallback(builder);
+        globalStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IGlobalStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IGlobalStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

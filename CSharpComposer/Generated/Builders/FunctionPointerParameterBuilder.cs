@@ -17,16 +17,16 @@ public partial class FunctionPointerParameterBuilder : IFunctionPointerParameter
         Syntax = syntax;
     }
 
-    public static FunctionPointerParameterSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder> functionPointerParameterCallback)
+    public static FunctionPointerParameterSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder>? functionPointerParameterCallback = null)
     {
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var syntax = SyntaxFactory.FunctionPointerParameter(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), typeSyntax);
         var builder = new FunctionPointerParameterBuilder(syntax);
-        functionPointerParameterCallback(builder);
+        functionPointerParameterCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IFunctionPointerParameterBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IFunctionPointerParameterBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

@@ -29,7 +29,7 @@ public partial class LineSpanDirectiveTriviaBuilder : ILineSpanDirectiveTriviaBu
         var endOfDirectiveTokenToken = SyntaxFactory.Token(SyntaxKind.EndOfDirectiveToken);
         var syntax = SyntaxFactory.LineSpanDirectiveTrivia(hashTokenToken, lineKeywordToken, startSyntax, minusTokenToken, endSyntax, default(SyntaxToken), fileToken, endOfDirectiveTokenToken, isActive);
         var builder = new LineSpanDirectiveTriviaBuilder(syntax);
-        lineSpanDirectiveTriviaCallback(builder);
+        lineSpanDirectiveTriviaCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

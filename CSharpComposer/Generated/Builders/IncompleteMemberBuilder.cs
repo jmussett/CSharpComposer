@@ -17,15 +17,15 @@ public partial class IncompleteMemberBuilder : IIncompleteMemberBuilder
         Syntax = syntax;
     }
 
-    public static IncompleteMemberSyntax CreateSyntax(Action<IIncompleteMemberBuilder> incompleteMemberCallback)
+    public static IncompleteMemberSyntax CreateSyntax(Action<IIncompleteMemberBuilder>? incompleteMemberCallback = null)
     {
         var syntax = SyntaxFactory.IncompleteMember(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), default(TypeSyntax));
         var builder = new IncompleteMemberBuilder(syntax);
-        incompleteMemberCallback(builder);
+        incompleteMemberCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IIncompleteMemberBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IIncompleteMemberBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

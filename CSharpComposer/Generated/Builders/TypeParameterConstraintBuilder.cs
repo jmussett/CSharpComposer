@@ -7,7 +7,7 @@ namespace CSharpComposer;
 public partial interface ITypeParameterConstraintBuilder
 {
     void AsConstructorConstraint();
-    void AsClassOrStructConstraint(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder> classOrStructConstraintCallback);
+    void AsClassOrStructConstraint(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder>? classOrStructConstraintCallback = null);
     void AsTypeConstraint(Action<ITypeBuilder> typeCallback);
     void AsDefaultConstraint();
 }
@@ -33,7 +33,7 @@ public partial class TypeParameterConstraintBuilder : ITypeParameterConstraintBu
         Syntax = ConstructorConstraintBuilder.CreateSyntax();
     }
 
-    public void AsClassOrStructConstraint(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder> classOrStructConstraintCallback)
+    public void AsClassOrStructConstraint(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder>? classOrStructConstraintCallback = null)
     {
         Syntax = ClassOrStructConstraintBuilder.CreateSyntax(kind, classOrStructConstraintCallback);
     }

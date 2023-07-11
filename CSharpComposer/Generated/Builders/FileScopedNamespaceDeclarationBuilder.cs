@@ -17,18 +17,18 @@ public partial class FileScopedNamespaceDeclarationBuilder : IFileScopedNamespac
         Syntax = syntax;
     }
 
-    public static FileScopedNamespaceDeclarationSyntax CreateSyntax(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder> fileScopedNamespaceDeclarationCallback)
+    public static FileScopedNamespaceDeclarationSyntax CreateSyntax(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder>? fileScopedNamespaceDeclarationCallback = null)
     {
         var namespaceKeywordToken = SyntaxFactory.Token(SyntaxKind.NamespaceKeyword);
         var nameSyntax = NameBuilder.CreateSyntax(nameCallback);
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.FileScopedNamespaceDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), namespaceKeywordToken, nameSyntax, semicolonTokenToken, default(SyntaxList<ExternAliasDirectiveSyntax>), default(SyntaxList<UsingDirectiveSyntax>), default(SyntaxList<MemberDeclarationSyntax>));
         var builder = new FileScopedNamespaceDeclarationBuilder(syntax);
-        fileScopedNamespaceDeclarationCallback(builder);
+        fileScopedNamespaceDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IFileScopedNamespaceDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });
@@ -64,7 +64,7 @@ public partial class FileScopedNamespaceDeclarationBuilder : IFileScopedNamespac
         return this;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
+    public IFileScopedNamespaceDeclarationBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder>? usingDirectiveCallback = null)
     {
         var @using = UsingDirectiveBuilder.CreateSyntax(nameCallback, usingDirectiveCallback);
         Syntax = Syntax.AddUsings(@using);

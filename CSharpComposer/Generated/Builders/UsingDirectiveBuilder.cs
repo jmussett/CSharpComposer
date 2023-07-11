@@ -21,14 +21,14 @@ public partial class UsingDirectiveBuilder : IUsingDirectiveBuilder
         Syntax = syntax;
     }
 
-    public static UsingDirectiveSyntax CreateSyntax(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
+    public static UsingDirectiveSyntax CreateSyntax(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder>? usingDirectiveCallback = null)
     {
         var usingKeywordToken = SyntaxFactory.Token(SyntaxKind.UsingKeyword);
         var nameSyntax = NameBuilder.CreateSyntax(nameCallback);
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.UsingDirective(default(SyntaxToken), usingKeywordToken, default(SyntaxToken), null, nameSyntax, semicolonTokenToken);
         var builder = new UsingDirectiveBuilder(syntax);
-        usingDirectiveCallback(builder);
+        usingDirectiveCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

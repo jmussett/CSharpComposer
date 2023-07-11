@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IUsingStatementBuilder : IStatementBuilder<IUsingStatementBuilder>, IWithExpression<IUsingStatementBuilder>
 {
-    IUsingStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback);
+    IUsingStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder>? variableDeclarationCallback = null);
     IUsingStatementBuilder WithDeclaration(VariableDeclarationSyntax declaration);
     IUsingStatementBuilder WithAwaitKeyword();
 }
@@ -20,7 +20,7 @@ public partial class UsingStatementBuilder : IUsingStatementBuilder
         Syntax = syntax;
     }
 
-    public static UsingStatementSyntax CreateSyntax(Action<IStatementBuilder> statementCallback, Action<IUsingStatementBuilder> usingStatementCallback)
+    public static UsingStatementSyntax CreateSyntax(Action<IStatementBuilder> statementCallback, Action<IUsingStatementBuilder>? usingStatementCallback = null)
     {
         var usingKeywordToken = SyntaxFactory.Token(SyntaxKind.UsingKeyword);
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
@@ -28,11 +28,11 @@ public partial class UsingStatementBuilder : IUsingStatementBuilder
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
         var syntax = SyntaxFactory.UsingStatement(default(SyntaxList<AttributeListSyntax>), default(SyntaxToken), usingKeywordToken, openParenTokenToken, null, null, closeParenTokenToken, statementSyntax);
         var builder = new UsingStatementBuilder(syntax);
-        usingStatementCallback(builder);
+        usingStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IUsingStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
+    public IUsingStatementBuilder WithDeclaration(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder>? variableDeclarationCallback = null)
     {
         var declarationSyntax = VariableDeclarationBuilder.CreateSyntax(typeCallback, variableDeclarationCallback);
         Syntax = Syntax.WithDeclaration(declarationSyntax);
@@ -58,7 +58,7 @@ public partial class UsingStatementBuilder : IUsingStatementBuilder
         return this;
     }
 
-    public IUsingStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IUsingStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

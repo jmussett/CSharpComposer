@@ -24,11 +24,11 @@ public partial class EventFieldDeclarationBuilder : IEventFieldDeclarationBuilde
         var semicolonTokenToken = SyntaxFactory.Token(SyntaxKind.SemicolonToken);
         var syntax = SyntaxFactory.EventFieldDeclaration(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), eventKeywordToken, declarationSyntax, semicolonTokenToken);
         var builder = new EventFieldDeclarationBuilder(syntax);
-        eventFieldDeclarationCallback(builder);
+        eventFieldDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IEventFieldDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IEventFieldDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

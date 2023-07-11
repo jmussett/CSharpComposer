@@ -21,13 +21,13 @@ public partial class ListPatternBuilder : IListPatternBuilder
         Syntax = syntax;
     }
 
-    public static ListPatternSyntax CreateSyntax(Action<IListPatternBuilder> listPatternCallback)
+    public static ListPatternSyntax CreateSyntax(Action<IListPatternBuilder>? listPatternCallback = null)
     {
         var openBracketTokenToken = SyntaxFactory.Token(SyntaxKind.OpenBracketToken);
         var closeBracketTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBracketToken);
         var syntax = SyntaxFactory.ListPattern(openBracketTokenToken, default(SeparatedSyntaxList<PatternSyntax>), closeBracketTokenToken, default(VariableDesignationSyntax));
         var builder = new ListPatternBuilder(syntax);
-        listPatternCallback(builder);
+        listPatternCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

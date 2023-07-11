@@ -25,11 +25,11 @@ public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuil
         var arrowTokenToken = SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken);
         var syntax = SyntaxFactory.SimpleLambdaExpression(default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), parameterSyntax, arrowTokenToken, null, null);
         var builder = new SimpleLambdaExpressionBuilder(syntax);
-        simpleLambdaExpressionCallback(builder);
+        simpleLambdaExpressionCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ISimpleLambdaExpressionBuilder WithBlock(Action<IBlockBuilder> blockCallback)
+    public ISimpleLambdaExpressionBuilder WithBlock(Action<IBlockBuilder>? blockCallback = null)
     {
         var blockSyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBlock(blockSyntax);
@@ -55,7 +55,7 @@ public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuil
         return this;
     }
 
-    public ISimpleLambdaExpressionBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ISimpleLambdaExpressionBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

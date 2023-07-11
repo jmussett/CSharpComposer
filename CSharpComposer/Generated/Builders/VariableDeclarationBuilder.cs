@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IVariableDeclarationBuilder
 {
-    IVariableDeclarationBuilder AddVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback);
+    IVariableDeclarationBuilder AddVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder>? variableDeclaratorCallback = null);
     IVariableDeclarationBuilder AddVariableDeclarator(VariableDeclaratorSyntax variable);
 }
 
@@ -19,16 +19,16 @@ public partial class VariableDeclarationBuilder : IVariableDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static VariableDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder> variableDeclarationCallback)
+    public static VariableDeclarationSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IVariableDeclarationBuilder>? variableDeclarationCallback = null)
     {
         var typeSyntax = TypeBuilder.CreateSyntax(typeCallback);
         var syntax = SyntaxFactory.VariableDeclaration(typeSyntax, default(SeparatedSyntaxList<VariableDeclaratorSyntax>));
         var builder = new VariableDeclarationBuilder(syntax);
-        variableDeclarationCallback(builder);
+        variableDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IVariableDeclarationBuilder AddVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder> variableDeclaratorCallback)
+    public IVariableDeclarationBuilder AddVariableDeclarator(string identifier, Action<IVariableDeclaratorBuilder>? variableDeclaratorCallback = null)
     {
         var variable = VariableDeclaratorBuilder.CreateSyntax(identifier, variableDeclaratorCallback);
         Syntax = Syntax.AddVariables(variable);

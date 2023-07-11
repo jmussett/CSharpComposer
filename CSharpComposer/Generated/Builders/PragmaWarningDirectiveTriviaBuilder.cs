@@ -19,7 +19,7 @@ public partial class PragmaWarningDirectiveTriviaBuilder : IPragmaWarningDirecti
         Syntax = syntax;
     }
 
-    public static PragmaWarningDirectiveTriviaSyntax CreateSyntax(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder> pragmaWarningDirectiveTriviaCallback)
+    public static PragmaWarningDirectiveTriviaSyntax CreateSyntax(PragmaWarningDirectiveTriviaDisableOrRestoreKeyword pragmaWarningDirectiveTriviaDisableOrRestoreKeyword, bool isActive, Action<IPragmaWarningDirectiveTriviaBuilder>? pragmaWarningDirectiveTriviaCallback = null)
     {
         var hashTokenToken = SyntaxFactory.Token(SyntaxKind.HashToken);
         var pragmaKeywordToken = SyntaxFactory.Token(SyntaxKind.PragmaKeyword);
@@ -33,7 +33,7 @@ public partial class PragmaWarningDirectiveTriviaBuilder : IPragmaWarningDirecti
         var endOfDirectiveTokenToken = SyntaxFactory.Token(SyntaxKind.EndOfDirectiveToken);
         var syntax = SyntaxFactory.PragmaWarningDirectiveTrivia(hashTokenToken, pragmaKeywordToken, warningKeywordToken, disableOrRestoreKeywordToken, default(SeparatedSyntaxList<ExpressionSyntax>), endOfDirectiveTokenToken, isActive);
         var builder = new PragmaWarningDirectiveTriviaBuilder(syntax);
-        pragmaWarningDirectiveTriviaCallback(builder);
+        pragmaWarningDirectiveTriviaCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

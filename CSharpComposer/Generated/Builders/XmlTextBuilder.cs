@@ -18,11 +18,11 @@ public partial class XmlTextBuilder : IXmlTextBuilder
         Syntax = syntax;
     }
 
-    public static XmlTextSyntax CreateSyntax(Action<IXmlTextBuilder> xmlTextCallback)
+    public static XmlTextSyntax CreateSyntax(Action<IXmlTextBuilder>? xmlTextCallback = null)
     {
         var syntax = SyntaxFactory.XmlText(default(SyntaxTokenList));
         var builder = new XmlTextBuilder(syntax);
-        xmlTextCallback(builder);
+        xmlTextCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

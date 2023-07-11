@@ -8,7 +8,7 @@ public partial interface ICompilationUnitBuilder : IAddAttribute<ICompilationUni
 {
     ICompilationUnitBuilder AddExternAliasDirective(string identifier);
     ICompilationUnitBuilder AddExternAliasDirective(ExternAliasDirectiveSyntax @extern);
-    ICompilationUnitBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback);
+    ICompilationUnitBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder>? usingDirectiveCallback = null);
     ICompilationUnitBuilder AddUsingDirective(UsingDirectiveSyntax @using);
     ICompilationUnitBuilder AddMemberDeclaration(Action<IMemberDeclarationBuilder> memberCallback);
     ICompilationUnitBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
@@ -23,12 +23,12 @@ public partial class CompilationUnitBuilder : ICompilationUnitBuilder
         Syntax = syntax;
     }
 
-    public static CompilationUnitSyntax CreateSyntax(Action<ICompilationUnitBuilder> compilationUnitCallback)
+    public static CompilationUnitSyntax CreateSyntax(Action<ICompilationUnitBuilder>? compilationUnitCallback = null)
     {
         var endOfFileTokenToken = SyntaxFactory.Token(SyntaxKind.EndOfFileToken);
         var syntax = SyntaxFactory.CompilationUnit(default(SyntaxList<ExternAliasDirectiveSyntax>), default(SyntaxList<UsingDirectiveSyntax>), default(SyntaxList<AttributeListSyntax>), default(SyntaxList<MemberDeclarationSyntax>), endOfFileTokenToken);
         var builder = new CompilationUnitBuilder(syntax);
-        compilationUnitCallback(builder);
+        compilationUnitCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -45,7 +45,7 @@ public partial class CompilationUnitBuilder : ICompilationUnitBuilder
         return this;
     }
 
-    public ICompilationUnitBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder> usingDirectiveCallback)
+    public ICompilationUnitBuilder AddUsingDirective(Action<INameBuilder> nameCallback, Action<IUsingDirectiveBuilder>? usingDirectiveCallback = null)
     {
         var @using = UsingDirectiveBuilder.CreateSyntax(nameCallback, usingDirectiveCallback);
         Syntax = Syntax.AddUsings(@using);
@@ -58,7 +58,7 @@ public partial class CompilationUnitBuilder : ICompilationUnitBuilder
         return this;
     }
 
-    public ICompilationUnitBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ICompilationUnitBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

@@ -17,7 +17,7 @@ public partial class LockStatementBuilder : ILockStatementBuilder
         Syntax = syntax;
     }
 
-    public static LockStatementSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<ILockStatementBuilder> lockStatementCallback)
+    public static LockStatementSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<ILockStatementBuilder>? lockStatementCallback = null)
     {
         var lockKeywordToken = SyntaxFactory.Token(SyntaxKind.LockKeyword);
         var openParenTokenToken = SyntaxFactory.Token(SyntaxKind.OpenParenToken);
@@ -26,11 +26,11 @@ public partial class LockStatementBuilder : ILockStatementBuilder
         var statementSyntax = StatementBuilder.CreateSyntax(statementCallback);
         var syntax = SyntaxFactory.LockStatement(default(SyntaxList<AttributeListSyntax>), lockKeywordToken, openParenTokenToken, expressionSyntax, closeParenTokenToken, statementSyntax);
         var builder = new LockStatementBuilder(syntax);
-        lockStatementCallback(builder);
+        lockStatementCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public ILockStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public ILockStatementBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

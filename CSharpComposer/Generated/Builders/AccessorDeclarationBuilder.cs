@@ -8,7 +8,7 @@ public partial interface IAccessorDeclarationBuilder : IAddAttribute<IAccessorDe
 {
     IAccessorDeclarationBuilder WithExpressionBody(Action<IExpressionBuilder> expressionCallback);
     IAccessorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
-    IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback);
+    IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null);
     IAccessorDeclarationBuilder WithBody(BlockSyntax body);
     IAccessorDeclarationBuilder AddModifierToken(SyntaxToken modifier);
 }
@@ -16,7 +16,7 @@ public partial interface IAccessorDeclarationBuilder : IAddAttribute<IAccessorDe
 public interface IAddAccessorDeclaration<TBuilder>
 {
     TBuilder AddAccessorDeclaration(AccessorDeclarationSyntax accessorDeclarationSyntax);
-    TBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback);
+    TBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder>? accessorDeclarationCallback = null);
 }
 
 public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
@@ -28,7 +28,7 @@ public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
         Syntax = syntax;
     }
 
-    public static AccessorDeclarationSyntax CreateSyntax(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder> accessorDeclarationCallback)
+    public static AccessorDeclarationSyntax CreateSyntax(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder>? accessorDeclarationCallback = null)
     {
         var syntaxKind = kind switch
         {
@@ -52,7 +52,7 @@ public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
         };
         var syntax = SyntaxFactory.AccessorDeclaration(syntaxKind, default(SyntaxList<AttributeListSyntax>), default(SyntaxTokenList), keywordToken, null, null, default(SyntaxToken));
         var builder = new AccessorDeclarationBuilder(syntax);
-        accessorDeclarationCallback(builder);
+        accessorDeclarationCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
@@ -69,7 +69,7 @@ public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
         return this;
     }
 
-    public IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder> blockCallback)
+    public IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null)
     {
         var bodySyntax = BlockBuilder.CreateSyntax(blockCallback);
         Syntax = Syntax.WithBody(bodySyntax);
@@ -82,7 +82,7 @@ public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
         return this;
     }
 
-    public IAccessorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder> attributeCallback)
+    public IAccessorDeclarationBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null)
     {
         var attribute = AttributeBuilder.CreateSyntax(nameCallback, attributeCallback);
         var separatedSyntaxList = SyntaxFactory.SeparatedList(new[] { attribute });

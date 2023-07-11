@@ -17,12 +17,12 @@ public partial class AnonymousObjectMemberDeclaratorBuilder : IAnonymousObjectMe
         Syntax = syntax;
     }
 
-    public static AnonymousObjectMemberDeclaratorSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder> anonymousObjectMemberDeclaratorCallback)
+    public static AnonymousObjectMemberDeclaratorSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IAnonymousObjectMemberDeclaratorBuilder>? anonymousObjectMemberDeclaratorCallback = null)
     {
         var expressionSyntax = ExpressionBuilder.CreateSyntax(expressionCallback);
         var syntax = SyntaxFactory.AnonymousObjectMemberDeclarator(default(NameEqualsSyntax), expressionSyntax);
         var builder = new AnonymousObjectMemberDeclaratorBuilder(syntax);
-        anonymousObjectMemberDeclaratorCallback(builder);
+        anonymousObjectMemberDeclaratorCallback?.Invoke(builder);
         return builder.Syntax;
     }
 

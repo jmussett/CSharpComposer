@@ -11,7 +11,7 @@ public partial interface IPropertyPatternClauseBuilder : IAddSubpattern<IPropert
 public interface IWithPropertyPatternClause<TBuilder>
 {
     TBuilder WithPropertyPatternClause(PropertyPatternClauseSyntax propertyPatternClauseSyntax);
-    TBuilder WithPropertyPatternClause(Action<IPropertyPatternClauseBuilder> propertyPatternClauseCallback);
+    TBuilder WithPropertyPatternClause(Action<IPropertyPatternClauseBuilder>? propertyPatternClauseCallback = null);
 }
 
 public partial class PropertyPatternClauseBuilder : IPropertyPatternClauseBuilder
@@ -23,17 +23,17 @@ public partial class PropertyPatternClauseBuilder : IPropertyPatternClauseBuilde
         Syntax = syntax;
     }
 
-    public static PropertyPatternClauseSyntax CreateSyntax(Action<IPropertyPatternClauseBuilder> propertyPatternClauseCallback)
+    public static PropertyPatternClauseSyntax CreateSyntax(Action<IPropertyPatternClauseBuilder>? propertyPatternClauseCallback = null)
     {
         var openBraceTokenToken = SyntaxFactory.Token(SyntaxKind.OpenBraceToken);
         var closeBraceTokenToken = SyntaxFactory.Token(SyntaxKind.CloseBraceToken);
         var syntax = SyntaxFactory.PropertyPatternClause(openBraceTokenToken, default(SeparatedSyntaxList<SubpatternSyntax>), closeBraceTokenToken);
         var builder = new PropertyPatternClauseBuilder(syntax);
-        propertyPatternClauseCallback(builder);
+        propertyPatternClauseCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
-    public IPropertyPatternClauseBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder> subpatternCallback)
+    public IPropertyPatternClauseBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder>? subpatternCallback = null)
     {
         var subpattern = SubpatternBuilder.CreateSyntax(patternCallback, subpatternCallback);
         Syntax = Syntax.AddSubpatterns(subpattern);

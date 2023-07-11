@@ -18,7 +18,7 @@ public partial class NullableDirectiveTriviaBuilder : INullableDirectiveTriviaBu
         Syntax = syntax;
     }
 
-    public static NullableDirectiveTriviaSyntax CreateSyntax(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder> nullableDirectiveTriviaCallback)
+    public static NullableDirectiveTriviaSyntax CreateSyntax(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder>? nullableDirectiveTriviaCallback = null)
     {
         var hashTokenToken = SyntaxFactory.Token(SyntaxKind.HashToken);
         var nullableKeywordToken = SyntaxFactory.Token(SyntaxKind.NullableKeyword);
@@ -32,7 +32,7 @@ public partial class NullableDirectiveTriviaBuilder : INullableDirectiveTriviaBu
         var endOfDirectiveTokenToken = SyntaxFactory.Token(SyntaxKind.EndOfDirectiveToken);
         var syntax = SyntaxFactory.NullableDirectiveTrivia(hashTokenToken, nullableKeywordToken, settingTokenToken, default(SyntaxToken), endOfDirectiveTokenToken, isActive);
         var builder = new NullableDirectiveTriviaBuilder(syntax);
-        nullableDirectiveTriviaCallback(builder);
+        nullableDirectiveTriviaCallback?.Invoke(builder);
         return builder.Syntax;
     }
 
