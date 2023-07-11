@@ -28,9 +28,14 @@ public static class CompilationUnitDeclarationBuilderExtensions
         return builder.AddMemberDeclaration(x => x.AsEnumDeclaration(identifier, enumDeclarationCallback));
     }
 
-    public static ICompilationUnitBuilder AddDelegatewDeclaration(this ICompilationUnitBuilder builder, Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback)
+    public static ICompilationUnitBuilder AddDelegateDeclaration(this ICompilationUnitBuilder builder, Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback)
     {
         return builder.AddMemberDeclaration(x => x.AsDelegateDeclaration(returnTypeCallback, identifier, delegateDeclarationCallback));
+    }
+
+    public static ICompilationUnitBuilder AddDelegateDeclaration(this ICompilationUnitBuilder builder, string returnTypeName, string identifier, Action<IDelegateDeclarationBuilder> delegateDeclarationCallback)
+    {
+        return builder.AddMemberDeclaration(x => x.AsDelegateDeclaration(x => x.ParseTypeName(returnTypeName), identifier, delegateDeclarationCallback));
     }
 
     public static ICompilationUnitBuilder AddNamespaceDeclaration(this ICompilationUnitBuilder builder, Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder> delegateDeclarationCallback)
@@ -38,8 +43,18 @@ public static class CompilationUnitDeclarationBuilderExtensions
         return builder.AddMemberDeclaration(x => x.AsNamespaceDeclaration(nameCallback, delegateDeclarationCallback));
     }
 
+    public static ICompilationUnitBuilder AddNamespaceDeclaration(this ICompilationUnitBuilder builder, string name, Action<INamespaceDeclarationBuilder> delegateDeclarationCallback)
+    {
+        return builder.AddMemberDeclaration(x => x.AsNamespaceDeclaration(x => x.ParseName(name), delegateDeclarationCallback));
+    }
+
     public static ICompilationUnitBuilder AddFileScopedNamespaceDeclaration(this ICompilationUnitBuilder builder, Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder> delegateDeclarationCallback)
     {
         return builder.AddMemberDeclaration(x => x.AsFileScopedNamespaceDeclaration(nameCallback, delegateDeclarationCallback));
+    }
+
+    public static ICompilationUnitBuilder AddFileScopedNamespaceDeclaration(this ICompilationUnitBuilder builder, string name, Action<IFileScopedNamespaceDeclarationBuilder> delegateDeclarationCallback)
+    {
+        return builder.AddMemberDeclaration(x => x.AsFileScopedNamespaceDeclaration(x => x.ParseName(name), delegateDeclarationCallback));
     }
 }

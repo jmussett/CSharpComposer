@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public static class CSharpFactory
+public static partial class CSharpFactory
 {
     public static NameSyntax Name(Action<INameBuilder> callback)
     {

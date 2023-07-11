@@ -24,7 +24,7 @@ internal class ParametersBuilder
             _enumStore.TryAddEnum(enumName, node);
 
             var kindParameterName = prefix is null ? "kind" : $"{prefix}Kind";
-            builder.AddParameter(kindParameterName, x => x.WithType(x => x.ParseTypeName(enumName)));
+            builder.AddParameter(kindParameterName, x => x.WithType(enumName));
         }
 
         foreach (var field in node.Children.OfType<Field>())
@@ -41,7 +41,7 @@ internal class ParametersBuilder
                     ? field.Name.Camelize()
                     : $"{prefix}{field.Name}";
 
-                builder.AddParameter(NameFactory.CreateSafeIdentifier(identifierParameterName), x => x.WithType(x => x.ParseTypeName("string")));
+                builder.AddParameter(NameFactory.CreateSafeIdentifier(identifierParameterName), x => x.WithType("string"));
             }
             else if (field.Kinds.Count > 1 && field.IsToken &&
                 // Exclude keywords if node has multiple kinds
@@ -55,7 +55,7 @@ internal class ParametersBuilder
                     ? enumName.Camelize()
                     : $"{prefix}{enumName}";
 
-                builder.AddParameter(NameFactory.CreateSafeIdentifier(enumParameterName), x => x.WithType(x => x.ParseTypeName(enumName)));
+                builder.AddParameter(NameFactory.CreateSafeIdentifier(enumParameterName), x => x.WithType(enumName));
             }
             else if (field.Kinds.Count == 1)
             {
@@ -91,7 +91,7 @@ internal class ParametersBuilder
                         ? $"{field.Name.Camelize()}Callback"
                         : $"{prefix}{field.Name}Callback";
 
-                    builder.AddParameter(callbackName, x => x.WithType(x => x.ParseTypeName(callbackType)));
+                    builder.AddParameter(callbackName, x => x.WithType(callbackType));
                 }
             }
 
@@ -101,7 +101,7 @@ internal class ParametersBuilder
                     ? $"{field.Name.Camelize()}"
                     : $"{prefix}{field.Name}";
 
-                builder.AddParameter(parameterName, x => x.WithType(x => x.ParseTypeName("bool")));
+                builder.AddParameter(parameterName, x => x.WithType("bool"));
             }
         }
 
@@ -115,7 +115,7 @@ internal class ParametersBuilder
                 : $"{prefix}{typeName}Callback";
 
             builder.AddParameter(callbackName, x => {
-                x.WithType(x => x.ParseTypeName(callbackType));
+                x.WithType(callbackType);
                 
                 if(optionalTypeBuilder)
                 {
@@ -131,15 +131,15 @@ internal class ParametersBuilder
 
         if (kind?.Name == "StringLiteralToken")
         {
-            builder.AddParameter(parameterName, x => x.WithType(x => x.ParseTypeName("string")));
+            builder.AddParameter(parameterName, x => x.WithType("string"));
         }
         else if (kind?.Name == "NumericLiteralToken")
         {
-            builder.AddParameter(parameterName, x => x.WithType(x => x.ParseTypeName("int")));
+            builder.AddParameter(parameterName, x => x.WithType("int"));
         }
         else if (kind?.Name == "CharacterLiteralToken")
         {
-            builder.AddParameter(parameterName, x => x.WithType(x => x.ParseTypeName("char")));
+            builder.AddParameter(parameterName, x => x.WithType("char"));
         }
     }
 }

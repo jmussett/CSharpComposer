@@ -184,12 +184,12 @@ internal class MethodBuilder
 
                         if (derivedFields.Any(x => !x.IsOptional))
                         {
-                            builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(x => x.ParseTypeName(returnType)))));
+                            builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(returnType))));
                         }
                     }
                     else if (!field.IsOverride)
                     {
-                        builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(x => x.ParseTypeName(returnType)))));
+                        builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(returnType))));
                     }
                     
                     continue;
@@ -203,7 +203,7 @@ internal class MethodBuilder
                 {
                     if (!field.IsOverride)
                     {
-                        builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.AddType(x => x.ParseTypeName(returnType)))));
+                        builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.AddType(returnType))));
                     }
                     
 
@@ -292,7 +292,7 @@ internal class MethodBuilder
         if (!NodeValidator.IsSyntaxToken(listType))
         {
             builder.AddMethodDeclaration(
-                x => x.ParseTypeName(returnType),
+                returnType,
                 methodName,
                 x => {
                     var listTypeField = field;
@@ -341,7 +341,7 @@ internal class MethodBuilder
                     }
                     else
                     {
-                        x.AddParameter($"{singularName}Callback", x => x.WithType(x => x.ParseTypeName($"Action<I{builderName}>")));
+                        x.AddParameter($"{singularName}Callback", x => x.WithType($"Action<I{builderName}>"));
                     }
 
                     if (isImplementation)
@@ -388,7 +388,7 @@ internal class MethodBuilder
         }
         
         builder.AddMethodDeclaration(
-            x => x.ParseTypeName(returnType),
+            returnType,
             methodName,
             x => {
                 var listTypeField = field;
@@ -426,7 +426,7 @@ internal class MethodBuilder
 
                 var singularName = NameFactory.CreateSingularName(listTypeField);
 
-                x.AddParameter(NameFactory.CreateSafeIdentifier(singularName.Camelize()), x => x.WithType(x => x.ParseTypeName(listTypeName)));
+                x.AddParameter(NameFactory.CreateSafeIdentifier(singularName.Camelize()), x => x.WithType(listTypeName));
 
                 if (isImplementation)
                 {
@@ -470,11 +470,11 @@ internal class MethodBuilder
             foreach (var kind in field.Kinds)
             {
                 builder.AddMethodDeclaration(
-                    x => x.ParseTypeName(returnType),
+                    returnType,
                     $"With{kind.Name}",
                     x =>
                     {
-                        x.AddParameter(NameFactory.CreateSafeIdentifier(kind.Name.Camelize()), x => x.WithType(x => x.ParseTypeName($"{kind.Name}Syntax")));
+                        x.AddParameter(NameFactory.CreateSafeIdentifier(kind.Name.Camelize()), x => x.WithType($"{kind.Name}Syntax"));
 
                         if (isImplementation)
                         {
@@ -518,7 +518,7 @@ internal class MethodBuilder
         }
 
         builder.AddMethodDeclaration(
-            x => x.ParseTypeName(returnType),
+            returnType,
             $"With{field.Name}",
             x =>
             {
@@ -536,7 +536,7 @@ internal class MethodBuilder
                 {
                     var callbackType = $"Action<I{builderName}>";
 
-                    x.AddParameter($"{fieldName}Callback", x => x.WithType(x => x.ParseTypeName(callbackType)));
+                    x.AddParameter($"{fieldName}Callback", x => x.WithType(callbackType));
                 }
 
                 if (isImplementation)
@@ -569,11 +569,11 @@ internal class MethodBuilder
         );
 
         builder.AddMethodDeclaration(
-            x => x.ParseTypeName(returnType),
+            returnType,
             $"With{field.Name}",
             x =>
             {
-                x.AddParameter(NameFactory.CreateSafeIdentifier(field.Name.Camelize()), x => x.WithType(x => x.ParseTypeName(field.Type)));
+                x.AddParameter(NameFactory.CreateSafeIdentifier(field.Name.Camelize()), x => x.WithType(field.Type));
 
                 if (isImplementation)
                 {
@@ -597,7 +597,7 @@ internal class MethodBuilder
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
         builder.AddMethodDeclaration(
-            x => x.ParseTypeName(returnType),
+            returnType,
             $"With{field.Name}",
             x =>
             {
@@ -607,7 +607,7 @@ internal class MethodBuilder
 
                     if (kind.Name == "IdentifierToken")
                     {
-                        x.AddParameter("identifier", x => x.WithType(x => x.ParseTypeName("string")));
+                        x.AddParameter("identifier", x => x.WithType("string"));
                     }
                 }
                 else
@@ -616,7 +616,7 @@ internal class MethodBuilder
 
                     _enumStore.TryAddEnum(field.Name, field);
 
-                    x.AddParameter(field.Name.Camelize(), x => x.WithType(x => x.ParseTypeName(field.Name)));
+                    x.AddParameter(field.Name.Camelize(), x => x.WithType(field.Name));
                 }
 
                 if (isImplementation)

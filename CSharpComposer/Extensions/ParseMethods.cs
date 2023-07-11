@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
 
@@ -87,5 +88,38 @@ public partial class CompilationUnitBuilder
     public void ParseCompilationUnit(string text)
     {
         Syntax = SyntaxFactory.ParseCompilationUnit(text);
+    }
+}
+
+public static partial class CSharpFactory
+{
+    public static NameSyntax Name(string name)
+    {
+        return NameBuilder.CreateSyntax(x => x.ParseName(name));
+    }
+
+    public static TypeSyntax Type(string typeName)
+    {
+        return TypeBuilder.CreateSyntax(x => x.ParseTypeName(typeName));
+    }
+
+    public static ExpressionSyntax Expression(string expression)
+    {
+        return ExpressionBuilder.CreateSyntax(x => x.ParseExpression(expression));
+    }
+
+    public static StatementSyntax Statement(string statement)
+    {
+        return StatementBuilder.CreateSyntax(x => x.ParseStatement(statement));
+    }
+
+    public static MemberDeclarationSyntax MemberDeclaration(string memberDeclaration)
+    {
+        return MemberDeclarationBuilder.CreateSyntax(x => x.ParseMemberDeclaration(memberDeclaration));
+    }
+
+    public static CompilationUnitSyntax CompilationUnit(string compilationUnit)
+    {
+        return CompilationUnitBuilder.CreateSyntax(x => x.ParseCompilationUnit(compilationUnit));
     }
 }

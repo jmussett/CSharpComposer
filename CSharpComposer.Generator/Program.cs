@@ -86,11 +86,11 @@ void CreateBuilders(InterfaceBuilder interfaceBuilder, ImplementationBuilder imp
         }
 
         var compilationUnit = CSharpFactory.CompilationUnit(x => x
-            .AddUsingDirective(x => x.ParseName("System"))
-            .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis")) // TODO: ???
-            .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis.CSharp"))
-            .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis.CSharp.Syntax"))
-            .AddFileScopedNamespaceDeclaration(x => x.ParseName("CSharpComposer"), ns =>
+            .AddUsingDirective("System")
+            .AddUsingDirective("Microsoft.CodeAnalysis") // TODO: ???
+            .AddUsingDirective("Microsoft.CodeAnalysis.CSharp")
+            .AddUsingDirective("Microsoft.CodeAnalysis.CSharp.Syntax")
+            .AddFileScopedNamespaceDeclaration("CSharpComposer", ns =>
             {
                 // TODO: Seperate into different files (don't want to expose internal types when navigating)
                 ns = interfaceBuilder.WithInterfaces(ns, type);
@@ -154,13 +154,14 @@ static async Task<IEnumerable<InterfaceDeclarationSyntax>> GetUnusedInterfacesAs
 void CreateFactory()
 {
     var compilationUnit = CSharpFactory.CompilationUnit(x => x
-        .AddUsingDirective(x => x.ParseName("Microsoft.CodeAnalysis.CSharp.Syntax"))
-        .AddFileScopedNamespaceDeclaration(x => x.ParseName("CSharpComposer"), ns =>
+        .AddUsingDirective("Microsoft.CodeAnalysis.CSharp.Syntax")
+        .AddFileScopedNamespaceDeclaration("CSharpComposer", ns =>
         {
             ns.AddClassDeclaration("CSharpFactory", x =>
             {
                 x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
                 x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
+                x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
 
                 foreach (var type in tree.Types)
                 {
@@ -173,14 +174,14 @@ void CreateFactory()
                     var typeName = NameFactory.CreateTypeName(type.Name);
                     var builderName = NameFactory.CreateBuilderName(type.Name);
 
-                    x.AddMethodDeclaration(x => x.ParseTypeName(type.Name), typeName, x => 
+                    x.AddMethodDeclaration(type.Name, typeName, x => 
                     {
                         x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                             .AddModifierToken(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
 
                         if (type is AbstractNode || NodeValidator.IsTokenized(type))
                         {
-                            x.AddParameter("callback", x => x.WithType(x => x.ParseTypeName($"Action<I{builderName}>")));
+                            x.AddParameter("callback", x => x.WithType($"Action<I{builderName}>"));
 
                             x.WithBody(x =>
                             {
@@ -214,7 +215,7 @@ void CreateEnums(EnumStore enumStore)
     foreach (var kvp in enumStore.FieldEnums)
     {
         var compilationUnit = CompilationUnitBuilder.CreateSyntax(x => x
-           .AddFileScopedNamespaceDeclaration(x => x.ParseName("CSharpComposer"), ns =>
+           .AddFileScopedNamespaceDeclaration("CSharpComposer", ns =>
                ns.AddEnumDeclaration(kvp.Key, x =>
                {
                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
@@ -233,7 +234,7 @@ void CreateEnums(EnumStore enumStore)
     foreach (var kvp in enumStore.KindEnums)
     {
         var compilationUnit = CompilationUnitBuilder.CreateSyntax(x => x
-           .AddFileScopedNamespaceDeclaration(x => x.ParseName("CSharpComposer"), ns =>
+           .AddFileScopedNamespaceDeclaration("CSharpComposer", ns =>
                ns.AddEnumDeclaration(kvp.Key, x =>
                {
                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));

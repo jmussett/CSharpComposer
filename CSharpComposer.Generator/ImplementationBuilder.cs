@@ -39,7 +39,7 @@ internal class ImplementationBuilder
                 // Abstract nodes with no derived types? unlikely
                 builder.AddBaseType(x => x.AsSimpleBaseType(x => x.ParseTypeName($"I{builderName}")));
 
-                builder.AddPropertyDeclaration(x => x.ParseTypeName($"{type.Name}?"), "Syntax", x => x
+                builder.AddPropertyDeclaration($"{type.Name}?", "Syntax", x => x
                     .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                     .AddAccessorDeclaration(AccessorDeclarationKind.GetAccessorDeclaration, x => x.WithSemicolon())
                     .AddAccessorDeclaration(AccessorDeclarationKind.SetAccessorDeclaration, x => x.WithSemicolon())
@@ -53,7 +53,7 @@ internal class ImplementationBuilder
                 {
                     builder.AddBaseType(x => x.AsSimpleBaseType(x => x.ParseTypeName($"I{builderName}")));
 
-                    builder.AddPropertyDeclaration(x => x.ParseTypeName(type.Name), "Syntax", 
+                    builder.AddPropertyDeclaration(type.Name, "Syntax", 
                         x => x
                         .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                         .AddAccessorDeclaration(AccessorDeclarationKind.GetAccessorDeclaration, x => x.WithSemicolon())
@@ -62,7 +62,7 @@ internal class ImplementationBuilder
 
                     builder.AddConstructorDeclaration(builderName, x => x
                         .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                        .AddParameter("syntax", x => x.WithType(x => x.ParseTypeName(type.Name)))
+                        .AddParameter("syntax", x => x.WithType(type.Name))
                         .WithBody(x => x
                             .AddStatement(x =>
                                 x.AsExpressionStatement(x => 
@@ -97,12 +97,12 @@ internal class ImplementationBuilder
         if (type is AbstractNode || NodeValidator.IsTokenized(type))
         {
             builder.AddMethodDeclaration(
-                x => x.ParseTypeName(type.Name),
+                type.Name,
                 "CreateSyntax",
                 x => x
                     .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                     .AddModifierToken(SyntaxFactory.Token(SyntaxKind.StaticKeyword))
-                    .AddParameter("callback", x => x.WithType(x => x.ParseTypeName($"Action<I{builderName}>")))
+                    .AddParameter("callback", x => x.WithType($"Action<I{builderName}>"))
                     .WithBody(x =>
                     {
                         x.AddStatement($"var builder = new {builderName}();")
@@ -123,7 +123,7 @@ internal class ImplementationBuilder
         if (type is Node node && !NodeValidator.IsTokenized(type))
         {
             builder.AddMethodDeclaration(
-                x => x.ParseTypeName(type.Name),
+                type.Name,
                 "CreateSyntax",
                 methodBuilder =>
                 {
