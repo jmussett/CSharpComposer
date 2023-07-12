@@ -36,7 +36,7 @@ internal class ImplementationBuilder
             {
                 // TODO: Do we exclude base types when abstract nodes have no derived types?
                 // Abstract nodes with no derived types? unlikely
-                builder.AddBaseType(x => x.AsSimpleBaseType(x => x.ParseTypeName($"I{builderName}")));
+                builder.AddSimpleBaseType($"I{builderName}");
 
                 builder.AddPropertyDeclaration($"{type.Name}?", "Syntax", x => x
                     .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
@@ -50,7 +50,7 @@ internal class ImplementationBuilder
                 // If we don't have optional children; interface, syntax and constructor are excluded.
                 if (_tree.HasOptionalChildren(type.Name))
                 {
-                    builder.AddBaseType(x => x.AsSimpleBaseType(x => x.ParseTypeName($"I{builderName}")));
+                    builder.AddSimpleBaseType($"I{builderName}");
 
                     builder.AddPropertyDeclaration(type.Name, "Syntax", 
                         x => x
@@ -63,13 +63,11 @@ internal class ImplementationBuilder
                         .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                         .AddParameter("syntax", x => x.WithType(type.Name))
                         .WithBody(x => x
-                            .AddStatement(x =>
-                                x.AsExpressionStatement(x => 
-                                    x.AsAssignmentExpression(
-                                        AssignmentExpressionKind.SimpleAssignmentExpression,
-                                        x => x.ParseExpression("Syntax"),
-                                        x => x.ParseExpression("syntax")
-                                    )
+                            .AddExpressionStatement(x =>
+                                x.AsAssignmentExpression(
+                                    AssignmentExpressionKind.SimpleAssignmentExpression,
+                                    x => x.ParseExpression("Syntax"),
+                                    x => x.ParseExpression("syntax")
                                 )
                             )
                         )
@@ -106,12 +104,10 @@ internal class ImplementationBuilder
                     {
                         x.AddStatement($"var builder = new {builderName}();")
                          .AddStatement($"callback(builder);")
-                         .AddStatement(
-                            x => x.AsIfStatement(
-                                x => x.ParseExpression("builder.Syntax is null"),
-                                x => x.AsBlock(x =>
-                                    x.AddStatement($"throw new InvalidOperationException(\"{type.Name} has not been specified\");")
-                                )
+                         .AddIfStatement(
+                            x => x.ParseExpression("builder.Syntax is null"),
+                            x => x.AsBlock(x =>
+                                x.AddStatement($"throw new InvalidOperationException(\"{type.Name} has not been specified\");")
                             )
                          )
                          .AddStatement("return builder.Syntax;");

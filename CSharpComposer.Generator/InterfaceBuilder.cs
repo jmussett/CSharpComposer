@@ -72,7 +72,7 @@ internal class InterfaceBuilder
                         if (_tree.HasOptionalChildren(baseType.Name))
                         {
                             var baseBuilderName = NameFactory.CreateBuilderName(type.Base);
-                            x.AddBaseType(x => x.AsSimpleBaseType(x => x.ParseTypeName($"I{baseBuilderName}<{returnType}>")));
+                            x.AddSimpleBaseType($"I{baseBuilderName}<{returnType}>");
                         }
                     }
 

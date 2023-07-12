@@ -183,12 +183,12 @@ internal class MethodBuilder
 
                         if (derivedFields.Any(x => !x.IsOptional))
                         {
-                            builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(returnType))));
+                            builder.AddSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(returnType)));
                         }
                     }
                     else if (!field.IsOverride)
                     {
-                        builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(returnType))));
+                        builder.AddSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(returnType)));
                     }
                     
                     continue;
@@ -202,7 +202,7 @@ internal class MethodBuilder
                 {
                     if (!field.IsOverride)
                     {
-                        builder.AddBaseType(x => x.AsSimpleBaseType(x => x.AsGenericName($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.AddType(returnType))));
+                        builder.AddSimpleBaseType(x => x.AsGenericName($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.AddType(returnType)));
                     }
                     
 
