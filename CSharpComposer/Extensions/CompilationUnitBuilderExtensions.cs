@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CSharpComposer;
 
-namespace CSharpComposer.Extensions;
-
-public static class CompilationUnitDeclarationBuilderExtensions
+public static class CompilationUnitBuilderExtensions
 {
     public static ICompilationUnitBuilder AddClassDeclaration(this ICompilationUnitBuilder builder, string identifier, Action<IClassDeclarationBuilder> classDeclarationCallback)
     {
         return builder.AddMemberDeclaration(x => x.AsClassDeclaration(identifier, classDeclarationCallback));
     }
+
 
     public static ICompilationUnitBuilder AddStructDeclaration(this ICompilationUnitBuilder builder, string identifier, Action<IStructDeclarationBuilder> structDeclarationCallback)
     {
@@ -56,5 +51,15 @@ public static class CompilationUnitDeclarationBuilderExtensions
     public static ICompilationUnitBuilder AddFileScopedNamespaceDeclaration(this ICompilationUnitBuilder builder, string name, Action<IFileScopedNamespaceDeclarationBuilder> delegateDeclarationCallback)
     {
         return builder.AddMemberDeclaration(x => x.AsFileScopedNamespaceDeclaration(x => x.ParseName(name), delegateDeclarationCallback));
+    }
+
+    public static ICompilationUnitBuilder AddUsingDirective(this ICompilationUnitBuilder builder, string name, Action<IUsingDirectiveBuilder>? usingDirectiveCallback = null)
+    {
+        return builder.AddUsingDirective(x => x.ParseName(name), usingDirectiveCallback);
+    }
+
+    public static ICompilationUnitBuilder AddMemberDeclaration(this ICompilationUnitBuilder builder, string member)
+    {
+        return builder.AddMemberDeclaration(x => x.ParseMemberDeclaration(member));
     }
 }

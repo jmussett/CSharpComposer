@@ -1,4 +1,4 @@
-﻿namespace CSharpComposer.Extensions;
+﻿namespace CSharpComposer;
 
 public static class TypeDeclarationBuilderExtensions
 {
@@ -48,5 +48,11 @@ public static class TypeDeclarationBuilderExtensions
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
         return builder.AddMemberDeclaration(x => x.AsIndexerDeclaration(x => x.ParseTypeName(typeName), indexerDeclarationCallback));
+    }
+
+    public static TBuilder AddMemberDeclaration<TBuilder>(this TBuilder builder, string member)
+        where TBuilder : ITypeDeclarationBuilder<TBuilder>
+    {
+        return builder.AddMemberDeclaration(x => x.ParseMemberDeclaration(member));
     }
 }

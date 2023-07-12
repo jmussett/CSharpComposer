@@ -47,16 +47,6 @@ public partial interface IStatementBuilder
     void ParseStatement(string text);
 }
 
-public static class AddStatementExtensions
-{
-    public static TBuilder AddStatement<TBuilder>(this IAddStatement<TBuilder> addStatement, string text)
-    {
-        var syntax = SyntaxFactory.ParseStatement(text);
-
-        return addStatement.AddStatement(syntax);
-    }
-}
-
 public partial class StatementBuilder
 {
     public void ParseStatement(string text)

@@ -8,17 +8,6 @@ public static class ParseExtensions
         return builder.AddAttribute(x => x.ParseName(name), attributeCallback);
     }
 
-    public static TBuilder AddUsingDirective<TBuilder>(this TBuilder builder, string name, Action<IUsingDirectiveBuilder>? usingDirectiveCallback = null)
-        where TBuilder : IBaseNamespaceDeclarationBuilder<TBuilder>
-    {
-        return builder.AddUsingDirective(x => x.ParseName(name), usingDirectiveCallback);
-    }
-
-    public static ICompilationUnitBuilder AddUsingDirective(this ICompilationUnitBuilder builder, string name, Action<IUsingDirectiveBuilder>? usingDirectiveCallback = null)
-    {
-        return builder.AddUsingDirective(x => x.ParseName(name), usingDirectiveCallback);
-    }
-
     public static TBuilder WithExplicitInterfaceSpecifier<TBuilder>(this TBuilder builder, string name)
         where TBuilder : IWithExplicitInterfaceSpecifier<TBuilder>
     {
@@ -217,5 +206,16 @@ public static class ParseExtensions
     public static IParameterBuilder WithDefault(this IParameterBuilder builder, string value)
     {
         return builder.WithDefault(x => x.ParseExpression(value));
+    }
+
+    public static TBuilder AddStatement<TBuilder>(this TBuilder builder, string statement)
+        where TBuilder : IAddStatement<TBuilder>
+    {
+        return builder.AddStatement(x => x.ParseStatement(statement));
+    }
+
+    public static IIfStatementBuilder WithElse(this IIfStatementBuilder builder, string statement)
+    {
+        return builder.WithElse(x => x.ParseStatement(statement));
     }
 }

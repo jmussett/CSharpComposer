@@ -1,4 +1,4 @@
-﻿namespace CSharpComposer.Extensions;
+﻿namespace CSharpComposer;
 
 public static class NamespaceDeclarationBuilderExtensions
 {
