@@ -7,7 +7,6 @@ using System.Xml.Serialization;
 using Microsoft.CodeAnalysis.FindSymbols;
 using Microsoft.CodeAnalysis;
 using CSharpComposer;
-using CSharpComposer.Extensions;
 using Microsoft.CodeAnalysis.CSharp;
 
 // Configured based on version of Microsoft.CodeAnalysis.CSharp

@@ -1,9 +1,5 @@
 ﻿using Humanizer;
 using CSharpComposer.Generator.Models;
-using System.Reflection.Emit;
-using System.Xml.Linq;
-using System.Net.Http.Headers;
-using CSharpComposer.Extensions;
 using Microsoft.CodeAnalysis.CSharp;
 
 namespace CSharpComposer.Generator;

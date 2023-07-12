@@ -1,6 +1,5 @@
 ﻿using Humanizer;
 using CSharpComposer.Generator.Models;
-using CSharpComposer.Extensions;
 using Microsoft.CodeAnalysis.CSharp;
 
 namespace CSharpComposer.Generator;
