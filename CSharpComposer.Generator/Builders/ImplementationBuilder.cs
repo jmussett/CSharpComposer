@@ -1,19 +1,21 @@
 ﻿using Humanizer;
 using CSharpComposer.Generator.Models;
 using Microsoft.CodeAnalysis.CSharp;
+using CSharpComposer.Generator.Utility;
+using CSharpComposer.Generator.Registries;
 
-namespace CSharpComposer.Generator;
+namespace CSharpComposer.Generator.Builders;
 
 internal class ImplementationBuilder
 {
-    private readonly Tree _tree;
+    private readonly CSharpRegistry _csharpRegistry;
     private readonly ParametersBuilder _parametersBuilder;
     private readonly ArgumentsBuilder _argumentsBuilder;
     private readonly MethodBuilder _methodBuilder;
-    
-    public ImplementationBuilder(Tree tree, ParametersBuilder parametersBuilder, ArgumentsBuilder argumentsBuilder, MethodBuilder methodBuilder)
+
+    public ImplementationBuilder(CSharpRegistry csharpRegistry, ParametersBuilder parametersBuilder, ArgumentsBuilder argumentsBuilder, MethodBuilder methodBuilder)
     {
-        _tree = tree;
+        _csharpRegistry = csharpRegistry;
         _parametersBuilder = parametersBuilder;
         _argumentsBuilder = argumentsBuilder;
         _methodBuilder = methodBuilder;
@@ -48,11 +50,11 @@ internal class ImplementationBuilder
             if (type is Node)
             {
                 // If we don't have optional children; interface, syntax and constructor are excluded.
-                if (_tree.HasOptionalChildren(type.Name))
+                if (_csharpRegistry.Tree.HasOptionalChildren(type.Name))
                 {
                     builder.AddSimpleBaseType($"I{builderName}");
 
-                    builder.AddPropertyDeclaration(type.Name, "Syntax", 
+                    builder.AddPropertyDeclaration(type.Name, "Syntax",
                         x => x
                         .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                         .AddAccessorDeclaration(AccessorDeclarationKind.GetAccessorDeclaration, x => x.WithSemicolon())
@@ -133,7 +135,7 @@ internal class ImplementationBuilder
                     {
                         var arguments = _argumentsBuilder.WithArguments(blockBuilder, node, true);
 
-                        if (_tree.HasOptionalChildren(type.Name))
+                        if (_csharpRegistry.Tree.HasOptionalChildren(type.Name))
                         {
                             blockBuilder.AddStatement($"var syntax = SyntaxFactory.{typeName}({string.Join(", ", arguments)});");
 
@@ -152,5 +154,5 @@ internal class ImplementationBuilder
         }
     }
 
-    
+
 }

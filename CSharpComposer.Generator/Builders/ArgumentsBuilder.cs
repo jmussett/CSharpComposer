@@ -1,17 +1,19 @@
 ﻿using Humanizer;
 using CSharpComposer.Generator.Models;
+using CSharpComposer.Generator.Utility;
+using CSharpComposer.Generator.Registries;
 
-namespace CSharpComposer.Generator;
+namespace CSharpComposer.Generator.Builders;
 
 internal class ArgumentsBuilder
 {
-    private readonly Tree _tree;
-    private readonly EnumStore _enumStore;
+    private readonly CSharpRegistry _csharpRegistry;
+    private readonly EnumRegistry _enumRegistry;
 
-    public ArgumentsBuilder(Tree tree, EnumStore enumStore)
+    public ArgumentsBuilder(CSharpRegistry csharpRegistry, EnumRegistry enumRegistry)
     {
-        _tree = tree;
-        _enumStore = enumStore;
+        _csharpRegistry = csharpRegistry;
+        _enumRegistry = enumRegistry;
     }
 
     public List<string> WithArguments(IBlockBuilder blockBuilder, Node node, bool createArguments, string? prefix = null)
@@ -23,7 +25,7 @@ internal class ArgumentsBuilder
             var typeName = NameFactory.CreateTypeName(node.Name);
 
             var enumName = $"{typeName}Kind";
-            _enumStore.TryAddEnum(enumName, node);
+            _enumRegistry.TryAddEnum(enumName, node);
 
             var kindArgument = prefix is null ? "kind" : $"{prefix}Kind";
 
@@ -98,11 +100,11 @@ internal class ArgumentsBuilder
 
                 if (child is Field childField)
                 {
-                    if (createArguments && 
-                        !childField.IsOptional && 
+                    if (createArguments &&
+                        !childField.IsOptional &&
                         childField.Kinds.Count > 1 &&
-                        childField.Kinds.Count == node.Kinds.Count && 
-                        childField.IsToken && 
+                        childField.Kinds.Count == node.Kinds.Count &&
+                        childField.IsToken &&
                         ((childField.Name?.EndsWith("Keyword") ?? false) || childField.Name == "OperatorToken")
                     )
                     {
@@ -168,7 +170,7 @@ internal class ArgumentsBuilder
             if (!field.IsOptional && field.IsToken &&
                 (
                     field.Name == "Identifier" ||
-                    (field.Kinds.Count == 1 && field.Kinds.FirstOrDefault()?.Name == "IdentifierToken")
+                    field.Kinds.Count == 1 && field.Kinds.FirstOrDefault()?.Name == "IdentifierToken"
                 )
             )
             {
@@ -191,7 +193,7 @@ internal class ArgumentsBuilder
             }
             else if (!field.IsOptional && field.Kinds.Count > 1 && field.IsToken &&
                 // Exclude keywords if node has multiple kinds
-                (node.Kinds.Count <= 1 || (!(field.Name?.EndsWith("Keyword") ?? false) && field.Name != "OperatorToken" && field.Name != "Token")))
+                (node.Kinds.Count <= 1 || !(field.Name?.EndsWith("Keyword") ?? false) && field.Name != "OperatorToken" && field.Name != "Token"))
             {
                 var typeName = NameFactory.CreateTypeName(node.Name);
 
@@ -259,8 +261,7 @@ internal class ArgumentsBuilder
             if (NodeValidator.IsSyntaxNode(field.Type) &&
                 !NodeValidator.IsAnyList(field.Type))
             {
-
-                var referenceType = _tree.Types.FirstOrDefault(x => x.Name == field.Type);
+                var referenceType = _csharpRegistry.Tree.Types.FirstOrDefault(x => x.Name == field.Type);
 
                 var builderName = NameFactory.CreateBuilderName(field.Type);
 
@@ -317,7 +318,7 @@ internal class ArgumentsBuilder
 
         // If we arent creating SyntaxFactory arguments,
         // we need the callback for the builder when forwarding arguments to CreateSyntax methods.
-        if (!createArguments && (_tree.HasOptionalChildren(node.Name) || NodeValidator.IsTokenized(node)))
+        if (!createArguments && (_csharpRegistry.Tree.HasOptionalChildren(node.Name) || NodeValidator.IsTokenized(node)))
         {
             var typeName = NameFactory.CreateTypeName(node.Name);
 

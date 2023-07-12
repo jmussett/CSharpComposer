@@ -1,20 +1,22 @@
 ﻿using Humanizer;
 using CSharpComposer.Generator.Models;
 using Microsoft.CodeAnalysis.CSharp;
+using CSharpComposer.Generator.Utility;
+using CSharpComposer.Generator.Registries;
 
-namespace CSharpComposer.Generator;
+namespace CSharpComposer.Generator.Builders;
 
 internal class MethodBuilder
 {
-    private readonly Tree _tree;
-    private readonly EnumStore _enumStore;
+    private readonly CSharpRegistry _csharpRegistry;
+    private readonly EnumRegistry _enumRegistry;
     private readonly ParametersBuilder _parametersBuilder;
     private readonly ArgumentsBuilder _argumentsBuilder;
 
-    public MethodBuilder(Tree tree, EnumStore enumStore, ParametersBuilder parametersBuilder, ArgumentsBuilder argumentsBuilder)
+    public MethodBuilder(CSharpRegistry csharpRegistry, EnumRegistry enumRegistry, ParametersBuilder parametersBuilder, ArgumentsBuilder argumentsBuilder)
     {
-        _tree = tree;
-        _enumStore = enumStore;
+        _csharpRegistry = csharpRegistry;
+        _enumRegistry = enumRegistry;
         _parametersBuilder = parametersBuilder;
         _argumentsBuilder = argumentsBuilder;
     }
@@ -29,21 +31,21 @@ internal class MethodBuilder
         }
         else
         {
-            WithChildMethods(builder, isImplementation, _tree, builderName, type, type.Children);
+            WithChildMethods(builder, isImplementation, builderName, type, type.Children);
         }
     }
 
-    public void WithChildMethods<TBuilder>(TBuilder builder, bool isImplementation, Tree tree, string returnType, TreeType type, IEnumerable<TreeTypeChild> children, bool isChoice = false, bool isSequence = false)
+    public void WithChildMethods<TBuilder>(TBuilder builder, bool isImplementation, string returnType, TreeType type, IEnumerable<TreeTypeChild> children, bool isChoice = false, bool isSequence = false)
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
         foreach (var choice in children.OfType<Choice>())
         {
-            WithChildMethods(builder, isImplementation, tree, returnType, type, choice.Children, true);
+            WithChildMethods(builder, isImplementation, returnType, type, choice.Children, true);
         }
 
         foreach (var sequence in children.OfType<Sequence>())
         {
-            WithChildMethods(builder, isImplementation, tree, returnType, type, sequence.Children, isChoice, true);
+            WithChildMethods(builder, isImplementation, returnType, type, sequence.Children, isChoice, true);
         }
 
         WithFieldMethods(builder, isImplementation, returnType, type, children.OfType<Field>(), isChoice, isSequence);
@@ -54,7 +56,7 @@ internal class MethodBuilder
     {
         if (type is Node node && NodeValidator.IsTokenized(type))
         {
-            foreach(var kind in node.Kinds)
+            foreach (var kind in node.Kinds)
             {
                 WithTokenizedCastMethod(builder, isImplementation, node, kind);
             }
@@ -62,7 +64,7 @@ internal class MethodBuilder
             return;
         }
 
-        var derivedTypes = _tree.Types.Where(x => x.Base == type.Name);
+        var derivedTypes = _csharpRegistry.Tree.Types.Where(x => x.Base == type.Name);
 
         foreach (var derivedType in derivedTypes)
         {
@@ -99,7 +101,8 @@ internal class MethodBuilder
         builder.AddMethodDeclaration(
             x => x.AsPredefinedType(PredefinedTypeKeyword.VoidKeyword),
             $"As{shortenedName}",
-            x => {
+            x =>
+            {
                 _parametersBuilder.WithLiteralParameter(x, shortenedName.Camelize(), tokenKind);
 
                 if (isImplementation)
@@ -133,7 +136,8 @@ internal class MethodBuilder
         builder.AddMethodDeclaration(
             x => x.AsPredefinedType(PredefinedTypeKeyword.VoidKeyword),
             $"As{derivedNode.Name[..^"Syntax".Length]}",
-            x => {
+            x =>
+            {
                 _parametersBuilder.WithParameters(x, derivedNode);
 
                 if (isImplementation)
@@ -161,13 +165,13 @@ internal class MethodBuilder
     {
         foreach (var field in fields)
         {
-            if (!_tree.IsValidFieldMethod(type, field, isImplementation, isChoice))
+            if (!_csharpRegistry.Tree.IsValidFieldMethod(type, field, isImplementation, isChoice))
             {
                 continue;
             }
 
             // Add method-specific interfaces instead of using regular methods if the field names match the types and if the child field is unique.
-            if (!isImplementation 
+            if (!isImplementation
                 && !NodeValidator.IsSyntaxToken(field.Type)
                 // Only use method builders with unique type, otherwise we get conflicting methods.
                 && type.Children.GetNestedChildren().Count(x => x.Field.Type == field.Type) == 1)
@@ -177,9 +181,9 @@ internal class MethodBuilder
                 {
                     // Even if we are an override, base fields can be excluded if any derived types are non-optional.
                     // So include the method interface if we find any non optional derived base fields. 
-                    if (field.IsOverride && _tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
+                    if (field.IsOverride && _csharpRegistry.Tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
                     {
-                        var derivedFields = _tree.GetDerivedFields(baseType, baseField);
+                        var derivedFields = _csharpRegistry.Tree.GetDerivedFields(baseType, baseField);
 
                         if (derivedFields.Any(x => !x.IsOptional))
                         {
@@ -190,11 +194,11 @@ internal class MethodBuilder
                     {
                         builder.AddSimpleBaseType(x => x.AsGenericName($"IWith{NameFactory.CreateTypeName(field.Type)}", x => x.AddType(returnType)));
                     }
-                    
+
                     continue;
                 }
 
-                var listTypeName = NameFactory.ExtractReferenceTypeFromListType(_tree, field.Type);
+                var listTypeName = NameFactory.ExtractReferenceTypeFromListType(_csharpRegistry.Tree, field.Type);
 
                 // TODO: modifiers?
                 if (listTypeName is not null && !NodeValidator.IsSyntaxToken(listTypeName) &&
@@ -204,7 +208,7 @@ internal class MethodBuilder
                     {
                         builder.AddSimpleBaseType(x => x.AsGenericName($"IAdd{NameFactory.CreateTypeName(listTypeName)}", x => x.AddType(returnType)));
                     }
-                    
+
 
                     continue;
                 }
@@ -214,7 +218,7 @@ internal class MethodBuilder
             // TODO: don't remove if overriding field is optional?
             if (!isImplementation && !isChoice && field.IsOverride)
             {
-                if (_tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
+                if (_csharpRegistry.Tree.TryGetBaseField(type, field, out var baseType, out var baseField, out _, out _))
                 {
                     if (!baseField.IsOptional)
                     {
@@ -224,7 +228,7 @@ internal class MethodBuilder
                     {
                         // Are any derived fields mandatory? If so, do not skip.
 
-                        var derivedFields = _tree.GetDerivedFields(baseType, field);
+                        var derivedFields = _csharpRegistry.Tree.GetDerivedFields(baseType, field);
 
                         if (!derivedFields.Any() || !derivedFields.Any(x => !x.IsOptional))
                         {
@@ -232,7 +236,7 @@ internal class MethodBuilder
                         }
                     }
                 }
-                
+
             }
 
             if (NodeValidator.IsAnyList(field.Type))
@@ -271,7 +275,7 @@ internal class MethodBuilder
     private void WithListTypeMethods<TBuilder>(TBuilder builder, bool isImplementation, string returnType, Field field)
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
     {
-        var listType = NameFactory.ExtractReferenceTypeFromListType(_tree, field.Type);
+        var listType = NameFactory.ExtractReferenceTypeFromListType(_csharpRegistry.Tree, field.Type);
 
         var listTypeName = listType is null ? null : NameFactory.CreateTypeName(listType);
 
@@ -293,7 +297,8 @@ internal class MethodBuilder
             builder.AddMethodDeclaration(
                 returnType,
                 methodName,
-                x => {
+                x =>
+                {
                     var listTypeField = field;
 
                     var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
@@ -302,7 +307,7 @@ internal class MethodBuilder
 
                     if (listTypeName is null)
                     {
-                        listTypeField = _tree.GetReferenceListType(field.Type);
+                        listTypeField = _csharpRegistry.Tree.GetReferenceListType(field.Type);
 
                         if (listTypeField is null)
                         {
@@ -317,7 +322,7 @@ internal class MethodBuilder
 
                     if (NodeValidator.IsAnyList(listTypeName))
                     {
-                        listTypeField = _tree.GetReferenceListType(listTypeName);
+                        listTypeField = _csharpRegistry.Tree.GetReferenceListType(listTypeName);
 
                         if (listTypeField is null)
                         {
@@ -328,7 +333,7 @@ internal class MethodBuilder
                         listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
                     }
 
-                    var listType = _tree.Types.FirstOrDefault(x => x.Name == listTypeName);
+                    var listType = _csharpRegistry.Tree.Types.FirstOrDefault(x => x.Name == listTypeName);
 
                     var singularName = NameFactory.CreateSingularName(listTypeField).Camelize();
 
@@ -385,11 +390,12 @@ internal class MethodBuilder
                     }
                 });
         }
-        
+
         builder.AddMethodDeclaration(
             returnType,
             methodName,
-            x => {
+            x =>
+            {
                 var listTypeField = field;
 
                 var listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
@@ -398,7 +404,7 @@ internal class MethodBuilder
 
                 if (listTypeName is null)
                 {
-                    listTypeField = _tree.GetReferenceListType(field.Type);
+                    listTypeField = _csharpRegistry.Tree.GetReferenceListType(field.Type);
 
                     if (listTypeField is null)
                     {
@@ -413,7 +419,7 @@ internal class MethodBuilder
 
                 if (NodeValidator.IsAnyList(listTypeName))
                 {
-                    listTypeField = _tree.GetReferenceListType(listTypeName);
+                    listTypeField = _csharpRegistry.Tree.GetReferenceListType(listTypeName);
 
                     if (listTypeField is null)
                     {
@@ -459,7 +465,7 @@ internal class MethodBuilder
             });
     }
 
-    
+
 
     private void WithFieldMethods<TBuilder>(TBuilder builder, bool isImplementation, string returnType, Field field, bool isUnique)
         where TBuilder : ITypeDeclarationBuilder<TBuilder>
@@ -502,7 +508,7 @@ internal class MethodBuilder
                 var fieldName = field.Name.Camelize();
                 var builderName = NameFactory.CreateBuilderName(field.Type);
 
-                var referenceType = _tree.Types.FirstOrDefault(x => x.Name == field.Type);
+                var referenceType = _csharpRegistry.Tree.Types.FirstOrDefault(x => x.Name == field.Type);
 
                 // If we are a regular node and do not have an interface, use parameters from the node's CreateSyntax method.
                 if (referenceType is Node referenceTypeNode)
@@ -591,7 +597,7 @@ internal class MethodBuilder
                 {
                     // TODO: muliple methods (when identifier)
 
-                    _enumStore.TryAddEnum(field.Name, field);
+                    _enumRegistry.TryAddEnum(field.Name, field);
 
                     x.AddParameter(field.Name.Camelize(), x => x.WithType(field.Name));
                 }

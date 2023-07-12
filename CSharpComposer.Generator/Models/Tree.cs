@@ -1,5 +1,4 @@
 ﻿using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace CSharpComposer.Generator.Models;

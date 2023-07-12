@@ -1,17 +1,19 @@
 ﻿using Humanizer;
 using CSharpComposer.Generator.Models;
+using CSharpComposer.Generator.Utility;
+using CSharpComposer.Generator.Registries;
 
-namespace CSharpComposer.Generator;
+namespace CSharpComposer.Generator.Builders;
 
 internal class ParametersBuilder
 {
-    private readonly Tree _tree;
-    private readonly EnumStore _enumStore;
+    private readonly CSharpRegistry _csharpRegistry;
+    private readonly EnumRegistry _enumRegistry;
 
-    public ParametersBuilder(Tree tree, EnumStore enumStore)
+    public ParametersBuilder(CSharpRegistry csharpRegistry, EnumRegistry enumRegistry)
     {
-        _tree = tree;
-        _enumStore = enumStore;
+        _csharpRegistry = csharpRegistry;
+        _enumRegistry = enumRegistry;
     }
 
     public void WithParameters(IMethodDeclarationBuilder builder, Node node, bool optionalTypeBuilder = true, string? prefix = null)
@@ -21,7 +23,7 @@ internal class ParametersBuilder
         if (node.Kinds.Count > 1 && !NodeValidator.IsTokenized(node))
         {
             var enumName = $"{typeName}Kind";
-            _enumStore.TryAddEnum(enumName, node);
+            _enumRegistry.TryAddEnum(enumName, node);
 
             var kindParameterName = prefix is null ? "kind" : $"{prefix}Kind";
             builder.AddParameter(kindParameterName, x => x.WithType(enumName));
@@ -34,8 +36,8 @@ internal class ParametersBuilder
                 continue;
             }
 
-            if (field.Name == "Identifier" && field.IsToken || 
-               (field.Kinds.Count == 1 && field.Kinds.FirstOrDefault()?.Name == "IdentifierToken"))
+            if (field.Name == "Identifier" && field.IsToken ||
+               field.Kinds.Count == 1 && field.Kinds.FirstOrDefault()?.Name == "IdentifierToken")
             {
                 var identifierParameterName = prefix is null
                     ? field.Name.Camelize()
@@ -45,11 +47,11 @@ internal class ParametersBuilder
             }
             else if (field.Kinds.Count > 1 && field.IsToken &&
                 // Exclude keywords if node has multiple kinds
-                (node.Kinds.Count <= 1 || (!(field.Name?.EndsWith("Keyword") ?? false) && field.Name != "OperatorToken" && field.Name != "Token"))
+                (node.Kinds.Count <= 1 || !(field.Name?.EndsWith("Keyword") ?? false) && field.Name != "OperatorToken" && field.Name != "Token")
             )
             {
                 var enumName = $"{typeName}{field.Name}";
-                _enumStore.TryAddEnum(enumName, field);
+                _enumRegistry.TryAddEnum(enumName, field);
 
                 var enumParameterName = prefix is null
                     ? enumName.Camelize()
@@ -71,7 +73,7 @@ internal class ParametersBuilder
             if (NodeValidator.IsSyntaxNode(field.Type) &&
                 !NodeValidator.IsAnyList(field.Type))
             {
-                var referenceType = _tree.Types.FirstOrDefault(x => x.Name == field.Type);
+                var referenceType = _csharpRegistry.Tree.Types.FirstOrDefault(x => x.Name == field.Type);
 
                 // If we are a regular node and do not have an interface, use parameters from the node's CreateSyntax method.
                 if (referenceType is Node referenceTypeNode && NodeValidator.HasMandatoryChildren(referenceTypeNode))
@@ -97,27 +99,28 @@ internal class ParametersBuilder
 
             if (field.Type == "bool")
             {
-               var parameterName = prefix is null
-                    ? $"{field.Name.Camelize()}"
-                    : $"{prefix}{field.Name}";
+                var parameterName = prefix is null
+                     ? $"{field.Name.Camelize()}"
+                     : $"{prefix}{field.Name}";
 
                 builder.AddParameter(parameterName, x => x.WithType("bool"));
             }
         }
 
-        if (_tree.HasOptionalChildren(node.Name) || NodeValidator.IsTokenized(node))
+        if (_csharpRegistry.Tree.HasOptionalChildren(node.Name) || NodeValidator.IsTokenized(node))
         {
             var builderName = NameFactory.CreateBuilderName(node.Name);
             var callbackType = $"Action<I{builderName}>" + (optionalTypeBuilder ? "?" : "");
 
             var callbackName = prefix is null ?
-                $"{typeName.Camelize()}Callback" 
+                $"{typeName.Camelize()}Callback"
                 : $"{prefix}{typeName}Callback";
 
-            builder.AddParameter(callbackName, x => {
+            builder.AddParameter(callbackName, x =>
+            {
                 x.WithType(callbackType);
-                
-                if(optionalTypeBuilder)
+
+                if (optionalTypeBuilder)
                 {
                     x.WithDefault("null");
                 }

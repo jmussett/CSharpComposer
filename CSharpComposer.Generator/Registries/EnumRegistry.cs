@@ -1,8 +1,8 @@
 ﻿using CSharpComposer.Generator.Models;
 
-namespace CSharpComposer.Generator;
+namespace CSharpComposer.Generator.Registries;
 
-internal class EnumStore
+internal class EnumRegistry
 {
     public Dictionary<string, Field> FieldEnums { get; } = new();
     public Dictionary<string, Node> KindEnums { get; } = new();

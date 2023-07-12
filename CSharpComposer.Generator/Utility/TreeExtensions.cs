@@ -1,8 +1,7 @@
 ﻿using CSharpComposer.Generator.Models;
 using System.Diagnostics.CodeAnalysis;
-using System.Security.AccessControl;
 
-namespace CSharpComposer.Generator;
+namespace CSharpComposer.Generator.Utility;
 
 public static class NodeExtensions
 {
@@ -83,22 +82,22 @@ public static class NodeExtensions
 
         foreach (var sequence in sequences)
         {
-            fields = fields.Concat(GetNestedChildren(sequence.Children).Select(f => (f.Field, true, f.IsChoice)));
+            fields = fields.Concat(sequence.Children.GetNestedChildren().Select(f => (f.Field, true, f.IsChoice)));
         }
 
         foreach (var choice in choices)
         {
-            fields = fields.Concat(GetNestedChildren(choice.Children).Select(f => (f.Field, f.IsSequence, true)));
+            fields = fields.Concat(choice.Children.GetNestedChildren().Select(f => (f.Field, f.IsSequence, true)));
         }
 
         return fields;
     }
 
     public static bool TryGetBaseField(
-        this Tree tree, 
-        TreeType type, 
-        Field field, 
-        [NotNullWhen(true)] out TreeType? baseType, 
+        this Tree tree,
+        TreeType type,
+        Field field,
+        [NotNullWhen(true)] out TreeType? baseType,
         [NotNullWhen(true)] out Field? baseField,
         out bool isChoice,
         out bool isSequence)
@@ -153,15 +152,15 @@ public static class NodeExtensions
 
         var hasOptionalChildren = type.Children.Any(child =>
             child is Choice ||
-            (
+            
                 child is Field field &&
                 (field.IsOptional || NodeValidator.IsAnyList(field.Type))
-            )
+            
         );
 
         if (!hasOptionalChildren && type.Base is not null && NodeValidator.IsSyntaxNode(type.Base))
         {
-            return HasOptionalChildren(tree, type.Base);
+            return tree.HasOptionalChildren(type.Base);
         }
 
         return hasOptionalChildren;

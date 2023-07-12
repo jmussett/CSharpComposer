@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace CSharpComposer.Generator.Models;
+﻿namespace CSharpComposer.Generator.Models;
 
 public class Kind : KindBase, IEquatable<Kind>
 {

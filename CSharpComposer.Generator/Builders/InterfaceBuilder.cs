@@ -1,18 +1,21 @@
 ﻿using Humanizer;
 using CSharpComposer.Generator.Models;
 using Microsoft.CodeAnalysis.CSharp;
+using CSharpComposer.Generator.Utility;
+using CSharpComposer.Generator.Registries;
+using CSharpComposer;
 
-namespace CSharpComposer.Generator;
+namespace CSharpComposer.Generator.Builders;
 
 internal class InterfaceBuilder
 {
-    private readonly Tree _tree;
+    private readonly CSharpRegistry _csharpRegistry;
     private readonly MethodBuilder _methodBuilder;
     private readonly ParametersBuilder _parameterBuilder;
 
-    public InterfaceBuilder(Tree tree, MethodBuilder methodBuilder, ParametersBuilder parameterBuilder)
+    public InterfaceBuilder(CSharpRegistry csharpRegistry, MethodBuilder methodBuilder, ParametersBuilder parameterBuilder)
     {
-        _tree = tree;
+        _csharpRegistry = csharpRegistry;
         _methodBuilder = methodBuilder;
         _parameterBuilder = parameterBuilder;
     }
@@ -35,20 +38,11 @@ internal class InterfaceBuilder
                 builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
                 builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
 
-                // I don't think we need this as we don't want to polute base type casting methods with builder methods
-
-                //x = x.WithBaseType(x =>
-                //{
-                //    x.AsGeneric($"I{builderName}", x => x.WithTypeArgument(x => x.AsType($"I{builderName}")));
-
-                //    return x;
-                //});
-
                 _methodBuilder.WithCastMethods(builder, false, type);
             });
         }
 
-        if (_tree.HasOptionalChildren(type.Name))
+        if (_csharpRegistry.Tree.HasOptionalChildren(type.Name))
         {
             builder
                 .AddInterfaceDeclaration(interfaceName, x =>
@@ -67,23 +61,23 @@ internal class InterfaceBuilder
 
                     if (NodeValidator.IsValidNode(type.Base))
                     {
-                        var baseType = _tree.Types.First(x => x.Name == type.Base);
+                        var baseType = _csharpRegistry.Tree.Types.First(x => x.Name == type.Base);
 
-                        if (_tree.HasOptionalChildren(baseType.Name))
+                        if (_csharpRegistry.Tree.HasOptionalChildren(baseType.Name))
                         {
                             var baseBuilderName = NameFactory.CreateBuilderName(type.Base);
                             x.AddSimpleBaseType($"I{baseBuilderName}<{returnType}>");
                         }
                     }
 
-                    _methodBuilder.WithChildMethods(x, false, _tree, returnType, type, type.Children);
+                    _methodBuilder.WithChildMethods(x, false, returnType, type, type.Children);
                 });
         }
 
         var typeName = NameFactory.CreateTypeName(type.Name!);
 
         // TODO: ITypeDeclarationInterface, remove with type? derived type children cointains choice? 
-        if (_tree.Types.Any(t => t.Children.Any(f => _tree.AnyValidFieldMethod(t, f, false))))
+        if (_csharpRegistry.Tree.Types.Any(t => t.Children.Any(f => _csharpRegistry.Tree.AnyValidFieldMethod(t, f, false))))
         {
             // TODO: Remove when unused
             builder

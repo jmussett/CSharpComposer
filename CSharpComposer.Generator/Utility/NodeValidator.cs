@@ -2,7 +2,7 @@
 using CSharpComposer.Generator.Models;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CSharpComposer.Generator;
+namespace CSharpComposer.Generator.Utility;
 
 internal static class NodeValidator
 {
@@ -93,8 +93,8 @@ internal static class NodeValidator
     // i.e: LiteralExpressionSyntax.
     public static bool IsTokenized(TreeType type)
     {
-        return type is Node node && 
-            node.Kinds.Count > 1 && 
+        return type is Node node &&
+            node.Kinds.Count > 1 &&
             node.Children.OfType<Field>()
                 .Any(x => x.Name == "Token");
     }

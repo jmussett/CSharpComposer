@@ -1,7 +1,7 @@
 ﻿using Humanizer;
 using CSharpComposer.Generator.Models;
-using System.IO;
 using System.Text.RegularExpressions;
+using CSharpComposer.Generator.Utility;
 
 namespace CSharpComposer.Generator;
 
