@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpComposer", "CSharpCom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpComposer.Generator", "CSharpComposer.Generator\CSharpComposer.Generator.csproj", "{DEE4DCC2-3F1F-4C7F-94D2-6F3DA134EF9C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyntaxBuilder", "SyntaxBuilder\SyntaxBuilder.csproj", "{A621CF02-8343-409B-B0A0-8375999FA723}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{DEE4DCC2-3F1F-4C7F-94D2-6F3DA134EF9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEE4DCC2-3F1F-4C7F-94D2-6F3DA134EF9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEE4DCC2-3F1F-4C7F-94D2-6F3DA134EF9C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A621CF02-8343-409B-B0A0-8375999FA723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A621CF02-8343-409B-B0A0-8375999FA723}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A621CF02-8343-409B-B0A0-8375999FA723}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A621CF02-8343-409B-B0A0-8375999FA723}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
