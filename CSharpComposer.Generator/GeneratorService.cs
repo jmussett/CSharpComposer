@@ -70,20 +70,26 @@ internal class GeneratorService : BackgroundService
 
     public async Task<Project> RemoveUnusedInterfaces(Project project)
     {
-        var compilation = await project.GetCompilationAsync();
+        var compilation = await project.GetCompilationAsync()
+            ?? throw new InvalidOperationException("Unable to compile CSharpComposer");
+
         var unusedInterfaces = await GetUnusedInterfacesAsync(compilation, project);
 
         var interfacesByCompilation = unusedInterfaces.GroupBy(
-            i => i.FirstAncestorOrSelf<CompilationUnitSyntax>()
+            i => i.FirstAncestorOrSelf<CompilationUnitSyntax>()!
         );
 
         foreach (var compilationGroup in interfacesByCompilation)
         {
-            var document = project.GetDocument(compilationGroup.Key.SyntaxTree);
-            var root = await document.GetSyntaxRootAsync();
+            Document document = project.GetDocument(compilationGroup.Key.SyntaxTree)
+                ?? throw new InvalidOperationException($"Unable to find document for syntax tree: {compilationGroup.Key.SyntaxTree}");
+
+            var root = await document.GetSyntaxRootAsync()
+                ?? throw new InvalidOperationException($"Unable to find root node for document '{document.Name}'");
 
             // Remove all unused interfaces from the document at once
-            var newRoot = root.RemoveNodes(compilationGroup, SyntaxRemoveOptions.KeepNoTrivia);
+            var newRoot = root.RemoveNodes(compilationGroup, SyntaxRemoveOptions.KeepNoTrivia)
+                ?? throw new InvalidOperationException($"Unable to remove unused interfaces from document '{document.Name}'"); ;
 
             document = document.WithSyntaxRoot(newRoot);
             project = document.Project;

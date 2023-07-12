@@ -7,7 +7,7 @@ namespace CSharpComposer.Generator.Models;
 public class Tree
 {
     [XmlAttribute]
-    public string? Root { get; set; }
+    public string Root { get; set; } = string.Empty;
 
     [XmlElement(ElementName = "Node", Type = typeof(Node))]
     [XmlElement(ElementName = "AbstractNode", Type = typeof(AbstractNode))]

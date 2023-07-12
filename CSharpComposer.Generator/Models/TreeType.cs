@@ -6,10 +6,10 @@ namespace CSharpComposer.Generator.Models;
 public class TreeType
 {
     [XmlAttribute]
-    public string? Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [XmlAttribute]
-    public string? Base { get; set; }
+    public string Base { get; set; } = string.Empty;
 
     [XmlAttribute]
     public string? SkipConvenienceFactories { get; set; }

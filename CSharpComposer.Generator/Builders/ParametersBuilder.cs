@@ -61,7 +61,7 @@ internal class ParametersBuilder
             }
             else if (field.Kinds.Count == 1)
             {
-                var kind = field.Kinds.FirstOrDefault();
+                var kind = field.Kinds.First();
 
                 var literalParameterName = prefix is null
                     ? field.Name.Camelize()

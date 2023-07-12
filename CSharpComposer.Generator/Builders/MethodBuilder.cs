@@ -324,13 +324,16 @@ internal class MethodBuilder
                     {
                         listTypeField = _csharpRegistry.Tree.GetReferenceListType(listTypeName);
 
-                        if (listTypeField is null)
+                        if (listTypeField is not null)
                         {
-                            throw new InvalidOperationException($"Unable to find list type for field '{field.Name}'");
+                            parentListSyntaxName = listTypeName;
+                            listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
                         }
+                    }
 
-                        parentListSyntaxName = listTypeName;
-                        listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
+                    if (listTypeField is null || listTypeName is null)
+                    {
+                        throw new InvalidOperationException($"Unable to find list type for field '{field.Name}'");
                     }
 
                     var listType = _csharpRegistry.Tree.Types.FirstOrDefault(x => x.Name == listTypeName);
@@ -372,7 +375,9 @@ internal class MethodBuilder
                                 var parentListTypeName = NameFactory.CreateTypeName(parentListSyntaxName);
                                 syntaxVariableName = parentListSyntaxName.Camelize();
 
-                                var grandParentListType = NameFactory.ExtractParentTypeFromListType(listTypeField.Type);
+                                var grandParentListType = NameFactory.ExtractParentTypeFromListType(listTypeField.Type)
+                                    ?? throw new InvalidOperationException($"Unable to find parent type for list type '{listTypeField.Type}'");
+
                                 var grandParentListTypeName = NameFactory.CreateTypeName(grandParentListType);
 
                                 x.AddStatement($"var {grandParentListType.Camelize()} = SyntaxFactory.{grandParentListTypeName}(new [] {{{NameFactory.CreateSafeIdentifier(singularName.Camelize())}}});");
@@ -421,12 +426,16 @@ internal class MethodBuilder
                 {
                     listTypeField = _csharpRegistry.Tree.GetReferenceListType(listTypeName);
 
-                    if (listTypeField is null)
+                    if (listTypeField is not null)
                     {
-                        throw new InvalidOperationException($"Unable to find list type for field '{field.Name}'");
+                        parentListSyntaxName = listTypeName;
+                        listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
                     }
-                    parentListSyntaxName = listTypeName;
-                    listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
+                }
+
+                if (listTypeField is null || listTypeName is null)
+                {
+                    throw new InvalidOperationException($"Unable to find list type for field '{field.Name}'");
                 }
 
                 var singularName = NameFactory.CreateSingularName(listTypeField);
@@ -446,7 +455,9 @@ internal class MethodBuilder
                             var parentListTypeName = NameFactory.CreateTypeName(parentListSyntaxName);
                             syntaxVariableName = parentListSyntaxName.Camelize();
 
-                            var grandParentListType = NameFactory.ExtractParentTypeFromListType(listTypeField.Type);
+                            var grandParentListType = NameFactory.ExtractParentTypeFromListType(listTypeField.Type)
+                                ?? throw new InvalidOperationException($"Unable to find parent type for list type '{listTypeField.Type}'");
+
                             var grandParentListTypeName = NameFactory.CreateTypeName(grandParentListType);
 
                             x.AddStatement($"var {grandParentListType.Camelize()} = SyntaxFactory.{grandParentListTypeName}(new [] {{{NameFactory.CreateSafeIdentifier(singularName.Camelize())}}});");
