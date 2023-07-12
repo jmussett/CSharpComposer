@@ -119,7 +119,7 @@ internal class ParametersBuilder
                 
                 if(optionalTypeBuilder)
                 {
-                    x.WithDefault(x => x.ParseExpression("null"));
+                    x.WithDefault("null");
                 }
             });
         }

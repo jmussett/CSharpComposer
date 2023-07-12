@@ -158,19 +158,4 @@ internal class ImplementationBuilder
     }
 
     
-    //private void AddReferencedListType(IClassDeclarationBuilder builder, string builderName, Field field, Field referencedNodeField)
-    //{
-    //    builder.WithMethod(
-    //        NameFactory.CreateReferenceAddMethodName(field, referencedNodeField),
-    //        x => x.AsType($"I{builderName}"),
-    //        x => x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-    //            .WithBody(x =>
-    //            {
-    //                x = x.WithReturnStatement(x => x.ParseExpression("this"));
-    //                return x;
-    //            })
-    //        );
-    //}
-
-    
 }

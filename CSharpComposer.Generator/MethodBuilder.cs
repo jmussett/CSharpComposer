@@ -492,28 +492,6 @@ internal class MethodBuilder
                         }
                     }
                 );
-
-                //builder.WithMethod(
-                //    $"With{kind.Name}",
-                //    x => x.AsType($"I{builderName}"),
-                //    x =>
-                //    {
-                //        var kindArgument = kind.Name.Camelize();
-                //        x.WithParameter($"{kindArgument}Callback", x => x.AsType($"Action<I{kind.Name}Builder>"));
-
-                //        if (isImplementation)
-                //        {
-                //            x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-
-                //            x.WithBody(x =>
-                //            {
-                //                x.AddStatement($"var {kindArgument} = {kind.Name}Builder.CreateSyntax({kindArgument}Callback);");
-                //                x.AddStatement($"Syntax = Syntax.With{field.Name}({kindArgument});");
-                //                x.WithReturnStatement(x => x.ParseExpression("this"));
-                //            });
-                //        }
-                //    }
-                //);
             }
         }
 
