@@ -73,7 +73,7 @@ class Program
 
 ## Parsing API
 
-To improve on the verbose nature of writing C# syntax nodes manually, **CSharpComposer** has been extended to support Roslyn's parsing API
+To improve on the verbose nature of writing C# syntax nodes by hand, **CSharpComposer** has been extended to support Roslyn's parsing API
 
 This allows you to parse the following syntax types, with examples of supporting extension methods to improve quality of life:
 
