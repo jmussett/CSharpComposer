@@ -42,6 +42,11 @@ internal static class NodeValidator
         return typeName == "SyntaxToken";
     }
 
+    public static bool IsSyntaxKind([NotNullWhen(true)] string? typeName)
+    {
+        return typeName == "SyntaxKind";
+    }
+
     public static bool IsValidNode([NotNullWhen(true)] string? nodeName)
     {
         return nodeName is not null

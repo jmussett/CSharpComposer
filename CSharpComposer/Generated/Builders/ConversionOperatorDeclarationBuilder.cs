@@ -82,9 +82,9 @@ public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorD
         return this;
     }
 
-    public IConversionOperatorDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IConversionOperatorDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

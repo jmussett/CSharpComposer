@@ -27,9 +27,9 @@ public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressi
         return builder.Syntax;
     }
 
-    public IAnonymousMethodExpressionBuilder AddModifierToken(SyntaxToken modifier)
+    public IAnonymousMethodExpressionBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

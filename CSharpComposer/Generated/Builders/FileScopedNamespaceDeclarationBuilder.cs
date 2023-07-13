@@ -45,9 +45,9 @@ public partial class FileScopedNamespaceDeclarationBuilder : IFileScopedNamespac
         return this;
     }
 
-    public IFileScopedNamespaceDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IFileScopedNamespaceDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

@@ -76,9 +76,9 @@ public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuil
         return this;
     }
 
-    public IConstructorDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IConstructorDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

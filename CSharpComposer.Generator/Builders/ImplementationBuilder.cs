@@ -32,8 +32,8 @@ internal class ImplementationBuilder
 
         builder.AddClassDeclaration(builderName, builder =>
         {
-            builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-            builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
+            builder.AddModifierToken(SyntaxKind.PublicKeyword);
+            builder.AddModifierToken(SyntaxKind.PartialKeyword);
             if (type is AbstractNode || NodeValidator.IsTokenized(type))
             {
                 // TODO: Do we exclude base types when abstract nodes have no derived types?
@@ -41,7 +41,7 @@ internal class ImplementationBuilder
                 builder.AddSimpleBaseType($"I{builderName}");
 
                 builder.AddPropertyDeclaration($"{type.Name}?", "Syntax", x => x
-                    .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                    .AddModifierToken(SyntaxKind.PublicKeyword)
                     .AddAccessorDeclaration(AccessorDeclarationKind.GetAccessorDeclaration, x => x.WithSemicolon())
                     .AddAccessorDeclaration(AccessorDeclarationKind.SetAccessorDeclaration, x => x.WithSemicolon())
                 );
@@ -56,13 +56,13 @@ internal class ImplementationBuilder
 
                     builder.AddPropertyDeclaration(type.Name, "Syntax",
                         x => x
-                        .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                        .AddModifierToken(SyntaxKind.PublicKeyword)
                         .AddAccessorDeclaration(AccessorDeclarationKind.GetAccessorDeclaration, x => x.WithSemicolon())
                         .AddAccessorDeclaration(AccessorDeclarationKind.SetAccessorDeclaration, x => x.WithSemicolon())
                     );
 
                     builder.AddConstructorDeclaration(builderName, x => x
-                        .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                        .AddModifierToken(SyntaxKind.PublicKeyword)
                         .AddParameter("syntax", x => x.WithType(type.Name))
                         .WithBody(x => x
                             .AddExpressionStatement(x =>
@@ -99,8 +99,8 @@ internal class ImplementationBuilder
                 type.Name,
                 "CreateSyntax",
                 x => x
-                    .AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                    .AddModifierToken(SyntaxFactory.Token(SyntaxKind.StaticKeyword))
+                    .AddModifierToken(SyntaxKind.PublicKeyword)
+                    .AddModifierToken(SyntaxKind.StaticKeyword)
                     .AddParameter("callback", x => x.WithType($"Action<I{builderName}>"))
                     .WithBody(x =>
                     {
@@ -124,8 +124,8 @@ internal class ImplementationBuilder
                 "CreateSyntax",
                 methodBuilder =>
                 {
-                    methodBuilder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                        .AddModifierToken(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
+                    methodBuilder.AddModifierToken(SyntaxKind.PublicKeyword)
+                        .AddModifierToken(SyntaxKind.StaticKeyword);
 
                     _parametersBuilder.WithParameters(methodBuilder, node);
 

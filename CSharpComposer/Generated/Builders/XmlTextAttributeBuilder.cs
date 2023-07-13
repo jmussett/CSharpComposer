@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IXmlTextAttributeBuilder
 {
-    IXmlTextAttributeBuilder AddToken(SyntaxToken textToken);
+    IXmlTextAttributeBuilder AddToken(SyntaxKind textToken);
 }
 
 public partial class XmlTextAttributeBuilder : IXmlTextAttributeBuilder
@@ -40,9 +40,9 @@ public partial class XmlTextAttributeBuilder : IXmlTextAttributeBuilder
         return builder.Syntax;
     }
 
-    public IXmlTextAttributeBuilder AddToken(SyntaxToken textToken)
+    public IXmlTextAttributeBuilder AddToken(SyntaxKind textToken)
     {
-        Syntax = Syntax.AddTextTokens(textToken);
+        Syntax = Syntax.AddTextTokens(SyntaxFactory.Token(textToken));
         return this;
     }
 }

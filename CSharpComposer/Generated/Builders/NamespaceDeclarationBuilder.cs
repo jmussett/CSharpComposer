@@ -47,9 +47,9 @@ public partial class NamespaceDeclarationBuilder : INamespaceDeclarationBuilder
         return this;
     }
 
-    public INamespaceDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public INamespaceDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

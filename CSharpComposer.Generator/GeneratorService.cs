@@ -28,7 +28,7 @@ internal class GeneratorService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await _csharpRegistry.FetchRegistrysync();
+        await _csharpRegistry.FetchRegistryAsync();
 
         var workspace = MSBuildWorkspace.Create();
 

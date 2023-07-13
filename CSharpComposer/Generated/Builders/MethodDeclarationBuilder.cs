@@ -77,9 +77,9 @@ public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
         return this;
     }
 
-    public IMethodDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IMethodDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

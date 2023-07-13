@@ -74,9 +74,9 @@ public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambda
         return this;
     }
 
-    public IParenthesizedLambdaExpressionBuilder AddModifierToken(SyntaxToken modifier)
+    public IParenthesizedLambdaExpressionBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

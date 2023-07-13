@@ -75,9 +75,9 @@ public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilde
         return this;
     }
 
-    public IDestructorDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IDestructorDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

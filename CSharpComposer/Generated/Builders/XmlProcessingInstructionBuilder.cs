@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IXmlProcessingInstructionBuilder
 {
-    IXmlProcessingInstructionBuilder AddToken(SyntaxToken textToken);
+    IXmlProcessingInstructionBuilder AddToken(SyntaxKind textToken);
 }
 
 public partial class XmlProcessingInstructionBuilder : IXmlProcessingInstructionBuilder
@@ -29,9 +29,9 @@ public partial class XmlProcessingInstructionBuilder : IXmlProcessingInstruction
         return builder.Syntax;
     }
 
-    public IXmlProcessingInstructionBuilder AddToken(SyntaxToken textToken)
+    public IXmlProcessingInstructionBuilder AddToken(SyntaxKind textToken)
     {
-        Syntax = Syntax.AddTextTokens(textToken);
+        Syntax = Syntax.AddTextTokens(SyntaxFactory.Token(textToken));
         return this;
     }
 }

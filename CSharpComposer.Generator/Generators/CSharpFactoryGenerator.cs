@@ -29,9 +29,9 @@ internal class CSharpFactoryGenerator
             {
                 ns.AddClassDeclaration("CSharpFactory", x =>
                 {
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
+                    x.AddModifierToken(SyntaxKind.StaticKeyword);
+                    x.AddModifierToken(SyntaxKind.PartialKeyword);
 
                     foreach (var type in _csharpRegistry.Tree.Types)
                     {
@@ -46,8 +46,8 @@ internal class CSharpFactoryGenerator
 
                         x.AddMethodDeclaration(type.Name, typeName, x =>
                         {
-                            x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                                .AddModifierToken(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
+                            x.AddModifierToken(SyntaxKind.PublicKeyword)
+                                .AddModifierToken(SyntaxKind.StaticKeyword);
 
                             if (type is AbstractNode || NodeValidator.IsTokenized(type))
                             {

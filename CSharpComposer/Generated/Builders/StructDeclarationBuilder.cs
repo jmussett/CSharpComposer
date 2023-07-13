@@ -46,9 +46,9 @@ public partial class StructDeclarationBuilder : IStructDeclarationBuilder
         return this;
     }
 
-    public IStructDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IStructDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

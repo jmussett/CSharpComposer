@@ -51,9 +51,9 @@ public partial class ParameterBuilder : IParameterBuilder
         return this;
     }
 
-    public IParameterBuilder AddModifierToken(SyntaxToken modifier)
+    public IParameterBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

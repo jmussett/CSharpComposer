@@ -78,7 +78,9 @@ internal class ParametersBuilder
                 // If we are a regular node and do not have an interface, use parameters from the node's CreateSyntax method.
                 if (referenceType is Node referenceTypeNode && NodeValidator.HasMandatoryChildren(referenceTypeNode))
                 {
-                    var newPrefix = prefix is null ? field.Name.Camelize() : $"{field.Name.Camelize()}{prefix.Pascalize()}";
+                    var newPrefix = prefix is null 
+                        ? field.Name.Camelize() 
+                        : $"{field.Name.Camelize()}{prefix.Pascalize()}";
 
                     optionalTypeBuilder = false;
 
@@ -112,8 +114,8 @@ internal class ParametersBuilder
             var builderName = NameFactory.CreateBuilderName(node.Name);
             var callbackType = $"Action<I{builderName}>" + (optionalTypeBuilder ? "?" : "");
 
-            var callbackName = prefix is null ?
-                $"{typeName.Camelize()}Callback"
+            var callbackName = prefix is null 
+                ? $"{typeName.Camelize()}Callback"
                 : $"{prefix}{typeName}Callback";
 
             builder.AddParameter(callbackName, x =>

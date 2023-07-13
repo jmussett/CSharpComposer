@@ -87,9 +87,9 @@ public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
         return this;
     }
 
-    public IPropertyDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IPropertyDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

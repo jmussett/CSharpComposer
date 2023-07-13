@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IXmlCommentBuilder
 {
-    IXmlCommentBuilder AddToken(SyntaxToken textToken);
+    IXmlCommentBuilder AddToken(SyntaxKind textToken);
 }
 
 public partial class XmlCommentBuilder : IXmlCommentBuilder
@@ -28,9 +28,9 @@ public partial class XmlCommentBuilder : IXmlCommentBuilder
         return builder.Syntax;
     }
 
-    public IXmlCommentBuilder AddToken(SyntaxToken textToken)
+    public IXmlCommentBuilder AddToken(SyntaxKind textToken)
     {
-        Syntax = Syntax.AddTextTokens(textToken);
+        Syntax = Syntax.AddTextTokens(SyntaxFactory.Token(textToken));
         return this;
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IImplicitArrayCreationExpressionBuilder
 {
-    IImplicitArrayCreationExpressionBuilder AddCommaToken(SyntaxToken comma);
+    IImplicitArrayCreationExpressionBuilder AddCommaToken(SyntaxKind comma);
 }
 
 public partial class ImplicitArrayCreationExpressionBuilder : IImplicitArrayCreationExpressionBuilder
@@ -30,9 +30,9 @@ public partial class ImplicitArrayCreationExpressionBuilder : IImplicitArrayCrea
         return builder.Syntax;
     }
 
-    public IImplicitArrayCreationExpressionBuilder AddCommaToken(SyntaxToken comma)
+    public IImplicitArrayCreationExpressionBuilder AddCommaToken(SyntaxKind comma)
     {
-        Syntax = Syntax.AddCommas(comma);
+        Syntax = Syntax.AddCommas(SyntaxFactory.Token(comma));
         return this;
     }
 }

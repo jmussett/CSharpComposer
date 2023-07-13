@@ -12,7 +12,7 @@ public partial interface IBaseParameterBuilder
 
 public partial interface IBaseParameterBuilder<TBuilder> : IAddAttribute<TBuilder>
 {
-    TBuilder AddModifierToken(SyntaxToken modifier);
+    TBuilder AddModifierToken(SyntaxKind modifier);
 }
 
 public partial class BaseParameterBuilder : IBaseParameterBuilder

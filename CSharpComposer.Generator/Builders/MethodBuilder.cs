@@ -107,7 +107,7 @@ internal class MethodBuilder
 
                 if (isImplementation)
                 {
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                     x.WithBody(x =>
                     {
@@ -142,7 +142,7 @@ internal class MethodBuilder
 
                 if (isImplementation)
                 {
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                     x.WithBody(x =>
                     {
@@ -254,19 +254,6 @@ internal class MethodBuilder
             else
             {
                 WithFieldMethods(builder, isImplementation, returnType, field, fields.Count(x => x.Type == field.Type) == 1);
-
-                //var referenceTypeNode = tree.Types.FirstOrDefault(x => x.Name == field.Type);
-
-                //if (referenceTypeNode is not null)
-                //{
-                //    foreach (var referencedNodeField in referenceTypeNode.Children.OfType<Field>())
-                //    {
-                //        if (NodeValidator.IsAnyNodeList(referencedNodeField.Type))
-                //        {
-                //            builder = AddReferencedListType(builder, builderName, field, referencedNodeField);
-                //        }
-                //    }
-                //}
             }
         }
     }
@@ -353,7 +340,7 @@ internal class MethodBuilder
 
                     if (isImplementation)
                     {
-                        x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                        x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                         x.WithBody(x =>
                         {
@@ -432,6 +419,10 @@ internal class MethodBuilder
                         listTypeName = NameFactory.ExtractSyntaxTypeFromListType(listTypeField.Type);
                     }
                 }
+                else if (NodeValidator.IsSyntaxToken(listTypeName))
+                {
+                    listTypeName = "SyntaxKind";
+                }
 
                 if (listTypeField is null || listTypeName is null)
                 {
@@ -444,7 +435,7 @@ internal class MethodBuilder
 
                 if (isImplementation)
                 {
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                     x.WithBody(x =>
                     {
@@ -464,7 +455,14 @@ internal class MethodBuilder
                             x.AddStatement($"var {syntaxVariableName} = SyntaxFactory.{parentListTypeName}({grandParentListType.Camelize()});");
                         }
 
-                        x.AddStatement($"Syntax = Syntax.{addListTypeMethodName}({NameFactory.CreateSafeIdentifier(syntaxVariableName)});");
+                        if (NodeValidator.IsSyntaxKind(listTypeName))
+                        {
+                            x.AddStatement($"Syntax = Syntax.{addListTypeMethodName}(SyntaxFactory.Token({NameFactory.CreateSafeIdentifier(syntaxVariableName)}));");
+                        }
+                        else
+                        {
+                            x.AddStatement($"Syntax = Syntax.{addListTypeMethodName}({NameFactory.CreateSafeIdentifier(syntaxVariableName)});");
+                        }
 
                         x.AddStatement("return this;");
                     });
@@ -494,7 +492,7 @@ internal class MethodBuilder
 
                         if (isImplementation)
                         {
-                            x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                            x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                             x.WithBody(x =>
                             {
@@ -535,7 +533,7 @@ internal class MethodBuilder
 
                 if (isImplementation)
                 {
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                     x.WithBody(x =>
                     {
@@ -571,7 +569,7 @@ internal class MethodBuilder
 
                 if (isImplementation)
                 {
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                     x.WithBody(x =>
                     {
@@ -615,7 +613,7 @@ internal class MethodBuilder
 
                 if (isImplementation)
                 {
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                     x.WithBody(x =>
                     {

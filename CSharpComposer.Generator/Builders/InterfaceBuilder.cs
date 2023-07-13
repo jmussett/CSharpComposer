@@ -35,8 +35,8 @@ internal class InterfaceBuilder
         {
             builder.AddInterfaceDeclaration(interfaceName, builder =>
             {
-                builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-                builder.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
+                builder.AddModifierToken(SyntaxKind.PublicKeyword);
+                builder.AddModifierToken(SyntaxKind.PartialKeyword);
 
                 _methodBuilder.WithCastMethods(builder, false, type);
             });
@@ -47,8 +47,8 @@ internal class InterfaceBuilder
             builder
                 .AddInterfaceDeclaration(interfaceName, x =>
                 {
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
+                    x.AddModifierToken(SyntaxKind.PartialKeyword);
 
                     var returnType = interfaceName;
 
@@ -83,7 +83,7 @@ internal class InterfaceBuilder
             builder
                 .AddInterfaceDeclaration($"IWith{typeName}", x =>
                 {
-                    x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
                     x.AddTypeParameter("TBuilder");
 
                     x.AddMethodDeclaration("TBuilder", $"With{typeName}", x => x
@@ -116,7 +116,7 @@ internal class InterfaceBuilder
             builder
                .AddInterfaceDeclaration($"IAdd{typeName}", x =>
                {
-                   x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                   x.AddModifierToken(SyntaxKind.PublicKeyword);
                    x.AddTypeParameter("TBuilder");
 
                    x.AddMethodDeclaration("TBuilder", $"Add{typeName}", x => x

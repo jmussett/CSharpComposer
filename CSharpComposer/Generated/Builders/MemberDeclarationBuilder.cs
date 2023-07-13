@@ -31,7 +31,7 @@ public partial interface IMemberDeclarationBuilder
 
 public partial interface IMemberDeclarationBuilder<TBuilder> : IAddAttribute<TBuilder>
 {
-    TBuilder AddModifierToken(SyntaxToken modifier);
+    TBuilder AddModifierToken(SyntaxKind modifier);
 }
 
 public partial class MemberDeclarationBuilder : IMemberDeclarationBuilder

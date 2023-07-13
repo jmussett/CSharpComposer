@@ -42,9 +42,9 @@ public partial class IncompleteMemberBuilder : IIncompleteMemberBuilder
         return this;
     }
 
-    public IIncompleteMemberBuilder AddModifierToken(SyntaxToken modifier)
+    public IIncompleteMemberBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

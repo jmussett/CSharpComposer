@@ -53,9 +53,9 @@ public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
         return this;
     }
 
-    public IRecordDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IRecordDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

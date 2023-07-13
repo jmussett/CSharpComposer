@@ -104,9 +104,9 @@ public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
         return this;
     }
 
-    public IOperatorDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IOperatorDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

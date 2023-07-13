@@ -49,9 +49,9 @@ public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
         return this;
     }
 
-    public IDelegateDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IDelegateDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

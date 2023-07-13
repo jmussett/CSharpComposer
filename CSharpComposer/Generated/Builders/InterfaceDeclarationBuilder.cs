@@ -46,9 +46,9 @@ public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
         return this;
     }
 
-    public IInterfaceDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IInterfaceDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

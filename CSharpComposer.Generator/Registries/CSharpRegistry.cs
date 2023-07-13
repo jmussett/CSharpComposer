@@ -9,7 +9,7 @@ internal class CSharpRegistry
 
     public Tree Tree => _tree ?? throw new InvalidOperationException("Registry has not been initialized.");
 
-    public async Task FetchRegistrysync()
+    public async Task FetchRegistryAsync()
     {
         var registryUrl = "https://raw.githubusercontent.com/dotnet/roslyn/Visual-Studio-2022-Version-17.5/src/Compilers/CSharp/Portable/Syntax/Syntax.xml";
         using var httpClient = new HttpClient();

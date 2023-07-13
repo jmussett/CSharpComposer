@@ -72,9 +72,9 @@ public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuil
         return this;
     }
 
-    public ISimpleLambdaExpressionBuilder AddModifierToken(SyntaxToken modifier)
+    public ISimpleLambdaExpressionBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 }

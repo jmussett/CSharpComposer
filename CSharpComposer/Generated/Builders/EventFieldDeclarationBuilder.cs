@@ -45,9 +45,9 @@ public partial class EventFieldDeclarationBuilder : IEventFieldDeclarationBuilde
         return this;
     }
 
-    public IEventFieldDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IEventFieldDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 }

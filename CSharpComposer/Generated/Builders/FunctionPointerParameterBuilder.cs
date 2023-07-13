@@ -43,9 +43,9 @@ public partial class FunctionPointerParameterBuilder : IFunctionPointerParameter
         return this;
     }
 
-    public IFunctionPointerParameterBuilder AddModifierToken(SyntaxToken modifier)
+    public IFunctionPointerParameterBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 }

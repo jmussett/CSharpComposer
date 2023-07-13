@@ -43,9 +43,9 @@ public partial class GlobalStatementBuilder : IGlobalStatementBuilder
         return this;
     }
 
-    public IGlobalStatementBuilder AddModifierToken(SyntaxToken modifier)
+    public IGlobalStatementBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 }

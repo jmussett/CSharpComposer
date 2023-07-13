@@ -73,9 +73,9 @@ public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
         return this;
     }
 
-    public IIndexerDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IIndexerDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

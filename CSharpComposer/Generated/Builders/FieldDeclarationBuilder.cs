@@ -44,9 +44,9 @@ public partial class FieldDeclarationBuilder : IFieldDeclarationBuilder
         return this;
     }
 
-    public IFieldDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IFieldDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 }

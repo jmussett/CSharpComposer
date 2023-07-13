@@ -22,7 +22,7 @@ internal class EnumGenerator
                .AddFileScopedNamespaceDeclaration("CSharpComposer", ns =>
                    ns.AddEnumDeclaration(kvp.Key, x =>
                    {
-                       x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                       x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                        foreach (var kind in kvp.Value.Kinds.Where(x => x.Name != "IdentifierToken").Select(x => x.Name).Distinct())
                        {
@@ -41,7 +41,7 @@ internal class EnumGenerator
                .AddFileScopedNamespaceDeclaration("CSharpComposer", ns =>
                    ns.AddEnumDeclaration(kvp.Key, x =>
                    {
-                       x.AddModifierToken(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                       x.AddModifierToken(SyntaxKind.PublicKeyword);
 
                        foreach (var kind in kvp.Value.Kinds.Select(x => x.Name).Distinct())
                        {

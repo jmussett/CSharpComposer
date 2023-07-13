@@ -45,9 +45,9 @@ public partial class EnumMemberDeclarationBuilder : IEnumMemberDeclarationBuilde
         return this;
     }
 
-    public IEnumMemberDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IEnumMemberDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

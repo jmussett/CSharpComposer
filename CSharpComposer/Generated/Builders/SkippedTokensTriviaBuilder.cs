@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ISkippedTokensTriviaBuilder
 {
-    ISkippedTokensTriviaBuilder AddToken(SyntaxToken token);
+    ISkippedTokensTriviaBuilder AddToken(SyntaxKind token);
 }
 
 public partial class SkippedTokensTriviaBuilder : ISkippedTokensTriviaBuilder
@@ -26,9 +26,9 @@ public partial class SkippedTokensTriviaBuilder : ISkippedTokensTriviaBuilder
         return builder.Syntax;
     }
 
-    public ISkippedTokensTriviaBuilder AddToken(SyntaxToken token)
+    public ISkippedTokensTriviaBuilder AddToken(SyntaxKind token)
     {
-        Syntax = Syntax.AddTokens(token);
+        Syntax = Syntax.AddTokens(SyntaxFactory.Token(token));
         return this;
     }
 }

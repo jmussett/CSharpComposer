@@ -10,7 +10,7 @@ public partial interface ILocalFunctionStatementBuilder : IStatementBuilder<ILoc
     ILocalFunctionStatementBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
     ILocalFunctionStatementBuilder WithBody(Action<IBlockBuilder>? blockCallback = null);
     ILocalFunctionStatementBuilder WithBody(BlockSyntax body);
-    ILocalFunctionStatementBuilder AddModifierToken(SyntaxToken modifier);
+    ILocalFunctionStatementBuilder AddModifierToken(SyntaxKind modifier);
     ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(string nameIdentifier, Action<ITypeParameterConstraintClauseBuilder> typeParameterConstraintClauseCallback);
     ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
@@ -78,9 +78,9 @@ public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuil
         return this;
     }
 
-    public ILocalFunctionStatementBuilder AddModifierToken(SyntaxToken modifier)
+    public ILocalFunctionStatementBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 

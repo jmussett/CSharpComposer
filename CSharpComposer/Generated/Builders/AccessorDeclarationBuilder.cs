@@ -10,7 +10,7 @@ public partial interface IAccessorDeclarationBuilder : IAddAttribute<IAccessorDe
     IAccessorDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
     IAccessorDeclarationBuilder WithBody(Action<IBlockBuilder>? blockCallback = null);
     IAccessorDeclarationBuilder WithBody(BlockSyntax body);
-    IAccessorDeclarationBuilder AddModifierToken(SyntaxToken modifier);
+    IAccessorDeclarationBuilder AddModifierToken(SyntaxKind modifier);
 }
 
 public interface IAddAccessorDeclaration<TBuilder>
@@ -99,9 +99,9 @@ public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
         return this;
     }
 
-    public IAccessorDeclarationBuilder AddModifierToken(SyntaxToken modifier)
+    public IAccessorDeclarationBuilder AddModifierToken(SyntaxKind modifier)
     {
-        Syntax = Syntax.AddModifiers(modifier);
+        Syntax = Syntax.AddModifiers(SyntaxFactory.Token(modifier));
         return this;
     }
 }
