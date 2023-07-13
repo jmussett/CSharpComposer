@@ -4,6 +4,12 @@ A fluent C# code generation library, constructed to ease and facilitate the task
 
 Automatically generated from the [Syntax Rules](https://github.com/dotnet/roslyn/blob/main/src/Compilers/CSharp/Portable/Syntax/Syntax.xml) defined by the Roslyn Compiler.
 
+## Installation
+
+Feel free to checkout the solution and use it directly.
+
+I plan to release a nuget package once minor issues have been resolved.
+
 ## Usage
 
 The entry point to CSharpComposer is the **CSharpFactory** class, which can be used for constructing any kind of syntax node. 
