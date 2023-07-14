@@ -14,7 +14,7 @@ Or via the .NET Core command line interface:
 
     dotnet add package CSharpComposer
 
-Either commands, from Package Manager Console or .NET Core CLI, will download and install MediatR and all required dependencies.
+Either commands, from Package Manager Console or .NET Core CLI, will download and install CSharpComposer and all required dependencies.
 
 ## Usage
 
