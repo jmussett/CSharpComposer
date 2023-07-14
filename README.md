@@ -1,4 +1,4 @@
-# CSharpComposer
+# CSharpComposer • [![NuGet](https://img.shields.io/nuget/vpre/csharpcomposer.svg)](https://www.nuget.org/packages/csharpcomposer)
 
 A fluent C# code generation library, constructed to ease and facilitate the task of creating C# code programmatically using Roslyn. Used for design-time code generation, source generators, and code fixes for static analyzers.
 
@@ -6,9 +6,15 @@ Automatically generated from the [Syntax Rules](https://github.com/dotnet/roslyn
 
 ## Installation
 
-Feel free to checkout the solution and use it directly.
+You should install CSharpComposer with [NuGet](https://www.nuget.org/packages/CSharpComposer/):
 
-I plan to release a nuget package once minor issues have been resolved.
+    Install-Package CSharpComposer
+
+Or via the .NET Core command line interface:
+
+    dotnet add package CSharpComposer
+
+Either commands, from Package Manager Console or .NET Core CLI, will download and install MediatR and all required dependencies.
 
 ## Usage
 
