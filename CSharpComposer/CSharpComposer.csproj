@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <Authors>James Mussett</Authors>
     <Description>A fluent C# code generation library</Description>
-    <PackageReadmeFile>../README.md</PackageReadmeFile>
-    <PackageLicenseFile>../LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>.README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
