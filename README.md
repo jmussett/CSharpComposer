@@ -26,7 +26,7 @@ For demonstration, here's an example of creating a Hello World application:
 using CSharpComposer;
 
 var compilationUnit = CSharpFactory.CompilationUnit(cu => cu
-    .AddUsingDirective(t => t.AsIdentifierName("MyNamespace"))
+    .AddUsingDirective(t => t.AsIdentifierName("System"))
     .AddFileScopedNamespaceDeclaration(
         t => t.AsIdentifierName("MyNamespace"), 
         ns => ns
