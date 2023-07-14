@@ -16,14 +16,16 @@ internal class GeneratorService : BackgroundService
     private readonly CSharpFactoryGenerator _factoryGenerator;
     private readonly EnumGenerator _enumGenerator;
     private readonly CSharpRegistry _csharpRegistry;
+    private readonly IHostApplicationLifetime _lifetime;
 
-    public GeneratorService(DocumentRegistry documentRegistry, BuilderGenerator builderGenerator, CSharpFactoryGenerator factoryGenerator, EnumGenerator enumGenerator, CSharpRegistry csharpRegistry)
+    public GeneratorService(DocumentRegistry documentRegistry, BuilderGenerator builderGenerator, CSharpFactoryGenerator factoryGenerator, EnumGenerator enumGenerator, CSharpRegistry csharpRegistry, IHostApplicationLifetime lifetime)
     {
         _documentRegistry = documentRegistry;
         _builderGenerator = builderGenerator;
         _factoryGenerator = factoryGenerator;
         _enumGenerator = enumGenerator;
         _csharpRegistry = csharpRegistry;
+        _lifetime = lifetime;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -66,6 +68,8 @@ internal class GeneratorService : BackgroundService
         workspace.TryApplyChanges(project.Solution);
 
         Console.WriteLine("Generation complete.");
+
+        _lifetime.StopApplication();
     }
 
     public async Task<Project> RemoveUnusedInterfaces(Project project)

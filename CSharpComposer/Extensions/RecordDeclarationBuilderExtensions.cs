@@ -1,4 +1,6 @@
-﻿namespace CSharpComposer;
+﻿using System;
+
+namespace CSharpComposer;
 
 public static class RecordDeclarationBuilderExtensions
 {

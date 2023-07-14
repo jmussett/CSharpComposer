@@ -24,6 +24,7 @@ internal class CSharpFactoryGenerator
     public void GenerateCSharpFactory()
     {
         var compilationUnit = CSharpFactory.CompilationUnit(x => x
+            .AddUsingDirective("System")
             .AddUsingDirective("Microsoft.CodeAnalysis.CSharp.Syntax")
             .AddFileScopedNamespaceDeclaration("CSharpComposer", ns =>
             {
