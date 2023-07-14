@@ -10,7 +10,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/jmussett/CSharpComposer.git</RepositoryUrl>
-    <ProjectUrl>https://github.com/jmussett/CSharpComposer</ProjectUrl>
+    <PackageProjectUrl>https://github.com/jmussett/CSharpComposer</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
