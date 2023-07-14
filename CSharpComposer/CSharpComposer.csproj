@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.0;net6.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <Authors>James Mussett</Authors>
     <Description>A fluent C# code generation library</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>roslyn;syntax;csharp;syntaxtree;fluentapi;compiler;codegeneration</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/jmussett/CSharpComposer.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/jmussett/CSharpComposer</PackageProjectUrl>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
   <ItemGroup>
