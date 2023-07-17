@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSharpComposer;
 
-public static class AddBaseTypeExtensionse
+public static class AddBaseTypeExtensions
 {
     public static TBuilder AddSimpleBaseType<TBuilder>(this TBuilder builder, Action<ITypeBuilder> typeCallback)
         where TBuilder : IAddBaseType<TBuilder>
