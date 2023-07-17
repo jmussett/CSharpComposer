@@ -8,7 +8,7 @@ public partial interface IBreakStatementBuilder : IStatementBuilder<IBreakStatem
 {
 }
 
-public partial class BreakStatementBuilder : IBreakStatementBuilder
+internal partial class BreakStatementBuilder : IBreakStatementBuilder
 {
     public BreakStatementSyntax Syntax { get; set; }
 

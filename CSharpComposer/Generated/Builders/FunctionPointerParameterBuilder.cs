@@ -8,7 +8,7 @@ public partial interface IFunctionPointerParameterBuilder : IBaseParameterBuilde
 {
 }
 
-public partial class FunctionPointerParameterBuilder : IFunctionPointerParameterBuilder
+internal partial class FunctionPointerParameterBuilder : IFunctionPointerParameterBuilder
 {
     public FunctionPointerParameterSyntax Syntax { get; set; }
 

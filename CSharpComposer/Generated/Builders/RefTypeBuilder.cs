@@ -9,7 +9,7 @@ public partial interface IRefTypeBuilder
     IRefTypeBuilder WithReadOnlyKeyword();
 }
 
-public partial class RefTypeBuilder : IRefTypeBuilder
+internal partial class RefTypeBuilder : IRefTypeBuilder
 {
     public RefTypeSyntax Syntax { get; set; }
 

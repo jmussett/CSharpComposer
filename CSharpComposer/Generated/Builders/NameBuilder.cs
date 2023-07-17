@@ -12,7 +12,7 @@ public partial interface INameBuilder
     void AsAliasQualifiedName(string aliasIdentifier, Action<ISimpleNameBuilder> nameCallback);
 }
 
-public partial class NameBuilder : INameBuilder
+internal partial class NameBuilder : INameBuilder
 {
     public NameSyntax? Syntax { get; set; }
 

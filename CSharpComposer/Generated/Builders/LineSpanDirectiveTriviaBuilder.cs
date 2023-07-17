@@ -9,7 +9,7 @@ public partial interface ILineSpanDirectiveTriviaBuilder : ILineOrSpanDirectiveT
     ILineSpanDirectiveTriviaBuilder WithCharacterOffset();
 }
 
-public partial class LineSpanDirectiveTriviaBuilder : ILineSpanDirectiveTriviaBuilder
+internal partial class LineSpanDirectiveTriviaBuilder : ILineSpanDirectiveTriviaBuilder
 {
     public LineSpanDirectiveTriviaSyntax Syntax { get; set; }
 

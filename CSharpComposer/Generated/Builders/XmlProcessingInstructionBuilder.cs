@@ -9,7 +9,7 @@ public partial interface IXmlProcessingInstructionBuilder
     IXmlProcessingInstructionBuilder AddToken(SyntaxKind textToken);
 }
 
-public partial class XmlProcessingInstructionBuilder : IXmlProcessingInstructionBuilder
+internal partial class XmlProcessingInstructionBuilder : IXmlProcessingInstructionBuilder
 {
     public XmlProcessingInstructionSyntax Syntax { get; set; }
 

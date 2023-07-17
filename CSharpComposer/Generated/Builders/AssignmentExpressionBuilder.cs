@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class AssignmentExpressionBuilder
+internal partial class AssignmentExpressionBuilder
 {
     public static AssignmentExpressionSyntax CreateSyntax(AssignmentExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback)
     {

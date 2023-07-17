@@ -10,7 +10,7 @@ public partial interface IInterpolatedStringContentBuilder
     void AsInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder>? interpolationCallback = null);
 }
 
-public partial class InterpolatedStringContentBuilder : IInterpolatedStringContentBuilder
+internal partial class InterpolatedStringContentBuilder : IInterpolatedStringContentBuilder
 {
     public InterpolatedStringContentSyntax? Syntax { get; set; }
 

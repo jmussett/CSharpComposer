@@ -9,7 +9,7 @@ public partial interface IGotoStatementBuilder : IStatementBuilder<IGotoStatemen
     IGotoStatementBuilder WithCaseOrDefaultKeyword(CaseOrDefaultKeyword caseOrDefaultKeyword);
 }
 
-public partial class GotoStatementBuilder : IGotoStatementBuilder
+internal partial class GotoStatementBuilder : IGotoStatementBuilder
 {
     public GotoStatementSyntax Syntax { get; set; }
 

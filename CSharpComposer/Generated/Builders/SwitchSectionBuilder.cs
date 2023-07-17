@@ -10,7 +10,7 @@ public partial interface ISwitchSectionBuilder : IAddStatement<ISwitchSectionBui
     ISwitchSectionBuilder AddSwitchLabel(SwitchLabelSyntax label);
 }
 
-public partial class SwitchSectionBuilder : ISwitchSectionBuilder
+internal partial class SwitchSectionBuilder : ISwitchSectionBuilder
 {
     public SwitchSectionSyntax Syntax { get; set; }
 

@@ -33,7 +33,7 @@ public interface IAddType<TBuilder>
     TBuilder AddType(Action<ITypeBuilder> typeCallback);
 }
 
-public partial class TypeBuilder : ITypeBuilder
+internal partial class TypeBuilder : ITypeBuilder
 {
     public TypeSyntax? Syntax { get; set; }
 

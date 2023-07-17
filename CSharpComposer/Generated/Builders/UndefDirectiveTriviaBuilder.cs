@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class UndefDirectiveTriviaBuilder
+internal partial class UndefDirectiveTriviaBuilder
 {
     public static UndefDirectiveTriviaSyntax CreateSyntax(string name, bool isActive)
     {

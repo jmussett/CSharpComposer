@@ -8,7 +8,7 @@ public partial interface IElementBindingExpressionBuilder : IAddArgument<IElemen
 {
 }
 
-public partial class ElementBindingExpressionBuilder : IElementBindingExpressionBuilder
+internal partial class ElementBindingExpressionBuilder : IElementBindingExpressionBuilder
 {
     public ElementBindingExpressionSyntax Syntax { get; set; }
 

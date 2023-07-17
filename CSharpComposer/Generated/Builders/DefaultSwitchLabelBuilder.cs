@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class DefaultSwitchLabelBuilder
+internal partial class DefaultSwitchLabelBuilder
 {
     public static DefaultSwitchLabelSyntax CreateSyntax()
     {

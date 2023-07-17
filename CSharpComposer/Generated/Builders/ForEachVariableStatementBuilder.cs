@@ -8,7 +8,7 @@ public partial interface IForEachVariableStatementBuilder : ICommonForEachStatem
 {
 }
 
-public partial class ForEachVariableStatementBuilder : IForEachVariableStatementBuilder
+internal partial class ForEachVariableStatementBuilder : IForEachVariableStatementBuilder
 {
     public ForEachVariableStatementSyntax Syntax { get; set; }
 

@@ -10,7 +10,7 @@ public partial interface IInterpolatedStringExpressionBuilder
     IInterpolatedStringExpressionBuilder AddInterpolatedStringContent(InterpolatedStringContentSyntax content);
 }
 
-public partial class InterpolatedStringExpressionBuilder : IInterpolatedStringExpressionBuilder
+internal partial class InterpolatedStringExpressionBuilder : IInterpolatedStringExpressionBuilder
 {
     public InterpolatedStringExpressionSyntax Syntax { get; set; }
 

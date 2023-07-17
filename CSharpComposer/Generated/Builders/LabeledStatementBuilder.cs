@@ -8,7 +8,7 @@ public partial interface ILabeledStatementBuilder : IStatementBuilder<ILabeledSt
 {
 }
 
-public partial class LabeledStatementBuilder : ILabeledStatementBuilder
+internal partial class LabeledStatementBuilder : ILabeledStatementBuilder
 {
     public LabeledStatementSyntax Syntax { get; set; }
 

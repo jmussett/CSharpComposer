@@ -10,7 +10,7 @@ public partial interface IArrayTypeBuilder
     IArrayTypeBuilder AddArrayRankSpecifier(ArrayRankSpecifierSyntax rankSpecifier);
 }
 
-public partial class ArrayTypeBuilder : IArrayTypeBuilder
+internal partial class ArrayTypeBuilder : IArrayTypeBuilder
 {
     public ArrayTypeSyntax Syntax { get; set; }
 

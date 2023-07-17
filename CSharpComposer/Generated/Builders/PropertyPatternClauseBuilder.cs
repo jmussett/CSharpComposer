@@ -14,7 +14,7 @@ public interface IWithPropertyPatternClause<TBuilder>
     TBuilder WithPropertyPatternClause(Action<IPropertyPatternClauseBuilder>? propertyPatternClauseCallback = null);
 }
 
-public partial class PropertyPatternClauseBuilder : IPropertyPatternClauseBuilder
+internal partial class PropertyPatternClauseBuilder : IPropertyPatternClauseBuilder
 {
     public PropertyPatternClauseSyntax Syntax { get; set; }
 

@@ -8,7 +8,7 @@ public partial interface IReturnStatementBuilder : IStatementBuilder<IReturnStat
 {
 }
 
-public partial class ReturnStatementBuilder : IReturnStatementBuilder
+internal partial class ReturnStatementBuilder : IReturnStatementBuilder
 {
     public ReturnStatementSyntax Syntax { get; set; }
 

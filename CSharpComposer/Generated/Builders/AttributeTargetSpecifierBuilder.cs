@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class AttributeTargetSpecifierBuilder
+internal partial class AttributeTargetSpecifierBuilder
 {
     public static AttributeTargetSpecifierSyntax CreateSyntax(string identifier)
     {

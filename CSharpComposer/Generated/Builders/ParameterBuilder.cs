@@ -16,7 +16,7 @@ public interface IAddParameter<TBuilder>
     TBuilder AddParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null);
 }
 
-public partial class ParameterBuilder : IParameterBuilder
+internal partial class ParameterBuilder : IParameterBuilder
 {
     public ParameterSyntax Syntax { get; set; }
 

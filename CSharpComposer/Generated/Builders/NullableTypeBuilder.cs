@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class NullableTypeBuilder
+internal partial class NullableTypeBuilder
 {
     public static NullableTypeSyntax CreateSyntax(Action<ITypeBuilder> elementTypeCallback)
     {

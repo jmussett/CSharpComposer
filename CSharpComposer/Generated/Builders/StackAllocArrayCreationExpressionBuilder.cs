@@ -10,7 +10,7 @@ public partial interface IStackAllocArrayCreationExpressionBuilder
     IStackAllocArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
-public partial class StackAllocArrayCreationExpressionBuilder : IStackAllocArrayCreationExpressionBuilder
+internal partial class StackAllocArrayCreationExpressionBuilder : IStackAllocArrayCreationExpressionBuilder
 {
     public StackAllocArrayCreationExpressionSyntax Syntax { get; set; }
 

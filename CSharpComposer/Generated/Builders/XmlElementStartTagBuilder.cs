@@ -10,7 +10,7 @@ public partial interface IXmlElementStartTagBuilder
     IXmlElementStartTagBuilder AddXmlAttribute(XmlAttributeSyntax attribute);
 }
 
-public partial class XmlElementStartTagBuilder : IXmlElementStartTagBuilder
+internal partial class XmlElementStartTagBuilder : IXmlElementStartTagBuilder
 {
     public XmlElementStartTagSyntax Syntax { get; set; }
 

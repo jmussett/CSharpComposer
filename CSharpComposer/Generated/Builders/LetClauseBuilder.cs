@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class LetClauseBuilder
+internal partial class LetClauseBuilder
 {
     public static LetClauseSyntax CreateSyntax(string identifier, Action<IExpressionBuilder> expressionCallback)
     {

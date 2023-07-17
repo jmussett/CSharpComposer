@@ -10,7 +10,7 @@ public partial interface IEnumMemberDeclarationBuilder : IMemberDeclarationBuild
     IEnumMemberDeclarationBuilder WithEqualsValue(EqualsValueClauseSyntax equalsValue);
 }
 
-public partial class EnumMemberDeclarationBuilder : IEnumMemberDeclarationBuilder
+internal partial class EnumMemberDeclarationBuilder : IEnumMemberDeclarationBuilder
 {
     public EnumMemberDeclarationSyntax Syntax { get; set; }
 

@@ -8,7 +8,7 @@ public partial interface IAnonymousObjectMemberDeclaratorBuilder : IWithNameEqua
 {
 }
 
-public partial class AnonymousObjectMemberDeclaratorBuilder : IAnonymousObjectMemberDeclaratorBuilder
+internal partial class AnonymousObjectMemberDeclaratorBuilder : IAnonymousObjectMemberDeclaratorBuilder
 {
     public AnonymousObjectMemberDeclaratorSyntax Syntax { get; set; }
 

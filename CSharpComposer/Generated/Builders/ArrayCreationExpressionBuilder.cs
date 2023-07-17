@@ -10,7 +10,7 @@ public partial interface IArrayCreationExpressionBuilder
     IArrayCreationExpressionBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
-public partial class ArrayCreationExpressionBuilder : IArrayCreationExpressionBuilder
+internal partial class ArrayCreationExpressionBuilder : IArrayCreationExpressionBuilder
 {
     public ArrayCreationExpressionSyntax Syntax { get; set; }
 

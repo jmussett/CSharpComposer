@@ -12,7 +12,7 @@ public partial interface IRecursivePatternBuilder : IWithType<IRecursivePatternB
     IRecursivePatternBuilder WithDesignation(VariableDesignationSyntax designation);
 }
 
-public partial class RecursivePatternBuilder : IRecursivePatternBuilder
+internal partial class RecursivePatternBuilder : IRecursivePatternBuilder
 {
     public RecursivePatternSyntax Syntax { get; set; }
 

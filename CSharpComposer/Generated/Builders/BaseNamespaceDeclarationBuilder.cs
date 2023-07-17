@@ -20,7 +20,7 @@ public partial interface IBaseNamespaceDeclarationBuilder<TBuilder> : IMemberDec
     TBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
-public partial class BaseNamespaceDeclarationBuilder : IBaseNamespaceDeclarationBuilder
+internal partial class BaseNamespaceDeclarationBuilder : IBaseNamespaceDeclarationBuilder
 {
     public BaseNamespaceDeclarationSyntax? Syntax { get; set; }
 

@@ -9,7 +9,7 @@ public partial interface ITupleElementBuilder
     ITupleElementBuilder WithIdentifier(string identifier);
 }
 
-public partial class TupleElementBuilder : ITupleElementBuilder
+internal partial class TupleElementBuilder : ITupleElementBuilder
 {
     public TupleElementSyntax Syntax { get; set; }
 

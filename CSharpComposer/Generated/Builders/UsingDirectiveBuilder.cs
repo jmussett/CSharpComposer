@@ -12,7 +12,7 @@ public partial interface IUsingDirectiveBuilder
     IUsingDirectiveBuilder WithGlobalKeyword();
 }
 
-public partial class UsingDirectiveBuilder : IUsingDirectiveBuilder
+internal partial class UsingDirectiveBuilder : IUsingDirectiveBuilder
 {
     public UsingDirectiveSyntax Syntax { get; set; }
 

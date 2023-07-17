@@ -14,7 +14,7 @@ public partial interface IConstructorDeclarationBuilder : IBaseMethodDeclaration
     IConstructorDeclarationBuilder WithInitializer(ConstructorInitializerSyntax initializer);
 }
 
-public partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuilder
+internal partial class ConstructorDeclarationBuilder : IConstructorDeclarationBuilder
 {
     public ConstructorDeclarationSyntax Syntax { get; set; }
 

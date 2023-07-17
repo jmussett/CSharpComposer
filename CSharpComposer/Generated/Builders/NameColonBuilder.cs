@@ -10,7 +10,7 @@ public interface IWithNameColon<TBuilder>
     TBuilder WithNameColon(string nameIdentifier);
 }
 
-public partial class NameColonBuilder
+internal partial class NameColonBuilder
 {
     public static NameColonSyntax CreateSyntax(string nameIdentifier)
     {

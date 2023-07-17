@@ -8,7 +8,7 @@ public partial interface IYieldStatementBuilder : IStatementBuilder<IYieldStatem
 {
 }
 
-public partial class YieldStatementBuilder : IYieldStatementBuilder
+internal partial class YieldStatementBuilder : IYieldStatementBuilder
 {
     public YieldStatementSyntax Syntax { get; set; }
 

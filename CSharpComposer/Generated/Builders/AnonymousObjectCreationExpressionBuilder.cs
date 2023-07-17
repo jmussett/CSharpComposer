@@ -10,7 +10,7 @@ public partial interface IAnonymousObjectCreationExpressionBuilder
     IAnonymousObjectCreationExpressionBuilder AddInitializerAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax initializer);
 }
 
-public partial class AnonymousObjectCreationExpressionBuilder : IAnonymousObjectCreationExpressionBuilder
+internal partial class AnonymousObjectCreationExpressionBuilder : IAnonymousObjectCreationExpressionBuilder
 {
     public AnonymousObjectCreationExpressionSyntax Syntax { get; set; }
 

@@ -9,7 +9,7 @@ public partial interface ILineDirectiveTriviaBuilder : ILineOrSpanDirectiveTrivi
     ILineDirectiveTriviaBuilder WithFile();
 }
 
-public partial class LineDirectiveTriviaBuilder : ILineDirectiveTriviaBuilder
+internal partial class LineDirectiveTriviaBuilder : ILineDirectiveTriviaBuilder
 {
     public LineDirectiveTriviaSyntax Syntax { get; set; }
 

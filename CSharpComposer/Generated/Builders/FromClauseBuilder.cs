@@ -8,7 +8,7 @@ public partial interface IFromClauseBuilder : IWithType<IFromClauseBuilder>
 {
 }
 
-public partial class FromClauseBuilder : IFromClauseBuilder
+internal partial class FromClauseBuilder : IFromClauseBuilder
 {
     public FromClauseSyntax Syntax { get; set; }
 

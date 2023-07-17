@@ -43,7 +43,7 @@ public interface IAddStatement<TBuilder>
     TBuilder AddStatement(Action<IStatementBuilder> statementCallback);
 }
 
-public partial class StatementBuilder : IStatementBuilder
+internal partial class StatementBuilder : IStatementBuilder
 {
     public StatementSyntax? Syntax { get; set; }
 

@@ -8,7 +8,7 @@ public partial interface IInterfaceDeclarationBuilder : ITypeDeclarationBuilder<
 {
 }
 
-public partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
+internal partial class InterfaceDeclarationBuilder : IInterfaceDeclarationBuilder
 {
     public InterfaceDeclarationSyntax Syntax { get; set; }
 

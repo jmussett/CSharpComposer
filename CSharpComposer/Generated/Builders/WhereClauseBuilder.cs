@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class WhereClauseBuilder
+internal partial class WhereClauseBuilder
 {
     public static WhereClauseSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback)
     {

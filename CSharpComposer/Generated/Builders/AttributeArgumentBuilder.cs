@@ -8,7 +8,7 @@ public partial interface IAttributeArgumentBuilder : IWithNameEquals<IAttributeA
 {
 }
 
-public partial class AttributeArgumentBuilder : IAttributeArgumentBuilder
+internal partial class AttributeArgumentBuilder : IAttributeArgumentBuilder
 {
     public AttributeArgumentSyntax Syntax { get; set; }
 

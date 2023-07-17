@@ -16,7 +16,7 @@ public interface IAddSubpattern<TBuilder>
     TBuilder AddSubpattern(Action<IPatternBuilder> patternCallback, Action<ISubpatternBuilder>? subpatternCallback = null);
 }
 
-public partial class SubpatternBuilder : ISubpatternBuilder
+internal partial class SubpatternBuilder : ISubpatternBuilder
 {
     public SubpatternSyntax Syntax { get; set; }
 

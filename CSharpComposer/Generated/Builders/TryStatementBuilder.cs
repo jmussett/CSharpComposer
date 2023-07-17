@@ -12,7 +12,7 @@ public partial interface ITryStatementBuilder : IStatementBuilder<ITryStatementB
     ITryStatementBuilder WithFinally(FinallyClauseSyntax @finally);
 }
 
-public partial class TryStatementBuilder : ITryStatementBuilder
+internal partial class TryStatementBuilder : ITryStatementBuilder
 {
     public TryStatementSyntax Syntax { get; set; }
 

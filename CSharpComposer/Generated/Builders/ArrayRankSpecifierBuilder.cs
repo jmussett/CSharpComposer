@@ -10,7 +10,7 @@ public partial interface IArrayRankSpecifierBuilder
     IArrayRankSpecifierBuilder AddSizeExpression(ExpressionSyntax size);
 }
 
-public partial class ArrayRankSpecifierBuilder : IArrayRankSpecifierBuilder
+internal partial class ArrayRankSpecifierBuilder : IArrayRankSpecifierBuilder
 {
     public ArrayRankSpecifierSyntax Syntax { get; set; }
 

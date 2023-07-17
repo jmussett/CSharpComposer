@@ -10,7 +10,7 @@ public partial interface ITypeParameterConstraintClauseBuilder
     ITypeParameterConstraintClauseBuilder AddTypeParameterConstraint(TypeParameterConstraintSyntax constraint);
 }
 
-public partial class TypeParameterConstraintClauseBuilder : ITypeParameterConstraintClauseBuilder
+internal partial class TypeParameterConstraintClauseBuilder : ITypeParameterConstraintClauseBuilder
 {
     public TypeParameterConstraintClauseSyntax Syntax { get; set; }
 

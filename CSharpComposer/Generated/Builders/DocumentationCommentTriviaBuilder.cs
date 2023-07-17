@@ -10,7 +10,7 @@ public partial interface IDocumentationCommentTriviaBuilder
     IDocumentationCommentTriviaBuilder AddContentXmlNode(XmlNodeSyntax content);
 }
 
-public partial class DocumentationCommentTriviaBuilder : IDocumentationCommentTriviaBuilder
+internal partial class DocumentationCommentTriviaBuilder : IDocumentationCommentTriviaBuilder
 {
     public DocumentationCommentTriviaSyntax Syntax { get; set; }
 

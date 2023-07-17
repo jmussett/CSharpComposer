@@ -8,7 +8,7 @@ public partial interface ICasePatternSwitchLabelBuilder : IWithWhenClause<ICaseP
 {
 }
 
-public partial class CasePatternSwitchLabelBuilder : ICasePatternSwitchLabelBuilder
+internal partial class CasePatternSwitchLabelBuilder : ICasePatternSwitchLabelBuilder
 {
     public CasePatternSwitchLabelSyntax Syntax { get; set; }
 

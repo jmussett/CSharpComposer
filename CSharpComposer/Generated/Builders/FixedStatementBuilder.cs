@@ -8,7 +8,7 @@ public partial interface IFixedStatementBuilder : IStatementBuilder<IFixedStatem
 {
 }
 
-public partial class FixedStatementBuilder : IFixedStatementBuilder
+internal partial class FixedStatementBuilder : IFixedStatementBuilder
 {
     public FixedStatementSyntax Syntax { get; set; }
 

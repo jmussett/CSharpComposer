@@ -8,7 +8,7 @@ public partial interface IContinueStatementBuilder : IStatementBuilder<IContinue
 {
 }
 
-public partial class ContinueStatementBuilder : IContinueStatementBuilder
+internal partial class ContinueStatementBuilder : IContinueStatementBuilder
 {
     public ContinueStatementSyntax Syntax { get; set; }
 

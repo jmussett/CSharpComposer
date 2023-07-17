@@ -11,7 +11,7 @@ public partial interface IBranchingDirectiveTriviaBuilder
     void AsElseDirectiveTrivia(bool isActive, bool branchTaken);
 }
 
-public partial class BranchingDirectiveTriviaBuilder : IBranchingDirectiveTriviaBuilder
+internal partial class BranchingDirectiveTriviaBuilder : IBranchingDirectiveTriviaBuilder
 {
     public BranchingDirectiveTriviaSyntax? Syntax { get; set; }
 

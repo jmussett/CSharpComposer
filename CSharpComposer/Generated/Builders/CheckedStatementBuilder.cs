@@ -8,7 +8,7 @@ public partial interface ICheckedStatementBuilder : IStatementBuilder<ICheckedSt
 {
 }
 
-public partial class CheckedStatementBuilder : ICheckedStatementBuilder
+internal partial class CheckedStatementBuilder : ICheckedStatementBuilder
 {
     public CheckedStatementSyntax Syntax { get; set; }
 

@@ -10,7 +10,7 @@ public partial interface IBaseExpressionColonBuilder
     void AsNameColon(string nameIdentifier);
 }
 
-public partial class BaseExpressionColonBuilder : IBaseExpressionColonBuilder
+internal partial class BaseExpressionColonBuilder : IBaseExpressionColonBuilder
 {
     public BaseExpressionColonSyntax? Syntax { get; set; }
 

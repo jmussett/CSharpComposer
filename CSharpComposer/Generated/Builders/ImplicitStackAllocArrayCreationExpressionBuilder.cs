@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class ImplicitStackAllocArrayCreationExpressionBuilder
+internal partial class ImplicitStackAllocArrayCreationExpressionBuilder
 {
     public static ImplicitStackAllocArrayCreationExpressionSyntax CreateSyntax(InitializerExpressionKind initializerKind, Action<IInitializerExpressionBuilder> initializerInitializerExpressionCallback)
     {

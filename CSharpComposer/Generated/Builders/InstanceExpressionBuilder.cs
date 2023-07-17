@@ -10,7 +10,7 @@ public partial interface IInstanceExpressionBuilder
     void AsBaseExpression();
 }
 
-public partial class InstanceExpressionBuilder : IInstanceExpressionBuilder
+internal partial class InstanceExpressionBuilder : IInstanceExpressionBuilder
 {
     public InstanceExpressionSyntax? Syntax { get; set; }
 

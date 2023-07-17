@@ -8,7 +8,7 @@ public partial interface ISwitchExpressionArmBuilder : IWithWhenClause<ISwitchEx
 {
 }
 
-public partial class SwitchExpressionArmBuilder : ISwitchExpressionArmBuilder
+internal partial class SwitchExpressionArmBuilder : ISwitchExpressionArmBuilder
 {
     public SwitchExpressionArmSyntax Syntax { get; set; }
 

@@ -9,7 +9,7 @@ public partial interface IXmlTextBuilder
     IXmlTextBuilder AddToken(SyntaxKind textToken);
 }
 
-public partial class XmlTextBuilder : IXmlTextBuilder
+internal partial class XmlTextBuilder : IXmlTextBuilder
 {
     public XmlTextSyntax Syntax { get; set; }
 

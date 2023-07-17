@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class SingleVariableDesignationBuilder
+internal partial class SingleVariableDesignationBuilder
 {
     public static SingleVariableDesignationSyntax CreateSyntax(string identifier)
     {

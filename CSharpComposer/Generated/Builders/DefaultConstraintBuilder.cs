@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class DefaultConstraintBuilder
+internal partial class DefaultConstraintBuilder
 {
     public static DefaultConstraintSyntax CreateSyntax()
     {

@@ -10,7 +10,7 @@ public partial interface IDelegateDeclarationBuilder : IMemberDeclarationBuilder
     IDelegateDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
-public partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
+internal partial class DelegateDeclarationBuilder : IDelegateDeclarationBuilder
 {
     public DelegateDeclarationSyntax Syntax { get; set; }
 

@@ -10,7 +10,7 @@ public partial interface IFunctionPointerCallingConventionBuilder
     IFunctionPointerCallingConventionBuilder AddFunctionPointerUnmanagedCallingConvention(FunctionPointerUnmanagedCallingConventionSyntax callingConvention);
 }
 
-public partial class FunctionPointerCallingConventionBuilder : IFunctionPointerCallingConventionBuilder
+internal partial class FunctionPointerCallingConventionBuilder : IFunctionPointerCallingConventionBuilder
 {
     public FunctionPointerCallingConventionSyntax Syntax { get; set; }
 

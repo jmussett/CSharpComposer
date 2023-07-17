@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class InterpolatedStringTextBuilder
+internal partial class InterpolatedStringTextBuilder
 {
     public static InterpolatedStringTextSyntax CreateSyntax()
     {

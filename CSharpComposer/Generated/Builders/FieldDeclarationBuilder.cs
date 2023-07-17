@@ -8,7 +8,7 @@ public partial interface IFieldDeclarationBuilder : IBaseFieldDeclarationBuilder
 {
 }
 
-public partial class FieldDeclarationBuilder : IFieldDeclarationBuilder
+internal partial class FieldDeclarationBuilder : IFieldDeclarationBuilder
 {
     public FieldDeclarationSyntax Syntax { get; set; }
 

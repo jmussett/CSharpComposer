@@ -80,7 +80,7 @@ public interface IAddExpression<TBuilder>
     TBuilder AddExpression(Action<IExpressionBuilder> expressionCallback);
 }
 
-public partial class ExpressionBuilder : IExpressionBuilder
+internal partial class ExpressionBuilder : IExpressionBuilder
 {
     public ExpressionSyntax? Syntax { get; set; }
 

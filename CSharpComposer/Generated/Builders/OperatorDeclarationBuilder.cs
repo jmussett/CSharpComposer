@@ -13,7 +13,7 @@ public partial interface IOperatorDeclarationBuilder : IBaseMethodDeclarationBui
     IOperatorDeclarationBuilder WithCheckedKeyword();
 }
 
-public partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
+internal partial class OperatorDeclarationBuilder : IOperatorDeclarationBuilder
 {
     public OperatorDeclarationSyntax Syntax { get; set; }
 

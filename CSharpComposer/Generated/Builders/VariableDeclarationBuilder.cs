@@ -10,7 +10,7 @@ public partial interface IVariableDeclarationBuilder
     IVariableDeclarationBuilder AddVariableDeclarator(VariableDeclaratorSyntax variable);
 }
 
-public partial class VariableDeclarationBuilder : IVariableDeclarationBuilder
+internal partial class VariableDeclarationBuilder : IVariableDeclarationBuilder
 {
     public VariableDeclarationSyntax Syntax { get; set; }
 

@@ -18,7 +18,7 @@ public partial interface IBaseTypeDeclarationBuilder<TBuilder> : IMemberDeclarat
     TBuilder WithSemicolonToken();
 }
 
-public partial class BaseTypeDeclarationBuilder : IBaseTypeDeclarationBuilder
+internal partial class BaseTypeDeclarationBuilder : IBaseTypeDeclarationBuilder
 {
     public BaseTypeDeclarationSyntax? Syntax { get; set; }
 

@@ -27,7 +27,7 @@ public partial interface IDirectiveTriviaBuilder
     void AsNullableDirectiveTrivia(NullableDirectiveTriviaSettingToken nullableDirectiveTriviaSettingToken, bool isActive, Action<INullableDirectiveTriviaBuilder>? nullableDirectiveTriviaCallback = null);
 }
 
-public partial class DirectiveTriviaBuilder : IDirectiveTriviaBuilder
+internal partial class DirectiveTriviaBuilder : IDirectiveTriviaBuilder
 {
     public DirectiveTriviaSyntax? Syntax { get; set; }
 

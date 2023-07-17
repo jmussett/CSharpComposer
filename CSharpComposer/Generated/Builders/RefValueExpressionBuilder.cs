@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class RefValueExpressionBuilder
+internal partial class RefValueExpressionBuilder
 {
     public static RefValueExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<ITypeBuilder> typeCallback)
     {

@@ -9,7 +9,7 @@ public partial interface IXmlCDataSectionBuilder
     IXmlCDataSectionBuilder AddToken(SyntaxKind textToken);
 }
 
-public partial class XmlCDataSectionBuilder : IXmlCDataSectionBuilder
+internal partial class XmlCDataSectionBuilder : IXmlCDataSectionBuilder
 {
     public XmlCDataSectionSyntax Syntax { get; set; }
 

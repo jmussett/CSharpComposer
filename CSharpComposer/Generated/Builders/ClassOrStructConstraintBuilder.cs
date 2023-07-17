@@ -9,7 +9,7 @@ public partial interface IClassOrStructConstraintBuilder
     IClassOrStructConstraintBuilder WithQuestionToken();
 }
 
-public partial class ClassOrStructConstraintBuilder : IClassOrStructConstraintBuilder
+internal partial class ClassOrStructConstraintBuilder : IClassOrStructConstraintBuilder
 {
     public ClassOrStructConstraintSyntax Syntax { get; set; }
 

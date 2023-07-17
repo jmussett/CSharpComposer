@@ -14,7 +14,7 @@ public partial interface ICompilationUnitBuilder : IAddAttribute<ICompilationUni
     ICompilationUnitBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
-public partial class CompilationUnitBuilder : ICompilationUnitBuilder
+internal partial class CompilationUnitBuilder : ICompilationUnitBuilder
 {
     public CompilationUnitSyntax Syntax { get; set; }
 

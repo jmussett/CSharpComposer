@@ -8,7 +8,7 @@ public partial interface ILockStatementBuilder : IStatementBuilder<ILockStatemen
 {
 }
 
-public partial class LockStatementBuilder : ILockStatementBuilder
+internal partial class LockStatementBuilder : ILockStatementBuilder
 {
     public LockStatementSyntax Syntax { get; set; }
 

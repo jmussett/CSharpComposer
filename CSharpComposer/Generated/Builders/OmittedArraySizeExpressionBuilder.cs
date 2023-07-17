@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class OmittedArraySizeExpressionBuilder
+internal partial class OmittedArraySizeExpressionBuilder
 {
     public static OmittedArraySizeExpressionSyntax CreateSyntax()
     {

@@ -8,7 +8,7 @@ public partial interface IEventFieldDeclarationBuilder : IBaseFieldDeclarationBu
 {
 }
 
-public partial class EventFieldDeclarationBuilder : IEventFieldDeclarationBuilder
+internal partial class EventFieldDeclarationBuilder : IEventFieldDeclarationBuilder
 {
     public EventFieldDeclarationSyntax Syntax { get; set; }
 

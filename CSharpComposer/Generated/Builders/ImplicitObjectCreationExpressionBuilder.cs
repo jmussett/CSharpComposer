@@ -8,7 +8,7 @@ public partial interface IImplicitObjectCreationExpressionBuilder : IBaseObjectC
 {
 }
 
-public partial class ImplicitObjectCreationExpressionBuilder : IImplicitObjectCreationExpressionBuilder
+internal partial class ImplicitObjectCreationExpressionBuilder : IImplicitObjectCreationExpressionBuilder
 {
     public ImplicitObjectCreationExpressionSyntax Syntax { get; set; }
 

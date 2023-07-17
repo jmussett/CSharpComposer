@@ -10,7 +10,7 @@ public partial interface ISwitchExpressionBuilder
     ISwitchExpressionBuilder AddSwitchExpressionArm(SwitchExpressionArmSyntax arm);
 }
 
-public partial class SwitchExpressionBuilder : ISwitchExpressionBuilder
+internal partial class SwitchExpressionBuilder : ISwitchExpressionBuilder
 {
     public SwitchExpressionSyntax Syntax { get; set; }
 

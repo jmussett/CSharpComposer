@@ -9,7 +9,7 @@ public partial interface INamespaceDeclarationBuilder : IBaseNamespaceDeclaratio
     INamespaceDeclarationBuilder WithSemicolonToken();
 }
 
-public partial class NamespaceDeclarationBuilder : INamespaceDeclarationBuilder
+internal partial class NamespaceDeclarationBuilder : INamespaceDeclarationBuilder
 {
     public NamespaceDeclarationSyntax Syntax { get; set; }
 

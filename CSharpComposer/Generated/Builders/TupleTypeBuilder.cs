@@ -10,7 +10,7 @@ public partial interface ITupleTypeBuilder
     ITupleTypeBuilder AddTupleElement(TupleElementSyntax element);
 }
 
-public partial class TupleTypeBuilder : ITupleTypeBuilder
+internal partial class TupleTypeBuilder : ITupleTypeBuilder
 {
     public TupleTypeSyntax Syntax { get; set; }
 

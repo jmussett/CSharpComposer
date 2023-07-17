@@ -10,7 +10,7 @@ public interface IWithNameEquals<TBuilder>
     TBuilder WithNameEquals(string nameIdentifier);
 }
 
-public partial class NameEqualsBuilder
+internal partial class NameEqualsBuilder
 {
     public static NameEqualsSyntax CreateSyntax(string nameIdentifier)
     {

@@ -10,7 +10,7 @@ public partial interface ISimpleLambdaExpressionBuilder : ILambdaExpressionBuild
     ISimpleLambdaExpressionBuilder WithExpressionBody(ExpressionSyntax expressionBody);
 }
 
-public partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuilder
+internal partial class SimpleLambdaExpressionBuilder : ISimpleLambdaExpressionBuilder
 {
     public SimpleLambdaExpressionSyntax Syntax { get; set; }
 

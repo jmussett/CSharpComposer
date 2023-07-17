@@ -16,7 +16,7 @@ public partial interface IAnonymousFunctionExpressionBuilder<TBuilder>
     TBuilder AddModifierToken(SyntaxKind modifier);
 }
 
-public partial class AnonymousFunctionExpressionBuilder : IAnonymousFunctionExpressionBuilder
+internal partial class AnonymousFunctionExpressionBuilder : IAnonymousFunctionExpressionBuilder
 {
     public AnonymousFunctionExpressionSyntax? Syntax { get; set; }
 

@@ -11,7 +11,7 @@ public partial interface IOperatorMemberCrefBuilder
     IOperatorMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
-public partial class OperatorMemberCrefBuilder : IOperatorMemberCrefBuilder
+internal partial class OperatorMemberCrefBuilder : IOperatorMemberCrefBuilder
 {
     public OperatorMemberCrefSyntax Syntax { get; set; }
 

@@ -15,7 +15,7 @@ public partial interface IBaseParameterBuilder<TBuilder> : IAddAttribute<TBuilde
     TBuilder AddModifierToken(SyntaxKind modifier);
 }
 
-public partial class BaseParameterBuilder : IBaseParameterBuilder
+internal partial class BaseParameterBuilder : IBaseParameterBuilder
 {
     public BaseParameterSyntax? Syntax { get; set; }
 

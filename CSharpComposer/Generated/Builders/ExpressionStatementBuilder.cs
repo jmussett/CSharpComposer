@@ -8,7 +8,7 @@ public partial interface IExpressionStatementBuilder : IStatementBuilder<IExpres
 {
 }
 
-public partial class ExpressionStatementBuilder : IExpressionStatementBuilder
+internal partial class ExpressionStatementBuilder : IExpressionStatementBuilder
 {
     public ExpressionStatementSyntax Syntax { get; set; }
 

@@ -14,7 +14,7 @@ public partial interface ILineOrSpanDirectiveTriviaBuilder<TBuilder>
 {
 }
 
-public partial class LineOrSpanDirectiveTriviaBuilder : ILineOrSpanDirectiveTriviaBuilder
+internal partial class LineOrSpanDirectiveTriviaBuilder : ILineOrSpanDirectiveTriviaBuilder
 {
     public LineOrSpanDirectiveTriviaSyntax? Syntax { get; set; }
 

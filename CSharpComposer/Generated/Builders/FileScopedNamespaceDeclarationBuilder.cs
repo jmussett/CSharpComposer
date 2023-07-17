@@ -8,7 +8,7 @@ public partial interface IFileScopedNamespaceDeclarationBuilder : IBaseNamespace
 {
 }
 
-public partial class FileScopedNamespaceDeclarationBuilder : IFileScopedNamespaceDeclarationBuilder
+internal partial class FileScopedNamespaceDeclarationBuilder : IFileScopedNamespaceDeclarationBuilder
 {
     public FileScopedNamespaceDeclarationSyntax Syntax { get; set; }
 

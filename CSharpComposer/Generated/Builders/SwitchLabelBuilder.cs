@@ -11,7 +11,7 @@ public partial interface ISwitchLabelBuilder
     void AsDefaultSwitchLabel();
 }
 
-public partial class SwitchLabelBuilder : ISwitchLabelBuilder
+internal partial class SwitchLabelBuilder : ISwitchLabelBuilder
 {
     public SwitchLabelSyntax? Syntax { get; set; }
 

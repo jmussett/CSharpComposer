@@ -12,7 +12,7 @@ public partial interface IMemberCrefBuilder
     void AsConversionOperatorMemberCref(ConversionOperatorMemberCrefImplicitOrExplicitKeyword conversionOperatorMemberCrefImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorMemberCrefBuilder>? conversionOperatorMemberCrefCallback = null);
 }
 
-public partial class MemberCrefBuilder : IMemberCrefBuilder
+internal partial class MemberCrefBuilder : IMemberCrefBuilder
 {
     public MemberCrefSyntax? Syntax { get; set; }
 

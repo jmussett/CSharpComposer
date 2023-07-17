@@ -8,7 +8,7 @@ public partial interface IDoStatementBuilder : IStatementBuilder<IDoStatementBui
 {
 }
 
-public partial class DoStatementBuilder : IDoStatementBuilder
+internal partial class DoStatementBuilder : IDoStatementBuilder
 {
     public DoStatementSyntax Syntax { get; set; }
 

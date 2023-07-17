@@ -8,7 +8,7 @@ public partial interface IPrimaryConstructorBaseTypeBuilder : IAddArgument<IPrim
 {
 }
 
-public partial class PrimaryConstructorBaseTypeBuilder : IPrimaryConstructorBaseTypeBuilder
+internal partial class PrimaryConstructorBaseTypeBuilder : IPrimaryConstructorBaseTypeBuilder
 {
     public PrimaryConstructorBaseTypeSyntax Syntax { get; set; }
 

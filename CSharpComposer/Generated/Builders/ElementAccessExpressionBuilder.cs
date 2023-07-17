@@ -8,7 +8,7 @@ public partial interface IElementAccessExpressionBuilder : IAddArgument<IElement
 {
 }
 
-public partial class ElementAccessExpressionBuilder : IElementAccessExpressionBuilder
+internal partial class ElementAccessExpressionBuilder : IElementAccessExpressionBuilder
 {
     public ElementAccessExpressionSyntax Syntax { get; set; }
 

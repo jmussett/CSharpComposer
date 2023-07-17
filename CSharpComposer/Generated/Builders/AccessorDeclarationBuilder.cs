@@ -19,7 +19,7 @@ public interface IAddAccessorDeclaration<TBuilder>
     TBuilder AddAccessorDeclaration(AccessorDeclarationKind kind, Action<IAccessorDeclarationBuilder>? accessorDeclarationCallback = null);
 }
 
-public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
+internal partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
 {
     public AccessorDeclarationSyntax Syntax { get; set; }
 

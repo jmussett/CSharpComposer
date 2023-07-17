@@ -12,7 +12,7 @@ public partial interface IRangeExpressionBuilder
     IRangeExpressionBuilder WithRightOperand(ExpressionSyntax rightOperand);
 }
 
-public partial class RangeExpressionBuilder : IRangeExpressionBuilder
+internal partial class RangeExpressionBuilder : IRangeExpressionBuilder
 {
     public RangeExpressionSyntax Syntax { get; set; }
 

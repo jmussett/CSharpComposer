@@ -11,7 +11,7 @@ public partial interface IVariableDesignationBuilder
     void AsParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder>? parenthesizedVariableDesignationCallback = null);
 }
 
-public partial class VariableDesignationBuilder : IVariableDesignationBuilder
+internal partial class VariableDesignationBuilder : IVariableDesignationBuilder
 {
     public VariableDesignationSyntax? Syntax { get; set; }
 

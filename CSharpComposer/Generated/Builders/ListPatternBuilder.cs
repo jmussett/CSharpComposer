@@ -12,7 +12,7 @@ public partial interface IListPatternBuilder : IAddPattern<IListPatternBuilder>
     IListPatternBuilder WithDesignation(VariableDesignationSyntax designation);
 }
 
-public partial class ListPatternBuilder : IListPatternBuilder
+internal partial class ListPatternBuilder : IListPatternBuilder
 {
     public ListPatternSyntax Syntax { get; set; }
 

@@ -8,7 +8,7 @@ public partial interface IInitializerExpressionBuilder : IAddExpression<IInitial
 {
 }
 
-public partial class InitializerExpressionBuilder : IInitializerExpressionBuilder
+internal partial class InitializerExpressionBuilder : IInitializerExpressionBuilder
 {
     public InitializerExpressionSyntax Syntax { get; set; }
 

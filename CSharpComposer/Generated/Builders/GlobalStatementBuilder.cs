@@ -8,7 +8,7 @@ public partial interface IGlobalStatementBuilder : IMemberDeclarationBuilder<IGl
 {
 }
 
-public partial class GlobalStatementBuilder : IGlobalStatementBuilder
+internal partial class GlobalStatementBuilder : IGlobalStatementBuilder
 {
     public GlobalStatementSyntax Syntax { get; set; }
 

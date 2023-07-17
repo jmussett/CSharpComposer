@@ -15,7 +15,7 @@ public partial interface ILocalFunctionStatementBuilder : IStatementBuilder<ILoc
     ILocalFunctionStatementBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
-public partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuilder
+internal partial class LocalFunctionStatementBuilder : ILocalFunctionStatementBuilder
 {
     public LocalFunctionStatementSyntax Syntax { get; set; }
 

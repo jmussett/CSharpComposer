@@ -12,7 +12,7 @@ public partial interface IFunctionPointerTypeBuilder
     IFunctionPointerTypeBuilder AddFunctionPointerParameter(FunctionPointerParameterSyntax parameter);
 }
 
-public partial class FunctionPointerTypeBuilder : IFunctionPointerTypeBuilder
+internal partial class FunctionPointerTypeBuilder : IFunctionPointerTypeBuilder
 {
     public FunctionPointerTypeSyntax Syntax { get; set; }
 

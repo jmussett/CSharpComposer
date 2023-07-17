@@ -8,7 +8,7 @@ public partial interface IUnsafeStatementBuilder : IStatementBuilder<IUnsafeStat
 {
 }
 
-public partial class UnsafeStatementBuilder : IUnsafeStatementBuilder
+internal partial class UnsafeStatementBuilder : IUnsafeStatementBuilder
 {
     public UnsafeStatementSyntax Syntax { get; set; }
 

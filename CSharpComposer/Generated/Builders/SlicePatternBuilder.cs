@@ -8,7 +8,7 @@ public partial interface ISlicePatternBuilder : IWithPattern<ISlicePatternBuilde
 {
 }
 
-public partial class SlicePatternBuilder : ISlicePatternBuilder
+internal partial class SlicePatternBuilder : ISlicePatternBuilder
 {
     public SlicePatternSyntax Syntax { get; set; }
 

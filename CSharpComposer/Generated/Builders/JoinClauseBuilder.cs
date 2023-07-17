@@ -10,7 +10,7 @@ public partial interface IJoinClauseBuilder : IWithType<IJoinClauseBuilder>
     IJoinClauseBuilder WithInto(JoinIntoClauseSyntax into);
 }
 
-public partial class JoinClauseBuilder : IJoinClauseBuilder
+internal partial class JoinClauseBuilder : IJoinClauseBuilder
 {
     public JoinClauseSyntax Syntax { get; set; }
 

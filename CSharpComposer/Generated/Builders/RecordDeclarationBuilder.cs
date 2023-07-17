@@ -11,7 +11,7 @@ public partial interface IRecordDeclarationBuilder : ITypeDeclarationBuilder<IRe
     IRecordDeclarationBuilder WithCloseBraceToken();
 }
 
-public partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
+internal partial class RecordDeclarationBuilder : IRecordDeclarationBuilder
 {
     public RecordDeclarationSyntax Syntax { get; set; }
 

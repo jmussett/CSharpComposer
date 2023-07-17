@@ -14,7 +14,7 @@ public interface IWithBlock<TBuilder>
     TBuilder WithBlock(Action<IBlockBuilder>? blockCallback = null);
 }
 
-public partial class BlockBuilder : IBlockBuilder
+internal partial class BlockBuilder : IBlockBuilder
 {
     public BlockSyntax Syntax { get; set; }
 

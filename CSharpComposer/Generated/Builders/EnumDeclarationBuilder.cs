@@ -10,7 +10,7 @@ public partial interface IEnumDeclarationBuilder : IBaseTypeDeclarationBuilder<I
     IEnumDeclarationBuilder AddEnumMemberDeclaration(EnumMemberDeclarationSyntax member);
 }
 
-public partial class EnumDeclarationBuilder : IEnumDeclarationBuilder
+internal partial class EnumDeclarationBuilder : IEnumDeclarationBuilder
 {
     public EnumDeclarationSyntax Syntax { get; set; }
 

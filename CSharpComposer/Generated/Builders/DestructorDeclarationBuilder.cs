@@ -12,7 +12,7 @@ public partial interface IDestructorDeclarationBuilder : IBaseMethodDeclarationB
     IDestructorDeclarationBuilder WithBody(BlockSyntax body);
 }
 
-public partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilder
+internal partial class DestructorDeclarationBuilder : IDestructorDeclarationBuilder
 {
     public DestructorDeclarationSyntax Syntax { get; set; }
 

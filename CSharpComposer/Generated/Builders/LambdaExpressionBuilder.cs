@@ -14,7 +14,7 @@ public partial interface ILambdaExpressionBuilder<TBuilder> : IAnonymousFunction
 {
 }
 
-public partial class LambdaExpressionBuilder : ILambdaExpressionBuilder
+internal partial class LambdaExpressionBuilder : ILambdaExpressionBuilder
 {
     public LambdaExpressionSyntax? Syntax { get; set; }
 

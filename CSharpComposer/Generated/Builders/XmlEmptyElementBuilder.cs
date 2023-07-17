@@ -10,7 +10,7 @@ public partial interface IXmlEmptyElementBuilder
     IXmlEmptyElementBuilder AddXmlAttribute(XmlAttributeSyntax attribute);
 }
 
-public partial class XmlEmptyElementBuilder : IXmlEmptyElementBuilder
+internal partial class XmlEmptyElementBuilder : IXmlEmptyElementBuilder
 {
     public XmlEmptyElementSyntax Syntax { get; set; }
 

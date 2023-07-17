@@ -16,7 +16,7 @@ public partial interface IBaseObjectCreationExpressionBuilder<TBuilder> : IAddAr
     TBuilder WithInitializer(InitializerExpressionSyntax initializer);
 }
 
-public partial class BaseObjectCreationExpressionBuilder : IBaseObjectCreationExpressionBuilder
+internal partial class BaseObjectCreationExpressionBuilder : IBaseObjectCreationExpressionBuilder
 {
     public BaseObjectCreationExpressionSyntax? Syntax { get; set; }
 

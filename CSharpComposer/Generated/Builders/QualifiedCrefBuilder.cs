@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class QualifiedCrefBuilder
+internal partial class QualifiedCrefBuilder
 {
     public static QualifiedCrefSyntax CreateSyntax(Action<ITypeBuilder> containerCallback, Action<IMemberCrefBuilder> memberCallback)
     {

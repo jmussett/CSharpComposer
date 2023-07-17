@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class CastExpressionBuilder
+internal partial class CastExpressionBuilder
 {
     public static CastExpressionSyntax CreateSyntax(Action<ITypeBuilder> typeCallback, Action<IExpressionBuilder> expressionCallback)
     {

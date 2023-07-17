@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class AliasQualifiedNameBuilder
+internal partial class AliasQualifiedNameBuilder
 {
     public static AliasQualifiedNameSyntax CreateSyntax(string aliasIdentifier, Action<ISimpleNameBuilder> nameCallback)
     {

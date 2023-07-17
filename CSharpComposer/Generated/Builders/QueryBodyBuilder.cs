@@ -12,7 +12,7 @@ public partial interface IQueryBodyBuilder
     IQueryBodyBuilder WithContinuation(QueryContinuationSyntax continuation);
 }
 
-public partial class QueryBodyBuilder : IQueryBodyBuilder
+internal partial class QueryBodyBuilder : IQueryBodyBuilder
 {
     public QueryBodySyntax Syntax { get; set; }
 

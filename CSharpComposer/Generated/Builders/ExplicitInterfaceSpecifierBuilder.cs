@@ -10,7 +10,7 @@ public interface IWithExplicitInterfaceSpecifier<TBuilder>
     TBuilder WithExplicitInterfaceSpecifier(Action<INameBuilder> nameCallback);
 }
 
-public partial class ExplicitInterfaceSpecifierBuilder
+internal partial class ExplicitInterfaceSpecifierBuilder
 {
     public static ExplicitInterfaceSpecifierSyntax CreateSyntax(Action<INameBuilder> nameCallback)
     {

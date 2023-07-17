@@ -8,7 +8,7 @@ public partial interface ITupleExpressionBuilder : IAddArgument<ITupleExpression
 {
 }
 
-public partial class TupleExpressionBuilder : ITupleExpressionBuilder
+internal partial class TupleExpressionBuilder : ITupleExpressionBuilder
 {
     public TupleExpressionSyntax Syntax { get; set; }
 

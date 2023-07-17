@@ -10,7 +10,7 @@ public partial interface IIfStatementBuilder : IStatementBuilder<IIfStatementBui
     IIfStatementBuilder WithElse(ElseClauseSyntax @else);
 }
 
-public partial class IfStatementBuilder : IIfStatementBuilder
+internal partial class IfStatementBuilder : IIfStatementBuilder
 {
     public IfStatementSyntax Syntax { get; set; }
 

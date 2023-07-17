@@ -8,7 +8,7 @@ public partial interface IAnonymousMethodExpressionBuilder : IAnonymousFunctionE
 {
 }
 
-public partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressionBuilder
+internal partial class AnonymousMethodExpressionBuilder : IAnonymousMethodExpressionBuilder
 {
     public AnonymousMethodExpressionSyntax Syntax { get; set; }
 

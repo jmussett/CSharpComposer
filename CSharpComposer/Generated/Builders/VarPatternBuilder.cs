@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class VarPatternBuilder
+internal partial class VarPatternBuilder
 {
     public static VarPatternSyntax CreateSyntax(Action<IVariableDesignationBuilder> designationCallback)
     {

@@ -9,7 +9,7 @@ public partial interface ICrefParameterBuilder
     ICrefParameterBuilder WithRefKindKeyword(RefKindKeyword refKindKeyword);
 }
 
-public partial class CrefParameterBuilder : ICrefParameterBuilder
+internal partial class CrefParameterBuilder : ICrefParameterBuilder
 {
     public CrefParameterSyntax Syntax { get; set; }
 

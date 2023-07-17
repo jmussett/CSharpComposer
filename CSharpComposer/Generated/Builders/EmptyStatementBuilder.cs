@@ -8,7 +8,7 @@ public partial interface IEmptyStatementBuilder : IStatementBuilder<IEmptyStatem
 {
 }
 
-public partial class EmptyStatementBuilder : IEmptyStatementBuilder
+internal partial class EmptyStatementBuilder : IEmptyStatementBuilder
 {
     public EmptyStatementSyntax Syntax { get; set; }
 

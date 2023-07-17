@@ -12,7 +12,7 @@ public partial interface IPropertyDeclarationBuilder : IBasePropertyDeclarationB
     IPropertyDeclarationBuilder WithInitializer(EqualsValueClauseSyntax initializer);
 }
 
-public partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
+internal partial class PropertyDeclarationBuilder : IPropertyDeclarationBuilder
 {
     public PropertyDeclarationSyntax Syntax { get; set; }
 

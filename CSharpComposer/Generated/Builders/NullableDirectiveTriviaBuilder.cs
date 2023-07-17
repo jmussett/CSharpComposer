@@ -9,7 +9,7 @@ public partial interface INullableDirectiveTriviaBuilder
     INullableDirectiveTriviaBuilder WithTargetToken(TargetToken targetToken);
 }
 
-public partial class NullableDirectiveTriviaBuilder : INullableDirectiveTriviaBuilder
+internal partial class NullableDirectiveTriviaBuilder : INullableDirectiveTriviaBuilder
 {
     public NullableDirectiveTriviaSyntax Syntax { get; set; }
 

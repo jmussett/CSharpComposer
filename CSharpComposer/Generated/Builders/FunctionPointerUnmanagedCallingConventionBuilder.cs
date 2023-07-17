@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class FunctionPointerUnmanagedCallingConventionBuilder
+internal partial class FunctionPointerUnmanagedCallingConventionBuilder
 {
     public static FunctionPointerUnmanagedCallingConventionSyntax CreateSyntax(string name)
     {

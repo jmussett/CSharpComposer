@@ -10,7 +10,7 @@ public partial interface ISimpleNameBuilder
     void AsGenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null);
 }
 
-public partial class SimpleNameBuilder : ISimpleNameBuilder
+internal partial class SimpleNameBuilder : ISimpleNameBuilder
 {
     public SimpleNameSyntax? Syntax { get; set; }
 

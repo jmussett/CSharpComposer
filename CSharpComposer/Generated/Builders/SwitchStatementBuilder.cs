@@ -12,7 +12,7 @@ public partial interface ISwitchStatementBuilder : IStatementBuilder<ISwitchStat
     ISwitchStatementBuilder AddSwitchSection(SwitchSectionSyntax section);
 }
 
-public partial class SwitchStatementBuilder : ISwitchStatementBuilder
+internal partial class SwitchStatementBuilder : ISwitchStatementBuilder
 {
     public SwitchStatementSyntax Syntax { get; set; }
 

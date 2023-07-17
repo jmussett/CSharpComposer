@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class EndRegionDirectiveTriviaBuilder
+internal partial class EndRegionDirectiveTriviaBuilder
 {
     public static EndRegionDirectiveTriviaSyntax CreateSyntax(bool isActive)
     {

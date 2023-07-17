@@ -32,7 +32,7 @@ internal class ImplementationBuilder
 
         builder.AddClassDeclaration(builderName, builder =>
         {
-            builder.AddModifierToken(SyntaxKind.PublicKeyword);
+            builder.AddModifierToken(SyntaxKind.InternalKeyword);
             builder.AddModifierToken(SyntaxKind.PartialKeyword);
             if (type is AbstractNode || NodeValidator.IsTokenized(type))
             {

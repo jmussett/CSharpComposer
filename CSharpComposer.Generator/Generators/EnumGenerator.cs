@@ -18,7 +18,7 @@ internal class EnumGenerator
     {
         foreach (var kvp in _enumRegistry.FieldEnums)
         {
-            var compilationUnit = CompilationUnitBuilder.CreateSyntax(x => x
+            var compilationUnit = CSharpFactory.CompilationUnit(x => x
                .AddFileScopedNamespaceDeclaration("CSharpComposer", ns =>
                    ns.AddEnumDeclaration(kvp.Key, x =>
                    {
@@ -37,7 +37,7 @@ internal class EnumGenerator
 
         foreach (var kvp in _enumRegistry.KindEnums)
         {
-            var compilationUnit = CompilationUnitBuilder.CreateSyntax(x => x
+            var compilationUnit = CSharpFactory.CompilationUnit(x => x
                .AddFileScopedNamespaceDeclaration("CSharpComposer", ns =>
                    ns.AddEnumDeclaration(kvp.Key, x =>
                    {

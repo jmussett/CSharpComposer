@@ -8,7 +8,7 @@ public partial interface IInvocationExpressionBuilder : IAddArgument<IInvocation
 {
 }
 
-public partial class InvocationExpressionBuilder : IInvocationExpressionBuilder
+internal partial class InvocationExpressionBuilder : IInvocationExpressionBuilder
 {
     public InvocationExpressionSyntax Syntax { get; set; }
 

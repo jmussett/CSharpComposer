@@ -15,7 +15,7 @@ public partial interface IBasePropertyDeclarationBuilder<TBuilder> : IMemberDecl
 {
 }
 
-public partial class BasePropertyDeclarationBuilder : IBasePropertyDeclarationBuilder
+internal partial class BasePropertyDeclarationBuilder : IBasePropertyDeclarationBuilder
 {
     public BasePropertyDeclarationSyntax? Syntax { get; set; }
 

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class CheckedExpressionBuilder
+internal partial class CheckedExpressionBuilder
 {
     public static CheckedExpressionSyntax CreateSyntax(CheckedExpressionKind kind, Action<IExpressionBuilder> expressionCallback)
     {

@@ -9,7 +9,7 @@ public partial interface IXmlCommentBuilder
     IXmlCommentBuilder AddToken(SyntaxKind textToken);
 }
 
-public partial class XmlCommentBuilder : IXmlCommentBuilder
+internal partial class XmlCommentBuilder : IXmlCommentBuilder
 {
     public XmlCommentSyntax Syntax { get; set; }
 

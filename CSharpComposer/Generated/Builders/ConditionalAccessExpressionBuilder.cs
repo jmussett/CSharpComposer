@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class ConditionalAccessExpressionBuilder
+internal partial class ConditionalAccessExpressionBuilder
 {
     public static ConditionalAccessExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback, Action<IExpressionBuilder> whenNotNullCallback)
     {

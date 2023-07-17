@@ -8,7 +8,7 @@ public partial interface IIncompleteMemberBuilder : IMemberDeclarationBuilder<II
 {
 }
 
-public partial class IncompleteMemberBuilder : IIncompleteMemberBuilder
+internal partial class IncompleteMemberBuilder : IIncompleteMemberBuilder
 {
     public IncompleteMemberSyntax Syntax { get; set; }
 

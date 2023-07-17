@@ -8,7 +8,7 @@ public partial interface IConstructorInitializerBuilder : IAddArgument<IConstruc
 {
 }
 
-public partial class ConstructorInitializerBuilder : IConstructorInitializerBuilder
+internal partial class ConstructorInitializerBuilder : IConstructorInitializerBuilder
 {
     public ConstructorInitializerSyntax Syntax { get; set; }
 

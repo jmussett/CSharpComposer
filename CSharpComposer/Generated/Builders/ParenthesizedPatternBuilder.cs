@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class ParenthesizedPatternBuilder
+internal partial class ParenthesizedPatternBuilder
 {
     public static ParenthesizedPatternSyntax CreateSyntax(Action<IPatternBuilder> patternCallback)
     {

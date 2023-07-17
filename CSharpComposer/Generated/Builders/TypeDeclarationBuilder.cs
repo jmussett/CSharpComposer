@@ -20,7 +20,7 @@ public partial interface ITypeDeclarationBuilder<TBuilder> : IBaseTypeDeclaratio
     TBuilder AddMemberDeclaration(MemberDeclarationSyntax member);
 }
 
-public partial class TypeDeclarationBuilder : ITypeDeclarationBuilder
+internal partial class TypeDeclarationBuilder : ITypeDeclarationBuilder
 {
     public TypeDeclarationSyntax? Syntax { get; set; }
 

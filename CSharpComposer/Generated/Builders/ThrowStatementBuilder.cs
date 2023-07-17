@@ -8,7 +8,7 @@ public partial interface IThrowStatementBuilder : IStatementBuilder<IThrowStatem
 {
 }
 
-public partial class ThrowStatementBuilder : IThrowStatementBuilder
+internal partial class ThrowStatementBuilder : IThrowStatementBuilder
 {
     public ThrowStatementSyntax Syntax { get; set; }
 

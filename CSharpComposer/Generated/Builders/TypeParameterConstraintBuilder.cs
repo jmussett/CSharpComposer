@@ -12,7 +12,7 @@ public partial interface ITypeParameterConstraintBuilder
     void AsDefaultConstraint();
 }
 
-public partial class TypeParameterConstraintBuilder : ITypeParameterConstraintBuilder
+internal partial class TypeParameterConstraintBuilder : ITypeParameterConstraintBuilder
 {
     public TypeParameterConstraintSyntax? Syntax { get; set; }
 

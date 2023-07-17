@@ -16,7 +16,7 @@ public partial interface IForStatementBuilder : IStatementBuilder<IForStatementB
     IForStatementBuilder AddIncrementorExpression(ExpressionSyntax incrementor);
 }
 
-public partial class ForStatementBuilder : IForStatementBuilder
+internal partial class ForStatementBuilder : IForStatementBuilder
 {
     public ForStatementSyntax Syntax { get; set; }
 

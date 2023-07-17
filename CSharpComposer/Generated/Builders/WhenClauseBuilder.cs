@@ -10,7 +10,7 @@ public interface IWithWhenClause<TBuilder>
     TBuilder WithWhenClause(Action<IExpressionBuilder> conditionCallback);
 }
 
-public partial class WhenClauseBuilder
+internal partial class WhenClauseBuilder
 {
     public static WhenClauseSyntax CreateSyntax(Action<IExpressionBuilder> conditionCallback)
     {

@@ -32,7 +32,7 @@ public interface IAddPattern<TBuilder>
     TBuilder AddPattern(Action<IPatternBuilder> patternCallback);
 }
 
-public partial class PatternBuilder : IPatternBuilder
+internal partial class PatternBuilder : IPatternBuilder
 {
     public PatternSyntax? Syntax { get; set; }
 

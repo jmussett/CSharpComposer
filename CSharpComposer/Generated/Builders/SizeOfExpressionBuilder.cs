@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class SizeOfExpressionBuilder
+internal partial class SizeOfExpressionBuilder
 {
     public static SizeOfExpressionSyntax CreateSyntax(Action<ITypeBuilder> typeCallback)
     {

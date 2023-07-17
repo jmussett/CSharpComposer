@@ -10,7 +10,7 @@ public partial interface IIndexerDeclarationBuilder : IBasePropertyDeclarationBu
     IIndexerDeclarationBuilder WithExpressionBody(ArrowExpressionClauseSyntax expressionBody);
 }
 
-public partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
+internal partial class IndexerDeclarationBuilder : IIndexerDeclarationBuilder
 {
     public IndexerDeclarationSyntax Syntax { get; set; }
 

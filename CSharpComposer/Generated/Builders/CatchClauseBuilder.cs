@@ -12,7 +12,7 @@ public partial interface ICatchClauseBuilder
     ICatchClauseBuilder WithFilter(CatchFilterClauseSyntax filter);
 }
 
-public partial class CatchClauseBuilder : ICatchClauseBuilder
+internal partial class CatchClauseBuilder : ICatchClauseBuilder
 {
     public CatchClauseSyntax Syntax { get; set; }
 

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class LoadDirectiveTriviaBuilder
+internal partial class LoadDirectiveTriviaBuilder
 {
     public static LoadDirectiveTriviaSyntax CreateSyntax(string file, bool isActive)
     {

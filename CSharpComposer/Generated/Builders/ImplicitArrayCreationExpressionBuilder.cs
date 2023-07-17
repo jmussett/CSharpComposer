@@ -9,7 +9,7 @@ public partial interface IImplicitArrayCreationExpressionBuilder
     IImplicitArrayCreationExpressionBuilder AddCommaToken(SyntaxKind comma);
 }
 
-public partial class ImplicitArrayCreationExpressionBuilder : IImplicitArrayCreationExpressionBuilder
+internal partial class ImplicitArrayCreationExpressionBuilder : IImplicitArrayCreationExpressionBuilder
 {
     public ImplicitArrayCreationExpressionSyntax Syntax { get; set; }
 

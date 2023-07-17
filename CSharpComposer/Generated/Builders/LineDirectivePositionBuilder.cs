@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class LineDirectivePositionBuilder
+internal partial class LineDirectivePositionBuilder
 {
     public static LineDirectivePositionSyntax CreateSyntax(int line, int character)
     {

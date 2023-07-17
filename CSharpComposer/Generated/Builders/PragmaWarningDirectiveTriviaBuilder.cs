@@ -10,7 +10,7 @@ public partial interface IPragmaWarningDirectiveTriviaBuilder
     IPragmaWarningDirectiveTriviaBuilder AddErrorCodeExpression(ExpressionSyntax errorCode);
 }
 
-public partial class PragmaWarningDirectiveTriviaBuilder : IPragmaWarningDirectiveTriviaBuilder
+internal partial class PragmaWarningDirectiveTriviaBuilder : IPragmaWarningDirectiveTriviaBuilder
 {
     public PragmaWarningDirectiveTriviaSyntax Syntax { get; set; }
 

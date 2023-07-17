@@ -10,7 +10,7 @@ public partial interface IParenthesizedVariableDesignationBuilder
     IParenthesizedVariableDesignationBuilder AddVariableDesignation(VariableDesignationSyntax variable);
 }
 
-public partial class ParenthesizedVariableDesignationBuilder : IParenthesizedVariableDesignationBuilder
+internal partial class ParenthesizedVariableDesignationBuilder : IParenthesizedVariableDesignationBuilder
 {
     public ParenthesizedVariableDesignationSyntax Syntax { get; set; }
 

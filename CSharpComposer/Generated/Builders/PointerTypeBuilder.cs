@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class PointerTypeBuilder
+internal partial class PointerTypeBuilder
 {
     public static PointerTypeSyntax CreateSyntax(Action<ITypeBuilder> elementTypeCallback)
     {

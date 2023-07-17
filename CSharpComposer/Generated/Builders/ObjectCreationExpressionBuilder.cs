@@ -8,7 +8,7 @@ public partial interface IObjectCreationExpressionBuilder : IBaseObjectCreationE
 {
 }
 
-public partial class ObjectCreationExpressionBuilder : IObjectCreationExpressionBuilder
+internal partial class ObjectCreationExpressionBuilder : IObjectCreationExpressionBuilder
 {
     public ObjectCreationExpressionSyntax Syntax { get; set; }
 

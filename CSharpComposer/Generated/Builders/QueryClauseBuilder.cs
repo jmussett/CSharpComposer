@@ -13,7 +13,7 @@ public partial interface IQueryClauseBuilder
     void AsOrderByClause(Action<IOrderByClauseBuilder>? orderByClauseCallback = null);
 }
 
-public partial class QueryClauseBuilder : IQueryClauseBuilder
+internal partial class QueryClauseBuilder : IQueryClauseBuilder
 {
     public QueryClauseSyntax? Syntax { get; set; }
 

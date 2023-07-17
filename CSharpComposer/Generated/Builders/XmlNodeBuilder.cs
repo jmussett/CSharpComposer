@@ -14,7 +14,7 @@ public partial interface IXmlNodeBuilder
     void AsXmlComment(Action<IXmlCommentBuilder>? xmlCommentCallback = null);
 }
 
-public partial class XmlNodeBuilder : IXmlNodeBuilder
+internal partial class XmlNodeBuilder : IXmlNodeBuilder
 {
     public XmlNodeSyntax? Syntax { get; set; }
 

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class ElseDirectiveTriviaBuilder
+internal partial class ElseDirectiveTriviaBuilder
 {
     public static ElseDirectiveTriviaSyntax CreateSyntax(bool isActive, bool branchTaken)
     {

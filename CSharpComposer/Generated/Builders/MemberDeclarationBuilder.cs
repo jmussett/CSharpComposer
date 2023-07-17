@@ -34,7 +34,7 @@ public partial interface IMemberDeclarationBuilder<TBuilder> : IAddAttribute<TBu
     TBuilder AddModifierToken(SyntaxKind modifier);
 }
 
-public partial class MemberDeclarationBuilder : IMemberDeclarationBuilder
+internal partial class MemberDeclarationBuilder : IMemberDeclarationBuilder
 {
     public MemberDeclarationSyntax? Syntax { get; set; }
 

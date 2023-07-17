@@ -11,7 +11,7 @@ public partial interface IUsingStatementBuilder : IStatementBuilder<IUsingStatem
     IUsingStatementBuilder WithAwaitKeyword();
 }
 
-public partial class UsingStatementBuilder : IUsingStatementBuilder
+internal partial class UsingStatementBuilder : IUsingStatementBuilder
 {
     public UsingStatementSyntax Syntax { get; set; }
 

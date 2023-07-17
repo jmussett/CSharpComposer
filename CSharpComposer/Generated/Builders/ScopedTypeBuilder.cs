@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class ScopedTypeBuilder
+internal partial class ScopedTypeBuilder
 {
     public static ScopedTypeSyntax CreateSyntax(Action<ITypeBuilder> typeCallback)
     {

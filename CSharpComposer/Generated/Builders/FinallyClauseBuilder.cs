@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class FinallyClauseBuilder
+internal partial class FinallyClauseBuilder
 {
     public static FinallyClauseSyntax CreateSyntax(Action<IBlockBuilder> blockBlockCallback)
     {

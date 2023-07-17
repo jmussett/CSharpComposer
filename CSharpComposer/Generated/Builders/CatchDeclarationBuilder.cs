@@ -9,7 +9,7 @@ public partial interface ICatchDeclarationBuilder
     ICatchDeclarationBuilder WithIdentifier(string identifier);
 }
 
-public partial class CatchDeclarationBuilder : ICatchDeclarationBuilder
+internal partial class CatchDeclarationBuilder : ICatchDeclarationBuilder
 {
     public CatchDeclarationSyntax Syntax { get; set; }
 

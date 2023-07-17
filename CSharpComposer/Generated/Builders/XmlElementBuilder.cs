@@ -10,7 +10,7 @@ public partial interface IXmlElementBuilder
     IXmlElementBuilder AddContentXmlNode(XmlNodeSyntax content);
 }
 
-public partial class XmlElementBuilder : IXmlElementBuilder
+internal partial class XmlElementBuilder : IXmlElementBuilder
 {
     public XmlElementSyntax Syntax { get; set; }
 

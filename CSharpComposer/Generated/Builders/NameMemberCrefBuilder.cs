@@ -10,7 +10,7 @@ public partial interface INameMemberCrefBuilder
     INameMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
-public partial class NameMemberCrefBuilder : INameMemberCrefBuilder
+internal partial class NameMemberCrefBuilder : INameMemberCrefBuilder
 {
     public NameMemberCrefSyntax Syntax { get; set; }
 

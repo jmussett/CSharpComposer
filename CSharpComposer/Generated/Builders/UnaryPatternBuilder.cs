@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class UnaryPatternBuilder
+internal partial class UnaryPatternBuilder
 {
     public static UnaryPatternSyntax CreateSyntax(Action<IPatternBuilder> patternCallback)
     {

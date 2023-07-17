@@ -15,7 +15,7 @@ public interface IAddArgument<TBuilder>
     TBuilder AddArgument(Action<IExpressionBuilder> expressionCallback, Action<IArgumentBuilder>? argumentCallback = null);
 }
 
-public partial class ArgumentBuilder : IArgumentBuilder
+internal partial class ArgumentBuilder : IArgumentBuilder
 {
     public ArgumentSyntax Syntax { get; set; }
 

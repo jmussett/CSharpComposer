@@ -7,7 +7,7 @@ public partial interface IAccessorDeclarationBuilder
     IAccessorDeclarationBuilder WithSemicolon();
 }
 
-public partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
+internal partial class AccessorDeclarationBuilder : IAccessorDeclarationBuilder
 {
     public IAccessorDeclarationBuilder WithSemicolon()
     {
@@ -22,7 +22,7 @@ public partial interface IMethodDeclarationBuilder
     IMethodDeclarationBuilder WithSemicolon();
 }
 
-public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
+internal partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
 {
     public IMethodDeclarationBuilder WithSemicolon()
     {

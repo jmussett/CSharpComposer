@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class AwaitExpressionBuilder
+internal partial class AwaitExpressionBuilder
 {
     public static AwaitExpressionSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback)
     {

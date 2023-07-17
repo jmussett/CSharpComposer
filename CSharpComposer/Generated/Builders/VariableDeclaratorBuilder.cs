@@ -10,7 +10,7 @@ public partial interface IVariableDeclaratorBuilder : IAddArgument<IVariableDecl
     IVariableDeclaratorBuilder WithInitializer(EqualsValueClauseSyntax initializer);
 }
 
-public partial class VariableDeclaratorBuilder : IVariableDeclaratorBuilder
+internal partial class VariableDeclaratorBuilder : IVariableDeclaratorBuilder
 {
     public VariableDeclaratorSyntax Syntax { get; set; }
 

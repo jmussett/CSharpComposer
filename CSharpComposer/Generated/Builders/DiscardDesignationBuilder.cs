@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class DiscardDesignationBuilder
+internal partial class DiscardDesignationBuilder
 {
     public static DiscardDesignationSyntax CreateSyntax()
     {

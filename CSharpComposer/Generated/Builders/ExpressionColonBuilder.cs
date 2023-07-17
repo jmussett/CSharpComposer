@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class ExpressionColonBuilder
+internal partial class ExpressionColonBuilder
 {
     public static ExpressionColonSyntax CreateSyntax(Action<IExpressionBuilder> expressionCallback)
     {

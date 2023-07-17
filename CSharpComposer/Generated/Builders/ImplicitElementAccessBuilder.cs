@@ -8,7 +8,7 @@ public partial interface IImplicitElementAccessBuilder : IAddArgument<IImplicitE
 {
 }
 
-public partial class ImplicitElementAccessBuilder : IImplicitElementAccessBuilder
+internal partial class ImplicitElementAccessBuilder : IImplicitElementAccessBuilder
 {
     public ImplicitElementAccessSyntax Syntax { get; set; }
 

@@ -17,7 +17,7 @@ public partial interface IBaseMethodDeclarationBuilder<TBuilder> : IMemberDeclar
 {
 }
 
-public partial class BaseMethodDeclarationBuilder : IBaseMethodDeclarationBuilder
+internal partial class BaseMethodDeclarationBuilder : IBaseMethodDeclarationBuilder
 {
     public BaseMethodDeclarationSyntax? Syntax { get; set; }
 

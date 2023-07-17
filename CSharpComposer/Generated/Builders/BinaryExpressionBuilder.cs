@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class BinaryExpressionBuilder
+internal partial class BinaryExpressionBuilder
 {
     public static BinaryExpressionSyntax CreateSyntax(BinaryExpressionKind kind, Action<IExpressionBuilder> leftCallback, Action<IExpressionBuilder> rightCallback)
     {

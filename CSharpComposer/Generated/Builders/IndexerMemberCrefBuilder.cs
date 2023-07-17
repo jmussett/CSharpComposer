@@ -10,7 +10,7 @@ public partial interface IIndexerMemberCrefBuilder
     IIndexerMemberCrefBuilder AddCrefParameter(CrefParameterSyntax parameter);
 }
 
-public partial class IndexerMemberCrefBuilder : IIndexerMemberCrefBuilder
+internal partial class IndexerMemberCrefBuilder : IIndexerMemberCrefBuilder
 {
     public IndexerMemberCrefSyntax Syntax { get; set; }
 

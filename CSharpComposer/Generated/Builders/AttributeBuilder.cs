@@ -16,7 +16,7 @@ public interface IAddAttribute<TBuilder>
     TBuilder AddAttribute(Action<INameBuilder> nameCallback, Action<IAttributeBuilder>? attributeCallback = null);
 }
 
-public partial class AttributeBuilder : IAttributeBuilder
+internal partial class AttributeBuilder : IAttributeBuilder
 {
     public AttributeSyntax Syntax { get; set; }
 

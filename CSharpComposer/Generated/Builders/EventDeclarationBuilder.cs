@@ -9,7 +9,7 @@ public partial interface IEventDeclarationBuilder : IBasePropertyDeclarationBuil
     IEventDeclarationBuilder WithSemicolonToken();
 }
 
-public partial class EventDeclarationBuilder : IEventDeclarationBuilder
+internal partial class EventDeclarationBuilder : IEventDeclarationBuilder
 {
     public EventDeclarationSyntax Syntax { get; set; }
 

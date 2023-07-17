@@ -15,7 +15,7 @@ public partial interface ILiteralExpressionBuilder
     void AsDefaultLiteral();
 }
 
-public partial class LiteralExpressionBuilder : ILiteralExpressionBuilder
+internal partial class LiteralExpressionBuilder : ILiteralExpressionBuilder
 {
     public LiteralExpressionSyntax? Syntax { get; set; }
 

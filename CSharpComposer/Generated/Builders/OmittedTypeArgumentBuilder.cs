@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class OmittedTypeArgumentBuilder
+internal partial class OmittedTypeArgumentBuilder
 {
     public static OmittedTypeArgumentSyntax CreateSyntax()
     {

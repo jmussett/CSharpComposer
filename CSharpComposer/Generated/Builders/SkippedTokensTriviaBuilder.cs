@@ -9,7 +9,7 @@ public partial interface ISkippedTokensTriviaBuilder
     ISkippedTokensTriviaBuilder AddToken(SyntaxKind token);
 }
 
-public partial class SkippedTokensTriviaBuilder : ISkippedTokensTriviaBuilder
+internal partial class SkippedTokensTriviaBuilder : ISkippedTokensTriviaBuilder
 {
     public SkippedTokensTriviaSyntax Syntax { get; set; }
 

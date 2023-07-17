@@ -10,7 +10,7 @@ public partial interface IXmlNameBuilder
     IXmlNameBuilder WithPrefix(XmlPrefixSyntax prefix);
 }
 
-public partial class XmlNameBuilder : IXmlNameBuilder
+internal partial class XmlNameBuilder : IXmlNameBuilder
 {
     public XmlNameSyntax Syntax { get; set; }
 

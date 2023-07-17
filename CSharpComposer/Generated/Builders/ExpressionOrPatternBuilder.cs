@@ -80,7 +80,7 @@ public partial interface IExpressionOrPatternBuilder
     void AsSlicePattern(Action<ISlicePatternBuilder>? slicePatternCallback = null);
 }
 
-public partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
+internal partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
 {
     public ExpressionOrPatternSyntax? Syntax { get; set; }
 

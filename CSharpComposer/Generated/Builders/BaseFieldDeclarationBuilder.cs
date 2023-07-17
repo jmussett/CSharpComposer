@@ -14,7 +14,7 @@ public partial interface IBaseFieldDeclarationBuilder<TBuilder> : IMemberDeclara
 {
 }
 
-public partial class BaseFieldDeclarationBuilder : IBaseFieldDeclarationBuilder
+internal partial class BaseFieldDeclarationBuilder : IBaseFieldDeclarationBuilder
 {
     public BaseFieldDeclarationSyntax? Syntax { get; set; }
 

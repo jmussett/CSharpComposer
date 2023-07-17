@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class WarningDirectiveTriviaBuilder
+internal partial class WarningDirectiveTriviaBuilder
 {
     public static WarningDirectiveTriviaSyntax CreateSyntax(bool isActive)
     {

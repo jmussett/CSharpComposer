@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class CatchFilterClauseBuilder
+internal partial class CatchFilterClauseBuilder
 {
     public static CatchFilterClauseSyntax CreateSyntax(Action<IExpressionBuilder> filterExpressionCallback)
     {

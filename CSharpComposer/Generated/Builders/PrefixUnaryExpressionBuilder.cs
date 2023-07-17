@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class PrefixUnaryExpressionBuilder
+internal partial class PrefixUnaryExpressionBuilder
 {
     public static PrefixUnaryExpressionSyntax CreateSyntax(PrefixUnaryExpressionKind kind, Action<IExpressionBuilder> operandCallback)
     {

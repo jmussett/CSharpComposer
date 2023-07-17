@@ -13,7 +13,7 @@ public partial interface IConversionOperatorDeclarationBuilder : IBaseMethodDecl
     IConversionOperatorDeclarationBuilder WithCheckedKeyword();
 }
 
-public partial class ConversionOperatorDeclarationBuilder : IConversionOperatorDeclarationBuilder
+internal partial class ConversionOperatorDeclarationBuilder : IConversionOperatorDeclarationBuilder
 {
     public ConversionOperatorDeclarationSyntax Syntax { get; set; }
 

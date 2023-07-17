@@ -8,7 +8,7 @@ public partial interface IWhileStatementBuilder : IStatementBuilder<IWhileStatem
 {
 }
 
-public partial class WhileStatementBuilder : IWhileStatementBuilder
+internal partial class WhileStatementBuilder : IWhileStatementBuilder
 {
     public WhileStatementSyntax Syntax { get; set; }
 

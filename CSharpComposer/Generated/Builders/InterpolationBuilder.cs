@@ -12,7 +12,7 @@ public partial interface IInterpolationBuilder
     IInterpolationBuilder WithFormatClause(InterpolationFormatClauseSyntax formatClause);
 }
 
-public partial class InterpolationBuilder : IInterpolationBuilder
+internal partial class InterpolationBuilder : IInterpolationBuilder
 {
     public InterpolationSyntax Syntax { get; set; }
 

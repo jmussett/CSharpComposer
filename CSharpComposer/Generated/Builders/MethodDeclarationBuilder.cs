@@ -14,7 +14,7 @@ public partial interface IMethodDeclarationBuilder : IBaseMethodDeclarationBuild
     IMethodDeclarationBuilder AddTypeParameterConstraintClause(TypeParameterConstraintClauseSyntax constraintClause);
 }
 
-public partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
+internal partial class MethodDeclarationBuilder : IMethodDeclarationBuilder
 {
     public MethodDeclarationSyntax Syntax { get; set; }
 

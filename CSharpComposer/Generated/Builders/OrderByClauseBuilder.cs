@@ -8,7 +8,7 @@ public partial interface IOrderByClauseBuilder : IAddOrdering<IOrderByClauseBuil
 {
 }
 
-public partial class OrderByClauseBuilder : IOrderByClauseBuilder
+internal partial class OrderByClauseBuilder : IOrderByClauseBuilder
 {
     public OrderByClauseSyntax Syntax { get; set; }
 

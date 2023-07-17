@@ -15,7 +15,7 @@ public partial interface ICommonForEachStatementBuilder<TBuilder> : IStatementBu
     TBuilder WithAwaitKeyword();
 }
 
-public partial class CommonForEachStatementBuilder : ICommonForEachStatementBuilder
+internal partial class CommonForEachStatementBuilder : ICommonForEachStatementBuilder
 {
     public CommonForEachStatementSyntax? Syntax { get; set; }
 

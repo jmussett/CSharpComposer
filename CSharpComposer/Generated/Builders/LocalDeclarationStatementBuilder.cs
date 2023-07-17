@@ -11,7 +11,7 @@ public partial interface ILocalDeclarationStatementBuilder : IStatementBuilder<I
     ILocalDeclarationStatementBuilder AddModifierToken(SyntaxKind modifier);
 }
 
-public partial class LocalDeclarationStatementBuilder : ILocalDeclarationStatementBuilder
+internal partial class LocalDeclarationStatementBuilder : ILocalDeclarationStatementBuilder
 {
     public LocalDeclarationStatementSyntax Syntax { get; set; }
 

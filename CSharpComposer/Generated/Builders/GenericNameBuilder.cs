@@ -8,7 +8,7 @@ public partial interface IGenericNameBuilder : IAddType<IGenericNameBuilder>
 {
 }
 
-public partial class GenericNameBuilder : IGenericNameBuilder
+internal partial class GenericNameBuilder : IGenericNameBuilder
 {
     public GenericNameSyntax Syntax { get; set; }
 

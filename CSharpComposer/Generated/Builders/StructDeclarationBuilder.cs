@@ -8,7 +8,7 @@ public partial interface IStructDeclarationBuilder : ITypeDeclarationBuilder<ISt
 {
 }
 
-public partial class StructDeclarationBuilder : IStructDeclarationBuilder
+internal partial class StructDeclarationBuilder : IStructDeclarationBuilder
 {
     public StructDeclarationSyntax Syntax { get; set; }
 

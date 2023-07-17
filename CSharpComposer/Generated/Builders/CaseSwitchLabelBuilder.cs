@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class CaseSwitchLabelBuilder
+internal partial class CaseSwitchLabelBuilder
 {
     public static CaseSwitchLabelSyntax CreateSyntax(Action<IExpressionBuilder> valueCallback)
     {

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpComposer;
-public partial class ExternAliasDirectiveBuilder
+internal partial class ExternAliasDirectiveBuilder
 {
     public static ExternAliasDirectiveSyntax CreateSyntax(string identifier)
     {

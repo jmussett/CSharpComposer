@@ -12,7 +12,7 @@ public partial interface IParenthesizedLambdaExpressionBuilder : ILambdaExpressi
     IParenthesizedLambdaExpressionBuilder WithReturnType(TypeSyntax returnType);
 }
 
-public partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambdaExpressionBuilder
+internal partial class ParenthesizedLambdaExpressionBuilder : IParenthesizedLambdaExpressionBuilder
 {
     public ParenthesizedLambdaExpressionSyntax Syntax { get; set; }
 
