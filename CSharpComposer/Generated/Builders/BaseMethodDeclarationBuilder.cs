@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseMethodDeclarationBuilder
 {
+    void FromSyntax(BaseMethodDeclarationSyntax syntax);
     void AsMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder>? methodDeclarationCallback = null);
     void AsOperatorDeclaration(Action<ITypeBuilder> returnTypeCallback, OperatorDeclarationOperatorToken operatorDeclarationOperatorToken, Action<IOperatorDeclarationBuilder>? operatorDeclarationCallback = null);
     void AsConversionOperatorDeclaration(ConversionOperatorDeclarationImplicitOrExplicitKeyword conversionOperatorDeclarationImplicitOrExplicitKeyword, Action<ITypeBuilder> typeCallback, Action<IConversionOperatorDeclarationBuilder>? conversionOperatorDeclarationCallback = null);
@@ -31,6 +32,11 @@ internal partial class BaseMethodDeclarationBuilder : IBaseMethodDeclarationBuil
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(BaseMethodDeclarationSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsMethodDeclaration(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<IMethodDeclarationBuilder>? methodDeclarationCallback = null)

@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseNamespaceDeclarationBuilder
 {
+    void FromSyntax(BaseNamespaceDeclarationSyntax syntax);
     void AsNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder>? namespaceDeclarationCallback = null);
     void AsFileScopedNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder>? fileScopedNamespaceDeclarationCallback = null);
 }
@@ -34,6 +35,11 @@ internal partial class BaseNamespaceDeclarationBuilder : IBaseNamespaceDeclarati
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(BaseNamespaceDeclarationSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder>? namespaceDeclarationCallback = null)

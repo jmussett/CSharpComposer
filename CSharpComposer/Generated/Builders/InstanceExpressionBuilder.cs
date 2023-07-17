@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IInstanceExpressionBuilder
 {
+    void FromSyntax(InstanceExpressionSyntax syntax);
     void AsThisExpression();
     void AsBaseExpression();
 }
@@ -24,6 +25,11 @@ internal partial class InstanceExpressionBuilder : IInstanceExpressionBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(InstanceExpressionSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsThisExpression()

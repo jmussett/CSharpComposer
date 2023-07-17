@@ -27,6 +27,7 @@ internal class MethodBuilder
 
         if (type is AbstractNode || NodeValidator.IsTokenized(type))
         {
+            WithFromSyntaxMethod(builder, isImplementation, type);
             WithCastMethods(builder, isImplementation, type);
         }
         else
@@ -79,6 +80,33 @@ internal class MethodBuilder
                 WithCastMethods(builder, isImplementation, derivedType);
             }
         }
+    }
+
+    public void WithFromSyntaxMethod<TBuilder>(TBuilder builder, bool isImplementation, TreeType type)
+        where TBuilder : ITypeDeclarationBuilder<TBuilder>
+    {
+        builder.AddMethodDeclaration(
+            x => x.AsPredefinedType(PredefinedTypeKeyword.VoidKeyword),
+            $"FromSyntax",
+            x =>
+            {
+                x.AddParameter("syntax", x => x.WithType(type.Name));
+
+                if (isImplementation)
+                {
+                    x.AddModifierToken(SyntaxKind.PublicKeyword);
+
+                    x.WithBody(x =>
+                    {
+                        x.AddStatement($"Syntax = syntax;");
+                    });
+                }
+                else
+                {
+                    x.WithSemicolon();
+                }
+            }
+        );
     }
 
     private void WithTokenizedCastMethod<TBuilder>(TBuilder builder, bool isImplementation, Node node, Kind kind)

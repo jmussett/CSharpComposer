@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ILineOrSpanDirectiveTriviaBuilder
 {
+    void FromSyntax(LineOrSpanDirectiveTriviaSyntax syntax);
     void AsLineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder>? lineDirectiveTriviaCallback = null);
     void AsLineSpanDirectiveTrivia(int startLine, int startCharacter, int endLine, int endCharacter, string file, bool isActive, Action<ILineSpanDirectiveTriviaBuilder> lineSpanDirectiveTriviaCallback);
 }
@@ -28,6 +29,11 @@ internal partial class LineOrSpanDirectiveTriviaBuilder : ILineOrSpanDirectiveTr
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(LineOrSpanDirectiveTriviaSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsLineDirectiveTrivia(LineDirectiveTriviaLine lineDirectiveTriviaLine, bool isActive, Action<ILineDirectiveTriviaBuilder>? lineDirectiveTriviaCallback = null)

@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseParameterBuilder
 {
+    void FromSyntax(BaseParameterSyntax syntax);
     void AsParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null);
     void AsFunctionPointerParameter(Action<ITypeBuilder> typeCallback, Action<IFunctionPointerParameterBuilder>? functionPointerParameterCallback = null);
 }
@@ -29,6 +30,11 @@ internal partial class BaseParameterBuilder : IBaseParameterBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(BaseParameterSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsParameter(string identifier, Action<IParameterBuilder>? parameterCallback = null)

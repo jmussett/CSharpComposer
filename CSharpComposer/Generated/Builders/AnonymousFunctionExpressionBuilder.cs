@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IAnonymousFunctionExpressionBuilder
 {
+    void FromSyntax(AnonymousFunctionExpressionSyntax syntax);
     void AsAnonymousMethodExpression(Action<IBlockBuilder> blockBlockCallback, Action<IAnonymousMethodExpressionBuilder> anonymousMethodExpressionCallback);
     void AsSimpleLambdaExpression(string parameterIdentifier, Action<IParameterBuilder> parameterParameterCallback, Action<ISimpleLambdaExpressionBuilder> simpleLambdaExpressionCallback);
     void AsParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder>? parenthesizedLambdaExpressionCallback = null);
@@ -30,6 +31,11 @@ internal partial class AnonymousFunctionExpressionBuilder : IAnonymousFunctionEx
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(AnonymousFunctionExpressionSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsAnonymousMethodExpression(Action<IBlockBuilder> blockBlockCallback, Action<IAnonymousMethodExpressionBuilder> anonymousMethodExpressionCallback)

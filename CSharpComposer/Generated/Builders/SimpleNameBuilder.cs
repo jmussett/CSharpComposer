@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ISimpleNameBuilder
 {
+    void FromSyntax(SimpleNameSyntax syntax);
     void AsIdentifierName(string identifier);
     void AsGenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null);
 }
@@ -24,6 +25,11 @@ internal partial class SimpleNameBuilder : ISimpleNameBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(SimpleNameSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsIdentifierName(string identifier)

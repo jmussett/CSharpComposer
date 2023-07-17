@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseFieldDeclarationBuilder
 {
+    void FromSyntax(BaseFieldDeclarationSyntax syntax);
     void AsFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IFieldDeclarationBuilder> fieldDeclarationCallback);
     void AsEventFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IEventFieldDeclarationBuilder> eventFieldDeclarationCallback);
 }
@@ -28,6 +29,11 @@ internal partial class BaseFieldDeclarationBuilder : IBaseFieldDeclarationBuilde
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(BaseFieldDeclarationSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsFieldDeclaration(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<IFieldDeclarationBuilder> fieldDeclarationCallback)

@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBranchingDirectiveTriviaBuilder
 {
+    void FromSyntax(BranchingDirectiveTriviaSyntax syntax);
     void AsIfDirectiveTrivia(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue);
     void AsElifDirectiveTrivia(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue);
     void AsElseDirectiveTrivia(bool isActive, bool branchTaken);
@@ -25,6 +26,11 @@ internal partial class BranchingDirectiveTriviaBuilder : IBranchingDirectiveTriv
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(BranchingDirectiveTriviaSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsIfDirectiveTrivia(Action<IExpressionBuilder> conditionCallback, bool isActive, bool branchTaken, bool conditionValue)

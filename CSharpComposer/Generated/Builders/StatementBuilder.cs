@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IStatementBuilder
 {
+    void FromSyntax(StatementSyntax syntax);
     void AsBlock(Action<IBlockBuilder>? blockCallback = null);
     void AsLocalFunctionStatement(Action<ITypeBuilder> returnTypeCallback, string identifier, Action<ILocalFunctionStatementBuilder>? localFunctionStatementCallback = null);
     void AsLocalDeclarationStatement(Action<ITypeBuilder> declarationTypeCallback, Action<IVariableDeclarationBuilder> declarationVariableDeclarationCallback, Action<ILocalDeclarationStatementBuilder> localDeclarationStatementCallback);
@@ -57,6 +58,11 @@ internal partial class StatementBuilder : IStatementBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(StatementSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsBlock(Action<IBlockBuilder>? blockCallback = null)

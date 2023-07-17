@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseExpressionColonBuilder
 {
+    void FromSyntax(BaseExpressionColonSyntax syntax);
     void AsExpressionColon(Action<IExpressionBuilder> expressionCallback);
     void AsNameColon(string nameIdentifier);
 }
@@ -24,6 +25,11 @@ internal partial class BaseExpressionColonBuilder : IBaseExpressionColonBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(BaseExpressionColonSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsExpressionColon(Action<IExpressionBuilder> expressionCallback)

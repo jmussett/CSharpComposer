@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ILambdaExpressionBuilder
 {
+    void FromSyntax(LambdaExpressionSyntax syntax);
     void AsSimpleLambdaExpression(string parameterIdentifier, Action<IParameterBuilder> parameterParameterCallback, Action<ISimpleLambdaExpressionBuilder> simpleLambdaExpressionCallback);
     void AsParenthesizedLambdaExpression(Action<IParenthesizedLambdaExpressionBuilder>? parenthesizedLambdaExpressionCallback = null);
 }
@@ -28,6 +29,11 @@ internal partial class LambdaExpressionBuilder : ILambdaExpressionBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(LambdaExpressionSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsSimpleLambdaExpression(string parameterIdentifier, Action<IParameterBuilder> parameterParameterCallback, Action<ISimpleLambdaExpressionBuilder> simpleLambdaExpressionCallback)

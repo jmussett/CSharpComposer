@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ICommonForEachStatementBuilder
 {
+    void FromSyntax(CommonForEachStatementSyntax syntax);
     void AsForEachStatement(Action<ITypeBuilder> typeCallback, string identifier, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachStatementBuilder>? forEachStatementCallback = null);
     void AsForEachVariableStatement(Action<IExpressionBuilder> variableCallback, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachVariableStatementBuilder>? forEachVariableStatementCallback = null);
 }
@@ -29,6 +30,11 @@ internal partial class CommonForEachStatementBuilder : ICommonForEachStatementBu
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(CommonForEachStatementSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsForEachStatement(Action<ITypeBuilder> typeCallback, string identifier, Action<IExpressionBuilder> expressionCallback, Action<IStatementBuilder> statementCallback, Action<IForEachStatementBuilder>? forEachStatementCallback = null)

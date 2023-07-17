@@ -38,6 +38,7 @@ internal class InterfaceBuilder
                 builder.AddModifierToken(SyntaxKind.PublicKeyword);
                 builder.AddModifierToken(SyntaxKind.PartialKeyword);
 
+                _methodBuilder.WithFromSyntaxMethod(builder, false, type);
                 _methodBuilder.WithCastMethods(builder, false, type);
             });
         }

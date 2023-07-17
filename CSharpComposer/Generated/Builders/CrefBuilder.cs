@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ICrefBuilder
 {
+    void FromSyntax(CrefSyntax syntax);
     void AsTypeCref(Action<ITypeBuilder> typeCallback);
     void AsQualifiedCref(Action<ITypeBuilder> containerCallback, Action<IMemberCrefBuilder> memberCallback);
     void AsNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder>? nameMemberCrefCallback = null);
@@ -28,6 +29,11 @@ internal partial class CrefBuilder : ICrefBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(CrefSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsTypeCref(Action<ITypeBuilder> typeCallback)

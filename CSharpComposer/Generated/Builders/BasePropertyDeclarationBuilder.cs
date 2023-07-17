@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBasePropertyDeclarationBuilder
 {
+    void FromSyntax(BasePropertyDeclarationSyntax syntax);
     void AsPropertyDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder>? propertyDeclarationCallback = null);
     void AsEventDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IEventDeclarationBuilder>? eventDeclarationCallback = null);
     void AsIndexerDeclaration(Action<ITypeBuilder> typeCallback, Action<IIndexerDeclarationBuilder>? indexerDeclarationCallback = null);
@@ -29,6 +30,11 @@ internal partial class BasePropertyDeclarationBuilder : IBasePropertyDeclaration
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(BasePropertyDeclarationSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsPropertyDeclaration(Action<ITypeBuilder> typeCallback, string identifier, Action<IPropertyDeclarationBuilder>? propertyDeclarationCallback = null)

@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseObjectCreationExpressionBuilder
 {
+    void FromSyntax(BaseObjectCreationExpressionSyntax syntax);
     void AsImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder>? implicitObjectCreationExpressionCallback = null);
     void AsObjectCreationExpression(Action<ITypeBuilder> typeCallback, Action<IObjectCreationExpressionBuilder>? objectCreationExpressionCallback = null);
 }
@@ -30,6 +31,11 @@ internal partial class BaseObjectCreationExpressionBuilder : IBaseObjectCreation
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(BaseObjectCreationExpressionSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsImplicitObjectCreationExpression(Action<IImplicitObjectCreationExpressionBuilder>? implicitObjectCreationExpressionCallback = null)

@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ILiteralExpressionBuilder
 {
+    void FromSyntax(LiteralExpressionSyntax syntax);
     void AsNumericLiteral(int numericLiteral);
     void AsStringLiteral(string stringLiteral);
     void AsCharacterLiteral(char characterLiteral);
@@ -29,6 +30,11 @@ internal partial class LiteralExpressionBuilder : ILiteralExpressionBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(LiteralExpressionSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsNumericLiteral(int numericLiteral)

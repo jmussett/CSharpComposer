@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IXmlNodeBuilder
 {
+    void FromSyntax(XmlNodeSyntax syntax);
     void AsXmlElement(string nameStartTagLocalName, Action<IXmlNameBuilder> nameStartTagXmlNameCallback, Action<IXmlElementStartTagBuilder> startTagXmlElementStartTagCallback, string nameEndTagLocalName, Action<IXmlNameBuilder> nameEndTagXmlNameCallback, Action<IXmlElementBuilder> xmlElementCallback);
     void AsXmlEmptyElement(string nameLocalName, Action<IXmlNameBuilder> nameXmlNameCallback, Action<IXmlEmptyElementBuilder> xmlEmptyElementCallback);
     void AsXmlText(Action<IXmlTextBuilder>? xmlTextCallback = null);
@@ -28,6 +29,11 @@ internal partial class XmlNodeBuilder : IXmlNodeBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(XmlNodeSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsXmlElement(string nameStartTagLocalName, Action<IXmlNameBuilder> nameStartTagXmlNameCallback, Action<IXmlElementStartTagBuilder> startTagXmlElementStartTagCallback, string nameEndTagLocalName, Action<IXmlNameBuilder> nameEndTagXmlNameCallback, Action<IXmlElementBuilder> xmlElementCallback)

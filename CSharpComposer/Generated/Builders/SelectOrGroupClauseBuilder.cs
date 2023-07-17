@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ISelectOrGroupClauseBuilder
 {
+    void FromSyntax(SelectOrGroupClauseSyntax syntax);
     void AsSelectClause(Action<IExpressionBuilder> expressionCallback);
     void AsGroupClause(Action<IExpressionBuilder> groupExpressionCallback, Action<IExpressionBuilder> byExpressionCallback);
 }
@@ -24,6 +25,11 @@ internal partial class SelectOrGroupClauseBuilder : ISelectOrGroupClauseBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(SelectOrGroupClauseSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsSelectClause(Action<IExpressionBuilder> expressionCallback)

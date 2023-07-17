@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IVariableDesignationBuilder
 {
+    void FromSyntax(VariableDesignationSyntax syntax);
     void AsSingleVariableDesignation(string identifier);
     void AsDiscardDesignation();
     void AsParenthesizedVariableDesignation(Action<IParenthesizedVariableDesignationBuilder>? parenthesizedVariableDesignationCallback = null);
@@ -25,6 +26,11 @@ internal partial class VariableDesignationBuilder : IVariableDesignationBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(VariableDesignationSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsSingleVariableDesignation(string identifier)

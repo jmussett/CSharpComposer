@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ISwitchLabelBuilder
 {
+    void FromSyntax(SwitchLabelSyntax syntax);
     void AsCasePatternSwitchLabel(Action<IPatternBuilder> patternCallback, Action<ICasePatternSwitchLabelBuilder>? casePatternSwitchLabelCallback = null);
     void AsCaseSwitchLabel(Action<IExpressionBuilder> valueCallback);
     void AsDefaultSwitchLabel();
@@ -25,6 +26,11 @@ internal partial class SwitchLabelBuilder : ISwitchLabelBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(SwitchLabelSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsCasePatternSwitchLabel(Action<IPatternBuilder> patternCallback, Action<ICasePatternSwitchLabelBuilder>? casePatternSwitchLabelCallback = null)

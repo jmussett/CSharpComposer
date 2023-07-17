@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IPatternBuilder
 {
+    void FromSyntax(PatternSyntax syntax);
     void AsDiscardPattern();
     void AsDeclarationPattern(Action<ITypeBuilder> typeCallback, Action<IVariableDesignationBuilder> designationCallback);
     void AsVarPattern(Action<IVariableDesignationBuilder> designationCallback);
@@ -46,6 +47,11 @@ internal partial class PatternBuilder : IPatternBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(PatternSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsDiscardPattern()

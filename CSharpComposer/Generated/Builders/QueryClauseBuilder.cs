@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IQueryClauseBuilder
 {
+    void FromSyntax(QueryClauseSyntax syntax);
     void AsFromClause(string identifier, Action<IExpressionBuilder> expressionCallback, Action<IFromClauseBuilder>? fromClauseCallback = null);
     void AsLetClause(string identifier, Action<IExpressionBuilder> expressionCallback);
     void AsJoinClause(string identifier, Action<IExpressionBuilder> inExpressionCallback, Action<IExpressionBuilder> leftExpressionCallback, Action<IExpressionBuilder> rightExpressionCallback, Action<IJoinClauseBuilder>? joinClauseCallback = null);
@@ -27,6 +28,11 @@ internal partial class QueryClauseBuilder : IQueryClauseBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(QueryClauseSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsFromClause(string identifier, Action<IExpressionBuilder> expressionCallback, Action<IFromClauseBuilder>? fromClauseCallback = null)

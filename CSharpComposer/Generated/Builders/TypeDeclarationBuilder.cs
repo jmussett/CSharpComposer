@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ITypeDeclarationBuilder
 {
+    void FromSyntax(TypeDeclarationSyntax syntax);
     void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder>? classDeclarationCallback = null);
     void AsStructDeclaration(string identifier, Action<IStructDeclarationBuilder>? structDeclarationCallback = null);
     void AsInterfaceDeclaration(string identifier, Action<IInterfaceDeclarationBuilder>? interfaceDeclarationCallback = null);
@@ -34,6 +35,11 @@ internal partial class TypeDeclarationBuilder : ITypeDeclarationBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(TypeDeclarationSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsClassDeclaration(string identifier, Action<IClassDeclarationBuilder>? classDeclarationCallback = null)

@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IMemberCrefBuilder
 {
+    void FromSyntax(MemberCrefSyntax syntax);
     void AsNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder>? nameMemberCrefCallback = null);
     void AsIndexerMemberCref(Action<IIndexerMemberCrefBuilder>? indexerMemberCrefCallback = null);
     void AsOperatorMemberCref(OperatorMemberCrefOperatorToken operatorMemberCrefOperatorToken, Action<IOperatorMemberCrefBuilder>? operatorMemberCrefCallback = null);
@@ -26,6 +27,11 @@ internal partial class MemberCrefBuilder : IMemberCrefBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(MemberCrefSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsNameMemberCref(Action<ITypeBuilder> nameCallback, Action<INameMemberCrefBuilder>? nameMemberCrefCallback = null)

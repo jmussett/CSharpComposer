@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface ITypeParameterConstraintBuilder
 {
+    void FromSyntax(TypeParameterConstraintSyntax syntax);
     void AsConstructorConstraint();
     void AsClassOrStructConstraint(ClassOrStructConstraintKind kind, Action<IClassOrStructConstraintBuilder>? classOrStructConstraintCallback = null);
     void AsTypeConstraint(Action<ITypeBuilder> typeCallback);
@@ -26,6 +27,11 @@ internal partial class TypeParameterConstraintBuilder : ITypeParameterConstraint
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(TypeParameterConstraintSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsConstructorConstraint()

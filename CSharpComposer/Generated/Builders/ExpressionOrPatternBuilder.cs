@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IExpressionOrPatternBuilder
 {
+    void FromSyntax(ExpressionOrPatternSyntax syntax);
     void AsIdentifierName(string identifier);
     void AsGenericName(string identifier, Action<IGenericNameBuilder>? genericNameCallback = null);
     void AsQualifiedName(Action<INameBuilder> leftCallback, Action<ISimpleNameBuilder> rightCallback);
@@ -94,6 +95,11 @@ internal partial class ExpressionOrPatternBuilder : IExpressionOrPatternBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(ExpressionOrPatternSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsIdentifierName(string identifier)

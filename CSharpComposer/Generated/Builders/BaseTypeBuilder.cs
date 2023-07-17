@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IBaseTypeBuilder
 {
+    void FromSyntax(BaseTypeSyntax syntax);
     void AsSimpleBaseType(Action<ITypeBuilder> typeCallback);
     void AsPrimaryConstructorBaseType(Action<ITypeBuilder> typeCallback, Action<IPrimaryConstructorBaseTypeBuilder>? primaryConstructorBaseTypeCallback = null);
 }
@@ -30,6 +31,11 @@ internal partial class BaseTypeBuilder : IBaseTypeBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(BaseTypeSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsSimpleBaseType(Action<ITypeBuilder> typeCallback)

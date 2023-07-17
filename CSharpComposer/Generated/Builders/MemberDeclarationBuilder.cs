@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IMemberDeclarationBuilder
 {
+    void FromSyntax(MemberDeclarationSyntax syntax);
     void AsGlobalStatement(Action<IStatementBuilder> statementCallback, Action<IGlobalStatementBuilder>? globalStatementCallback = null);
     void AsNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<INamespaceDeclarationBuilder>? namespaceDeclarationCallback = null);
     void AsFileScopedNamespaceDeclaration(Action<INameBuilder> nameCallback, Action<IFileScopedNamespaceDeclarationBuilder>? fileScopedNamespaceDeclarationCallback = null);
@@ -48,6 +49,11 @@ internal partial class MemberDeclarationBuilder : IMemberDeclarationBuilder
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(MemberDeclarationSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsGlobalStatement(Action<IStatementBuilder> statementCallback, Action<IGlobalStatementBuilder>? globalStatementCallback = null)

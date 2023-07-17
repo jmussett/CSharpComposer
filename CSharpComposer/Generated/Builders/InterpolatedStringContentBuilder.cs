@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CSharpComposer;
 public partial interface IInterpolatedStringContentBuilder
 {
+    void FromSyntax(InterpolatedStringContentSyntax syntax);
     void AsInterpolatedStringText();
     void AsInterpolation(Action<IExpressionBuilder> expressionCallback, Action<IInterpolationBuilder>? interpolationCallback = null);
 }
@@ -24,6 +25,11 @@ internal partial class InterpolatedStringContentBuilder : IInterpolatedStringCon
         }
 
         return builder.Syntax;
+    }
+
+    public void FromSyntax(InterpolatedStringContentSyntax syntax)
+    {
+        Syntax = syntax;
     }
 
     public void AsInterpolatedStringText()
